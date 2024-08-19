@@ -6,6 +6,28 @@
 
 using namespace mavsdk;
 
+/* How this node should function
+    this node is meant to sit on the icarus vehicle and do a few things:
+
+    1 - Telemetry down
+        monitor various telmetry/data topics
+        monitor /down for specific messages going down
+        take all relevant data/messages, translate to mavlink, and broadcast down
+
+    2 - Telemetry up
+        monitor for mavlink messages received from the ground
+        form of commands to do things ex. start engine, deploy parahcute, abort, flip to manual
+        hear heartbeats and acknowledge
+        handle the messages from the ground and do the corresponding thing (service/action, etc.)
+
+    3 - Monitor the link
+        how is the bandwidth? latency? -> communicate this to the ground
+        change from high bandwidth to low bandwidth modes (this could be based on distance to GS, or measured signal strength)
+        
+
+
+*/
+
 class MavlinkNode : public rclcpp::Node {
 public:
     MavlinkNode() : Node("mavlink_node") {
