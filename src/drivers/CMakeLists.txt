@@ -11,9 +11,13 @@ find_package(ament_cmake REQUIRED)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 add_executable(BNO055_manager src/BNO055_manager.cpp)
-ament_target_dependencies(BNO055_manager rclcpp)
+ament_target_dependencies(BNO055_manager rclcpp sensor_msgs)
+target_link_libraries(BNO055_manager
+  ${sensor_msgs_LIBRARIES}
+)
 target_include_directories(BNO055_manager PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
