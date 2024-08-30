@@ -1,5 +1,6 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/imu.hpp>
+#include <Adafruit_BNO055.h>
 
 /* How this node should function
       

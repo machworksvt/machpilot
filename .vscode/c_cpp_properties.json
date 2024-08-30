@@ -7,7 +7,8 @@
       },
       "includePath": [
         "/opt/ros/jazzy/include/**",
-        "/usr/include/**"
+        "/usr/include/**",
+        "./build/drivers/_deps/adafruit_bno055-src"
       ],
       "name": "ROS",
       "intelliSenseMode": "gcc-x64",

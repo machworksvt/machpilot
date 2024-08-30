@@ -5,6 +5,16 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+include(FetchContent)
+
+FetchContent_Declare(
+    Adafruit_BNO055
+    GIT_REPOSITORY https://github.com/adafruit/Adafruit_BNO055.git
+    GIT_TAG        1.6.3
+)
+
+FetchContent_MakeAvailable(Adafruit_BNO055)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 # uncomment the following section in order to fill in
@@ -20,7 +30,8 @@ target_link_libraries(BNO055_manager
 )
 target_include_directories(BNO055_manager PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>)
+  $<INSTALL_INTERFACE:include/${PROJECT_NAME}>
+  ${CMAKE_BINARY_DIR}/_deps/adafruit_bno055-src)
 target_compile_features(BNO055_manager PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 
 install(TARGETS BNO055_manager
