@@ -22,6 +22,7 @@ private:
     rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr pub_mag;
     rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr pub_temp;
     rclcpp::Publisher<diagnostic_msgs::msg::DiagnosticStatus>::SharedPtr pub_status;
+    rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr srv_init;
     rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr srv_reset;
 
     std::unique_ptr<rclcpp::Rate> rate;
@@ -50,7 +51,8 @@ BNO055::BNO055() : Sensor("BNO055_Node") {
     pub_temp = this->create_publisher<sensor_msgs::msg::Temperature>("temp", 10);
     pub_status = this->create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("status", 10);
 
-    srv_reset = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
+    srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
+    srv_reset = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
 
     seq = 0;
 
