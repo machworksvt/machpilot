@@ -13,7 +13,7 @@
  * Includes functions to initialize, reset, calibrate, run, stop, and publish data.
  * #TODO include other /msgs formats
  */
-class Sensor : rclcpp::Node {
+class Sensor : public rclcpp::Node {
 public:
 
     Sensor(std::string name);
@@ -59,7 +59,6 @@ public:
     bool publish();
 
 private:
-
 };
 
 
