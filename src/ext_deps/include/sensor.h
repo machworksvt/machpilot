@@ -16,7 +16,7 @@
 class Sensor : rclcpp::Node {
 public:
 
-    Sensor();
+    Sensor(std::string name);
     /**
      * Use a ROS2 service to initialize the sensor connection
      * 

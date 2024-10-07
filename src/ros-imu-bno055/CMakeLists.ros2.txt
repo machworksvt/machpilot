@@ -20,6 +20,7 @@ include_directories(
 )
 
 add_executable(bno055_i2c_node
+  src/bno055_i2c_node.cpp
   src/bno055_i2c_driver.cpp
   src/bno055_i2c_node_ros2.cpp
   src/watchdog.cpp

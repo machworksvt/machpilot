@@ -8,8 +8,6 @@
             "includePath": [
                 "/opt/ros/jazzy/include/**",
                 "/usr/include/**",
-                "./build/drivers/_deps",
-                "${workspaceFolder}/machpilot/src/drivers/include",
                 "${workspaceFolder}/machpilot/src/ros-imu-bno055/include",
                 "${workspaceFolder}/machpilot/src/ext_deps/include"
             ],
