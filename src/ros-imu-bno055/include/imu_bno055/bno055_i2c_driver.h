@@ -228,7 +228,7 @@ typedef struct {
 class BNO055I2CDriver {
   public:
     BNO055I2CDriver(std::string device_, int address_);
-    void init();
+    bool init();
     bool reset();
     IMURecord read();
 

@@ -45,16 +45,18 @@ bool BNO055I2CDriver::reset() {
     return true;
 }
 
-void BNO055I2CDriver::init() {
+bool BNO055I2CDriver::init() {
 
     file = open(device.c_str(), O_RDWR);
 
     if(ioctl(file, I2C_SLAVE, address) < 0) {
         throw std::runtime_error("i2c device open failed");
+        return false;
     }
 
     if(_i2c_smbus_read_byte_data(file, BNO055_CHIP_ID_ADDR) != BNO055_ID) {
         throw std::runtime_error("incorrect chip ID");
+        return false;
     }
 
     std::cerr << "rev ids:"
@@ -66,7 +68,10 @@ void BNO055I2CDriver::init() {
 
     if(!reset()) {
 	    throw std::runtime_error("chip init failed");
+        return false;
     }
+
+    return true;
 }
 
 IMURecord BNO055I2CDriver::read() {

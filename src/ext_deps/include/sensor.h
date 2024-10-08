@@ -15,8 +15,8 @@
  */
 class Sensor : public rclcpp::Node {
 public:
-
     Sensor(std::string name);
+    ~Sensor() {};
     /**
      * Use a ROS2 service to initialize the sensor connection
      * 

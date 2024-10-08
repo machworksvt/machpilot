@@ -7,6 +7,13 @@
 class BNO055 : public Sensor {
 public:
     BNO055();
+    bool initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                    std::shared_ptr<std_srvs::srv::Trigger::Response> res);
+    bool resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                    std::shared_ptr<std_srvs::srv::Trigger::Response> res);
+    void run();
+    void stop();
+    bool publish();
 private:
     std::unique_ptr<imu_bno055::BNO055I2CDriver> imu;
 
@@ -91,4 +98,117 @@ BNO055::BNO055() : Sensor("BNO055_Node") {
     current_status.values.push_back(sys_err);
 
     rate = std::make_unique<rclcpp::Rate>(param_rate);
+}
+
+void BNO055::run() {
+    while (rclcpp::ok()) {
+        rate->sleep();
+        if (publish()) {
+            watchdog.refresh();
+        }
+    }
+}
+
+bool BNO055::publish() {
+    imu_bno055::IMURecord record;
+
+    try {
+        record = imu->read();
+    } catch(const std::runtime_error& e) {
+        RCLCPP_WARN(this->get_logger(), e.what());
+    }
+
+    rclcpp::Time time = this->now();
+
+    sensor_msgs::msg::Imu msg_raw;
+    msg_raw.header.stamp = time;
+    msg_raw.header.frame_id = param_frame_id;
+    msg_raw.linear_acceleration.x = (double)record.raw_linear_acceleration_x / 100.0;
+    msg_raw.linear_acceleration.y = (double)record.raw_linear_acceleration_y / 100.0;
+    msg_raw.linear_acceleration.z = (double)record.raw_linear_acceleration_z / 100.0;
+    msg_raw.angular_velocity.x = (double)record.raw_angular_velocity_x / 900.0;
+    msg_raw.angular_velocity.y = (double)record.raw_angular_velocity_y / 900.0;
+    msg_raw.angular_velocity.z = (double)record.raw_angular_velocity_z / 900.0;
+
+    sensor_msgs::msg::MagneticField msg_mag;
+    msg_mag.header.stamp = time;
+    msg_mag.header.frame_id = param_frame_id;
+    msg_mag.magnetic_field.x = (double)record.raw_magnetic_field_x / 16.0;
+    msg_mag.magnetic_field.y = (double)record.raw_magnetic_field_y / 16.0;
+    msg_mag.magnetic_field.z = (double)record.raw_magnetic_field_z / 16.0;
+
+    sensor_msgs::msg::Imu msg_data;
+    msg_data.header.stamp = time;
+    msg_data.header.frame_id = param_frame_id;
+
+    double fused_orientation_norm = std::pow(
+      std::pow(record.fused_orientation_w, 2) +
+      std::pow(record.fused_orientation_x, 2) +
+      std::pow(record.fused_orientation_y, 2) +
+      std::pow(record.fused_orientation_z, 2), 0.5);
+
+    msg_data.orientation.w = (double)record.fused_orientation_w / fused_orientation_norm;
+    msg_data.orientation.x = (double)record.fused_orientation_x / fused_orientation_norm;
+    msg_data.orientation.y = (double)record.fused_orientation_y / fused_orientation_norm;
+    msg_data.orientation.z = (double)record.fused_orientation_z / fused_orientation_norm;
+    msg_data.linear_acceleration.x = (double)record.fused_linear_acceleration_x / 100.0;
+    msg_data.linear_acceleration.y = (double)record.fused_linear_acceleration_y / 100.0;
+    msg_data.linear_acceleration.z = (double)record.fused_linear_acceleration_z / 100.0;
+    msg_data.angular_velocity.x = (double)record.raw_angular_velocity_x / 900.0;
+    msg_data.angular_velocity.y = (double)record.raw_angular_velocity_y / 900.0;
+    msg_data.angular_velocity.z = (double)record.raw_angular_velocity_z / 900.0;
+
+    sensor_msgs::msg::Temperature msg_temp;
+    msg_temp.header.stamp = time;
+    msg_temp.header.frame_id = param_frame_id;
+    msg_temp.temperature = (double)record.temperature;
+
+    pub_data->publish(msg_data);
+    pub_raw->publish(msg_raw);
+    pub_mag->publish(msg_mag);
+    pub_temp->publish(msg_temp);
+
+    if((seq++) % 50 == 0) {
+        current_status.values[DIAG_CALIB_STAT].value = std::to_string(record.calibration_status);
+        current_status.values[DIAG_SELFTEST_RESULT].value = std::to_string(record.self_test_result);
+        current_status.values[DIAG_INTR_STAT].value = std::to_string(record.interrupt_status);
+        current_status.values[DIAG_SYS_CLK_STAT].value = std::to_string(record.system_clock_status);
+        current_status.values[DIAG_SYS_STAT].value = std::to_string(record.system_status);
+        current_status.values[DIAG_SYS_ERR].value = std::to_string(record.system_error_code);
+        pub_status->publish(current_status);
+    }
+
+    return true;
+}
+
+void BNO055::stop() {
+    RCLCPP_INFO(this->get_logger(), "Stopping");
+    pub_data.reset();
+    pub_raw.reset();
+    pub_mag.reset();
+    pub_temp.reset();
+    pub_status.reset();
+    srv_reset.reset();
+}
+
+bool BNO055::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                               std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+    if(!(imu->reset())) {
+        throw std::runtime_error("chip reset failed");
+        return false;
+    }
+    res->success = true;
+    res->message = "IMU reset successful";
+    return true;
+}
+
+bool BNO055::resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                               std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+    if(!(imu->init())) {
+        throw std::runtime_error("chip init failed");
+        return false;
+    }
+    res->success = true;
+    res->message = "IMU init successful";
+    return true;
 }
