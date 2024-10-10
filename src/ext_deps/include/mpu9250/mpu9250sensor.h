@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <unordered_map>
+#include <array>
 
 #include "I2cCommunicator.h"
 
