@@ -1,9 +1,9 @@
-#include "mpu9250driver/mpu9250driver.h"
+#include "mpu9250/mpu9250driver.h"
 
 #include <chrono>
 #include <memory>
 
-#include "mpu9250/LinuxI2cCommunicator.h"
+#include "LinuxI2cCommunicator.h"
 
 using namespace std::chrono_literals;
 
