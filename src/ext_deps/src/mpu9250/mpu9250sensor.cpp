@@ -1,4 +1,4 @@
-#include "mpu9250sensor.h"
+#include "mpu9250/mpu9250sensor.h"
 
 extern "C" {
 #include <linux/i2c-dev.h>
