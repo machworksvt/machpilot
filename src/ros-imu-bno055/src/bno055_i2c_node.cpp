@@ -59,7 +59,7 @@ BNO055::BNO055() : Sensor("BNO055_Node") {
     pub_status = this->create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("status", 10);
 
     srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
-    srv_reset = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
+    srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&BNO055::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
 
     seq = 0;
 
@@ -211,4 +211,12 @@ bool BNO055::resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> re
     res->success = true;
     res->message = "IMU init successful";
     return true;
+}
+
+int main(int argc, char *argv[]) {
+    rclcpp::init(argc, argv);
+    auto node = std::make_shared<BNO055>();
+    node->run();
+    rclcpp::shutdown();
+    return 0;
 }
