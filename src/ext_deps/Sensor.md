@@ -16,7 +16,7 @@ This class is an implementation of the ROS2 `Node` class with functions related 
     - Sets the `success` and `message` attributes of the `result` of the service.
     - Returns the success status.
 - `run()`: handles the timing and the conditions of the `publish()` function.
-    - Checks the result of `rclcpp::ok().
+    - Checks the result of `rclcpp::ok()`.
     - Sleeps until the rate turns over, using `rate->sleep()`.
     - Runs the `publish()` function to collect sensor data.
 - `stop()`: stops the publishing loop.
