@@ -8,9 +8,10 @@
             "includePath": [
                 "/opt/ros/jazzy/include/**",
                 "/usr/include/**",
-                "${workspaceFolder}/machpilot/src/ros-imu-bno055/include",
-                "${workspaceFolder}/machpilot/src/ros2_mpu9250_driver/include",
-                "${workspaceFolder}/machpilot/src/ext_deps/include"
+                "${workspaceFolder}/src/ros-imu-bno055/include",
+                "${workspaceFolder}/src/ros2_mpu9250_driver/include",
+                "${workspaceFolder}/src/ext_deps/include",
+                "${workspaceFolder}/src/ros2_bmp390/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
