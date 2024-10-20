@@ -34,7 +34,7 @@
  * </table>
  */
 
-#include "driver_bmp390.h"
+#include "bmp390/src/driver_bmp390.h"
 
 /**
  * @brief chip information definition
