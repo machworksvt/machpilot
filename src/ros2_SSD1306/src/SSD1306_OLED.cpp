@@ -340,11 +340,13 @@ OLED_Return_Codes_e  SSD1306::OLEDBitmap(int16_t x, int16_t y, int16_t w, int16_
 */
 void SSD1306::I2C_Write_Byte(uint8_t value, uint8_t cmd)
 {
-	char ByteBuffer[2] = {cmd,value};
+	uint8_t ByteBuffer[2] = {cmd,value};
+	char* ByteBuffer_char = reinterpret_cast<char*>(ByteBuffer);
+
 	uint8_t attemptI2Cwrite = _I2C_ErrorRetryNum;
 	uint8_t ReasonCodes = 0;
 	
-	ReasonCodes = bcm2835_i2c_write(ByteBuffer, 2); 
+	ReasonCodes = bcm2835_i2c_write(ByteBuffer_char, 2); 
 	while(ReasonCodes != 0)
 	{//failure to write I2C byte ,Error handling retransmit
 		
@@ -354,7 +356,7 @@ void SSD1306::I2C_Write_Byte(uint8_t value, uint8_t cmd)
 			printf("bcm2835I2CReasonCodes :: Error code :: %u\n", +ReasonCodes);
 		}
 		bcm2835_delay(_I2C_ErrorDelay); // delay mS
-		ReasonCodes  = bcm2835_i2c_write(ByteBuffer, 2); //retry
+		ReasonCodes  = bcm2835_i2c_write(ByteBuffer_char, 2); //retry
 		_I2C_ErrorFlag = ReasonCodes; // set reasonCode to flag
 		attemptI2Cwrite--; // Decrement retry attempt
 		if (attemptI2Cwrite == 0) break;

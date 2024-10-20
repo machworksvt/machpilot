@@ -1,10 +1,11 @@
 #include <memory>
 #include <rclcpp/rclcpp.hpp>
 #include "std_msgs/msg/string.hpp"
-#include <diagnostic_msgs/DiagnosticStatus.h>
+#include <sensor_msgs/msg/temperature.hpp>
 #include <bcm2835.h>
 #include <cstdio>
-#include "SSD1306_OLED.hpp"
+#include <SSD1306_OLED.hpp>
+#include <string>
 using std::placeholders::_1;
 
 #define myOLEDwidth  128
@@ -43,7 +44,15 @@ bool SetupTest()
 	return true;
 }
 
-void TestLoop(float64 msg)
+void EndTest()
+{
+	myOLED.OLEDPowerDown(); //Switch off display
+	myOLED.OLED_I2C_OFF(); // Switch off I2C , optional may effect other programs & devices
+	bcm2835_close(); // Close the library
+	printf("OLED Test End\r\n");
+}
+
+void TestLoop(std::string message)
 {
 
 	// Define a buffer to cover whole screen
@@ -52,7 +61,7 @@ void TestLoop(float64 msg)
 	myOLED.OLEDclearBuffer();
 	myOLED.setTextColor(WHITE);
 	myOLED.setCursor(10, 10);
-	myOLED.print("The tempurature is: %f", msg);
+	myOLED.print(message);
 	myOLED.OLEDupdate();
 	delay(5000);
 }
@@ -70,7 +79,8 @@ class DisplaySubNode : public rclcpp::Node
     private:
     void topic_callback(const sensor_msgs::msg::Temperature::SharedPtr msg) const
     {
-        Testloop(msg.temperature)
+		std::string message = "The temperature is: " + std::to_string(msg->temperature);
+        TestLoop(message);
     }
     rclcpp::Subscription<sensor_msgs::msg::Temperature>::SharedPtr subscription_;
 };
