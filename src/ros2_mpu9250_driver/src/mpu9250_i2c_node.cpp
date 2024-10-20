@@ -20,6 +20,18 @@ public:
     bool publish();
 
 private:
+    bool param_calibrate;
+    int param_gyro_range;
+    int param_accel_range;
+    int param_dlpf_bandwidth;
+    double param_gyro_x_offset;
+    double param_gyro_y_offset;
+    double param_gyro_z_offset;
+    double param_accel_x_offset;
+    double param_accel_y_offset;
+    double param_accel_z_offset;
+    int param_frequency;
+
     rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr publisher;
     std::unique_ptr<MPU9250Sensor> mpu9250;
     size_t count;
@@ -33,6 +45,7 @@ MPU9250::MPU9250() : Sensor("MPU9250") {
     std::unique_ptr<I2cCommunicator> i2cBus = std::make_unique<LinuxI2cCommunicator>();
     mpu9250 = std::make_unique<MPU9250Sensor>(std::move(i2cBus));
     
+    // Declare and set parameters, sets to members
     this->declare_parameter<bool>("calibrate", true);
     this->declare_parameter<int>("gyro_range", MPU9250Sensor::GyroRange::GYR_250_DEG_S);
     this->declare_parameter<int>("accel_range", MPU9250Sensor::AccelRange::ACC_2_G);
@@ -45,7 +58,19 @@ MPU9250::MPU9250() : Sensor("MPU9250") {
     this->declare_parameter<double>("accel_z_offset", 0.0);
     this->declare_parameter<int>("frequency", 0.0);
 
-    // Set parameters
+    this->get_parameter("calibrate", param_calibrate);
+    this->get_parameter("gyro_range", param_gyro_range);
+    this->get_parameter("accel_range", param_accel_range);
+    this->get_parameter("dlpf_bandwidth", param_dlpf_bandwidth);
+    this->get_parameter("gyro_x_offset", param_gyro_x_offset);
+    this->get_parameter("gyro_y_offset", param_gyro_y_offset);
+    this->get_parameter("gyro_z_offset", param_gyro_z_offset);
+    this->get_parameter("accel_x_offset", param_accel_x_offset);
+    this->get_parameter("accel_y_offset", param_accel_y_offset);
+    this->get_parameter("accel_z_offset", param_accel_z_offset);
+    this->get_parameter("frequency", param_frequency);
+
+    // Set parameters in the sensor object
     mpu9250->setGyroscopeRange(
         static_cast<MPU9250Sensor::GyroRange>(this->get_parameter("gyro_range").as_int()));
     mpu9250->setAccelerometerRange(
@@ -59,8 +84,8 @@ MPU9250::MPU9250() : Sensor("MPU9250") {
                                     this->get_parameter("accel_y_offset").as_double(),
                                     this->get_parameter("accel_z_offset").as_double());
 
-    // Create publisher
-    publisher = this->create_publisher<sensor_msgs::msg::Imu>("imu", 10);
+    // Create publishers over applicable topics
+    publisher = this->create_publisher<sensor_msgs::msg::Imu>("mpu9250_orient", 10);
     std::chrono::duration<int64_t, std::milli> frequency =
         1000ms / this->get_parameter("gyro_range").as_int();
     timer = this->create_wall_timer(frequency, std::bind(&MPU9250::publish, this));

@@ -191,7 +191,7 @@ void BNO055::stop() {
     srv_reset.reset();
 }
 
-bool BNO055::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+bool BNO055::resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
                                std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
     if(!(imu->reset())) {
         throw std::runtime_error("chip reset failed");
@@ -202,7 +202,7 @@ bool BNO055::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req
     return true;
 }
 
-bool BNO055::resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+bool BNO055::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
                                std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
     if(!(imu->init())) {
         throw std::runtime_error("chip init failed");
