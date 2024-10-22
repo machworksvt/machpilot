@@ -19,10 +19,25 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
+find_package(diagnostic_msgs REQUIRED)
 
 add_executable(${PROJECT_NAME} src/mpu9250driver.cpp)
+
 ament_target_dependencies(${PROJECT_NAME} rclcpp sensor_msgs)
+
 target_link_libraries(${PROJECT_NAME} mpu9250sensor linux_i2c_communicator)
+
+include_directories(
+  include
+  /home/natec/machpilot/src/ext_deps/include
+  ${rclcpp_INCLUDE_DIRS}
+  ${sensor_msgs_INCLUDE_DIRS}
+  ${std_msgs_INCLUDE_DIRS}
+  ${diagnostic_msgs_INCLUDE_DIRS}
+  ${std_srvs_INCLUDE_DIRS}
+)
+
 target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                        $<INSTALL_INTERFACE:include>)
