@@ -1,17 +1,15 @@
 #include <memory>
-#include <rclcpp/rclcpp.hpp>
-#include "std_msgs/msg/string.hpp"
-#include <sensor_msgs/msg/temperature.hpp>
 #include <bcm2835.h>
 #include <cstdio>
 #include <SSD1306_OLED.hpp>
 #include <string>
+#include <controller.h>
 using std::placeholders::_1;
 
 #define myOLEDwidth  128
 #define myOLEDheight 64
 #define FULLSCREEN (myOLEDwidth * (myOLEDheight/8))
-SSD1306 myOLED(myOLEDwidth ,myOLEDheight) ; // instantiate a OLED object
+SSD1306 myOLED(myOLEDwidth, myOLEDheight) ; // instantiate a OLED object
 
 bool SetupTest()
 {

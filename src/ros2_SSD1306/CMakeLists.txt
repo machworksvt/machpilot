@@ -29,7 +29,7 @@ ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs sensor_msgs)
 target_link_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/src/ros2_SSD1306/external/)
 target_link_libraries(${PROJECT_NAME} bcm2835)
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/include ${CMAKE_SOURCE_DIR}/src/ext_deps/include)
 
 install(TARGETS
 ${PROJECT_NAME}
