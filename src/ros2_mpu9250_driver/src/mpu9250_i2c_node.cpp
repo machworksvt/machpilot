@@ -95,6 +95,46 @@ MPU9250::MPU9250() : Sensor("MPU9250") {
     srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&MPU9250::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
 }
 
+bool MPU9250::publish()
+{
+  auto message = sensor_msgs::msg::Imu();
+  message.header.stamp = this->now();
+  message.header.frame_id = "base_link";
+  
+  // Direct measurements
+  message.linear_acceleration_covariance = {0};
+  message.linear_acceleration.x = mpu9250->getAccelerationX();
+  message.linear_acceleration.y = mpu9250->getAccelerationY();
+  message.linear_acceleration.z = mpu9250->getAccelerationZ();
+  message.angular_velocity_covariance[0] = {0};
+  message.angular_velocity.x = mpu9250->getAngularVelocityX();
+  message.angular_velocity.y = mpu9250->getAngularVelocityY();
+  message.angular_velocity.z = mpu9250->getAngularVelocityZ();
+  // Calculate euler angles, convert to quaternion and store in message
+  message.orientation_covariance = {0};
+  // Calculate Euler angles
+  double roll, pitch, yaw;
+  roll = atan2(message.linear_acceleration.y, message.linear_acceleration.z);
+  pitch = atan2(-message.linear_acceleration.y,
+                (sqrt(message.linear_acceleration.y * message.linear_acceleration.y +
+                      message.linear_acceleration.z * message.linear_acceleration.z)));
+  yaw = atan2(mpu9250->getMagneticFluxDensityY(), mpu9250->getMagneticFluxDensityX());
+
+  // Convert to quaternion
+  double cy = cos(yaw * 0.5);
+  double sy = sin(yaw * 0.5);
+  double cp = cos(pitch * 0.5);
+  double sp = sin(pitch * 0.5);
+  double cr = cos(roll * 0.5);
+  double sr = sin(roll * 0.5);
+
+  message.orientation.x = cy * cp * sr - sy * sp * cr;
+  message.orientation.y = sy * cp * sr + cy * sp * cr;
+  message.orientation.z = sy * cp * cr - cy * sp * sr;
+  message.orientation.w = cy * cp * cr + sy * sp * sr;
+
+  publisher->publish(message);
+}
 
 int main(int argc, char* argv[])
 {

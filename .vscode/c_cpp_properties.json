@@ -11,7 +11,8 @@
                 "${workspaceFolder}/src/ros-imu-bno055/include",
                 "${workspaceFolder}/src/ros2_mpu9250_driver/include",
                 "${workspaceFolder}/src/ext_deps/include",
-                "${workspaceFolder}/src/ros2_bmp390/include"
+                "${workspaceFolder}/src/ros2_bmp390/include",
+                "${workspaceFolder}/src/ros2_SSD1306/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

@@ -35,7 +35,7 @@ This class is an implementation of the ROS2 `Node` class with functions related 
 
 ## The `main()` Function
 The `main()` function serves as an entry point for running the node by itself, and is useful for testing. This should at least include the following:
-- Use the `rclcpp::init()` function to pass parameter arguments into the sensor node. These arguments are created in the  `"<sensorname>.launch"` file.
+- Use the `rclcpp::init()` function to pass parameter arguments into the sensor node. These arguments are created in the `"<sensorname>.launch"` file.
 - Create a `Node` object by instantiating the sensor and making it a shared pointer using the `std::make_shared<Sensor>()` function.
 - Run the sensor with `Sensor->run()`.
 - Stop the sensor with `rclcpp::shutdown()`.
