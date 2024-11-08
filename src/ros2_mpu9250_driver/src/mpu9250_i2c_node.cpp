@@ -41,10 +41,18 @@ private:
 };
 
 MPU9250::MPU9250() : Sensor("MPU9250") {
-    // Create concrete I2C communicator and pass to sensor
-    std::unique_ptr<I2cCommunicator> i2cBus = std::make_unique<LinuxI2cCommunicator>();
-    mpu9250 = std::make_unique<MPU9250Sensor>(std::move(i2cBus));
+    // Create services
+    srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&MPU9250::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
+    srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&MPU9250::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
     
+    std_srvs::srv::Trigger::Request req;
+    std_srvs::srv::Trigger::Response res;
+    // Create concrete I2C communicator and pass to sensor, in init
+    initSrvs(std::make_shared<std_srvs::srv::Trigger::Request>(req), std::make_shared<std_srvs::srv::Trigger::Response>(res));
+    if (!(res.success)) {
+        return;
+    }
+
     // Declare and set parameters, sets to members
     this->declare_parameter<bool>("calibrate", true);
     this->declare_parameter<int>("gyro_range", MPU9250Sensor::GyroRange::GYR_250_DEG_S);
@@ -86,13 +94,9 @@ MPU9250::MPU9250() : Sensor("MPU9250") {
 
     // Create publishers over applicable topics
     publisher = this->create_publisher<sensor_msgs::msg::Imu>("mpu9250_orient", 10);
-    std::chrono::duration<int64_t, std::milli> frequency =
-        1000ms / this->get_parameter("gyro_range").as_int();
+    std::chrono::duration<int64_t, std::milli> frequency = 1000ms / this->get_parameter("gyro_range").as_int();
     timer = this->create_wall_timer(frequency, std::bind(&MPU9250::publish, this));
     
-    // Create services
-    srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&MPU9250::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
-    srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&MPU9250::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 bool MPU9250::publish()
@@ -102,6 +106,7 @@ bool MPU9250::publish()
   message.header.frame_id = "base_link";
   
   // Direct measurements
+  // #TODO add covariance calculations or reference from datasheet
   message.linear_acceleration_covariance = {0};
   message.linear_acceleration.x = mpu9250->getAccelerationX();
   message.linear_acceleration.y = mpu9250->getAccelerationY();
@@ -134,6 +139,21 @@ bool MPU9250::publish()
   message.orientation.w = cy * cp * cr + sy * sp * sr;
 
   publisher->publish(message);
+  return true;
+}
+
+bool MPU9250::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                               std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+    std::unique_ptr<I2cCommunicator> i2cBus = std::make_unique<LinuxI2cCommunicator>();
+    mpu9250 = std::make_unique<MPU9250Sensor>(std::move(i2cBus));
+    res->success = true;
+    res->message = "MPU9250 init successful";
+    return true;
+}
+
+bool MPU9250::resetSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                               std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+
 }
 
 int main(int argc, char* argv[])

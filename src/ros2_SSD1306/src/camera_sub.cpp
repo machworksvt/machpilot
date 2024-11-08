@@ -77,7 +77,7 @@ class DisplaySubNode : public rclcpp::Node
     private:
     void topic_callback(const sensor_msgs::msg::Temperature::SharedPtr msg) const
     {
-		std::string message = "The temperature is: " + std::to_string(msg->temperature);
+		std::string message = "The temperature is: Joe";
         TestLoop(message);
     }
     rclcpp::Subscription<sensor_msgs::msg::Temperature>::SharedPtr subscription_;

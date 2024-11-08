@@ -40,6 +40,14 @@ private:
 };
 
 BNO055::BNO055() : Sensor("BNO055_Node") {
+    std_srvs::srv::Trigger::Request req;
+    std_srvs::srv::Trigger::Response res;
+    // Create concrete I2C communicator and pass to sensor, in init
+    initSrvs(std::make_shared<std_srvs::srv::Trigger::Request>(req), std::make_shared<std_srvs::srv::Trigger::Response>(res));
+    if (!(res.success)) {
+        return;
+    }
+
     this->declare_parameter<std::string>("device", "/dev/i2c-1");
     this->declare_parameter<int>("address", BNO055_ADDRESS_A);
     this->declare_parameter<std::string>("frame_id", "imu");
@@ -206,10 +214,12 @@ bool BNO055::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req
                                std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
     if(!(imu->init())) {
         throw std::runtime_error("chip init failed");
+        res->success = false;
+        res->message = "BNO055 init unsuccessful";
         return false;
     }
     res->success = true;
-    res->message = "IMU init successful";
+    res->message = "BNO055 init successful";
     return true;
 }
 
