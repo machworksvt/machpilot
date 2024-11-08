@@ -25,12 +25,13 @@ private:
 
 rfd900x_node::rfd900x_node() : Node("rfd900x_node") {
     if(!connect_rfd900x()) {
-        // ERROR! Do Something!
+        // TODO: ERROR! Do Something!
     }
     else {
-        //telemetry_ = std::make_shared<Telemetry>(system_);
+        //telemetry_ = std::make_shared<Telemetry>(system_);    // not implemented yet
+
         mavlink_passthrough_ = std::make_shared<MavlinkPassthrough>(system_);
-        timer_ = this->create_wall_timer(std::chrono::milliseconds(500), std::bind(rfd900x_node::send_battery_info, this));
+        timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(rfd900x_node::send_battery_info, this));
     }
 }
 
@@ -100,7 +101,7 @@ void rfd900x_node::send_battery_info() {
     current_consumed, energy_consumed, battery_remaining, time_remaining, 
     charge_state, voltages_ext, mode, fault_bitmask);
 
-    mavlink_passthrough_->send_message(*msg);   // DEPRECATED queue_message prefered but not available
+    mavlink_passthrough_->send_message(*msg);   // TODO: send_message is DEPRECATED, replace with queue_message
 }
 
 
