@@ -13,7 +13,6 @@ public:
 
 private:
     bool connect_rfd900x();
-    void send_battery_info();
 
     std::shared_ptr<Mavsdk> mavsdk_;
     std::shared_ptr<System> system_;
@@ -31,7 +30,7 @@ rfd900x_node::rfd900x_node() : Node("rfd900x_node") {
         //telemetry_ = std::make_shared<Telemetry>(system_);    // not implemented yet
 
         mavlink_passthrough_ = std::make_shared<MavlinkPassthrough>(system_);
-        timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(rfd900x_node::send_battery_info, this));
+        //timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(rfd900x_node::send_battery_info, this));
     }
 }
 
@@ -75,34 +74,7 @@ bool rfd900x_node::connect_rfd900x() {
 }
 
 
-/**
- * @brief Send BATTERY_STATUS (147) message over RFD900x. 
- */
-void rfd900x_node::send_battery_info() {
-    uint8_t system_id = 1;                  // ID of the sending system
-    uint8_t component_id = 0;               // ID of the sending component
-    mavlink_message_t *msg;                 // MAVLink message to compress the data into
-    uint8_t id = 0;                         // Battery ID
-    uint8_t battery_function = 0;           // Function of the battery (https://mavlink.io/en/messages/common.html#MAV_BATTERY_FUNCTION)
-    uint8_t type = 3;                       // Type (chemistry) of the battery (https://mavlink.io/en/messages/common.html#MAV_BATTERY_TYPE)
-    int16_t temperature = INT16_MAX;        // Temperature of the battery (cdegC). INT16_MAX for unknown temperature.
-    const uint16_t voltages[10] = {};       // Battery voltage of cells 1 to 10 (mV)
-    int16_t current_battery = -1;           // Battery current (cA)
-    int32_t current_consumed = -1;          // Consumed charge (mAh)
-    int32_t energy_consumed = -1;           // Consumed energy (hJ)
-    int8_t battery_remaining = 100;         // Remainign battery energy (%)
-    int32_t time_remaining = 0;             // Remaining battery time (s)
-    uint8_t charge_state = 0;               // State for extent of discharge (https://mavlink.io/en/messages/common.html#MAV_BATTERY_CHARGE_STATE)
-    const uint16_t voltages_ext[4] = {};    // Battery voltages for cells 11 to 14
-    uint8_t mode = 0;                       // Battery mode (https://mavlink.io/en/messages/common.html#MAV_BATTERY_MODE)
-    uint32_t fault_bitmask = 0;             // Fault/health indicators (https://mavlink.io/en/messages/common.html#MAV_BATTERY_FAULT)
-    mavlink_msg_battery_status_pack(system_id, component_id, msg,
-    id, battery_function, type, temperature, voltages, current_battery, 
-    current_consumed, energy_consumed, battery_remaining, time_remaining, 
-    charge_state, voltages_ext, mode, fault_bitmask);
 
-    mavlink_passthrough_->send_message(*msg);   // TODO: send_message is DEPRECATED, replace with queue_message
-}
 
 
 int main(int argc, char **argv) {
