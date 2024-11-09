@@ -5,11 +5,7 @@
 // Import header file
 #include "ros2socketcan.h"
 
-using std::placeholders::_1;
-using std::placeholders::_2;
-using std::placeholders::_3;
-
-ros2socketcan::ros2socketcan() : Node("ros2socketcan"), stream(ios), signals(ios, SIGINT, SIGTERM)
+ros2socketcan::ros2socketcan() : rclcpp::Node("ros2socketcan"), stream(ios), signals(ios, SIGINT, SIGTERM)
 {
     this->declare_parameter("CAN_INTERFACE", "can0");
     std::string can_socket = this->get_parameter("CAN_INTERFACE").as_string();
@@ -23,7 +19,7 @@ ros2socketcan::ros2socketcan() : Node("ros2socketcan"), stream(ios), signals(ios
     rclcpp::executors::MultiThreadedExecutor exec;
 
     publisher_ = this->create_publisher<can_msgs::msg::Frame>(topicname_receive.str(), 10);
-    subscription_ = this->create_subscription<can_msgs::msg::Frame>(topicname_transmit.str(), 100, std::bind(&ros2socketcan::CanPublisher, this, _1));
+    subscription_ = this->create_subscription<can_msgs::msg::Frame>(topicname_transmit.str(), 100, std::bind(&ros2socketcan::CanPublisher, this, std::placeholders::_1));
 
     strcpy(ifr.ifr_name, can_socket.c_str());
     ioctl(natsock, SIOCGIFINDEX, &ifr);

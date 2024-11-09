@@ -13,7 +13,8 @@
                 "${workspaceFolder}/src/ros2_mpu9250_driver/include",
                 "${workspaceFolder}/src/ros2_rfd9000x/include",
                 "${workspaceFolder}/src/ros2_bmp390/include",
-                "${workspaceFolder}/src/ros2_SSD1306/include"
+                "${workspaceFolder}/src/ros2_SSD1306/include",
+                "${workspaceFolder}/machpilot/src/ros2_ms4525do/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
