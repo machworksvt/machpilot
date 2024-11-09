@@ -9,6 +9,7 @@
 #include <chrono>
 #include <thread>
 
+#include <fcntl.h>
 #include <linux/i2c-dev.h>
 #include <linux/types.h>
 #include <sys/ioctl.h>
