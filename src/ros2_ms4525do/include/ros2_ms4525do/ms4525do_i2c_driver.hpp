@@ -16,18 +16,25 @@
 
 #include <smbus_functions.h>
 
-#define MS4525DO_ADDRESS_WRITE_A 0x28
-#define MS4525DO_ADDRESS_WRITE_B 0x36
-#define MS4525DO_ADDRESS_WRITE_C 0x46
-
-#define MS4525DO_ADDRESS_READ_A 0x28
-#define MS4525DO_ADDRESS_READ_B 0x36
-#define MS4525DO_ADDRESS_READ_C 0x46
-
 #define STATUS_NORMAL 0
 #define STATUS_RESERVED 1
 #define STATUS_STALE 2
 #define STATUS_ERROR 3
+
+#define MAX_POLLING 1666 // maximum polling frequency in Hz
+
+#define AORB 0 // output type set 0 or 1
+#define RANGE 001 // pressure measurement range in psi
+#define DGVAC 1 // look at product code after range marker
+#define INTERFACE 0x1 // I,J,K,S, then 0-9
+
+#if AORB == 0
+    #define MAXP 0.90
+    #define MINP 0.10
+#else
+    #define MAXP 0.95
+    #define MINP 0.5
+#endif
 
 namespace ms4525do {
 
@@ -39,19 +46,21 @@ typedef struct {
 
 class MS4525DOI2CDriver {
 public:
-    MS4525DOI2CDriver(std::string device_, int address_);
+    MS4525DOI2CDriver(std::string device, int address);
     bool init();
-    bool readMeasureReq();
+    bool writeMR();
+    bool readMR();
     bool readDF2();
     bool readDF3();
     bool readDF4();
-private:
-    int file;
+    void getData(PITOTData &buffer);
+
     std::string device;
     int address_read;
     int address_write;
-
-    PITOTData data;
+private:
+    int file_;
+    PITOTData data_;
 };
 
 }
