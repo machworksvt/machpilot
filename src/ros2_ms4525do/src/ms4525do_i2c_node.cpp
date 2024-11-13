@@ -60,6 +60,11 @@ MS4525DO::MS4525DO(int address, std::string device, std::string name) : Sensor(n
     srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&MS4525DO::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
     srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&MS4525DO::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
 
+    const std::shared_ptr<std_srvs::srv::Trigger::Request> req;
+    std::shared_ptr<std_srvs::srv::Trigger::Response> res;
+
+    initSrvs(req, res);
+
     seq = 0;
 
     current_status.level = 0;
@@ -138,4 +143,15 @@ bool MS4525DO::publish() {
     pub_press->publish(msg_press);
     pub_temp->publish(msg_temp);
     pub_status->publish(msg_status);
+};
+
+bool MS4525DO::initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+                    std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+    if(!pitot->init()) {
+        res->success = false;
+        return false;
+    }
+
+    res->success = true;
+    return true;
 };

@@ -11,8 +11,6 @@ find_package(std_msgs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 
-message(${CMAKE_SOURCE_DIR}/../ext_deps/include)
-
 include_directories(
   include
   ${rclcpp_INCLUDE_DIRS}

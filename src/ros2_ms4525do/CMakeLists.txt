@@ -7,9 +7,23 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(sensor_msgs REQUIRED)
 # uncomment the following section in order to fill in
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
+
+include_directories(
+  include
+  ${rclcpp_INCLUDE_DIRS}
+  ${sensor_msgs_INCLUDE_DIRS}
+  ${std_msgs_INCLUDE_DIRS}
+  ${diagnostic_msgs_INCLUDE_DIRS}
+  ${std_srvs_INCLUDE_DIRS}
+  ${CMAKE_SOURCE_DIR}/../ext_deps/include
+)
+
+add_executable(ros2_ms4525do src/ms4525do_i2c_node.cpp)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
