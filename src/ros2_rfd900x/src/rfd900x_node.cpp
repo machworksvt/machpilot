@@ -2,6 +2,7 @@
 #include <mavsdk/mavsdk.h>
 #include <mavsdk/plugins/mavlink_passthrough/mavlink_passthrough.h>
 #include <mavsdk/plugins/telemetry/telemetry.h>
+#include <mavsdk/mavlink_address.h>
 #include <connection_result.h>
 #include <memory>
 
@@ -26,12 +27,13 @@ private:
 rfd900x_node::rfd900x_node() : Node("rfd900x_node") {
     if(!connect_rfd900x()) {
         // TODO: ERROR! Do Something!
+        
     }
     else {
         //telemetry_ = std::make_shared<Telemetry>(system_);    // not implemented yet
 
         mavlink_passthrough_ = std::make_shared<MavlinkPassthrough>(system_);
-        timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(rfd900x_node::send_battery_info, this));
+        timer_ = this->create_wall_timer(std::chrono::milliseconds(2000), std::bind(&rfd900x_node::send_battery_info, this));
     }
 }
 
@@ -45,10 +47,12 @@ rfd900x_node::rfd900x_node() : Node("rfd900x_node") {
  */
 bool rfd900x_node::connect_rfd900x() {
     // TODO: ensure correct USB port address is used, baud rate should be 57600
-    const std::string connection_url = "serial:///dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A10O8MJG-if00-port0:57600";
-    mavsdk_ = std::make_shared<Mavsdk>();
-    ConnectionResult result = this->mavsdk_->add_any_connection(connection_url);
-    if (result != ConnectionResult::Success) {
+    const std::string connection_url = "serial:///dev/ttyS2:57600";
+   
+    mavsdk_ = std::make_shared<Mavsdk>(Mavsdk::Configuration{1, 1, false});
+    ConnectionResult connection_result = mavsdk_->add_any_connection(connection_url);
+
+    if (connection_result != ConnectionResult::Success) {
         RCLCPP_INFO(this->get_logger(), "Port Connection FAILED to Add");
         return false;
     }
@@ -96,12 +100,31 @@ void rfd900x_node::send_battery_info() {
     const uint16_t voltages_ext[4] = {};    // Battery voltages for cells 11 to 14
     uint8_t mode = 0;                       // Battery mode (https://mavlink.io/en/messages/common.html#MAV_BATTERY_MODE)
     uint32_t fault_bitmask = 0;             // Fault/health indicators (https://mavlink.io/en/messages/common.html#MAV_BATTERY_FAULT)
-    mavlink_msg_battery_status_pack(system_id, component_id, msg,
-    id, battery_function, type, temperature, voltages, current_battery, 
-    current_consumed, energy_consumed, battery_remaining, time_remaining, 
-    charge_state, voltages_ext, mode, fault_bitmask);
 
-    mavlink_passthrough_->send_message(*msg);   // TODO: send_message is DEPRECATED, replace with queue_message
+    mavlink_passthrough_->queue_message([&](MavlinkAddress mavlink_address, uint8_t channel) {
+        mavlink_message_t message;
+        mavlink_msg_battery_status_pack_chan(
+            mavlink_address.system_id,
+            mavlink_address.component_id,
+            channel,
+            &message,
+            0, // id
+            MAV_BATTERY_FUNCTION_ALL, // battery_function
+            MAV_BATTERY_TYPE_LION, // type
+            2500, // 100*temperature C
+            &voltages[0],
+            4000, // 100*current_battery A
+            1000, // current_consumed, mAh
+            -1, // energy consumed hJ
+            80, // battery_remaining %
+            3600, // time_remaining
+            MAV_BATTERY_CHARGE_STATE_OK,
+            voltages_ext,
+            MAV_BATTERY_MODE_UNKNOWN, // mode
+            0); // fault_bitmask
+        return message;
+    });
+
 }
 
 
@@ -112,3 +135,21 @@ int main(int argc, char **argv) {
     rclcpp::shutdown();
     return 0;
 }
+
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NOTES  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //
+/*
+
+In /machpilot/src/ros2_rfd900x:
+
+    source install/setup.bash
+    rm -rf build/ install/ log/
+    colcon build --packages-select ros2_rfd900x
+
+In /machpilot/src/ros2_rfd900x/install/ros2_rfd900x/lib/ros2_rfd900x:
+
+    source ~/.bashrc
+    ros2 run ros2_rfd900x rfd900x_node
+
+ */
