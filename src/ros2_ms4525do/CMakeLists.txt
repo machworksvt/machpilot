@@ -21,6 +21,7 @@ include_directories(
   ${diagnostic_msgs_INCLUDE_DIRS}
   ${std_srvs_INCLUDE_DIRS}
   ${CMAKE_SOURCE_DIR}/../ext_deps/include
+  ${CMAKE_SOURCE_DIR}/../ros-imu-bno055/include
 )
 
 add_executable(ros2_ms4525do src/ms4525do_i2c_node.cpp)

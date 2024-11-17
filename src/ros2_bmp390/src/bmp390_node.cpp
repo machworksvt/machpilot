@@ -13,8 +13,8 @@ public:
         }
 
         // Create publishers for temperature and pressure data
-        temp_pub_ = this->create_publisher<sensor_msgs::msg::Temperature>("temperature", 10);
-        pressure_pub_ = this->create_publisher<sensor_msgs::msg::FluidPressure>("pressure", 10);
+        temp_pub_ = this->create_publisher<sensor_msgs::msg::Temperature>("bmp390_temp", 10);
+        pressure_pub_ = this->create_publisher<sensor_msgs::msg::FluidPressure>("bmp390_press", 10);
 
         // Timer to periodically read data from the sensor
         timer_ = this->create_wall_timer(

@@ -60,11 +60,11 @@ BNO055::BNO055() : Sensor("BNO055_Node") {
 
     imu = std::make_unique<imu_bno055::BNO055I2CDriver>(param_device, param_address);
 
-    pub_data = this->create_publisher<sensor_msgs::msg::Imu>("data", 10);
-    pub_raw = this->create_publisher<sensor_msgs::msg::Imu>("raw", 10);
-    pub_mag = this->create_publisher<sensor_msgs::msg::MagneticField>("mag", 10);
-    pub_temp = this->create_publisher<sensor_msgs::msg::Temperature>("temp", 10);
-    pub_status = this->create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("status", 10);
+    pub_data = this->create_publisher<sensor_msgs::msg::Imu>("bno055_data", 10);
+    pub_raw = this->create_publisher<sensor_msgs::msg::Imu>("bno055_raw", 10);
+    pub_mag = this->create_publisher<sensor_msgs::msg::MagneticField>("bno055_mag", 10);
+    pub_temp = this->create_publisher<sensor_msgs::msg::Temperature>("bno055_temp", 10);
+    pub_status = this->create_publisher<diagnostic_msgs::msg::DiagnosticStatus>("bno055_status", 10);
 
     srv_init = this->create_service<std_srvs::srv::Trigger>("init", std::bind(&BNO055::initSrvs, this, std::placeholders::_1, std::placeholders::_2));
     srv_reset = this->create_service<std_srvs::srv::Trigger>("reset", std::bind(&BNO055::resetSrvs, this, std::placeholders::_1, std::placeholders::_2));
