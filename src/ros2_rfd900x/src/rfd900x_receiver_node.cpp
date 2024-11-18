@@ -27,6 +27,7 @@ private:
 rfd900x_receiver_node::rfd900x_receiver_node() : Node("rfd900x_receiver_node") {
     if(!connect_rfd900x()) {
         // TODO: ERROR! Do Something!
+        RCLCPP_ERROR(this->get_logger(), "Failed to connect to RFD900x module.");
     }
     else {
         //telemetry_ = std::make_shared<Telemetry>(system_);    // not implemented yet
