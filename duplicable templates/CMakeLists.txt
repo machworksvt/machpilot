@@ -19,16 +19,14 @@ include_directories(
   ${diagnostic_msgs_INCLUDE_DIRS}
   ${std_srvs_INCLUDE_DIRS}
   ${CMAKE_SOURCE_DIR}/../ext_deps/include
-  
 )
 
-add_executable(bno055_i2c_node
-  src/bno055_i2c_node.cpp
-  src/bno055_i2c_driver.cpp
-  src/watchdog.cpp
+add_executable(
+    # ADD THE NODE NAME WITH .cpp EXTENSION #
 )
 
-ament_target_dependencies(bno055_i2c_node
+ament_target_dependencies(
+  # ADD THE NODE NAME HERE #
   rclcpp
   sensor_msgs
   std_msgs
@@ -36,7 +34,7 @@ ament_target_dependencies(bno055_i2c_node
   std_srvs
 )
 
-install(TARGETS bno055_i2c_node
+install(TARGETS # ADD THE NODE NAME HERE #
   DESTINATION lib/${PROJECT_NAME}
 )
 
