@@ -15,7 +15,8 @@
                 "${workspaceFolder}/src/ros2_bmp390/include",
                 "${workspaceFolder}/src/ros2_SSD1306/include",
                 "${workspaceFolder}/machpilot/src/ros2_ms4525do/include",
-                "${workspaceFolder}/src/pwm/include/pwm"
+                "${workspaceFolder}/src/pwm/include/pwm",
+                "${workspaceFolder}/src/airspeed/include/airspeed"
 
             ],
             "name": "ROS",
