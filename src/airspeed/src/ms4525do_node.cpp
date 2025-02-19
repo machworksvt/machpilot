@@ -3,9 +3,9 @@
 
 #include <cstdio>
 
-class MS4525DONode : public rclcpp::Node {
+class MS4525DONode : public Sensor {
 public:
-  MS4525DONode(int addr) : Node("ms4525do_node") {
+  MS4525DONode(int addr) : Sensor("ms4525do_node") {
     ms4525do_ = std::make_shared<MS4525DO>(addr);
 
     temperature_publisher_ = this->create_publisher<sensor_msgs::msg::Temperature>("pitot_temp", 10);

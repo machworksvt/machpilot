@@ -8,10 +8,10 @@ extern "C" {
   #include "pca9685_driver.h"
 }
 
-class PCA9685Node : public rclcpp::Node
+class PCA9685Node : public Controller
 {
 public:
-PCA9685Node(int addr) : Node("pca9685_node")
+PCA9685Node(int addr) : Controller("pca9685_node")
 {
     pca9685_ = std::make_shared<PCA9685>(addr);
     // Create publishers for temperature and fluid pressure
@@ -22,7 +22,7 @@ PCA9685Node(int addr) : Node("pca9685_node")
 
 ~PCA9685Node()
 {
-
+    
 }
 
 private:

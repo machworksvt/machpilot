@@ -6,10 +6,10 @@
 
 using std::placeholders::_1;
 
-class PCA9685Node2 : public rclcpp::Node
+class PCA9685Node2 : public Controller
 {
 public:
-PCA9685Node2() : Node("pca9685_node_2")
+PCA9685Node2() : Controller("pca9685_node_2")
 {
     pwm_publisher_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("servo_angles", 10);
 
