@@ -9,6 +9,7 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # Glob together all .c files from the bmp390 repo ALL SUBFOLDERS WITH .C FILES
 file(GLOB BMP390_SOURCES
@@ -43,6 +44,7 @@ ament_target_dependencies(
   bmp390_node
   "rclcpp"
   "std_msgs"
+  "sensor_msgs"
 )
 
 install(TARGETS bmp390_node

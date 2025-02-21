@@ -8,8 +8,12 @@
             "includePath": [
                 "/opt/ros/humble/include/**",
                 "/usr/include/**",
+                "${workspaceFolder}/src/airspeed/include/**",
                 "${workspaceFolder}/src/communicator/include/**",
-                "${workspaceFolder}/src/pressure/src/bmp390/**"
+                "${workspaceFolder}/src/pressure/src/bmp390/**",
+                "${workspaceFolder}/src/orient2/src/mpu9250/**",
+                "${workspaceFolder}/src/pwm/include/**",
+                "${workspaceFolder}/build/interfaces/rosidl_generator_cpp"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
