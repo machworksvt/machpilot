@@ -42,12 +42,97 @@ using namespace std::placeholders;
 
 */
 
+
+class CANHandler {
+public:
+  CANHandler(const std::string & interface_name) 
+  : interface_name_(interface_name), running_(false)
+  {
+    //Open the CAN socket
+    socket_fd_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
+    if (socket_fd_ < 0) {
+      throw std::runtime_error("Failed to open CAN socket");
+      return;
+    }
+    //set non-blocking mode
+    int flags = fcntl(socket_fd_, F_GETFL, 0);
+    fcntl(socket_fd_, F_SETFL, flags | O_NONBLOCK);
+
+    //get interface index
+    struct ifreq ifr;
+    std::strncpy(ifr.ifr_name, interface_name.c_str(), IFNAMSIZ);
+    if (ioctl(socket_fd_, SIOCGIFINDEX, &ifr) < 0) {
+      throw std::runtime_error("Error in ioctl when getting interface index for can0");
+      close(socket_fd_);
+      return;
+    }
+
+    //bind the socket to the interface
+    struct sockaddr_can addr;
+    std::memset(&addr, 0, sizeof(addr));
+    addr.can_family = AF_CAN;
+    addr.can_ifindex = ifr.ifr_ifindex;
+    if (bind(socket_fd_, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0) {
+      throw std::runtime_error("Error binding socket to can0");
+      close(socket_fd_);
+      return;
+    }
+  }
+
+  ~CANHandler() {
+    if (socket_fd_ >= 0) {
+      close(socket_fd_);
+    }
+  }
+
+      //This function starts a dedicated thread to read from the CAN socket
+  void start(std::function<void(struct can_frame)> frame_callback) {
+    running_ = true;
+    read_thread_ = std::thread([this, frame_callback]() {
+      struct can_frame frame;
+      while(running_) {
+        //lock for thread-safe socket access
+        {
+          std::lock_guard<std::mutex> lock(mutex_);
+          ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
+          if (nbytes > 0) {
+            frame_callback(frame);
+          }
+        }
+        std::this_thread::sleep_for(10ms);
+      }
+    });
+  }
+
+  void stop() {
+    running_ = false;
+    if (read_thread_.joinable()) {
+      read_thread_.join();
+    }
+  }
+
+  ssize_t send_frame(const struct can_frame & frame) {
+    std::lock_guard<std::mutex> lock(mutex_);
+    return write(socket_fd_, &frame, sizeof(struct can_frame));
+  }
+
+  private:
+    std::string interface_name_;
+    int socket_fd_{-1};
+    std::thread read_thread_;
+    std::mutex mutex_;
+    std::atomic<bool> running_;
+};
+  
+
 class CanInterfaceNode : public rclcpp::Node
 {
 public:
   CanInterfaceNode()
   : Node("can_interface_node")
   {
+    this->declare_parameter<std::string>("interface_name", "can0");
+
     engine_data_pub_ = this->create_publisher<interfaces::msg::EngineData>("/h2pro/engine_data", 10);
     engine2_data_pub_ = this->create_publisher<interfaces::msg::PumpRpm>("/h2pro/engine_data2", 10);
     errors_current_pub_ = this->create_publisher<interfaces::msg::Errors>("/h2pro/errors", 10);
@@ -61,7 +146,7 @@ public:
     voltage_current_pub_ = this->create_publisher<interfaces::msg::VoltageCurrent>("/h2pro/voltage_current", 10);
 
     try {
-      can_handler_ = std::make_shared<CANHandler>("can0");
+      can_handler_ = std::make_shared<CANHandler>(this->get_parameter("interface_name").as_string()); 
     } catch (const std::exception & e) {
       RCLCPP_ERROR(this->get_logger(), "Failed to create CANHandler: %s", e.what());
       rclcpp::shutdown();
@@ -726,87 +811,6 @@ private: bool handle_can_message(struct can_frame frame) {
 };
 
 */
-
-class CANHandler {
-public:
-  CANHandler(const std::string & interface_name) 
-  : interface_name_(interface_name), running_(false)
-  {
-    //Open the CAN socket
-    socket_fd_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-    if (socket_fd_ < 0) {
-      throw std::runtime_error("Failed to open CAN socket");
-      return;
-    }
-    //set non-blocking mode
-    int flags = fcntl(socket_fd_, F_GETFL, 0);
-    fcntl(socket_fd_, F_SETFL, flags | O_NONBLOCK);
-
-    //get interface index
-    struct ifreq ifr;
-    std::strncpy(ifr.ifr_name, interface_name.c_str(), IFNAMSIZ);
-    if (ioctl(socket_fd_, SIOCGIFINDEX, &ifr) < 0) {
-      throw std::runtime_error("Error in ioctl when getting interface index for can0");
-      close(socket_fd_);
-      return;
-    }
-
-    //bind the socket to the interface
-    struct sockaddr_can addr;
-    std::memset(&addr, 0, sizeof(addr));
-    addr.can_family = AF_CAN;
-    addr.can_ifindex = ifr.ifr_ifindex;
-    if (bind(socket_fd_, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0) {
-      throw std::runtime_error("Error binding socket to can0");
-      close(socket_fd_);
-      return;
-    }
-  }
-
-  ~CANHandler() {
-    if (socket_fd_ >= 0) {
-      close(socket_fd_);
-    }
-  }
-
-      //This function starts a dedicated thread to read from the CAN socket
-  void start(std::function<void(struct can_frame)> frame_callback) {
-    running_ = true;
-    read_thread_ = std::thread([this, frame_callback]() {
-      struct can_frame frame;
-      while(running_) {
-        //lock for thread-safe socket access
-        {
-          std::lock_guard<std::mutex> lock(mutex_);
-          ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-          if (nbytes > 0) {
-            frame_callback(frame);
-          }
-        }
-        std::this_thread::sleep_for(10ms);
-      }
-    });
-  }
-
-  void stop() {
-    running_ = false;
-    if (read_thread_.joinable()) {
-      read_thread_.join();
-    }
-  }
-
-  ssize_t send_frame(const struct can_frame & frame) {
-    std::lock_guard<std::mutex> lock(mutex_);
-    return write(socket_fd_, &frame, sizeof(struct can_frame));
-  }
-
-  private:
-    std::string interface_name_;
-    int socket_fd_{-1};
-    std::thread read_thread_;
-    std::mutex mutex_;
-    std::atomic<bool> running_;
-};
 
 int main(int argc, char * argv[])
 {
