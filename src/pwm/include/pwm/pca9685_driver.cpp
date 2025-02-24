@@ -100,7 +100,7 @@ void PCA9685::sleep(int dur) {
 
 uint8_t PCA9685::pwm_set(uint8_t ch) {
 
-    float dc = this->angles_[ch] / MOTORSPAN;
+    float dc = ((MAXDC - MINDC) * angles_[ch] / MOTORSPAN + MINDC) / 4096.0;
 
     if (dc < 0) {
         std::cout << "negative duty cycle entered, clipped" << std::endl;

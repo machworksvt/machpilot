@@ -25,7 +25,7 @@ PCA9685Node2() : Controller("pca9685_node_2")
                                 90, 100, 110, 120, 
                                 130, 140, 150, 160};
             for (int i = 0; i < 16; i++) {
-                angles[i] = 90.0 * sin(rand() % 180 + angles[i]) + 90.0;
+                angles[i] = counter_;
                 pwm_msg.data.insert(pwm_msg.data.begin() + i, angles[i]);
             }
 
@@ -35,6 +35,7 @@ PCA9685Node2() : Controller("pca9685_node_2")
                        , angles[0], angles[1], angles[2], angles[3], angles[4], angles[5], angles[6], angles[7], 
                        angles[8], angles[9], angles[10], angles[11], angles[12], angles[13], angles[14], angles[15]);
             }
+            counter_ += inc_;
         }
     );
 }
@@ -47,7 +48,8 @@ PCA9685Node2() : Controller("pca9685_node_2")
 private:
 rclcpp::TimerBase::SharedPtr timer_;
 rclcpp::Publisher<std_msgs::msg::Float32MultiArray>::SharedPtr pwm_publisher_;
-
+float inc_ = 1;
+float counter_;
 };
 
 int main(int argc, char * argv[])

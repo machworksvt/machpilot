@@ -1,8 +1,8 @@
 #include <mavsdk/mavsdk.h>
 #include <mavsdk/plugins/mavlink_passthrough/mavlink_passthrough.h>
 #include <mavsdk/plugins/telemetry/telemetry.h>
-#include <connection_result.h>
-#include <rclcpp/rclcpp.hpp>
+#include <mavsdk/connection_result.h>
+#include "rclcpp/rclcpp.hpp"
 
 using namespace mavsdk;
 

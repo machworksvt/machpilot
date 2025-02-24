@@ -13,7 +13,9 @@
 #define ALLCALLADR 0x05 // use rarely
 
 #define FREQ 350
-#define MOTORSPAN 180.0
+#define MOTORSPAN 170.0
+#define MAXDC 2022
+#define MINDC 602
 
 
 #define I2C_FILE_PATH "/dev/i2c-7"

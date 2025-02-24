@@ -6,18 +6,14 @@
                 "limitSymbolsToIncludedHeaders": false
             },
             "includePath": [
-                "/opt/ros/jazzy/include/**",
+                "/opt/ros/humble/include/**",
                 "/usr/include/**",
-                "${workspaceFolder}/src/ext_deps/include",
-                "${workspaceFolder}/src/ros-imu-bno055/include",
-                "${workspaceFolder}/src/ros2_mpu9250_driver/include",
-                "${workspaceFolder}/src/ros2_rfd9000x/include",
-                "${workspaceFolder}/src/ros2_bmp390/include",
-                "${workspaceFolder}/src/ros2_SSD1306/include",
-                "${workspaceFolder}/machpilot/src/ros2_ms4525do/include",
-                "${workspaceFolder}/src/pwm/include/pwm",
-                "${workspaceFolder}/src/airspeed/include/airspeed"
-
+                "${workspaceFolder}/src/airspeed/include/**",
+                "${workspaceFolder}/src/communicator/include/**",
+                "${workspaceFolder}/src/pressure/src/bmp390/**",
+                "${workspaceFolder}/src/orient2/src/mpu9250/**",
+                "${workspaceFolder}/src/pwm/include/**",
+                "${workspaceFolder}/build/interfaces/rosidl_generator_cpp"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
