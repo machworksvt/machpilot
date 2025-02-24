@@ -14,20 +14,21 @@ find_package(std_srvs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
 
 file(GLOB STATE_ESTIMATOR_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed/*.cpp"
-  )
+    "${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include/rc/math/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include/rc/*.c"
+)
 
 add_library(state_estimator STATIC ${STATE_ESTIMATOR_SOURCES})
 
 target_include_directories(state_estimator PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/state_estimator>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   )
 
 add_executable(state_estimator_node src/state_estimator_node.cpp)
 target_include_directories(state_estimator_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/state_estimator>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(state_estimator_node state_estimator)
