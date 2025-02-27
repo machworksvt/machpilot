@@ -2,6 +2,7 @@
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/temperature.hpp>
+#include <sensor_msgs/msg/fluid_pressure.hpp>
 #include <std_srvs/srv/trigger.hpp>
 #include <std_msgs/msg/u_int8.hpp>
 #include <std_msgs/msg/string.hpp>

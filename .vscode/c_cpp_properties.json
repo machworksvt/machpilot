@@ -10,6 +10,7 @@
                 "/opt/ros/jazzy/include/**",
                 "/usr/include/**",
                 "${workspaceFolder}/src/airspeed/include/**",
+                "${workspaceFolder}/src/state_estimator/include/**",
                 "${workspaceFolder}/src/pressure/src/bmp390/**",
                 "${workspaceFolder}/src/orient2/src/mpu9250/**",
                 "${workspaceFolder}/src/pwm/include/**",
