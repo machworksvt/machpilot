@@ -15,6 +15,20 @@
 #include <mavsdk/plugins/action_server/action_server.h>
 #include <mavsdk/plugins/mission_raw_server/mission_raw_server.h>
 #include <mavsdk/plugins/mission/mission.h>
+#include <mavsdk/plugins/mavlink_passthrough/mavlink_passthrough.h>
+#include <interfaces/action/run_starter_test.hpp>
+#include <interfaces/msg/engine_data.hpp>
+#include <interfaces/msg/pump_rpm.hpp>
+#include <interfaces/msg/errors.hpp>
+#include <interfaces/msg/fuel_ambient.hpp>
+#include <interfaces/msg/glow_plugs.hpp>
+#include <interfaces/msg/last_run_info.hpp>
+#include <interfaces/msg/ng_reg.hpp>
+#include <interfaces/msg/statistics.hpp>
+#include <interfaces/msg/system_info.hpp>
+#include <interfaces/msg/system_info2.hpp>
+#include <interfaces/msg/voltage_current.hpp>
+
 
 using namespace std::chrono_literals;
 using namespace mavsdk;
@@ -49,17 +63,49 @@ class DataLinkNode : public rclcpp::Node
   private:
     void system_found_callback() {
       RCLCPP_INFO(this->get_logger(), "System detected. Verifying it is a ground station.");
-      link_setup();
+      link_setup(mavsdk_.systems().at(0));
     }
 
   private:
-    void link_setup() {
-      // setup link to ground station
+    void link_setup(const std::shared_ptr<System>& system) {
+      RCLCPP_INFO(this->get_logger(), "Setting up link to ground station.");
+      telemetry_server_ = std::make_shared<TelemetryServer>(system);
+      action_server_ = std::make_shared<ActionServer>(system);
+      param_server_ = std::make_shared<ParamServer>(system);
+      RCLCPP_INFO(this->get_logger(), "Telemetry, parameter and action servers setup.");
+      
+      // ROS2 - subscribe to all relevant telemetry topics
+
+      engine_data_sub_ = create_subscription<interfaces::msg::EngineData>(
+        "/h20pro/engine_data", 10, [this](const interfaces::msg::EngineData::SharedPtr msg) {
+          //lambda message repeater
+          
+        });
+
+      engine_starter_test_client_ = create_client<interfaces::action::RunStarterTest>("/h20pro/run_starter_test");
     }
     
     Mavsdk mavsdk_{mavsdk::Mavsdk::Configuration{mavsdk::ComponentType::Autopilot}};
-    std::shared_ptr<ServerComponent> server_component_;
-};
+
+    std::shared_ptr<mavsdk::TelemetryServer> telemetry_server_;
+    std::shared_ptr<mavsdk::ActionServer> action_server_;
+    std::shared_ptr<mavsdk::ParamServer> param_server_;
+
+    rclcpp::Client<interfaces::action::RunStarterTest>::SharedPtr engine_starter_test_client_; //action client for running the engine starter test
+
+    rclcpp::Subscription<interfaces::msg::EngineData>::SharedPtr engine_data_sub_;
+    rclcpp::Subscription<interfaces::msg::PumpRpm>::SharedPtr engine2_data_sub_;
+    rclcpp::Subscription<interfaces::msg::Errors>::SharedPtr errors_current_sub_;
+    rclcpp::Subscription<interfaces::msg::FuelAmbient>::SharedPtr fuel_ambient_sub_;
+    rclcpp::Subscription<interfaces::msg::GlowPlugs>::SharedPtr glow_plugs_sub_;
+    rclcpp::Subscription<interfaces::msg::LastRunInfo>::SharedPtr last_run_info_sub_;
+    rclcpp::Subscription<interfaces::msg::NgReg>::SharedPtr ng_reg_sub_;
+    rclcpp::Subscription<interfaces::msg::Statistics>::SharedPtr statistics_sub_;
+    rclcpp::Subscription<interfaces::msg::SystemInfo>::SharedPtr system_info_sub_;
+    rclcpp::Subscription<interfaces::msg::SystemInfo2>::SharedPtr system_info2_sub_;
+    rclcpp::Subscription<interfaces::msg::VoltageCurrent>::SharedPtr voltage_current_sub_;
+
+  };
 
 int main(int argc, char * argv[])
 {
