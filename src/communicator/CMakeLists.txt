@@ -10,15 +10,22 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
+find_package(MAVSDK REQUIRED)
 
 add_executable(datalink src/datalink.cpp)
 add_executable(groundstation src/groundstation.cpp)
+
+target_link_libraries(datalink MAVSDK::mavsdk)
+target_link_libraries(groundstation MAVSDK::mavsdk)
+
 target_include_directories(datalink PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${MAVSDK_INCLUDE_DIRS})
 target_include_directories(groundstation PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>)
+  $<INSTALL_INTERFACE:include>
+  ${MAVSDK_INCLUDE_DIRS})
 target_compile_features(datalink PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 target_compile_features(groundstation PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
