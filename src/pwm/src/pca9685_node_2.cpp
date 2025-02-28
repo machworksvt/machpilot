@@ -2,22 +2,20 @@
 #include <iostream>
 #include <chrono>
 #include <math.h>
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/float32_multi_array.hpp>
+#include "controller.hpp"
 
 using std::placeholders::_1;
 
-class PCA9685Node2 : public rclcpp::Node
+class PCA9685Node2 : public Controller
 {
 public:
-PCA9685Node2() : Node("pca9685_node_2")
+PCA9685Node2() : Controller("pca9685_node_2")
 {
     pwm_publisher_ = this->create_publisher<std_msgs::msg::Float32MultiArray>("servo_angles", 10);
-    counter_ = 0;
 
     // Create a timer to publish sensor data every second
     timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(500),
+        std::chrono::seconds(2),
         [this]() -> void
         {
             auto pwm_msg = std_msgs::msg::Float32MultiArray();

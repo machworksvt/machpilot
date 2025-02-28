@@ -1,0 +1,6 @@
+[submodule "src/orient2/src/mpu9250"]
+	path = src/orient2/src/mpu9250
+	url = https://github.com/libdriver/mpu9250
+[submodule "src/pressure/src/bmp390"]
+	path = src/pressure/src/bmp390
+	url = https://github.com/libdriver/bmp390
