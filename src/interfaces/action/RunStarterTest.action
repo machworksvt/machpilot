@@ -1,0 +1,12 @@
+# RunStartedTest.action
+# Request
+ 
+---
+# Results
+bool success
+string message
+
+---
+# Feedback
+uint64 current_rpm
+string current_message

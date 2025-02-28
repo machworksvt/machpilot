@@ -22,6 +22,8 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SystemInfo.msg"
   "msg/SystemInfo2.msg"
   "msg/VoltageCurrent.msg"
+  "action/FuelByVolume.action"
+  "action/RunStarterTest.action"
   DEPENDENCIES std_msgs
 )
 
