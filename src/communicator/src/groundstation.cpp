@@ -49,16 +49,27 @@ class GroundStationNode : public rclcpp::Node
     private:
       void system_found_callback() {
         RCLCPP_INFO(this->get_logger(), "System detected. Verifying it is an autopilot.");
-        link_setup();
+        link_setup(mavsdk_.systems().at(0));
       }
 
     private:
-      void link_setup() {
-        //setup link to vehicle
+      void link_setup(const std::shared_ptr<mavsdk::System>& system) {
+        RCLCPP_INFO(this->get_logger(), "Setting up link to autopilot.");
+        telemetry_ = std::make_shared<Telemetry>(system);
+        action_ = std::make_shared<Action>(system);
+        param_ = std::make_shared<Param>(system);
+        RCLCPP_INFO(this->get_logger(), "Telemetry, action and param created.");
+        // now we subscribe to all the telemetry we except to get from the vehicle
       }
+    
+    
+    
 
     Mavsdk mavsdk_{Mavsdk::Configuration{ComponentType::GroundStation}};
-    
+
+    std::shared_ptr<Telemetry> telemetry_;
+    std::shared_ptr<Action> action_;
+    std::shared_ptr<Param> param_;    
 };
 
 int main(int argc, char * argv[])

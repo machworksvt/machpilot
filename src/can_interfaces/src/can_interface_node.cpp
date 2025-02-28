@@ -379,6 +379,11 @@ private:
     auto engine_pub_msg_ = interfaces::msg::EngineData();
 
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+
+    engine_pub_msg_.can_msg.id = frame_id;
+    engine_pub_msg_.can_msg.dlc = frame.can_dlc;
+    engine_pub_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     engine_pub_msg_.header = create_header(frame_id);
 
     uint32_t set_rpm = ((static_cast<uint16_t>(frame.data[0]) << 8) | frame.data[1]) * 10;
@@ -411,6 +416,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     voltage_current_msg_.header = create_header(frame_id);
 
+    voltage_current_msg_.can_msg.id = frame_id;
+    voltage_current_msg_.can_msg.dlc = frame.can_dlc;
+    voltage_current_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     float battery_voltage = static_cast<uint8_t>(frame.data[0]) * 0.1;
     float engine_current = static_cast<uint8_t>(frame.data[1]) * 0.2;
     uint8_t flags = static_cast<uint8_t>(frame.data[4]);
@@ -432,6 +441,10 @@ private:
 
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     fuel_ambient_msg_.header = create_header(frame_id);
+
+    fuel_ambient_msg_.can_msg.id = frame_id;
+    fuel_ambient_msg_.can_msg.dlc = frame.can_dlc;
+    fuel_ambient_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
 
     uint32_t fuel_flow = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]); //ml/min 
     uint32_t fuel_consumed = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]) * 10; //ml
@@ -459,6 +472,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     statistics_msg_.header = create_header(frame_id);
 
+    statistics_msg_.can_msg.id = frame_id;
+    statistics_msg_.can_msg.dlc = frame.can_dlc;
+    statistics_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     uint16_t runs_ok = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
     uint16_t runs_aborted = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]); 
     uint32_t total_runtime = (static_cast<uint32_t>(frame.data[4] << 24)) | (static_cast<uint32_t>(frame.data[5] << 16)) | (static_cast<uint32_t>(frame.data[6] << 8)) | frame.data[7];
@@ -480,6 +497,10 @@ private:
 
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     last_run_info_msg_.header = create_header(frame_id);
+
+    last_run_info_msg_.can_msg.id = frame_id;
+    last_run_info_msg_.can_msg.dlc = frame.can_dlc;
+    last_run_info_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
 
     uint16_t last_run_time = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
     uint16_t last_off_rpm = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]);
@@ -510,6 +531,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     system_info_message_.header = create_header(frame_id);
 
+    system_info_message_.can_msg.id = frame_id;
+    system_info_message_.can_msg.dlc = frame.can_dlc;
+    system_info_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     uint16_t serial_number = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
     uint16_t fw_version = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]);
     uint8_t engine_type = frame.data[4];
@@ -535,6 +560,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     pump_rpm_message_.header = create_header(frame_id);
 
+    pump_rpm_message_.can_msg.id = frame_id;
+    pump_rpm_message_.can_msg.dlc = frame.can_dlc;
+    pump_rpm_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     uint32_t pump_rpm = static_cast<uint16_t>(frame.data[0] << 8) | frame.data[1];
 
     pump_rpm_message_.pump_rpm = pump_rpm;
@@ -554,6 +583,10 @@ private:
     errors_message_.header = create_header(frame_id);
 
     uint64_t error_mask = (static_cast<uint64_t>(frame.data[0]) << 56) | (static_cast<uint64_t>(frame.data[1]) << 48) | (static_cast<uint64_t>(frame.data[2]) << 40) | (static_cast<uint64_t>(frame.data[3]) << 32) | (static_cast<uint64_t>(frame.data[4]) << 24) | (static_cast<uint64_t>(frame.data[5]) << 16) | (static_cast<uint64_t>(frame.data[6]) << 8) | frame.data[7];
+
+    errors_message_.can_msg.id = frame_id;
+    errors_message_.can_msg.dlc = frame.can_dlc;
+    errors_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
 
     std::vector<std::string> error_messages;
 
@@ -597,6 +630,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     glow_plugs_message_.header = create_header(frame_id);
 
+    glow_plugs_message_.can_msg.id = frame_id;
+    glow_plugs_message_.can_msg.dlc = frame.can_dlc;
+    glow_plugs_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     float glow_plug_1_v = static_cast<uint8_t>(frame.data[0]) * 0.1;
     float glow_plug_1_i = static_cast<uint8_t>(frame.data[1]) * 0.1;
     float glow_plug_2_v = static_cast<uint8_t>(frame.data[2]) * 0.1;
@@ -626,6 +663,10 @@ private:
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     ng_reg_message_.header = create_header(frame_id);
 
+    ng_reg_message_.can_msg.id = frame_id;
+    ng_reg_message_.can_msg.dlc = frame.can_dlc;
+    ng_reg_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+
     float integrator = static_cast<uint16_t>(frame.data[0] << 8) | frame.data[1];
     uint16_t windup = static_cast<uint16_t>(frame.data[2] << 8) | frame.data[3];
     float error = static_cast<int16_t>(frame.data[4] << 8) | frame.data[5];
@@ -651,6 +692,10 @@ private:
 
     uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
     system_info2_message_.header = create_header(frame_id);
+
+    system_info2_message_.can_msg.id = frame_id;
+    system_info2_message_.can_msg.dlc = frame.can_dlc;
+    system_info2_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
 
     uint32_t ecu_hw_serial_number = (static_cast<uint32_t>(frame.data[0] << 24)) | (static_cast<uint32_t>(frame.data[1] << 16)) | (static_cast<uint32_t>(frame.data[2] << 8)) | frame.data[3];
     uint16_t eiu_sw_version = (static_cast<uint16_t>(frame.data[4] << 8)) | frame.data[5];

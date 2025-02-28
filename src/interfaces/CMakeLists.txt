@@ -11,6 +11,7 @@ find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/CanMsg.msg"
   "msg/EngineData.msg"
   "msg/PumpRpm.msg"
   "msg/Errors.msg"
