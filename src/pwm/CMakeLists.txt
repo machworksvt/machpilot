@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(std_srvs REQUIRED)
+find_package(diagnostic_msgs REQUIRED)
 
 # Glob together all .c files from the pca9685 repo ALL SUBFOLDERS WITH .C FILES
 file(GLOB PCA9685_SOURCES
@@ -22,6 +24,7 @@ add_library(pca9685 STATIC ${PCA9685_SOURCES})
 # include it
 target_include_directories(pca9685 PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
 )
 
 add_executable(pca9685_node src/pca9685_node.cpp)
@@ -30,10 +33,12 @@ add_executable(pca9685_node_2 src/pca9685_node_2.cpp)
 target_include_directories(pca9685_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 target_include_directories(pca9685_node_2 PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 
 target_link_libraries(pca9685_node pca9685)
@@ -44,6 +49,8 @@ ament_target_dependencies(
   "rclcpp"
   "std_msgs"
   "sensor_msgs"
+  "std_srvs"
+  "diagnostic_msgs"
 )
 target_compile_features(pca9685_node_2 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
@@ -51,6 +58,8 @@ ament_target_dependencies(
   "rclcpp"
   "std_msgs"
   "sensor_msgs"
+  "std_srvs"
+  "diagnostic_msgs"
 )
 
 

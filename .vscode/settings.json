@@ -87,6 +87,11 @@
         "ssd1306.h": "c",
         "any": "cpp",
         "coroutine": "cpp",
-        "source_location": "cpp"
+        "source_location": "cpp",
+        "charconv": "cpp",
+        "expected": "cpp",
+        "format": "cpp",
+        "span": "cpp",
+        "stdfloat": "cpp"
     }
 }
