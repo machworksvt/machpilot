@@ -6,8 +6,20 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include <mavsdk/mavsdk.h>
+#include <mavsdk/connection_result.h>
+#include <mavsdk/plugins/telemetry/telemetry.h>
+#include <mavsdk/plugins/action/action.h>
+#include <mavsdk/plugins/param_server/param_server.h>
+#include <mavsdk/plugins/param/param.h>
+#include <mavsdk/plugins/telemetry_server/telemetry_server.h>
+#include <mavsdk/plugins/action_server/action_server.h>
+#include <mavsdk/plugins/mission_raw_server/mission_raw_server.h>
+#include <mavsdk/plugins/mission/mission.h>
 #include "std_msgs/msg/float32.hpp"
+
 using namespace std::chrono_literals;
+using namespace mavsdk;
+using namespace rclcpp;
 
 /* This example creates a subclass of Node and uses std::bind() to register a
 * member function as a callback from the timer. */
@@ -16,25 +28,48 @@ class GroundStationNode : public rclcpp::Node
 {
   public:
     GroundStationNode()
-    : Node("ground_station"), count_(0)
+    : Node("ground_station")
     {
-      fake_engine_data_publisher_ = this->create_publisher<std_msgs::msg::Float32>("downlink/engine_data", 10);
-      timer_ = this->create_wall_timer(
-      500ms, std::bind(&GroundStationNode::timer_callback, this));
+      this->declare_parameter("connection_path", "serial:///dev/serial/by-id/usb-FTDI_FT232R_USB_UART_BG00HIYX-if00-port0:57600");
+
+      // Setup mavlink connection
+      ConnectionResult connection_result = mavsdk_.add_any_connection(this->get_parameter("connection_path").as_string());
+      if (connection_result != ConnectionResult::Success) {
+        RCLCPP_ERROR(this->get_logger(), "Connection failed");
+        return;
+      }
+      RCLCPP_INFO(this->get_logger(), "Connection succeeded. Waiting for ICARUS detection.");
+      // subscribe to system found event
+      mavsdk_.subscribe_on_new_system(std::bind(&GroundStationNode::system_found_callback, this));
     }
 
-  private:
-    void timer_callback()
-    {
-      auto message = std_msgs::msg::Float32();
-      message.data = rand() % 100;
-      RCLCPP_INFO(this->get_logger(), "Publishing.");
-      fake_engine_data_publisher_->publish(message);
-    }
+    public:
+      ~GroundStationNode() noexcept override = default;
+
+    private:
+      void system_found_callback() {
+        RCLCPP_INFO(this->get_logger(), "System detected. Verifying it is an autopilot.");
+        link_setup(mavsdk_.systems().at(0));
+      }
+
+    private:
+      void link_setup(const std::shared_ptr<mavsdk::System>& system) {
+        RCLCPP_INFO(this->get_logger(), "Setting up link to autopilot.");
+        telemetry_ = std::make_shared<Telemetry>(system);
+        action_ = std::make_shared<Action>(system);
+        param_ = std::make_shared<Param>(system);
+        RCLCPP_INFO(this->get_logger(), "Telemetry, action and param created.");
+        // now we subscribe to all the telemetry we except to get from the vehicle
+      }
     
-    rclcpp::TimerBase::SharedPtr timer_;
-    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr fake_engine_data_publisher_;
-    size_t count_;
+    
+    
+
+    Mavsdk mavsdk_{Mavsdk::Configuration{ComponentType::GroundStation}};
+
+    std::shared_ptr<Telemetry> telemetry_;
+    std::shared_ptr<Action> action_;
+    std::shared_ptr<Param> param_;    
 };
 
 int main(int argc, char * argv[])
