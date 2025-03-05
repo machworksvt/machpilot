@@ -14,6 +14,7 @@
                 "${workspaceFolder}/src/state_estimator/include/**",
                 "${workspaceFolder}/src/pressure/src/bmp390/**",
                 "${workspaceFolder}/src/orient2/src/mpu9250/**",
+                "${workspaceFolder}/src/orient/src/**",
                 "${workspaceFolder}/src/pwm/include/**",
                 "${workspaceFolder}/src/ext_deps/include/**",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
