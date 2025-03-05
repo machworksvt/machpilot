@@ -93,5 +93,6 @@
         "format": "cpp",
         "span": "cpp",
         "stdfloat": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "enabled"
 }
