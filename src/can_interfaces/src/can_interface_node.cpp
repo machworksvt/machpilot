@@ -152,6 +152,9 @@ public:
       std::bind(&CanInterfaceNode::handle_run_starter_test_accepted, this, _1)
     );
 
+    starter_service_ = this->create_service<std_srvs::srv::Trigger>("starter_test", std::bind(&CanInterfaceNode::run_starter_test, this, _1, _2, _3));
+
+
 
     try {
       can_handler_ = std::make_shared<CANHandler>(this->get_parameter("can_interface").as_string());
@@ -220,13 +223,15 @@ public:
 
     struct can_frame run_frame;
     run_frame.can_id = CAN_ID_BASE1;
-    run_frame.can_dlc = 1;
+    run_frame.can_dlc = 8;
     run_frame.data[0] = 1;
 
     struct can_frame stop_frame;
     stop_frame.can_id = CAN_ID_BASE1;
-    stop_frame.can_dlc = 1;
+    stop_frame.can_dlc = 8;
     stop_frame.data[0] = 0;
+
+    can_handler_->send_frame(run_frame);
 
     std::this_thread::sleep_for(1s); //wait for a second before sending the start frame
 
@@ -236,7 +241,7 @@ public:
 
       can_handler_->send_frame(run_frame); //repeatedly send the frame
       feedback->current_rpm = current_engine_data_.real_rpm;
-      feedback->current_message = "Waiting for start completion... TIMEOUT: " + std::to_string(30 - (this->now() - start_time).seconds()) + "/30s";
+      feedback->current_message = "Waiting for start completion... TIMEOUT: " + std::to_string(90 - (this->now() - start_time).seconds()) + "/90s";
 
       //check if we have an error on startup
       //there are certain erorrs that interuppt startup, so we check for those
@@ -293,6 +298,46 @@ public:
     goal_handle->succeed(result);
     return;
   }
+
+  private: void run_starter_test(std::shared_ptr<rclcpp::Service<std_srvs::srv::Trigger>> service,
+    const std::shared_ptr<rmw_request_id_t> request_header,
+    const std::shared_ptr<std_srvs::srv::Trigger::Request> request) {
+
+      auto finish = std::chrono::system_clock::now() + 20s;
+      struct can_frame frame;
+      std::memset(&frame, 0, sizeof(frame));
+      frame.can_id = CAN_ID_BASE1 + 4;
+      frame.can_dlc = 7;
+
+      frame.data[0] = 0;
+      frame.data[1] = 0;
+      frame.data[2] = 0;
+      frame.data[3] = 0;
+      frame.data[4] = 1;
+      frame.data[5] = 0;
+      frame.data[6] = 0;
+
+      std_srvs::srv::Trigger::Response response;
+      do {
+          can_handler_->send_frame(frame);
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
+
+      } while (std::chrono::system_clock::now() < finish);
+
+      frame.data[0] = 0;
+      frame.data[1] = 0;
+      frame.data[2] = 0;
+      frame.data[3] = 0;
+      frame.data[4] = 0;
+      frame.data[5] = 0;
+      frame.data[6] = 0;
+
+      can_handler_->send_frame(frame);
+      response.success = true;
+      service->send_response(*request_header, response);
+}
 
   struct CanMessageDescriptor {
     uint8_t expected_dlc;
@@ -753,6 +798,11 @@ private:
 
   // Action servers
   rclcpp_action::Server<interfaces::action::RunStarterTest>::SharedPtr run_starter_test_action_server_;
+
+  //Service servers
+  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr starter_service_;
+
+  
 
   std::map<uint16_t, CanMessageDescriptor> message_map_;
 
