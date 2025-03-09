@@ -10,6 +10,7 @@
 #include <diagnostic_msgs/msg/diagnostic_status.hpp>
 #include <diagnostic_msgs/msg/diagnostic_array.hpp>
 #include <diagnostic_msgs/msg/key_value.hpp>
+#include <rclcpp_action/rclcpp_action.hpp>
 
 /**
  * A class declaration used for every controller or output node, is implemented per device.

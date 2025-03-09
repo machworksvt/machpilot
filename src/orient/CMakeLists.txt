@@ -12,22 +12,32 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "../interfaces/action/CalibrateBNO055.action"
+)
 
 file(GLOB BNO055_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src/*.cpp"
   )
 
 add_library(bno055 STATIC ${BNO055_SOURCES})
 
 target_include_directories(bno055 PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
+
   )
 
 add_executable(bno055_node src/bno055_node.cpp)
 target_include_directories(bno055_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/orient>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(bno055_node bno055)
@@ -39,6 +49,7 @@ ament_target_dependencies(
   "sensor_msgs"
   "std_srvs"
   "diagnostic_msgs"
+  "rclcpp_action"
 )
 
 install(TARGETS bno055_node
@@ -55,5 +66,7 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+ament_export_dependencies()
 
 ament_package()
