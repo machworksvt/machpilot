@@ -1,0 +1,13 @@
+# Start Engine
+# Starts engine and persists at idle. Begins to listen to throttle command.
+
+# Request
+---
+
+# Results
+bool success
+
+---
+
+#Feedback
+string msg

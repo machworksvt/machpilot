@@ -1,0 +1,17 @@
+# PumpTest.action
+# Runs the pump test, pumping a certain number of ml of fuel at a given % power
+
+#Request
+float32 pump_power_percent #0-100%
+uint32 fuel_ml
+
+---
+
+#Results
+bool success
+
+---
+
+#Feedback
+uint32 fuel_pumped_ml
+float32 fuel_pump_rate
