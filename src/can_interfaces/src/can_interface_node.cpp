@@ -6,6 +6,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_srvs/srv/trigger.hpp"
 #include "std_msgs/msg/header.hpp"
+#include "std_msgs/msg/float32.hpp"
 #include "rclcpp_action/rclcpp_action.hpp"
 #include "interfaces/msg/engine_data.hpp"
 #include "interfaces/msg/pump_rpm.hpp"
@@ -18,7 +19,14 @@
 #include "interfaces/msg/system_info.hpp"
 #include "interfaces/msg/system_info2.hpp"
 #include "interfaces/msg/voltage_current.hpp"
-#include "interfaces/action/run_starter_test.hpp"
+
+#include "interfaces/action/starter_test.hpp"
+#include "interfaces/action/prime.hpp"
+#include "interfaces/action/igniter_test.hpp"
+#include "interfaces/action/pump_test.hpp"
+#include "interfaces/action/start.hpp"
+#include "interfaces/action/throttle_profile.hpp"
+
 
 // Linux SocketCAN headers
 #include <linux/can.h>
@@ -38,8 +46,7 @@ using namespace std::placeholders;
 
 /*
   TODO:
-    Can add some kind of timer/timeout for nominal message frequencies to see if data is old
-    Add some kind of multi-threaded executor to ensure message reception isn't blocked by service or action calls
+    Implement the throttle profile action
 
 */
 
@@ -132,27 +139,6 @@ public:
   {
     this->declare_parameter("can_interface", "can0");
 
-    engine_data_pub_ = this->create_publisher<interfaces::msg::EngineData>("/h20pro/engine_data", 10);
-    engine2_data_pub_ = this->create_publisher<interfaces::msg::PumpRpm>("/h20pro/engine_data2", 10);
-    errors_current_pub_ = this->create_publisher<interfaces::msg::Errors>("/h20pro/errors", 10);
-    fuel_ambient_pub_ = this->create_publisher<interfaces::msg::FuelAmbient>("/h20pro/fuel_ambient", 10);
-    glow_plugs_pub_ = this->create_publisher<interfaces::msg::GlowPlugs>("/h20pro/glow_plugs", 10);
-    last_run_info_pub_ = this->create_publisher<interfaces::msg::LastRunInfo>("/h20pro/last_run_info", 10);
-    ng_reg_pub_ = this->create_publisher<interfaces::msg::NgReg>("/h20pro/ng_reg", 10);
-    statistics_pub_ = this->create_publisher<interfaces::msg::Statistics>("/h20pro/statistics", 10);
-    system_info_pub_ = this->create_publisher<interfaces::msg::SystemInfo>("/h20pro/system_info", 10);
-    system_info2_pub_ = this->create_publisher<interfaces::msg::SystemInfo2>("/h20pro/system_info2", 10);
-    voltage_current_pub_ = this->create_publisher<interfaces::msg::VoltageCurrent>("/h20pro/voltage_current", 10);
-
-    this->run_starter_test_action_server_ = rclcpp_action::create_server<interfaces::action::RunStarterTest>(
-      this,
-      "run_starter_test",
-      std::bind(&CanInterfaceNode::handle_run_starter_test_goal, this, _1, _2),
-      std::bind(&CanInterfaceNode::handle_run_starter_test_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_run_starter_test_accepted, this, _1)
-    );
-
-
     try {
       can_handler_ = std::make_shared<CANHandler>(this->get_parameter("can_interface").as_string());
     } catch (const std::exception & e) {
@@ -168,6 +154,70 @@ public:
     setup_messsage_map();
 
     RCLCPP_INFO(this->get_logger(), "CAN interface node initialized");
+
+    engine_data_pub_ = this->create_publisher<interfaces::msg::EngineData>("/h20pro/engine_data", 10);
+    engine2_data_pub_ = this->create_publisher<interfaces::msg::PumpRpm>("/h20pro/engine_data2", 10);
+    errors_current_pub_ = this->create_publisher<interfaces::msg::Errors>("/h20pro/errors", 10);
+    fuel_ambient_pub_ = this->create_publisher<interfaces::msg::FuelAmbient>("/h20pro/fuel_ambient", 10);
+    glow_plugs_pub_ = this->create_publisher<interfaces::msg::GlowPlugs>("/h20pro/glow_plugs", 10);
+    last_run_info_pub_ = this->create_publisher<interfaces::msg::LastRunInfo>("/h20pro/last_run_info", 10);
+    ng_reg_pub_ = this->create_publisher<interfaces::msg::NgReg>("/h20pro/ng_reg", 10);
+    statistics_pub_ = this->create_publisher<interfaces::msg::Statistics>("/h20pro/statistics", 10);
+    system_info_pub_ = this->create_publisher<interfaces::msg::SystemInfo>("/h20pro/system_info", 10);
+    system_info2_pub_ = this->create_publisher<interfaces::msg::SystemInfo2>("/h20pro/system_info2", 10);
+    voltage_current_pub_ = this->create_publisher<interfaces::msg::VoltageCurrent>("/h20pro/voltage_current", 10);
+
+    throttle_cmd_sub_ = this->create_subscription<std_msgs::msg::Float32>("/h20pro/throttle_command", 10, std::bind(&CanInterfaceNode::throttle_command_callback, this, _1)); //this prolly isn't right
+
+    this->starter_test_action_server_ = rclcpp_action::create_server<interfaces::action::StarterTest>(
+      this,
+      "/h20pro/starter_test",
+      std::bind(&CanInterfaceNode::handle_starter_test_goal, this, _1, _2),
+      std::bind(&CanInterfaceNode::handle_starter_test_cancel, this, _1),
+      std::bind(&CanInterfaceNode::handle_starter_test_accepted, this, _1)
+    ); //register and bind the action for the starter test.
+
+    this->pump_test_action_server_ = rclcpp_action::create_server<interfaces::action::PumpTest>(
+      this,
+      "/h20pro/pump_test",
+      std::bind(&CanInterfaceNode::handle_pump_test_goal, this, _1, _2),
+      std::bind(&CanInterfaceNode::handle_pump_test_cancel, this, _1),
+      std::bind(&CanInterfaceNode::handle_pump_test_accepted, this, _1)
+    ); //register and bind the action for the pump test.
+
+    this->igniter_test_action_server_ = rclcpp_action::create_server<interfaces::action::IgniterTest>(
+      this,
+      "/h20pro/igniter_test",
+      std::bind(&CanInterfaceNode::handle_igniter_test_goal, this, _1, _2),
+      std::bind(&CanInterfaceNode::handle_igniter_test_cancel, this, _1),
+      std::bind(&CanInterfaceNode::handle_igniter_test_accepted, this, _1)
+    ); //register and bind the action for the igniter test.
+
+    this->prime_action_server_ = rclcpp_action::create_server<interfaces::action::Prime>(
+      this,
+      "/h20pro/prime",
+      std::bind(&CanInterfaceNode::handle_prime_goal, this, _1, _2),
+      std::bind(&CanInterfaceNode::handle_prime_cancel, this, _1),
+      std::bind(&CanInterfaceNode::handle_prime_accepted, this, _1)
+    ); //register and bind the action for the prime test.
+
+    this->start_action_server_ = rclcpp_action::create_server<interfaces::action::Start>(
+      this,
+      "/h20pro/start",
+      std::bind(&CanInterfaceNode::handle_start_goal, this, _1, _2),
+      std::bind(&CanInterfaceNode::handle_start_cancel, this, _1),
+      std::bind(&CanInterfaceNode::handle_start_accepted, this, _1)
+    ); //register and bind the action for the start test.
+    //TODO: The other 3 actions
+    //the kill service/handling of running mode
+    kill_service_ = this->create_service<std_srvs::srv::Trigger>(
+      "/h20pro/kill",
+      std::bind(&CanInterfaceNode::handle_kill_service, this, _1, _2)
+    );
+
+    throttle_timer_ = this->create_wall_timer(
+      100ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this));
+    
   }
 
   ~CanInterfaceNode()
@@ -177,121 +227,552 @@ public:
     }
   }
 
+private:
+  void throttle_command_callback(const std_msgs::msg::Float32 & msg) {
+    //validate input
+    if (msg.data < 0 || msg.data > 100) {
+      RCLCPP_WARN(this->get_logger(), "Throttle command out of range (0-100%%): %f. Clamping.", msg.data);
+    } 
+    throttle_cmd_ = std::max(0.0f, std::min(msg.data, 100.0f));
+  }
 
-  //function handler to accept a new action request
-  rclcpp_action::GoalResponse handle_run_starter_test_goal(
-    const rclcpp_action::GoalUUID & uuid,
-    std::shared_ptr<const interfaces::action::RunStarterTest::Goal> goal)
-  {
-    RCLCPP_INFO(this->get_logger(), "Received request to run starter test");
-    // check conditions for accepting the goal
-    if (current_engine_data_.state != 0) {
-      RCLCPP_WARN(this->get_logger(), "Cannot run starter test while engine is running");
-      return rclcpp_action::GoalResponse::REJECT;
+private:
+  void send_throttle_command_callback() {
+    if (!under_throttle_control_) return;
+    struct can_frame throttle_frame = throttle_off_frame_;
+    //the first 2 bytes are the throttle command
+    //byte 0 is the high byte, byte 1 is the low byte
+    uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_ * 10); //convert to 0-1000 range
+    throttle_frame.data[0] = (throttle_cmd_value >> 8) & 0xFF;
+    throttle_frame.data[1] = throttle_cmd_value & 0xFF;
+
+    if (!(can_handler_->send_frame(throttle_frame) > 0)) {
+      RCLCPP_WARN(this->get_logger(), "Failed to write throttle command to CAN bus. Disabling throttle control for safety.");
+      if (!kill_control()) {
+        RCLCPP_ERROR(this->get_logger(), "Failed to disable throttle control. May be emergency situation.");
+      }
     }
-    return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
   }
 
-  // function to handle cancellation of a goal
-  rclcpp_action::CancelResponse handle_run_starter_test_cancel(
-    const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::RunStarterTest>> goal_handle)
-  {
-    RCLCPP_INFO(this->get_logger(), "Received request to cancel starter test");
-    (void)goal_handle;
-    return rclcpp_action::CancelResponse::ACCEPT;
+private:
+  void send_keep_alive_command() {
+    struct can_frame keep_alive_frame = control_off_frame_;
+    keep_alive_frame.data[0] = 1;
+    if (!(can_handler_->send_frame(keep_alive_frame) > 0)) {
+      RCLCPP_WARN(this->get_logger(), "Failed to write keep alive command to CAN bus. Disabling engine control for safety.");
+      if (!kill_control()) {
+        RCLCPP_ERROR(this->get_logger(), "Failed to disable throttle control. May be emergency situation.");
+      }
+    }
   }
 
-  void handle_run_starter_test_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::RunStarterTest>> goal_handle)
-  {
-    RCLCPP_INFO(this->get_logger(), "Starter test action has been accepted");
+private:
+  void handle_kill_service(const std::shared_ptr<std_srvs::srv::Trigger::Request> request,
+    std::shared_ptr<std_srvs::srv::Trigger::Response> response) {
+      if (kill_all()) {
+        response->success = true;
+        response->message = "All tests and control modes have been stopped.";
+      } else {
+        response->success = false;
+        response->message = "Failed to stop all tests and control modes.";
+      }
+    }
+
+  // Handle the starter test
+private:
+  rclcpp_action::GoalResponse handle_starter_test_goal(const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const interfaces::action::StarterTest::Goal> goal) { //callback for handling request
+      RCLCPP_INFO(this->get_logger(), "Received Request to run starter test.");
+
+      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting starter test request.");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+      RCLCPP_INFO(this->get_logger(), "Accepting request to run starter test.");
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+
+private:
+  void handle_starter_test_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::StarterTest>> goal_handle) {
     using namespace std::placeholders;
-    std::thread{std::bind(&CanInterfaceNode::execute_run_starter_test, this, _1), goal_handle}.detach();
+    std::thread{std::bind(&CanInterfaceNode::execute_starter_test, this, goal_handle)}.detach(); //dispatch a thread to handle the actual execution
   }
 
-  void execute_run_starter_test(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::RunStarterTest>> goal_handle)
-  {
-    RCLCPP_INFO(this->get_logger(), "Executing starter test action");
-    auto feedback = std::make_shared<interfaces::action::RunStarterTest::Feedback>();
-    auto result = std::make_shared<interfaces::action::RunStarterTest::Result>();
+private:
+  void execute_starter_test(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::StarterTest>> goal_handle) {
+    RCLCPP_DEBUG(this->get_logger(), "Starting starter test.");
 
+    // create the feedback and result objects (java moment, they're actually shared pointers lol)
+    // no feedback on this action
+    auto result = std::make_shared<interfaces::action::StarterTest::Result>();
 
-    feedback->current_message = "Starting engine...";
-    goal_handle->publish_feedback(feedback);
+    // Generate the can messages that actually run this
+    struct can_frame starter_test_frame = test_off_frame_;
+    starter_test_frame.data[5] = 1;
 
-    struct can_frame run_frame;
-    run_frame.can_id = CAN_ID_BASE1;
-    run_frame.can_dlc = 1;
-    run_frame.data[0] = 1;
+    RCLCPP_DEBUG(this->get_logger(), "Sending starter test frame");
+    ssize_t nbytes = can_handler_->send_frame(starter_test_frame);
+    if (!(nbytes > 0)) {
+      //failed to write the can message for some reason.
+      result->success = false;
+      goal_handle->abort(result); //aborting the test for safety.
+      return;
+    }
 
-    struct can_frame stop_frame;
-    stop_frame.can_id = CAN_ID_BASE1;
-    stop_frame.can_dlc = 1;
-    stop_frame.data[0] = 0;
-
-    std::this_thread::sleep_for(1s); //wait for a second before sending the start frame
-
-    //repeatedly send the frame to start the test
     auto start_time = this->now();
-    while (this->now() - start_time < 90s && current_engine_data_.state != 5) { //timeout after 30 seconds, or when engine reaches running state
 
-      can_handler_->send_frame(run_frame); //repeatedly send the frame
-      feedback->current_rpm = current_engine_data_.real_rpm;
-      feedback->current_message = "Waiting for start completion... TIMEOUT: " + std::to_string(30 - (this->now() - start_time).seconds()) + "/30s";
+    bool has_passed = false;
 
-      //check if we have an error on startup
-      //there are certain erorrs that interuppt startup, so we check for those
+    while(this->now() - start_time < 15s) {
+      if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
+        result->success = has_passed;
+        kill_tests();
+        goal_handle->canceled(result);
+        return;
+      }
 
-      if (!check_all_healthy()) {
+      if(current_engine_data_.real_rpm > 6000) { //if we hit the target RPM, declare that we passed
+        has_passed = true;
+      }
+
+      if(!check_all_healthy()) { //if errors are encountered, we fail the test.
+        kill_tests();
+        has_passed = false;
+        break;
+      }
+
+      std::this_thread::sleep_for(100ms);
+    }
+
+    //regardless of if we succeded or not, unlatch the test byte
+    if (!kill_tests()) { //I really hope this doesn't happen, this means the can bus failed to write the command to end the test
+      //failed to write the can message for some reason.
+      result->success = false;
+      goal_handle->abort(result); //aborting the test for safety.
+      return;
+    }
+
+    result->success = has_passed; //update the result with if we finished or not
+    goal_handle->succeed(result); //finish ROS2 action
+    return; //
+  }
+
+private:
+  rclcpp_action::CancelResponse handle_starter_test_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::StarterTest>> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Cancelling starter test");
+      (void)goal_handle; //uhhhhh
+      kill_tests();
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+  
+  //Handle the pump test
+private:
+  rclcpp_action::GoalResponse handle_pump_test_goal(const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const interfaces::action::PumpTest::Goal> goal) { //callback for handling request
+      RCLCPP_INFO(this->get_logger(), "Received Request to run pump test.");
+
+      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting pump test request.");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      if (goal->fuel_ml <= 0 || goal->fuel_ml > 4500) { //reaonable check for range of acceptable requests
+        RCLCPP_WARN(this->get_logger(), "Pump request of %u ml is out of range (0-4500) - Rejecting pump test request.", goal->fuel_ml);
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      if (goal->pump_power_percent <= 0 || goal->pump_power_percent > 100) { //pump power needs to be reasonable
+        RCLCPP_WARN(this->get_logger(), "Pump request of %f%% is out of range (0-100%%) - Rejecting pump test request.", goal->pump_power_percent);
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Accepting request to run pump test. Pumping %u ml at %f%% power.", goal->fuel_ml, goal->pump_power_percent);
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+
+private:
+  void handle_pump_test_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::PumpTest>> goal_handle) {
+    using namespace std::placeholders;
+    std::thread{std::bind(&CanInterfaceNode::execute_pump_test, this, goal_handle)}.detach(); //dispatch a thread to handle the actual execution
+  }
+
+private:
+  void execute_pump_test(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::PumpTest>> goal_handle) {
+    RCLCPP_DEBUG(this->get_logger(), "Running pump test.");
+
+    auto feedback = std::make_shared<interfaces::action::PumpTest::Feedback>();
+    auto result = std::make_shared<interfaces::action::PumpTest::Result>();
+    std::shared_ptr<const interfaces::action::PumpTest_Goal> goal = goal_handle->get_goal();
+
+    struct can_frame pump_test_frame = test_off_frame_;
+    //encode the pump power requested strength into the frame
+    pump_test_frame.data[0] = static_cast<uint8_t>(goal->pump_power_percent / 0.4); //hope this works, lol
+
+    //assume inputs have been validated at this point, if not, rip
+    uint32_t pump_start_count_ml = current_fuel_ambient_.fuel_consumed; //record how much fuel was pumped when we started
+
+    ssize_t nbytes = can_handler_->send_frame(pump_test_frame); //send the frame to start the test
+    if (!(nbytes > 0)) {
+      RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for pump test.");
+      result->success = false;
+      goal_handle->abort(result); //abort out due to failure
+      return;
+    }
+
+    //otherwise we have started the test
+
+    //TODO: probably should add a timeout
+
+    while(current_fuel_ambient_.fuel_consumed - pump_start_count_ml < goal->fuel_ml) { //while we haven't pumped the desired amount of fuel yet
+      feedback->fuel_pumped_ml = (current_fuel_ambient_.fuel_consumed - pump_start_count_ml);
+      feedback->fuel_pump_rate = current_fuel_ambient_.fuel_flow;
+
+      if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
         result->success = false;
-        result->message = "Error detected during startup, aborting";
-        can_handler_->send_frame(stop_frame);
+        kill_tests();
+        goal_handle->canceled(result);
+        return;
+      }
+
+      goal_handle->publish_feedback(feedback); //update the requester
+
+      RCLCPP_INFO(this->get_logger(), "Pumping fuel at %u RPM, %u/%u ml", current_pump_data_.pump_rpm, (current_fuel_ambient_.fuel_consumed - pump_start_count_ml), goal->fuel_ml);
+
+      if(!check_all_healthy()) { //if errors are encountered, fail the test
+        RCLCPP_WARN(this->get_logger(), "Errors encountered during pump test. Stopping.");
+        kill_tests();
+        result->success = false;
         goal_handle->succeed(result);
         return;
       }
 
-      goal_handle->publish_feedback(feedback);
-
-      std::this_thread::sleep_for(100ms); //recommended to keep this at 10Hz
+      std::this_thread::sleep_for(100ms); //avoid busy loop
     }
 
-    if (current_engine_data_.state == 5) {
-      RCLCPP_INFO(this->get_logger(), "Engine reached ON state succesfully. Congrats.");
-      feedback->current_message = "Engine started successfully. HELL YEAH";
-    } else {
+    //test has finished
+    if (!kill_tests()) { //I really hope this doesn't happen, this means the can bus failed to write the command to end the test
+      //failed to write the can message for some reason.
       result->success = false;
-      RCLCPP_INFO(this->get_logger(), "Engine startup timed out. Aborting for safety.");
-      result->message = "Engine startup timed out. Aborting for safety.";
-      can_handler_->send_frame(stop_frame);
-      goal_handle->succeed(result);
+      goal_handle->abort(result); //aborting the test for safety.
       return;
     }
 
-    std::this_thread::sleep_for(1s); //wait for a second before starting hold process.
+    result->success = true; //if we reach this part, we successfully pumped the right amount of fuel
+    goal_handle->succeed(result);
+    return;
+  }
 
-    RCLCPP_INFO(this->get_logger(), "Holding engine at running state for 30 seconds");
-    feedback->current_message = "Holding engine at running state for 30 seconds";
-    goal_handle->publish_feedback(feedback);
-    //hold at running state for 30 seconds
+private:
+  rclcpp_action::CancelResponse handle_pump_test_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::PumpTest>> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Cancelling pump test");
+      (void)goal_handle; //uhhhhh
+      kill_tests();
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+  
+  //Handle igniter test
+private:
+  rclcpp_action::GoalResponse handle_igniter_test_goal(const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const interfaces::action::IgniterTest::Goal> goal) { //callback for handling request
+      RCLCPP_INFO(this->get_logger(), "Received Request to run igniter test.");
 
-    auto running_time = this->now();
-    while (this->now() - running_time < 30s) {
-      feedback->current_message = "Holding engine at running state... TIMEOUT: " + std::to_string(30 - (this->now() - running_time).seconds()) + "/30s";
-      feedback->current_rpm = current_engine_data_.real_rpm;
-      goal_handle->publish_feedback(feedback);
-      can_handler_->send_frame(run_frame);
+      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting igniter test request.");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Accepting request to run igniter test. Running glow plugs.");
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+  
+private:
+  void handle_igniter_test_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::IgniterTest>> goal_handle) {
+    using namespace std::placeholders;
+    std::thread{std::bind(&CanInterfaceNode::execute_igniter_test, this, goal_handle)}.detach(); //dispatch a thread to handle the actual execution
+  }
+
+private:
+  void execute_igniter_test(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::IgniterTest>> goal_handle) {
+    RCLCPP_DEBUG(this->get_logger(), "Running igniter test.");
+
+    auto result = std::make_shared<interfaces::action::IgniterTest::Result>();
+
+    struct can_frame igniter_test_frame = test_off_frame_;
+
+    igniter_test_frame.data[4] = 1;
+
+    ssize_t nbytes = can_handler_->send_frame(igniter_test_frame); //send the frame to start the test
+    if (!(nbytes > 0)) {
+      RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for igniter test.");
+      result->success = false;
+      goal_handle->abort(result); //abort out due to failure
+      return;
+    }
+
+    auto start_time = this->now();
+
+    bool has_passed = false;
+
+    while(this->now() - start_time < 15s) {
+      if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
+        result->success = has_passed;
+        kill_tests();
+        goal_handle->canceled(result);
+        return;
+      }
+
+      if(current_glow_plugs_.glow_plug_i[0] > 1 && current_glow_plugs_.glow_plug_i[1] > 1) { //if we see current on both connectors > 1A, we declare we passed.
+        has_passed = true;
+      }
+
+      if(!check_all_healthy()) { //if errors are encountered, we fail the test.
+        kill_tests();
+        has_passed = false;
+        break;
+      }
+
       std::this_thread::sleep_for(100ms);
     }
 
-    RCLCPP_INFO(this->get_logger(), "Stopping engine...");
-    feedback->current_message = "Stopping engine...";
-    goal_handle->publish_feedback(feedback);
+    //regardless of if we succeded or not, unlatch the test byte
+    if (!kill_tests()) { //I really hope this doesn't happen, this means the can bus failed to write the command to end the test
+      //failed to write the can message for some reason.
+      result->success = false;
+      goal_handle->abort(result); //aborting the test for safety.
+      return;
+    }
 
-    can_handler_->send_frame(stop_frame);
+    result->success = has_passed; //update the result with if we finished or not
+    goal_handle->succeed(result); //finish ROS2 action
+    return; 
+  }
 
-    result->success = true;
-    result->message = "Engine test completed successfully";
-    goal_handle->succeed(result);
+private:
+  rclcpp_action::CancelResponse handle_igniter_test_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::IgniterTest>> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Cancelling igniter test");
+      (void)goal_handle; //uhhhhh
+      kill_tests();
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+  
+  //Handle the prime action
+private:
+  rclcpp_action::GoalResponse handle_prime_goal(const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const interfaces::action::Prime::Goal> goal) { //callback for handling request
+      RCLCPP_INFO(this->get_logger(), "Received Request to run prime test.");
+
+      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting prime test request.");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      if (goal->pump_power_percent > 10 || goal->pump_power_percent <= 0) { //reaonable check for range of acceptable requests
+        RCLCPP_WARN(this->get_logger(), "Prime request of at %f%% pump power out of range (0,10]%%. - Rejecting prime test request.", goal->pump_power_percent);
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Accepting request to run prime test. Pumping at %f%% power.", goal->pump_power_percent);
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+
+private:
+  void handle_prime_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Prime>> goal_handle) {
+    using namespace std::placeholders;
+    std::thread{std::bind(&CanInterfaceNode::execute_prime, this, goal_handle)}.detach(); //dispatch a thread to handle the actual execution
+  }
+
+private:
+  void execute_prime(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Prime>> goal_handle) {
+    RCLCPP_DEBUG(this->get_logger(), "Running prime test.");
+
+    auto result = std::make_shared<interfaces::action::Prime::Result>();
+
+    std::shared_ptr<const interfaces::action::Prime_Goal> goal = goal_handle->get_goal(); //pull the goal (need the requested pump power)
+    struct can_frame prime_test_frame = test_off_frame_;
+    prime_test_frame.data[6] = static_cast<uint8_t>(goal->pump_power_percent / 0.4);
+
+    // whole test is supposed to take 15 seconds
+
+    ssize_t nbytes = can_handler_->send_frame(prime_test_frame); //send the frame to start the test
+    if (!(nbytes > 0)) {
+      RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for prime test.");
+      result->success = false;
+      goal_handle->abort(result); //abort out due to failure
+      return;
+    }
+
+    auto start_time = this->now();
+    
+    bool has_passed = false;
+
+    while(this->now() - start_time < 15s) {
+
+      if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
+        result->success = has_passed;
+        kill_tests();
+        goal_handle->canceled(result);
+        return;
+      }
+
+      if(current_fuel_ambient_.fuel_flow > 0) { //if we see fuel flow, we declare success
+        has_passed = true;
+      }
+
+      if(!check_all_healthy()) { //if errors are encountered, we fail the test.
+        RCLCPP_WARN(this->get_logger(), "Errors encountered during priming. Stopping.");
+        has_passed = false;
+        break;
+      }
+
+      std::this_thread::sleep_for(100ms);
+    }
+
+    if (!kill_tests()) { //I really hope this doesn't happen, this means the can bus failed to write the command to end the test
+      //failed to write the can message for some reason.
+      result->success = false;
+      goal_handle->abort(result); //aborting the test for safety.
+      return;
+    }
+
+    //if we got this far, priming sequence executed normally.
+
+    result->success = has_passed; //update the result with if we finished or not
+    goal_handle->succeed(result); //finish ROS2 action
     return;
+  }
+
+private:
+  rclcpp_action::CancelResponse handle_prime_cancel(
+    const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Prime>> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Cancelling prime test");
+      (void)goal_handle; //uhhhhh
+      kill_tests();
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+
+  //Handle the start action
+private:
+  rclcpp_action::GoalResponse handle_start_goal(const rclcpp_action::GoalUUID & uuid,
+    std::shared_ptr<const interfaces::action::Start::Goal> goal) { //callback for handling request
+      RCLCPP_INFO(this->get_logger(), "Received Request to start engine. This is NOT a test.");
+
+      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting startup request.");
+        return rclcpp_action::GoalResponse::REJECT;
+      }
+
+      RCLCPP_INFO(this->get_logger(), "Accepting request to start engine. Best of luck.");
+      return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
+    }
+
+private:
+  void handle_start_accepted(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Start>> goal_handle) {
+    using namespace std::placeholders;
+    std::thread{std::bind(&CanInterfaceNode::execute_start, this, goal_handle)}.detach(); //dispatch a thread to handle the actual execution
+  }
+
+private:
+  void execute_start(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Start>> goal_handle) {
+      RCLCPP_DEBUG(this->get_logger(), "Starting engine.");
+
+      auto result = std::make_shared<interfaces::action::Start::Result>();
+
+      struct can_frame start_frame = control_off_frame_;
+      start_frame.data[0] = 1;
+
+      ssize_t nbytes = can_handler_->send_frame(start_frame); //send the frame to start the test
+      if (!(nbytes > 0)) {
+        RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for start command.");
+        result->success = false;
+        goal_handle->abort(result); //abort out due to failure
+        return;
+      }
+
+      auto start_time = this->now();
+      bool has_passed = false;
+
+      while(this->now() - start_time < 90s) { //90 second timeout. We exit the loop if we reach state 5, running.
+        
+        if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
+          result->success = false;
+          kill_control();
+          kill_throttle();
+          goal_handle->canceled(result);
+          return;
+        }
+
+        ssize_t nbytes = can_handler_->send_frame(start_frame); //send the frame to start the test
+        if (!(nbytes > 0)) {
+          RCLCPP_WARN(this->get_logger(), "Error encounter sending keep-alive command during startup. Aborting for safety.");
+          kill_control(); //Attempt to kill the control completely, although this probably does not work if we just failed to send a frame.
+          result->success = false;
+          goal_handle->abort(result); //abort out due to failure
+          return;
+        }
+
+
+        if(current_engine_data_.state == 5) { //if we see the engine state change to 5, we declare success
+          has_passed = true;
+          break;
+        }
+
+        if(!check_all_healthy()) { //if errors are encountered, we fail the test.
+          RCLCPP_WARN(this->get_logger(), "Errors encountered during start. Stopping.");
+          has_passed = false;
+          break;
+        }
+
+        std::this_thread::sleep_for(100ms);
+      }
+
+      if (has_passed) {
+        //we succeeded
+        //we can safely enable throttle control
+        throttle_cmd_ = 0; //idle throttle by default
+        under_throttle_control_ = true;
+        result->success = true;
+        goal_handle->succeed(result);
+        return;
+      } else {
+          //we failed to start, or something else happened that caused cancellation, like the timeout
+          kill_control(); //Attempt to kill the control completely.
+          result->success = false;
+          goal_handle->abort(result); //aborting the test for safety.
+          return;
+      }
+    }
+
+private:
+  rclcpp_action::CancelResponse handle_start_cancel(
+  const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Start>> goal_handle) {
+      RCLCPP_INFO(this->get_logger(), "Cancelling start");
+      (void)goal_handle; //uhhhhh
+      kill_control();
+      return rclcpp_action::CancelResponse::ACCEPT;
+    }
+
+private: 
+  bool kill_all() {
+    return kill_throttle() && kill_tests() && kill_control();
+  }
+
+private:
+  bool kill_tests() {
+    return can_handler_->send_frame(test_off_frame_) > 0;
+  }
+
+private:
+  bool kill_control() {
+    under_throttle_control_ = false;
+    return can_handler_->send_frame(control_off_frame_) > 0;
+  }
+
+private:
+  bool kill_throttle() {
+    return can_handler_->send_frame(throttle_off_frame_) > 0;
   }
 
   struct CanMessageDescriptor {
@@ -751,8 +1232,20 @@ private:
   rclcpp::Publisher<interfaces::msg::SystemInfo2>::SharedPtr system_info2_pub_;
   rclcpp::Publisher<interfaces::msg::VoltageCurrent>::SharedPtr voltage_current_pub_;
 
+  //Subscriber for throttle signal
+  rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr throttle_cmd_sub_;
+
+  //Service for insta-kill
+  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr kill_service_;
+
   // Action servers
-  rclcpp_action::Server<interfaces::action::RunStarterTest>::SharedPtr run_starter_test_action_server_;
+  rclcpp_action::Server<interfaces::action::StarterTest>::SharedPtr starter_test_action_server_;
+  rclcpp_action::Server<interfaces::action::Start>::SharedPtr start_action_server_;
+  rclcpp_action::Server<interfaces::action::IgniterTest>::SharedPtr igniter_test_action_server_;
+  rclcpp_action::Server<interfaces::action::Prime>::SharedPtr prime_action_server_;
+  rclcpp_action::Server<interfaces::action::PumpTest>::SharedPtr pump_test_action_server_;
+  rclcpp_action::Server<interfaces::action::ThrottleProfile>::SharedPtr throttle_profile_action_server_;
+
 
   std::map<uint16_t, CanMessageDescriptor> message_map_;
 
@@ -768,6 +1261,17 @@ private:
   interfaces::msg::SystemInfo current_system_info_;
   interfaces::msg::SystemInfo2 current_system_info2_;
   interfaces::msg::VoltageCurrent current_voltage_current_;
+
+  //Other pieces of information relevant to engine operation
+  bool under_throttle_control_ = false;
+  float throttle_cmd_ = 0.0;
+
+  //timer for sending throttle control commands
+  rclcpp::TimerBase::SharedPtr throttle_timer_;
+
+  //helper for throttle profile actions
+  std::vector<std::pair<rclcpp::Time, float>> throttle_profile_;
+
 
   std::map<uint8_t, std::string> state_name_map_ = {
     {0, "ENGINE OFF"},
@@ -847,402 +1351,16 @@ std::map<uint8_t, ErrorInfo> error_map_ = {
   {47, {"Max Fuel Flow achieved",       "Fuel pump max power limit reached. Informative error. Usually caused by lockage of fuel filter, or another problem in the fuel installation. (Reset condition: Once fuel pump power within limits)", false}}
 };
 
-  /*
-    TODO: Translate error descriptors from the page in the excel spreadsheet into the associated pieces of information
-    Add graceful handling of these errors, using their reset conditions, etc.
-  */
-};
+private:
+  const struct can_frame control_off_frame_ = { CAN_ID_BASE1, 1, 0, 0, 0, {0,0,0,0,0,0,0,0} };
 
-/*
-class CanInterfaceNode : public rclcpp::Node
-{
-public:
-  CanInterfaceNode()
-  : Node("h20pro_canio")
-  {  
-    starter_service_ = this->create_service<std_srvs::srv::Trigger>("starter_test", std::bind(&CanInterfaceNode::run_starter_test, this, _1, _2, _3));
-    enable_service_ = this->create_service<std_srvs::srv::Trigger>("enable_can", std::bind(&CanInterfaceNode::send_enable_command, this, _1, _2, _3));
+private:
+  const struct can_frame test_off_frame_ = { CAN_ID_BASE1 + 4, 7, 0, 0, 0, {0,0,0,0,0,0,0,0} };
 
-    engine_data_pub_ = this->create_publisher<interfaces::msg::EngineData>("engine_data", 10);
-
-    // Open a socket for CAN communications
-    socket_fd_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-    if (socket_fd_ < 0) {
-      RCLCPP_ERROR(this->get_logger(), "Failed to open CAN socket");
-      return;
-    }
-
-    // Set the socket to non-blocking mode so our timer callback does not block
-    int flags = fcntl(socket_fd_, F_GETFL, 0);
-    fcntl(socket_fd_, F_SETFL, flags | O_NONBLOCK);
-
-    // Specify the CAN interface ("can0")
-    struct ifreq ifr;
-    std::strncpy(ifr.ifr_name, "can0", IFNAMSIZ);
-    if (ioctl(socket_fd_, SIOCGIFINDEX, &ifr) < 0) {
-      RCLCPP_ERROR(this->get_logger(), "Error in ioctl when getting interface index for can0");
-      close(socket_fd_);
-      return;
-    }
-
-    // Bind the socket to can0
-    struct sockaddr_can addr;
-    std::memset(&addr, 0, sizeof(addr));
-    addr.can_family  = AF_CAN;
-    addr.can_ifindex = ifr.ifr_ifindex;
-    if (bind(socket_fd_, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0) {
-      RCLCPP_ERROR(this->get_logger(), "Error binding socket to can0");
-      close(socket_fd_);
-      return;
-    }
-
-    RCLCPP_INFO(this->get_logger(), "Successfully opened and bound CAN socket on can0");
-
-    // Set up a timer that polls for CAN messages at regular intervals (100ms)
-    timer_ = this->create_wall_timer(
-      100ms,
-      std::bind(&CanInterfaceNode::timer_callback, this)
-    );
-  }
-
-  ~CanInterfaceNode()
-  {
-    if (socket_fd_ >= 0) {
-      close(socket_fd_);
-    }
-  }
-
-  int socket_fd_{-1};
-  rclcpp::TimerBase::SharedPtr timer_;
-  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr starter_service_;
-  rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr enable_service_;
-
-  rclcpp::Publisher<interfaces::msg::EngineData>::SharedPtr engine_data_pub_;
-
-  private: void timer_callback()
-  {
-    // Structure to hold a CAN frame
-    struct can_frame frame;
-    // Read as many frames as are available (non-blocking read)
-    ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-    while (nbytes > 0) {
-      // We use CAN_SFF_MASK to extract the standard 11-bit identifier.
-      // According to the documentation, engine data is sent using:
-      //   CAN_ID_BASE0 + 0, where CAN_ID_BASE0 = 0x100.
-      if ((frame.can_id & CAN_SFF_MASK) == CAN_ID_BASE0) {
-        // Check that the frame has 8 data bytes.
-        if (frame.can_dlc < 8) {
-          RCLCPP_WARN(this->get_logger(), "Received CAN frame (ID 0x100) with insufficient data length: %d", frame.can_dlc);
-        } else {
-          // Decode the data per the manufacturer's specification:
-          //   - Bytes 0/1: Engine Set RPM (unsigned int; high byte is at lower index)
-          //   - Bytes 2/3: Engine Real RPM (unsigned int)
-          //   - Bytes 4/5: EGT (Exhaust Gas Temperature, signed int, in 0.1 °C units)
-          //   - Byte 6: Engine State (unsigned char)
-          //   - Byte 7: Pump Power (unsigned char, in steps of 0.5%)
-          uint16_t set_rpm_raw = (static_cast<uint16_t>(frame.data[0]) << 8) | frame.data[1];
-          uint16_t real_rpm_raw = (static_cast<uint16_t>(frame.data[2]) << 8) | frame.data[3];
-
-          // For signed 16-bit values, the cast ensures proper sign extension.
-          int16_t egt_raw = (static_cast<int16_t>(frame.data[4]) << 8) | frame.data[5];
-
-          uint8_t state = frame.data[6];
-          uint8_t pump_power_raw = frame.data[7];
-
-          // Convert the raw values to final values:
-          //   - RPM values are in multiples of 10 (multiply by 10).
-          //   - EGT is in 0.1 °C units (divide by 10 to get °C).
-          //   - Pump Power is in multiples of 0.5% (multiply by 0.5).
-          uint32_t set_rpm  = set_rpm_raw * 10;
-          uint32_t real_rpm = real_rpm_raw * 10;
-          float egt         = egt_raw / 10.0f;
-          float pump_power  = pump_power_raw * 0.5f;
-
-          RCLCPP_INFO(this->get_logger(),
-                      "Engine Data (CAN ID 0x100): SetRPM: %u 1/min, RealRPM: %u 1/min, EGT: %.1f°C, State: %u, Pump Power: %.1f%%",
-                      set_rpm, real_rpm, egt, state, pump_power);
-        }
-      } else if ((frame.can_id & CAN_SFF_MASK) == (CAN_ID_BASE0 + 1)) {
-        //Voltage/current message
-        if (frame.can_dlc < 2) {
-          RCLCPP_WARN(this->get_logger(), "Received CAN frame (ID 0x101) with insufficient data length: %d", frame.can_dlc);
-        } else {
-          float battery_voltage = static_cast<uint8_t>(frame.data[0]) * 0.1;
-          float engine_current = static_cast<uint8_t>(frame.data[1]) * 0.2;
-          RCLCPP_DEBUG(this->get_logger(), "Voltage/Current Data (CAN ID 0x101): BV: %f V, EC: %f A", battery_voltage, engine_current);
-        }
-      } else if((frame.can_id & CAN_SFF_MASK) == (CAN_ID_BASE0 + 2)) {
-        if (frame.can_dlc < 7) {
-          RCLCPP_WARN(this->get_logger(), "Received CAN frame (ID 0x102) with insufficient data length: %d", frame.can_dlc);
-        } else {
-          uint16_t fuel_flow = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]); //ml/min 
-          uint16_t fuel_consumed = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]); //ml
-          float engine_pressure = ((static_cast<uint16_t>(frame.data[4] << 8)) | frame.data[5]) * 0.02; //mbar
-          int8_t ambient_temperature = frame.data[6];
-
-          RCLCPP_INFO(this->get_logger(), "Combustion Information: Fuel Rate: %u ml/min, Fuel Consumed: %u ml, Engine Pressure: %f mbar, Ambient Temp: %d C", 
-                      fuel_flow, fuel_consumed, engine_pressure, ambient_temperature);
-        }
-      } else if((frame.can_id & CAN_SFF_MASK) == (CAN_ID_BASE0 + 3)) {
-        // statistics message
-        if (frame.can_dlc < 8) {
-          RCLCPP_WARN(this->get_logger(), "Received CAN frame (ID 0x103) with insufficient data length: %d", frame.can_dlc);
-        } else {
-          uint16_t runs_ok = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
-          uint16_t runs_aborted = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]); //ml
-          uint32_t total_runtime = (static_cast<uint32_t>(frame.data[4] << 24)) | (static_cast<uint32_t>(frame.data[5] << 16)) | (static_cast<uint32_t>(frame.data[6] << 8)) | frame.data[7];
-
-          RCLCPP_INFO(this->get_logger(), "Statistics: Runs OK: %u, Runs Failed: %u, Total Runtime: %u s", runs_ok, runs_aborted, total_runtime);
-        }
-      } else if((frame.can_id & CAN_SFF_MASK) == (CAN_ID_BASE0 + 4)) // Last run info message
-      {
-        if(frame.can_dlc < 8) {
-          RCLCPP_WARN(this->get_logger(), "Recieved CAN frame (ID 0x104) with insufficient data length: %d", frame.can_dlc);
-        } else {
-
-        }
-
-      }
-      else {
-
-        // You can add additional processing for other CAN IDs here.
-        //RCLCPP_INFO(this->get_logger(), "Received CAN frame with ID: 0x%X", frame.can_id & CAN_SFF_MASK);
-      }
-
-      // Attempt to read the next frame.
-      nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-    }
-    // If no frame is available, read() returns -1 with errno set to EAGAIN/EWOULDBLOCK (which is fine for non-blocking mode).
-  }
-
-private: void send_enable_command(std::shared_ptr<rclcpp::Service<std_srvs::srv::Trigger>> service,
-              const std::shared_ptr<rmw_request_id_t> request_header,
-              const std::shared_ptr<std_srvs::srv::Trigger::Request> request) {
-
-    std_srvs::srv::Trigger::Response response;
-
-    //set user access level
-    struct can_frame frame1;
-    std::memset(&frame1, 0, sizeof(frame1));
-    frame1.can_id = CAN_ID_BASE2 + 0;
-    frame1.can_dlc = 6;
-
-    frame1.data[0] = 20;
-    frame1.data[1] = 39;
-    frame1.data[2] = 41;
-    frame1.data[3] = 241;
-    frame1.data[4] = 34;
-    frame1.data[5] = 150;
-
-    int nbytes = write(socket_fd_, &frame1, sizeof(frame1));
-    if (nbytes != sizeof(frame1)) {
-      RCLCPP_WARN(this->get_logger(), "Failed to send CAN access level command");
-      response.success = false;
-      response.message = "Couldn't send access level command";
-    } else {
-      RCLCPP_INFO(this->get_logger(), "Starter access level command sent.");
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    struct can_frame frame2;
-    std::memset(&frame2, 0, sizeof(frame2));
-    frame2.can_id = CAN_ID_BASE2 + 0;
-    frame2.can_dlc = 3;
-
-    frame2.data[0] = 185;
-    frame2.data[1] = 11;
-    frame2.data[2] = 5;
-
-    nbytes = write(socket_fd_, &frame2, sizeof(frame2));
-    if (nbytes != sizeof(frame2)) {
-      RCLCPP_WARN(this->get_logger(), "Failed to set control mode to CAN");
-      response.success = false;
-      response.message = "Failed to set control mode to CAN";
-    } else {
-      RCLCPP_INFO(this->get_logger(), "CAN control mode command sent.");
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-    struct can_frame frame3;
-    std::memset(&frame3, 0, sizeof(frame3));
-    frame3.can_id = CAN_ID_BASE2 + 0;
-    frame3.can_dlc = 7;
-    frame3.data[0] = 16;
-    frame3.data[1] = 39;
-    frame3.data[3] = 188;
-    frame3.data[4] = 245;
-    frame3.data[5] = 166;
-    frame3.data[6] = 37;
-
-    nbytes = write(socket_fd_, &frame3, sizeof(frame3));
-    if (nbytes != sizeof(frame3)) {
-      RCLCPP_WARN(this->get_logger(), "Failed EEPROM store command");
-      response.success = false;
-      response.message = "Failed EEPROM store command";
-    } else {
-      RCLCPP_INFO(this->get_logger(), "EEPROM store command sent.");
-      response.success = true;
-      response.message = "All commands sent.";
-    }
-
-    service->send_response(*request_header, response);
-  }
-
-private: void run_starter_test(std::shared_ptr<rclcpp::Service<std_srvs::srv::Trigger>> service,
-              const std::shared_ptr<rmw_request_id_t> request_header,
-              const std::shared_ptr<std_srvs::srv::Trigger::Request> request) {
-
-    auto finish = std::chrono::system_clock::now() + 15s;
-    struct can_frame frame;
-    std::memset(&frame, 0, sizeof(frame));
-    frame.can_id = CAN_ID_BASE1 + 4;
-    frame.can_dlc = 7;
-
-    frame.data[0] = 0;
-    frame.data[1] = 0;
-    frame.data[2] = 0;
-    frame.data[3] = 0;
-    frame.data[4] = 0;
-    frame.data[5] = 5;
-    frame.data[6] = 0;
-
-    std_srvs::srv::Trigger::Response response;
-    do {
-
-    int nbytes = write(socket_fd_, &frame, sizeof(frame));
-    if (nbytes != sizeof(frame)) {
-      RCLCPP_WARN(this->get_logger(), "Error sending CAN frame");
-      response.success = false;
-    } else {
-      RCLCPP_INFO(this->get_logger(), "Starter test command sent.");
-      response.success = true;
-    }
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-
-
-    } while (std::chrono::system_clock::now() < finish);
-
-    frame.data[0] = 0;
-    frame.data[4] = 0;
-    frame.data[5] = 0;
-
-    int nbytes = write(socket_fd_, &frame, sizeof(frame));
-    if (nbytes != sizeof(frame)) {
-      RCLCPP_WARN(this->get_logger(), "Error sending CAN frame");
-      response.success = false;
-    } else {
-      RCLCPP_INFO(this->get_logger(), "Starter test command sent.");
-      response.success = true;
-    }
-
-    service->send_response(*request_header, response);
-  }
-
-  struct MessageDescriptor {
-    uint8_t dlc;
-    std::string name;
-    uint8_t nom_freq; //Hz
-    //associated ros2 message
-    //pointer to function that processes frame into ros2 message
-    void (*handler)(struct can_frame frame); //tried to make this more efficient by using a pointer to the correct publisher & function pointer with ros2 msg return type :(
-  };
-
-  const std::map<uint16_t, MessageDescriptor> message_sizes = {
-    {CAN_ID_BASE0, {8, "RPM/State", 10}},
-    {CAN_ID_BASE0 + 1, {5, "Voltage/Current", 10}},
-    {CAN_ID_BASE0 + 2, {7, "Fuel/Ambient", 5}},
-    {CAN_ID_BASE0 + 3, {8, "Statistics", 1}},
-    {CAN_ID_BASE0 + 4, {8, "Last Run Info", 1}},
-    {CAN_ID_BASE0 + 5, {6, "System Info", 1}},
-    {CAN_ID_BASE0 + 6, {2, "Pump RPM", 10}},
-    {CAN_ID_BASE0 + 7, {7, "Errors", 10}},
-    {CAN_ID_BASE0 + 8, {6, "Glow Plugs", 10}}, 
-    {CAN_ID_BASE0 + 9, {8, "NgReg", 10}}, 
-    {CAN_ID_BASE0 + 10, {8, "System Info 2", 1}}
-  };
-
-
-private: bool handle_can_message(struct can_frame frame) {
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
-    rclcpp::Time timestamp = this->now();
-
-    //Check if this is a message that's recognized
-    struct CanInterfaceNode::MessageDescriptor descriptor;
-
-    try {
-      descriptor = message_sizes.at(frame_id);
-    } catch (const std::out_of_range& e) {
-      RCLCPP_WARN(this->get_logger(), "CAN Message recevied with unrecognized frame: (%x), dlc = %d", frame_id, frame.can_dlc);
-      return false;
-    }
-
-    //Check if the message is the right size
-    if (frame.can_dlc < descriptor.dlc) {
-      RCLCPP_WARN(this->get_logger(), "CAN Message (%x) %s received with dlc (%d), expected (%d)", frame_id, descriptor.name.c_str(), frame.can_dlc, descriptor.dlc);
-      return false;
-    }
-    // now actually process the message
-
-    switch(frame_id) {
-      case CAN_ID_BASE0:
-        // RPM/State message
-        uint16_t set_rpm_raw = (static_cast<uint16_t>(frame.data[0]) << 8) | frame.data[1];
-        uint16_t real_rpm_raw = (static_cast<uint16_t>(frame.data[2]) << 8) | frame.data[3];
-        int16_t egt_raw = (static_cast<int16_t>(frame.data[4]) << 8) | frame.data[5];
-        uint8_t state = frame.data[6];
-        uint8_t pump_power_raw = frame.data[7];
-
-        uint32_t set_rpm  = set_rpm_raw * 10;
-        uint32_t real_rpm = real_rpm_raw * 10;
-        float egt         = egt_raw / 10.0f;
-        float pump_power  = pump_power_raw * 0.5f;
-
-        auto engine_pub_msg_ = interfaces::msg::EngineData();
-        engine_pub_msg_.header.stamp = timestamp;
-        engine_pub_msg_.header.frame_id = "engine_frame";
-
-        engine_pub_msg_.set_rpm = set_rpm;
-        engine_pub_msg_.real_rpm = real_rpm;
-        engine_pub_msg_.egt = egt;
-        engine_pub_msg_.state = state;
-        engine_pub_msg_.pump_power = pump_power;
-
-        RCLCPP_INFO(this->get_logger(),
-                    "Engine Data (CAN ID 0x100): SetRPM: %u 1/min, RealRPM: %u 1/min, EGT: %.1f°C, State: %u, Pump Power: %.1f%%",
-                    set_rpm, real_rpm, egt, state, pump_power);
-        break;
-      case CAN_ID_BASE0 + 1:
-        //Voltage/current message
-        float battery_voltage = static_cast<uint8_t>(frame.data[0]) * 0.1;
-        float engine_current = static_cast<uint8_t>(frame.data[1]) * 0.2;
-        RCLCPP_DEBUG(this->get_logger(), "Voltage/Current Data (CAN ID 0x101): BV: %f V, EC: %f A", battery_voltage, engine_current);
-        break;
-    }
-    
-}
-
-
-
-  /*
-    function to process a CAN message
-      handlers for each message type then perform the publishing
-
-    actions to run various tests
-
-    services to change settings/parameters
-  
-  
-  
-
-
-
+private:
+  const struct can_frame throttle_off_frame_ = { CAN_ID_BASE1 + 1, 2, 0, 0, 0, {0,0,0,0,0,0,0,0} };
 
 };
-
-*/
 
 int main(int argc, char * argv[])
 {
