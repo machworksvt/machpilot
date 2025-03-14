@@ -28,6 +28,10 @@
 #include "interfaces/action/throttle_profile.hpp"
 
 
+
+#include "interfaces/msg/can_msg.hpp"
+#include "interfaces/srv/send_can_message.hpp"
+
 // Linux SocketCAN headers
 #include <linux/can.h>
 #include <linux/can/raw.h>
@@ -46,110 +50,26 @@ using namespace std::placeholders;
 
 /*
   TODO:
+    Refactor to use the CanMsg datatype subscription and service from the can_bridge_node
     Implement the throttle profile action
 
 */
-
-class CANHandler {
-  public:
-    CANHandler(const std::string & interface_name) 
-    : interface_name_(interface_name), running_(false)
-    {
-      //Open the CAN socket
-      socket_fd_ = socket(PF_CAN, SOCK_RAW, CAN_RAW);
-      if (socket_fd_ < 0) {
-        throw std::runtime_error("Failed to open CAN socket");
-        return;
-      }
-      //set non-blocking mode
-      int flags = fcntl(socket_fd_, F_GETFL, 0);
-      fcntl(socket_fd_, F_SETFL, flags | O_NONBLOCK);
-  
-      //get interface index
-      struct ifreq ifr;
-      std::strncpy(ifr.ifr_name, interface_name.c_str(), IFNAMSIZ);
-      if (ioctl(socket_fd_, SIOCGIFINDEX, &ifr) < 0) {
-        throw std::runtime_error("Error in ioctl when getting interface index for can0");
-        close(socket_fd_);
-        return;
-      }
-  
-      //bind the socket to the interface
-      struct sockaddr_can addr;
-      std::memset(&addr, 0, sizeof(addr));
-      addr.can_family = AF_CAN;
-      addr.can_ifindex = ifr.ifr_ifindex;
-      if (bind(socket_fd_, reinterpret_cast<struct sockaddr *>(&addr), sizeof(addr)) < 0) {
-        throw std::runtime_error("Error binding socket to can0");
-        close(socket_fd_);
-        return;
-      }
-    }
-  
-    ~CANHandler() {
-      if (socket_fd_ >= 0) {
-        close(socket_fd_);
-      }
-    }
-  
-        //This function starts a dedicated thread to read from the CAN socket
-    void start(std::function<void(struct can_frame)> frame_callback) {
-      running_ = true;
-      read_thread_ = std::thread([this, frame_callback]() {
-        struct can_frame frame;
-        while(running_) {
-          //lock for thread-safe socket access
-          {
-            std::lock_guard<std::mutex> lock(mutex_);
-            ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-            if (nbytes > 0) {
-              frame_callback(frame);
-            }
-          }
-          std::this_thread::sleep_for(10ms);
-        }
-      });
-    }
-  
-    void stop() {
-      running_ = false;
-      if (read_thread_.joinable()) {
-        read_thread_.join();
-      }
-    }
-  
-    ssize_t send_frame(const struct can_frame & frame) {
-      std::lock_guard<std::mutex> lock(mutex_);
-      return write(socket_fd_, &frame, sizeof(struct can_frame));
-    }
-  
-    private:
-      std::string interface_name_;
-      int socket_fd_{-1};
-      std::thread read_thread_;
-      std::mutex mutex_;
-      std::atomic<bool> running_;
-  };
-  
 class CanInterfaceNode : public rclcpp::Node
 {
 public:
   CanInterfaceNode()
-  : Node("can_interface_node")
+  : Node("h20pro_node")
   {
-    this->declare_parameter("can_interface", "can0");
 
-    try {
-      can_handler_ = std::make_shared<CANHandler>(this->get_parameter("can_interface").as_string());
-    } catch (const std::exception & e) {
-      RCLCPP_ERROR(this->get_logger(), "Failed to create CANHandler: %s", e.what());
-      rclcpp::shutdown();
-      return;
+    can_rx_sub_ = this->create_subscription<interfaces::msg::CanMsg>(
+      "/can_rx", 10, std::bind(&CanInterfaceNode::handle_can_rx, this, _1));
+
+    can_tx_srv_ = this->create_client<interfaces::srv::SendCanMessage>("/can_tx");
+
+    if(!can_tx_srv_->wait_for_service(10s)) {
+      RCLCPP_ERROR(this->get_logger(), "Failed to connect to can_tx service. Ensure the can_bridge_node is running. Exiting.");
+      exit(1);
     }
-
-    can_handler_->start([this](const struct can_frame & frame) {
-      handle_can_message(frame);
-    });
 
     setup_messsage_map();
 
@@ -222,8 +142,19 @@ public:
 
   ~CanInterfaceNode()
   {
-    if (can_handler_) {
-      can_handler_->stop();
+    kill_all();
+  }
+
+private:
+  void handle_can_rx(const interfaces::msg::CanMsg::SharedPtr msg) {
+    uint32_t can_id = msg->id;
+    uint8_t can_dlc = msg->dlc;
+    if (message_map_.find(can_id) != message_map_.end()) {
+      if(can_dlc < message_map_[can_id].expected_dlc) {
+        RCLCPP_WARN(this->get_logger(), "Received CAN message with incorrect DLC. Expected %u, got %u", message_map_[can_id].expected_dlc, can_dlc);
+        return;
+      }
+      message_map_[can_id].handler(*msg);
     }
   }
 
@@ -239,14 +170,14 @@ private:
 private:
   void send_throttle_command_callback() {
     if (!under_throttle_control_) return;
-    struct can_frame throttle_frame = throttle_off_frame_;
+    interfaces::msg::CanMsg throttle_message = interfaces::msg::CanMsg(throttle_off_msg_);
     //the first 2 bytes are the throttle command
     //byte 0 is the high byte, byte 1 is the low byte
     uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_ * 10); //convert to 0-1000 range
-    throttle_frame.data[0] = (throttle_cmd_value >> 8) & 0xFF;
-    throttle_frame.data[1] = throttle_cmd_value & 0xFF;
+    throttle_message.data[0] = (throttle_cmd_value >> 8) & 0xFF;
+    throttle_message.data[1] = throttle_cmd_value & 0xFF;
 
-    if (!(can_handler_->send_frame(throttle_frame) > 0)) {
+    if (!send_can_msg(throttle_message)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write throttle command to CAN bus. Disabling throttle control for safety.");
       if (!kill_control()) {
         RCLCPP_ERROR(this->get_logger(), "Failed to disable throttle control. May be emergency situation.");
@@ -256,9 +187,7 @@ private:
 
 private:
   void send_keep_alive_command() {
-    struct can_frame keep_alive_frame = control_off_frame_;
-    keep_alive_frame.data[0] = 1;
-    if (!(can_handler_->send_frame(keep_alive_frame) > 0)) {
+    if (!send_can_msg(keep_alive_msg_)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write keep alive command to CAN bus. Disabling engine control for safety.");
       if (!kill_control()) {
         RCLCPP_ERROR(this->get_logger(), "Failed to disable throttle control. May be emergency situation.");
@@ -307,12 +236,11 @@ private:
     auto result = std::make_shared<interfaces::action::StarterTest::Result>();
 
     // Generate the can messages that actually run this
-    struct can_frame starter_test_frame = test_off_frame_;
-    starter_test_frame.data[5] = 1;
+    interfaces::msg::CanMsg starter_test_msg = interfaces::msg::CanMsg(test_off_msg_);
+    starter_test_msg.data[5] = 1;
 
     RCLCPP_DEBUG(this->get_logger(), "Sending starter test frame");
-    ssize_t nbytes = can_handler_->send_frame(starter_test_frame);
-    if (!(nbytes > 0)) {
+    if (!send_can_msg(starter_test_msg)) {
       //failed to write the can message for some reason.
       result->success = false;
       goal_handle->abort(result); //aborting the test for safety.
@@ -405,15 +333,14 @@ private:
     auto result = std::make_shared<interfaces::action::PumpTest::Result>();
     std::shared_ptr<const interfaces::action::PumpTest_Goal> goal = goal_handle->get_goal();
 
-    struct can_frame pump_test_frame = test_off_frame_;
+    interfaces::msg::CanMsg pump_test_msg = interfaces::msg::CanMsg(test_off_msg_);
     //encode the pump power requested strength into the frame
-    pump_test_frame.data[0] = static_cast<uint8_t>(goal->pump_power_percent / 0.4); //hope this works, lol
+    pump_test_msg.data[0] = static_cast<uint8_t>(goal->pump_power_percent / 0.4); //hope this works, lol
 
     //assume inputs have been validated at this point, if not, rip
     uint32_t pump_start_count_ml = current_fuel_ambient_.fuel_consumed; //record how much fuel was pumped when we started
 
-    ssize_t nbytes = can_handler_->send_frame(pump_test_frame); //send the frame to start the test
-    if (!(nbytes > 0)) {
+    if (!send_can_msg(pump_test_msg)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for pump test.");
       result->success = false;
       goal_handle->abort(result); //abort out due to failure
@@ -499,12 +426,11 @@ private:
 
     auto result = std::make_shared<interfaces::action::IgniterTest::Result>();
 
-    struct can_frame igniter_test_frame = test_off_frame_;
+    interfaces::msg::CanMsg igniter_test_msg = interfaces::msg::CanMsg(test_off_msg_);
 
-    igniter_test_frame.data[4] = 1;
+    igniter_test_msg.data[4] = 1;
 
-    ssize_t nbytes = can_handler_->send_frame(igniter_test_frame); //send the frame to start the test
-    if (!(nbytes > 0)) {
+    if (!send_can_msg(igniter_test_msg)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for igniter test.");
       result->success = false;
       goal_handle->abort(result); //abort out due to failure
@@ -591,13 +517,12 @@ private:
     auto result = std::make_shared<interfaces::action::Prime::Result>();
 
     std::shared_ptr<const interfaces::action::Prime_Goal> goal = goal_handle->get_goal(); //pull the goal (need the requested pump power)
-    struct can_frame prime_test_frame = test_off_frame_;
-    prime_test_frame.data[6] = static_cast<uint8_t>(goal->pump_power_percent / 0.4);
+    interfaces::msg::CanMsg prime_test_msg = interfaces::msg::CanMsg(test_off_msg_);
+    prime_test_msg.data[6] = static_cast<uint8_t>(goal->pump_power_percent / 0.4);
 
     // whole test is supposed to take 15 seconds
 
-    ssize_t nbytes = can_handler_->send_frame(prime_test_frame); //send the frame to start the test
-    if (!(nbytes > 0)) {
+    if (!send_can_msg(prime_test_msg)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for prime test.");
       result->success = false;
       goal_handle->abort(result); //abort out due to failure
@@ -680,11 +605,7 @@ private:
 
       auto result = std::make_shared<interfaces::action::Start::Result>();
 
-      struct can_frame start_frame = control_off_frame_;
-      start_frame.data[0] = 1;
-
-      ssize_t nbytes = can_handler_->send_frame(start_frame); //send the frame to start the test
-      if (!(nbytes > 0)) {
+      if (!send_can_msg(keep_alive_msg_)) {
         RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for start command.");
         result->success = false;
         goal_handle->abort(result); //abort out due to failure
@@ -704,8 +625,7 @@ private:
           return;
         }
 
-        ssize_t nbytes = can_handler_->send_frame(start_frame); //send the frame to start the test
-        if (!(nbytes > 0)) {
+        if (!send_can_msg(keep_alive_msg_)) { //send keep alive command to keep the engine running
           RCLCPP_WARN(this->get_logger(), "Error encounter sending keep-alive command during startup. Aborting for safety.");
           kill_control(); //Attempt to kill the control completely, although this probably does not work if we just failed to send a frame.
           result->success = false;
@@ -761,25 +681,39 @@ private:
 
 private:
   bool kill_tests() {
-    return can_handler_->send_frame(test_off_frame_) > 0;
+    return send_can_msg(test_off_msg_);
   }
 
 private:
   bool kill_control() {
     under_throttle_control_ = false;
-    return can_handler_->send_frame(control_off_frame_) > 0;
+    return send_can_msg(control_off_msg_);
   }
 
 private:
   bool kill_throttle() {
-    return can_handler_->send_frame(throttle_off_frame_) > 0;
+    return send_can_msg(throttle_off_msg_);
   }
 
   struct CanMessageDescriptor {
     uint8_t expected_dlc;
     std::string name;
-    std::function<void(const struct can_frame & frame)> handler;
+    std::function<void(const interfaces::msg::CanMsg & msg)> handler;
   };
+
+private:
+  bool send_can_msg(interfaces::msg::CanMsg msg) {
+    interfaces::srv::SendCanMessage::Request::SharedPtr request = std::make_shared<interfaces::srv::SendCanMessage::Request>();
+    request->msg = msg;
+    auto response = can_tx_srv_->async_send_request(request);
+
+    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), response) == rclcpp::FutureReturnCode::SUCCESS) {
+      return response.get()->success;
+    } else {
+      RCLCPP_ERROR(this->get_logger(), "Failed to call service send_can_message");
+      return false;
+    }
+  }
 
 private:
   void setup_messsage_map() {
@@ -838,41 +772,40 @@ private:
       "System Info 2",
       std::bind(&CanInterfaceNode::handle_system_info_2_message, this, _1)
     };
+
+    control_off_msg_.id = CAN_ID_BASE1;
+    control_off_msg_.dlc = 1;
+    control_off_msg_.data = {0, 0, 0, 0, 0, 0, 0, 0};
+
+    keep_alive_msg_.id = CAN_ID_BASE1;
+    keep_alive_msg_.dlc = 1;
+    keep_alive_msg_.data = {1, 0, 0, 0, 0, 0, 0, 0};
+
+    test_off_msg_.id = CAN_ID_BASE1 + 4;
+    test_off_msg_.dlc = 7;
+    test_off_msg_.data = {0, 0, 0, 0, 0, 0, 0, 0};
+
+    throttle_off_msg_.id = CAN_ID_BASE1 + 1;
+    throttle_off_msg_.dlc = 2;
+    throttle_off_msg_.data = {0, 0, 0, 0, 0, 0, 0, 0};
+
   }
 
 private:
-  void handle_can_message(const struct can_frame & frame) {
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
-    auto it = message_map_.find(frame_id);
-    if (it != message_map_.end()) {
-      if (frame.can_dlc < it->second.expected_dlc) {
-        RCLCPP_WARN(this->get_logger(), "Received CAN frame (ID 0x%X) with insufficient data length: %d", frame_id, frame.can_dlc);
-      } else {
-        it->second.handler(frame);
-      }
-    } else {
-      RCLCPP_WARN(this->get_logger(), "Received CAN frame with unrecognized ID: 0x%X", frame_id);
-    }
-  }
-
-private:
-  void handle_rpm_state_message(const struct can_frame & frame) {
+  void handle_rpm_state_message(interfaces::msg::CanMsg msg) {
     auto engine_pub_msg_ = interfaces::msg::EngineData();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
-
-    engine_pub_msg_.can_msg.id = frame_id;
-    engine_pub_msg_.can_msg.dlc = frame.can_dlc;
-    engine_pub_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
+    uint16_t frame_id = msg.id;
+    engine_pub_msg_.can_msg = msg;
     engine_pub_msg_.header = create_header(frame_id);
 
-    uint32_t set_rpm = ((static_cast<uint16_t>(frame.data[0]) << 8) | frame.data[1]) * 10;
-    uint16_t real_rpm = ((static_cast<uint16_t>(frame.data[2]) << 8) | frame.data[3]) * 10;
-    float egt = ((static_cast<int16_t>(frame.data[4]) << 8) | frame.data[5]) * 0.1;
-    uint8_t state = frame.data[6];
+
+    uint32_t set_rpm = ((static_cast<uint16_t>(msg.data[0]) << 8) | msg.data[1]) * 10;
+    uint16_t real_rpm = ((static_cast<uint16_t>(msg.data[2]) << 8) | msg.data[3]) * 10;
+    float egt = ((static_cast<int16_t>(msg.data[4]) << 8) | msg.data[5]) * 0.1;
+    uint8_t state = msg.data[6];
     std::string state_name = state_name_map_[state];
-    float pump_power = frame.data[7] * 0.5;
+    float pump_power = msg.data[7] * 0.5;
 
     engine_pub_msg_.set_rpm = set_rpm;
     engine_pub_msg_.real_rpm = real_rpm;
@@ -891,19 +824,16 @@ private:
   }
 
 private:
-  void handle_voltage_current_message(const struct can_frame & frame) {
+  void handle_voltage_current_message(interfaces::msg::CanMsg msg) {
     auto voltage_current_msg_ = interfaces::msg::VoltageCurrent();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    voltage_current_msg_.can_msg = msg;
     voltage_current_msg_.header = create_header(frame_id);
 
-    voltage_current_msg_.can_msg.id = frame_id;
-    voltage_current_msg_.can_msg.dlc = frame.can_dlc;
-    voltage_current_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    float battery_voltage = static_cast<uint8_t>(frame.data[0]) * 0.1;
-    float engine_current = static_cast<uint8_t>(frame.data[1]) * 0.2;
-    uint8_t flags = static_cast<uint8_t>(frame.data[4]);
+    float battery_voltage = static_cast<uint8_t>(msg.data[0]) * 0.1;
+    float engine_current = static_cast<uint8_t>(msg.data[1]) * 0.2;
+    uint8_t flags = static_cast<uint8_t>(msg.data[4]);
 
     voltage_current_msg_.battery_voltage = battery_voltage;
     voltage_current_msg_.battery_current = engine_current;
@@ -917,20 +847,17 @@ private:
   }
 
 private:
-  void handle_fuel_ambient_message(const struct can_frame & frame) {
+  void handle_fuel_ambient_message(interfaces::msg::CanMsg msg) {
     auto fuel_ambient_msg_ = interfaces::msg::FuelAmbient();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    fuel_ambient_msg_.can_msg = msg;
     fuel_ambient_msg_.header = create_header(frame_id);
 
-    fuel_ambient_msg_.can_msg.id = frame_id;
-    fuel_ambient_msg_.can_msg.dlc = frame.can_dlc;
-    fuel_ambient_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint32_t fuel_flow = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]); //ml/min 
-    uint32_t fuel_consumed = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]) * 10; //ml
-    float engine_box_pressure = ((static_cast<uint16_t>(frame.data[4] << 8)) | frame.data[5]) * 0.02; //mbar
-    int8_t ambient_temperature = frame.data[6];
+    uint32_t fuel_flow = ((static_cast<uint16_t>(msg.data[0] << 8)) | msg.data[1]); //ml/min 
+    uint32_t fuel_consumed = ((static_cast<uint16_t>(msg.data[2] << 8)) | msg.data[3]) * 10; //ml
+    float engine_box_pressure = ((static_cast<uint16_t>(msg.data[4] << 8)) | msg.data[5]) * 0.02; //mbar
+    int8_t ambient_temperature = msg.data[6];
 
     fuel_ambient_msg_.fuel_flow = fuel_flow;
     fuel_ambient_msg_.fuel_consumed = fuel_consumed;
@@ -947,19 +874,16 @@ private:
   }
 
 private:
-  void handle_statistics_message(const struct can_frame & frame) {
+  void handle_statistics_message(interfaces::msg::CanMsg msg) {
     auto statistics_msg_ = interfaces::msg::Statistics();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    statistics_msg_.can_msg = msg;
     statistics_msg_.header = create_header(frame_id);
 
-    statistics_msg_.can_msg.id = frame_id;
-    statistics_msg_.can_msg.dlc = frame.can_dlc;
-    statistics_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint16_t runs_ok = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
-    uint16_t runs_aborted = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]); 
-    uint32_t total_runtime = (static_cast<uint32_t>(frame.data[4] << 24)) | (static_cast<uint32_t>(frame.data[5] << 16)) | (static_cast<uint32_t>(frame.data[6] << 8)) | frame.data[7];
+    uint16_t runs_ok = ((static_cast<uint16_t>(msg.data[0] << 8)) | msg.data[1]);
+    uint16_t runs_aborted = ((static_cast<uint16_t>(msg.data[2] << 8)) | msg.data[3]); 
+    uint32_t total_runtime = (static_cast<uint32_t>(msg.data[4] << 24)) | (static_cast<uint32_t>(msg.data[5] << 16)) | (static_cast<uint32_t>(msg.data[6] << 8)) | msg.data[7];
 
     statistics_msg_.runs_ok = runs_ok;
     statistics_msg_.runs_aborted = runs_aborted;
@@ -973,21 +897,18 @@ private:
   }
 
 private:
-  void handle_last_run_info_message(const struct can_frame & frame) {
+  void handle_last_run_info_message(interfaces::msg::CanMsg msg) {
     auto last_run_info_msg_ = interfaces::msg::LastRunInfo();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    last_run_info_msg_.can_msg = msg;
     last_run_info_msg_.header = create_header(frame_id);
 
-    last_run_info_msg_.can_msg.id = frame_id;
-    last_run_info_msg_.can_msg.dlc = frame.can_dlc;
-    last_run_info_msg_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint16_t last_run_time = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
-    uint16_t last_off_rpm = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]);
-    uint16_t last_off_egt = ((static_cast<uint16_t>(frame.data[4] << 8)) | frame.data[5]);
-    float last_off_pump_power = static_cast<uint8_t>(frame.data[6]) * 0.5;
-    uint8_t last_off_state = frame.data[7];
+    uint16_t last_run_time = ((static_cast<uint16_t>(msg.data[0] << 8)) | msg.data[1]);
+    uint16_t last_off_rpm = ((static_cast<uint16_t>(msg.data[2] << 8)) | msg.data[3]);
+    uint16_t last_off_egt = ((static_cast<uint16_t>(msg.data[4] << 8)) | msg.data[5]);
+    float last_off_pump_power = static_cast<uint8_t>(msg.data[6]) * 0.5;
+    uint8_t last_off_state = msg.data[7];
     std::string last_off_state_str = state_name_map_[last_off_state];
     
     last_run_info_msg_.last_runtime = last_run_time;
@@ -1006,20 +927,17 @@ private:
   }
 
 private:
-  void handle_system_info_message(const struct can_frame & frame) {
+  void handle_system_info_message(interfaces::msg::CanMsg msg) {
     auto system_info_message_ = interfaces::msg::SystemInfo();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    system_info_message_.can_msg = msg;
     system_info_message_.header = create_header(frame_id);
 
-    system_info_message_.can_msg.id = frame_id;
-    system_info_message_.can_msg.dlc = frame.can_dlc;
-    system_info_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint16_t serial_number = ((static_cast<uint16_t>(frame.data[0] << 8)) | frame.data[1]);
-    uint16_t fw_version = ((static_cast<uint16_t>(frame.data[2] << 8)) | frame.data[3]);
-    uint8_t engine_type = frame.data[4];
-    uint8_t engine_subtype = frame.data[5];
+    uint16_t serial_number = ((static_cast<uint16_t>(msg.data[0] << 8)) | msg.data[1]);
+    uint16_t fw_version = ((static_cast<uint16_t>(msg.data[2] << 8)) | msg.data[3]);
+    uint8_t engine_type = msg.data[4];
+    uint8_t engine_subtype = msg.data[5];
 
     system_info_message_.serial_number = serial_number;
     system_info_message_.fw_version = fw_version;
@@ -1035,17 +953,14 @@ private:
   }
 
 private:
-  void handle_pump_rpm_message(const struct can_frame & frame) {
+  void handle_pump_rpm_message(interfaces::msg::CanMsg msg) {
     auto pump_rpm_message_ = interfaces::msg::PumpRpm();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    pump_rpm_message_.can_msg = msg;
     pump_rpm_message_.header = create_header(frame_id);
 
-    pump_rpm_message_.can_msg.id = frame_id;
-    pump_rpm_message_.can_msg.dlc = frame.can_dlc;
-    pump_rpm_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint32_t pump_rpm = static_cast<uint16_t>(frame.data[0] << 8) | frame.data[1];
+    uint32_t pump_rpm = static_cast<uint16_t>(msg.data[0] << 8) | msg.data[1];
 
     pump_rpm_message_.pump_rpm = pump_rpm;
 
@@ -1057,17 +972,14 @@ private:
   }
   
 private:
-  void handle_errors_message(const struct can_frame & frame) {
+  void handle_errors_message(interfaces::msg::CanMsg msg) {
     auto errors_message_ = interfaces::msg::Errors();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    errors_message_.can_msg = msg;
     errors_message_.header = create_header(frame_id);
 
-    uint64_t error_mask = (static_cast<uint64_t>(frame.data[0]) << 56) | (static_cast<uint64_t>(frame.data[1]) << 48) | (static_cast<uint64_t>(frame.data[2]) << 40) | (static_cast<uint64_t>(frame.data[3]) << 32) | (static_cast<uint64_t>(frame.data[4]) << 24) | (static_cast<uint64_t>(frame.data[5]) << 16) | (static_cast<uint64_t>(frame.data[6]) << 8) | frame.data[7];
-
-    errors_message_.can_msg.id = frame_id;
-    errors_message_.can_msg.dlc = frame.can_dlc;
-    errors_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
+    uint64_t error_mask = (static_cast<uint64_t>(msg.data[0]) << 56) | (static_cast<uint64_t>(msg.data[1]) << 48) | (static_cast<uint64_t>(msg.data[2]) << 40) | (static_cast<uint64_t>(msg.data[3]) << 32) | (static_cast<uint64_t>(msg.data[4]) << 24) | (static_cast<uint64_t>(msg.data[5]) << 16) | (static_cast<uint64_t>(msg.data[6]) << 8) | msg.data[7];
 
     std::vector<std::string> error_messages;
 
@@ -1105,21 +1017,18 @@ private:
   }
 
 private:
-  void handle_glow_plugs_message(const struct can_frame & frame) {
+  void handle_glow_plugs_message(interfaces::msg::CanMsg msg) {
     auto glow_plugs_message_ = interfaces::msg::GlowPlugs();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    glow_plugs_message_.can_msg = msg;
     glow_plugs_message_.header = create_header(frame_id);
 
-    glow_plugs_message_.can_msg.id = frame_id;
-    glow_plugs_message_.can_msg.dlc = frame.can_dlc;
-    glow_plugs_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    float glow_plug_1_v = static_cast<uint8_t>(frame.data[0]) * 0.1;
-    float glow_plug_1_i = static_cast<uint8_t>(frame.data[1]) * 0.1;
-    float glow_plug_2_v = static_cast<uint8_t>(frame.data[2]) * 0.1;
-    float glow_plug_2_i = static_cast<uint8_t>(frame.data[3]) * 0.1;
-    int16_t sekevence = (static_cast<int16_t>(frame.data[4]) << 8) | frame.data[5];
+    float glow_plug_1_v = static_cast<uint8_t>(msg.data[0]) * 0.1;
+    float glow_plug_1_i = static_cast<uint8_t>(msg.data[1]) * 0.1;
+    float glow_plug_2_v = static_cast<uint8_t>(msg.data[2]) * 0.1;
+    float glow_plug_2_i = static_cast<uint8_t>(msg.data[3]) * 0.1;
+    int16_t sekevence = (static_cast<int16_t>(msg.data[4]) << 8) | msg.data[5];
 
 
     std::array<float, 2> glow_plug_v = {glow_plug_1_v, glow_plug_2_v};
@@ -1138,20 +1047,17 @@ private:
   }
 
 private:
-  void handle_ngreg_message(const struct can_frame & frame) {
+  void handle_ngreg_message(interfaces::msg::CanMsg msg) {
     auto ng_reg_message_ = interfaces::msg::NgReg();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    ng_reg_message_.can_msg = msg;
     ng_reg_message_.header = create_header(frame_id);
 
-    ng_reg_message_.can_msg.id = frame_id;
-    ng_reg_message_.can_msg.dlc = frame.can_dlc;
-    ng_reg_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    float integrator = static_cast<uint16_t>(frame.data[0] << 8) | frame.data[1];
-    uint16_t windup = static_cast<uint16_t>(frame.data[2] << 8) | frame.data[3];
-    float error = static_cast<int16_t>(frame.data[4] << 8) | frame.data[5];
-    float pump_power = static_cast<uint16_t>(frame.data[6]) | frame.data[7];
+    float integrator = static_cast<uint16_t>(msg.data[0] << 8) | msg.data[1];
+    uint16_t windup = static_cast<uint16_t>(msg.data[2] << 8) | msg.data[3];
+    float error = static_cast<int16_t>(msg.data[4] << 8) | msg.data[5];
+    float pump_power = static_cast<uint16_t>(msg.data[6]) | msg.data[7];
 
     ng_reg_message_.integrator = integrator;
     ng_reg_message_.windup = windup;
@@ -1168,18 +1074,15 @@ private:
   }
 
 private:
-  void handle_system_info_2_message(const struct can_frame & frame) {
+  void handle_system_info_2_message(interfaces::msg::CanMsg msg) {
     auto system_info2_message_ = interfaces::msg::SystemInfo2();
 
-    uint16_t frame_id = (frame.can_id & CAN_SFF_MASK);
+    uint16_t frame_id = msg.id;
+    system_info2_message_.can_msg = msg;
     system_info2_message_.header = create_header(frame_id);
 
-    system_info2_message_.can_msg.id = frame_id;
-    system_info2_message_.can_msg.dlc = frame.can_dlc;
-    system_info2_message_.can_msg.data = {frame.data[0], frame.data[1], frame.data[2], frame.data[3], frame.data[4], frame.data[5], frame.data[6], frame.data[7]};
-
-    uint32_t ecu_hw_serial_number = (static_cast<uint32_t>(frame.data[0] << 24)) | (static_cast<uint32_t>(frame.data[1] << 16)) | (static_cast<uint32_t>(frame.data[2] << 8)) | frame.data[3];
-    uint16_t eiu_sw_version = (static_cast<uint16_t>(frame.data[4] << 8)) | frame.data[5];
+    uint32_t ecu_hw_serial_number = (static_cast<uint32_t>(msg.data[0] << 24)) | (static_cast<uint32_t>(msg.data[1] << 16)) | (static_cast<uint32_t>(msg.data[2] << 8)) | msg.data[3];
+    uint16_t eiu_sw_version = (static_cast<uint16_t>(msg.data[4] << 8)) | msg.data[5];
 
     system_info2_message_.ecu_hw_serial_number = ecu_hw_serial_number;
     system_info2_message_.eiu_sw_version = eiu_sw_version;
@@ -1216,9 +1119,6 @@ private:
     return header;
   }
 
-  // Low-level class to thread-safe handle CAN reception and transmission
-  std::shared_ptr<CANHandler> can_handler_;
-
   // Publishers for various CAN messages
   rclcpp::Publisher<interfaces::msg::EngineData>::SharedPtr engine_data_pub_;
   rclcpp::Publisher<interfaces::msg::PumpRpm>::SharedPtr engine2_data_pub_;
@@ -1235,6 +1135,12 @@ private:
   //Subscriber for throttle signal
   rclcpp::Subscription<std_msgs::msg::Float32>::SharedPtr throttle_cmd_sub_;
 
+  //Subsrciber for raw can messages
+  rclcpp::Subscription<interfaces::msg::CanMsg>::SharedPtr can_rx_sub_;
+
+  //Service client for sending raw can messages
+  rclcpp::Client<interfaces::srv::SendCanMessage>::SharedPtr can_tx_srv_;
+
   //Service for insta-kill
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr kill_service_;
 
@@ -1245,7 +1151,6 @@ private:
   rclcpp_action::Server<interfaces::action::Prime>::SharedPtr prime_action_server_;
   rclcpp_action::Server<interfaces::action::PumpTest>::SharedPtr pump_test_action_server_;
   rclcpp_action::Server<interfaces::action::ThrottleProfile>::SharedPtr throttle_profile_action_server_;
-
 
   std::map<uint16_t, CanMessageDescriptor> message_map_;
 
@@ -1352,13 +1257,16 @@ std::map<uint8_t, ErrorInfo> error_map_ = {
 };
 
 private:
-  const struct can_frame control_off_frame_ = { CAN_ID_BASE1, 1, 0, 0, 0, {0,0,0,0,0,0,0,0} };
+  interfaces::msg::CanMsg control_off_msg_ = interfaces::msg::CanMsg();
 
 private:
-  const struct can_frame test_off_frame_ = { CAN_ID_BASE1 + 4, 7, 0, 0, 0, {0,0,0,0,0,0,0,0} };
+  interfaces::msg::CanMsg keep_alive_msg_ = interfaces::msg::CanMsg();
 
 private:
-  const struct can_frame throttle_off_frame_ = { CAN_ID_BASE1 + 1, 2, 0, 0, 0, {0,0,0,0,0,0,0,0} };
+  interfaces::msg::CanMsg throttle_off_msg_ = interfaces::msg::CanMsg();
+
+private:
+  interfaces::msg::CanMsg test_off_msg_ = interfaces::msg::CanMsg();
 
 };
 
