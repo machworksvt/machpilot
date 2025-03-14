@@ -45,14 +45,14 @@ const CustomGauge = (props) => {
             { value: 1500 },
             { value: 2000 },
             { value: 2500 },
-            { value: 3000 },
+            { value: 5000},
           ],
           defaultTickValueConfig: {
             formatTextValue: kbitsToMbits,
           },
         },
       }}
-      maxValue={3000}
+      maxValue={5000}
       style={style}
       {...rest}
     />

@@ -1,0 +1,21 @@
+import { Gauge } from '../types/Gauge';
+import { SubArc } from '../types/Arc';
+export declare const hideTooltip: (gauge: Gauge) => void;
+export declare const setArcData: (gauge: Gauge) => void;
+export declare const drawArc: (gauge: Gauge, percent?: number | undefined) => void;
+export declare const setupArcs: (gauge: Gauge, resize?: boolean) => void;
+export declare const setupTooltip: (gauge: Gauge) => void;
+export declare const applyColors: (subArcsPath: any, gauge: Gauge) => void;
+export declare const getArcDataByValue: (value: number, gauge: Gauge) => SubArc;
+export declare const getArcDataByPercentage: (percentage: number, gauge: Gauge) => SubArc;
+export declare const applyGradientColors: (gradEl: any, gauge: Gauge) => void;
+export declare const getColors: (nbArcsToDisplay: number, gauge: Gauge) => string[] | number[];
+export declare const createGradientElement: (div: any, uniqueId: string) => any;
+export declare const getCoordByValue: (value: number, gauge: Gauge, position?: string, centerToArcLengthSubtract?: number, radiusFactor?: number) => {
+    x: number;
+    y: number;
+};
+export declare const redrawArcs: (gauge: Gauge) => void;
+export declare const clearArcs: (gauge: Gauge) => void;
+export declare const clearOuterArcs: (gauge: Gauge) => void;
+export declare const validateArcs: (gauge: Gauge) => void;

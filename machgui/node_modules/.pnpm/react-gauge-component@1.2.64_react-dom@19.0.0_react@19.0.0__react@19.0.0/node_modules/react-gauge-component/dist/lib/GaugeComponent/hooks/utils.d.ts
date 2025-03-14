@@ -1,0 +1,12 @@
+import { Gauge } from '../types/Gauge';
+import { GaugeComponentProps } from '../types/GaugeComponentProps';
+export declare const calculatePercentage: (minValue: number, maxValue: number, value: number) => number;
+export declare const isEmptyObject: (obj: any) => boolean;
+export declare const mergeObjects: (obj1: any, obj2: Partial<any>) => any;
+export declare const percentToRad: (percent: number, angle: number) => number;
+export declare const floatingNumber: (value: number, maxDigits?: number) => number;
+export declare function normalize(value: number, min: number, max: number): number;
+export declare const degToRad: (degrees: number) => number;
+export declare const getCurrentGaugePercentageByValue: (value: number, gauge: GaugeComponentProps) => number;
+export declare const getCurrentGaugeValueByPercentage: (percentage: number, gauge: Gauge) => number;
+export declare const camelCaseToKebabCase: (str: string) => string;
