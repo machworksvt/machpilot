@@ -23,7 +23,13 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/SystemInfo.msg"
   "msg/SystemInfo2.msg"
   "msg/VoltageCurrent.msg"
-  "action/RunStarterTest.action"
+  "srv/SendCanMessage.srv"
+  "action/StarterTest.action"
+  "action/Start.action"
+  "action/Prime.action"
+  "action/IgniterTest.action"
+  "action/PumpTest.action"
+  "action/ThrottleProfile.action"
   DEPENDENCIES std_msgs
 )
 

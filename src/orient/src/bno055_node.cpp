@@ -1,6 +1,9 @@
 #include "BNO055.h"
 #include "sensor.hpp"
 
+using std::placeholders::_1;
+using std::placeholders::_2;
+
 class BNO055Node : public Sensor {
 public:
   BNO055Node(int adr) : Sensor("bno055_node") {
@@ -8,11 +11,12 @@ public:
     std::shared_ptr<std_srvs::srv::Trigger::Request> req;
     std::shared_ptr<std_srvs::srv::Trigger::Response> res;
 
-    iservice_ = this->create_service<std_srvs::srv::Trigger>("bno055_init", initSrvs);
+    iservice_ = this->create_service<std_srvs::srv::Trigger>("bno055_init", std::bind(&BNO055Node::initSrvs, this, _1, _2));
   }
 
-  int initSrvs(std::shared_ptr<std_srvs::srv::Trigger::Request> req,
+  bool initSrvs(const std::shared_ptr<std_srvs::srv::Trigger::Request> req,
         std::shared_ptr<std_srvs::srv::Trigger::Response> res) {
+    
     bno055_->begin(bno055_->OPERATION_MODE_IMUPLUS);
 
     uint8_t ss, str, se;
@@ -24,11 +28,27 @@ public:
     
     if (!ss && !str && !se) {
         res->set__success(true);
-        return;
+        return true;
     }
     res->set__success(false);
+    return false;
   }
+
+  void calibAct() {
+
+  }
+
 private:
   std::shared_ptr<BNO055> bno055_;
   rclcpp::Service<std_srvs::srv::Trigger>::SharedPtr iservice_;
 };
+
+int main(int argc, char ** argv)
+{
+  (void) argc;
+  (void) argv;
+  rclcpp::init(argc, argv);
+  rclcpp::spin(std::make_shared<BNO055Node>(0x28));
+  rclcpp::shutdown();
+  return 0;
+}
