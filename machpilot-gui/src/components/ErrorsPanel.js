@@ -10,7 +10,7 @@ const ErrorsPanel = () => {
   const errors = useROSSubscription('/h20pro/errors', 'interfaces/msg/Errors');
 
   return (
-    <div className="panel" style={panelStyle}>
+    <div className="panel">
       <h3>Errors</h3>
       {errors ? (
         <div>
@@ -31,14 +31,6 @@ const ErrorsPanel = () => {
       )}
     </div>
   );
-};
-
-const panelStyle = {
-  background: '#f4f4f4',
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-  borderRadius: '4px'
 };
 
 export default ErrorsPanel;

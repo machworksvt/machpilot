@@ -11,7 +11,7 @@ const FuelAmbientPanel = () => {
   const fuelAmbient = useROSSubscription('/h20pro/fuel_ambient', 'interfaces/msg/FuelAmbient');
 
   return (
-    <div className="panel" style={panelStyle}>
+    <div className="panel">
       <h3>Fuel & Ambient</h3>
       {fuelAmbient ? (
         <div>
@@ -25,15 +25,6 @@ const FuelAmbientPanel = () => {
       )}
     </div>
   );
-};
-
-// A simple inline style for panels (adjust as needed)
-const panelStyle = {
-  background: '#f4f4f4',
-  border: '1px solid #ddd',
-  padding: '10px',
-  margin: '10px',
-  borderRadius: '4px'
 };
 
 export default FuelAmbientPanel;
