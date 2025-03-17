@@ -7,9 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
+find_package(shared_lib REQUIRED)
 
 # Glob together all .c files from the mpu9250 repo ALL SUBFOLDERS WITH .C FILES
 file(GLOB MPU9250_SOURCES
@@ -28,6 +26,7 @@ target_include_directories(mpu9250 PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/interface>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/example>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/test>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
 )
 
 add_executable(mpu9250_node src/mpu9250_node.cpp)
@@ -37,15 +36,11 @@ target_include_directories(mpu9250_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/interface>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/example>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/test>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(mpu9250_node mpu9250)
 target_compile_features(mpu9250_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  mpu9250_node
-  "rclcpp"
-  "std_msgs"
-  "sensor_msgs"
-)
+ament_target_dependencies(mpu9250_node shared_lib)
 
 install(TARGETS mpu9250_node
   DESTINATION lib/${PROJECT_NAME})
