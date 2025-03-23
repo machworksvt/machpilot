@@ -1,6 +1,7 @@
 // src/rosConnection.js
+import {Ros} from 'roslib';
 
-const ros = new window.ROSLIB.Ros({
+const ros = new Ros({
     url: 'ws://localhost:9090'
 });
 

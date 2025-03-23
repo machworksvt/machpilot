@@ -1,6 +1,7 @@
 // src/useROSPublisher.js
 import { useMemo } from 'react';
 import ros from './rosConnection';
+import {Topic, Message} from 'roslib';
 
 /**
  * useROSPublisher is a custom hook that creates a ROSLIB Topic and returns a function to publish messages.
@@ -11,7 +12,7 @@ import ros from './rosConnection';
 const useROSPublisher = (topicName, messageType) => {
   // useMemo ensures that the topic instance is only created once unless topicName or messageType changes.
   const topic = useMemo(() => {
-    return new window.ROSLIB.Topic({
+    return new Topic({
       ros: ros,
       name: topicName,
       messageType: messageType,
@@ -19,10 +20,9 @@ const useROSPublisher = (topicName, messageType) => {
   }, [topicName, messageType]);
 
   // publishMessage accepts an object representing the message data.
-  const publishMessage = (messageData) => {
-    const message = new window.ROSLIB.Message(messageData);
+  const publishMessage = (message) => {
     topic.publish(message);
-    console.log(`Published to ${topicName}:`, messageData);
+    console.log(`Published to ${topicName}:`, message);
   };
 
   return publishMessage;

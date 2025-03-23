@@ -14,6 +14,8 @@ public:
 PCA9685Node(int addr) : Controller("pca9685_node")
 {
     pca9685_ = std::make_shared<PCA9685>(addr);
+
+    pca9685_.reset();
     // Create publishers for temperature and fluid pressure
     pwm_subscriber_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
     "servo_angles", 10, std::bind(&PCA9685Node::topic_callback, this, _1));

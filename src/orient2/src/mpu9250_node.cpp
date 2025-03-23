@@ -1,6 +1,4 @@
-#include <rclcpp/rclcpp.hpp>
-#include <sensor_msgs/msg/magnetic_field.hpp>
-#include <sensor_msgs/msg/imu.hpp>
+#include <sensor.hpp>
 
 extern "C" {
     #include "driver_mpu9250_basic.h"
@@ -15,10 +13,6 @@ public:
     imu_publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("mpu_imu", 10);
     mag_publisher_ = this->create_publisher<sensor_msgs::msg::MagneticField>("mpu_mag", 10);
   
-    // Initialize the sensor
-
-    perror("mpu9250: set interface failed.\n");
-
     mpu9250_interface_t interface = MPU9250_INTERFACE_IIC;
     mpu9250_address_t addr = MPU9250_ADDRESS_AD0_LOW;
     uint8_t status = mpu9250_basic_init(interface, addr);

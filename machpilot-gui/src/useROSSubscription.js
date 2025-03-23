@@ -1,6 +1,7 @@
 // src/useROSSubscription.js
 import { useEffect, useState } from 'react';
 import ros from './rosConnection';
+import {Topic} from 'roslib';
 
 // Custom hook to subscribe to a ROS topic.
 // - topicName: the name of the topic (e.g., "/h20pro/engine_data")
@@ -10,7 +11,7 @@ const useROSSubscription = (topicName, messageType) => {
 
   useEffect(() => {
     // Create a new topic instance using ROSLIB.
-    const topic = new window.ROSLIB.Topic({
+    const topic = new Topic({
       ros: ros,
       name: topicName,
       messageType: messageType

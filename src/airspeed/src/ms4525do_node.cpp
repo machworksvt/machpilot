@@ -39,7 +39,7 @@ public:
         // Publish Temperature message
         auto temp_msg = sensor_msgs::msg::Temperature();
         temp_msg.header.stamp = this->now();
-        temp_msg.header.frame_id = "ms4525do_frame";
+        temp_msg.header.frame_id = "1";
         temp_msg.temperature = temperature_c;
         temp_msg.variance = 0.0;  // Unknown variance; adjust if available
         temperature_publisher_->publish(temp_msg);
