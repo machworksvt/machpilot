@@ -1,7 +1,10 @@
 #include <tinyfsm.hpp>
-#include "ScreenManager.hpp"
+#include "ScreenManager.cpp"
 #include <iostream>
 #include <array>
+#include "motorManager.cpp"
+
+
 
 
 // Event declarations
@@ -10,42 +13,44 @@ struct InitializeSubsystem : tinyfsm::Event {
   InitializeSubsystem(size_t id) : subsystem_id(id) {}
 };
 
-struct ARMMotor      : tinyfsm::Event { };
-struct TakeOff       : tinyfsm::Event { };
-struct Landing       : tinyfsm::Event { };
-struct DisarmEvent   : tinyfsm::Event { };
-struct ShutdownEvent : tinyfsm::Event { };
+struct ArmMotor                : tinyfsm::Event { };
+struct ManualControl           : tinyfsm::Event { };
+struct RelinquishManualControl : tinyfsm::Event { };
+struct DisarmEvent             : tinyfsm::Event { };
+struct ShutdownEvent           : tinyfsm::Event { };
 
 class Uninitialized;
 class Initialized;
 class Armed;
-class Flight;
+class ManualFlight;
 class Disarm;
 class Shutdown;
 
 // Base state machine class
 class StateMachine : public tinyfsm::Fsm<StateMachine> {
 public:
-    virtual void react(InitializeSubsystem const & e) {};
-    virtual void react(ARMMotor            const & e) {};
-    virtual void react(TakeOff             const & e) {};
-    virtual void react(Landing             const & e) {};
-    virtual void react(DisarmEvent         const & e) {};
-    virtual void react(ShutdownEvent       const & e) {};
+    virtual void react(InitializeSubsystem     const & e) {};
+    virtual void react(ArmMotor                const & e) {};
+    virtual void react(ManualControl           const & e) {};
+    virtual void react(RelinquishManualControl const & e) {};
+    virtual void react(DisarmEvent             const & e) {};
+    virtual void react(ShutdownEvent           const & e) {};
     
-    virtual bool screen_on()=0;
+    virtual ScreenState get_screen_state()=0;
+    virtual MotorSound get_motor_state(){
+      return MotorSound::Silent;
+    };
 
     virtual void entry_start() {}
     virtual void entry_end() {}
 
     void entry() {
+
       entry_start();
 
-      if (screen_on()){
-        ScreenManager::dispatch(ScreenOnEvent());
-      }else{
-        ScreenManager::dispatch(ScreenOffEvent());
-      }
+      set_screen_state(get_screen_state());
+      set_motor_state(get_motor_state());
+
       entry_end();
     };
     void exit() {}
@@ -96,53 +101,62 @@ private:
     }
   }
 
-  bool screen_on() override{
-    return true;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOn;
   }
 };
 
-// Initialized state: on receiving ARMMotor, transition to Armed.
+// Initialized state: on receiving ArmMotor, transition to Armed.
 class Initialized : public StateMachine {
   void entry_start() override {
     std::cout << "Transitioned to Initialized state\n";
   }
-  void react(ARMMotor const &) override {
+  void react(ArmMotor const &) override {
     transit<Armed>();
   }
 
-  bool screen_on() override{
-    return true;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOn;
+  }
+
+  MotorSound get_motor_state() override{
+    return MotorSound::Quiet;
   }
 };
 
-// Armed state: on receiving TakeOff, transition to Flight. on reciving DisarmEvent, transition to Disarm
+// Armed state: on receiving ManualControl, transition to ManualFlight. on reciving DisarmEvent, transition to Disarm
 class Armed : public StateMachine {
   void entry_start() override {
     std::cout << "Transitioned to Armed state\n";
   }
-  void react(TakeOff const &) override {
-    transit<Flight>();
+  void react(ManualControl const &) override {
+    transit<ManualFlight>();
   }
   void react(DisarmEvent const &) override {
     transit<Disarm>();
   }
 
-  bool screen_on() override{
-    return true;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOff;
   }
+
+  MotorSound get_motor_state() override{
+    return MotorSound::Loud;
+  }
+
 };
 
-// Flight state: on receiving Landing, transition to Armed.
-class Flight : public StateMachine {
+// ManualFlight state: on receiving RelinquishManualControl, transition to Armed.
+class ManualFlight : public StateMachine {
   void entry_start() override {
     std::cout << "Transitioned to Flight state\n";
   }
-  void react(Landing const &) override {
+  void react(RelinquishManualControl const &) override {
     transit<Armed>();
   }
 
-  bool screen_on() override{
-    return false;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOff;
   }
 };
 
@@ -155,8 +169,12 @@ class Disarm : public StateMachine {
     transit<Shutdown>();
   }
 
-  bool screen_on() override{
-    return true;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOn;
+  }
+
+  MotorSound get_motor_state() override{
+    return MotorSound::Quiet;
   }
 };
 
@@ -165,14 +183,13 @@ class Shutdown : public StateMachine {
   void entry_start() override {
     std::cout << "Transitioned to Shutdown state\n";
   }
-  bool screen_on() override{
-    return false;
+  ScreenState get_screen_state() override{
+    return ScreenState::ScreenOff;
   }
 };
 
 // Define the initial state
 FSM_INITIAL_STATE(StateMachine, Uninitialized)
-
 
 
 template<typename E>
@@ -186,25 +203,25 @@ int main(){
     // Dispatch events in sequence to simulate state transitions.
     // The FSM starts in Uninitialized state.
     
-    ScreenManager::start();
     StateMachine::start();
 
-    // Initialize two sensors.
+    // Initialize subsystem 0.
     send_event(InitializeSubsystem(0));
 
     // Initialize sensor 0 twice
     send_event(InitializeSubsystem(0));
 
+     // Initialize subsystem 1.
     send_event(InitializeSubsystem(1));
     
     // Transition from Initialized to Armed.
-    send_event(ARMMotor());
+    send_event(ArmMotor());
     
-    // Transition from Armed to Flight.
-    send_event(TakeOff());
+    // Transition from Armed to Manual Flight.
+    send_event(ManualControl());
     
-    // Transition from Flight to Landing.
-    send_event(Landing());
+    // Transition from Manual Flight to Landing.
+    send_event(RelinquishManualControl());
     
     // Transition from Landing to Disarm.
     send_event(DisarmEvent());

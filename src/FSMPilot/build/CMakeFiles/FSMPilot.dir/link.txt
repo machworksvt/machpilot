@@ -1,1 +1,1 @@
-/usr/bin/g++ CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o -o FSMPilot
+/usr/bin/g++ CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o -o FSMPilot
