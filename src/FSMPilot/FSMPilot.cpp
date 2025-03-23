@@ -53,7 +53,7 @@ public:
 
 
 static const size_t SUBSYSTEM_COUNT = 2;
-static const std::string SUBSYSTEM_NAMES[SUBSYSTEM_COUNT]={"subsystems1","subsystems2"};
+static const std::array<std::string,SUBSYSTEM_COUNT> SUBSYSTEM_NAMES={"subsystems1","subsystems2"};
 
 // Uninitialized state:
 // Holds an array to track what systems are initializated
@@ -78,16 +78,18 @@ private:
 
   void react(InitializeSubsystem const & e) override {
     if (e.subsystem_id < SUBSYSTEM_COUNT) {
+      std::string subsystem_name=SUBSYSTEM_NAMES[e.subsystem_id];
+
       if (!subsystems[e.subsystem_id]) {
         subsystems[e.subsystem_id] = true;
         ++init_count;
-        std::cout << "Subsystem " << SUBSYSTEM_NAMES[e.subsystem_id] << " initialized (" 
+        std::cout << "Subsystem " << subsystem_name << " initialized (" 
                   << init_count << "/" << SUBSYSTEM_COUNT << ")\n";
         if (init_count == SUBSYSTEM_COUNT) {
           transit<Initialized>();
         }
       } else {
-        std::cout << "Subsystem " << SUBSYSTEM_NAMES[e.subsystem_id] << " has already been initialized\n";
+        std::cout << "Subsystem " << subsystem_name << " has already been initialized\n";
       }
     } else {
       std::cout << "Invalid Subsystem id: " << e.subsystem_id << "\n";
