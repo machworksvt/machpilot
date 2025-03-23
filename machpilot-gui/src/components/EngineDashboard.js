@@ -270,7 +270,7 @@ const EngineDashboard = () => {
           value={throttleValue}
           onChange={handleThrottleChange}
           style={{ width: '100%', zIndex: 1000 }}
-        />
+          />
         </div>
         <div style={centerColumnStyle}>
           {/* Center column elements */}
