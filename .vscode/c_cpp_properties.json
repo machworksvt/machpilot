@@ -19,7 +19,9 @@
                 "${workspaceFolder}/src/ext_deps/include/**",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
                 "${workspaceFolder}/src/FSMPilot/tinyfsm/include",
-                "${workspaceFolder}/src/FSMPilot"
+                "${workspaceFolder}/src/FSMPilot",
+                "${workspaceFolder}/src/interfaces/action/**",
+                "${workspaceFolder}/src/interfaces/action"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

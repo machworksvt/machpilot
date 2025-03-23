@@ -1,0 +1,11 @@
+# Igniter Test.action
+# Runs the igniters
+
+# Request
+
+---
+
+#Result
+bool success
+
+---

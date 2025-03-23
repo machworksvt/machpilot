@@ -13,21 +13,36 @@ find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 
-add_executable(can_interface_node src/can_interface_node.cpp)
-target_include_directories(can_interface_node PUBLIC
+add_executable(h20pro_node src/h20pro_node.cpp)
+add_executable(can_bridge_node src/can_bridge_node.cpp)
+target_include_directories(h20pro_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(can_interface_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_include_directories(can_bridge_node PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>)
+target_compile_features(h20pro_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  can_interface_node
+  h20pro_node
   "rclcpp"
   "rclcpp_action"
   "std_srvs"
   "std_msgs"
   "interfaces"
 )
+target_compile_features(can_bridge_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+ament_target_dependencies(
+  can_bridge_node
+  "rclcpp"
+  "std_srvs"
+  "std_msgs"
+  "interfaces"
+)
 
-install(TARGETS can_interface_node
+install(TARGETS h20pro_node
+  DESTINATION lib/${PROJECT_NAME})
+
+install(TARGETS can_bridge_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

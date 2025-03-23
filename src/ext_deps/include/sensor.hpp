@@ -5,9 +5,12 @@
 #include <sensor_msgs/msg/fluid_pressure.hpp>
 #include <std_srvs/srv/trigger.hpp>
 #include <std_msgs/msg/u_int8.hpp>
+#include <std_msgs/msg/string.hpp>
+#include <std_msgs/msg/float32_multi_array.hpp>
 #include <diagnostic_msgs/msg/diagnostic_status.hpp>
 #include <diagnostic_msgs/msg/diagnostic_array.hpp>
 #include <diagnostic_msgs/msg/key_value.hpp>
+#include <rclcpp_action/rclcpp_action.hpp>
 
 /**
  * A class declaration used for every sensor node, is implemented per sensor.

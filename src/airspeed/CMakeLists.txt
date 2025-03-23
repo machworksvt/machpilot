@@ -7,11 +7,7 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(std_srvs REQUIRED)
-find_package(diagnostic_msgs REQUIRED)
+find_package(shared_lib REQUIRED)
 
 file(GLOB MS4525DO_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed/*.cpp"
@@ -32,14 +28,7 @@ target_include_directories(ms4525do_node PUBLIC
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(ms4525do_node ms4525do)
 target_compile_features(ms4525do_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  ms4525do_node
-  "rclcpp"
-  "std_msgs"
-  "sensor_msgs"
-  "std_srvs"
-  "diagnostic_msgs"
-)
+ament_target_dependencies(ms4525do_node shared_lib)
 
 install(TARGETS ms4525do_node
   DESTINATION lib/${PROJECT_NAME})

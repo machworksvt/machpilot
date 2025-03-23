@@ -7,39 +7,37 @@ endif()
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
-find_package(std_msgs REQUIRED)
-find_package(sensor_msgs REQUIRED)
-find_package(std_srvs REQUIRED)
-find_package(diagnostic_msgs REQUIRED)
+find_package(shared_lib REQUIRED)
+
+rosidl_generate_interfaces(${PROJECT_NAME}
+  "../interfaces/action/CalibrateBNO055.action"
+)
 
 file(GLOB BNO055_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src/*.cpp"
   )
 
 add_library(bno055 STATIC ${BNO055_SOURCES})
 
 target_include_directories(bno055 PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../src/ext_deps/include>
   )
 
 add_executable(bno055_node src/bno055_node.cpp)
+
 target_include_directories(bno055_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/orient>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/BNO055-Linux-Library/I2C/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../ext_deps/include>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(bno055_node bno055)
 target_compile_features(bno055_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  bno055_node
-  "rclcpp"
-  "std_msgs"
-  "sensor_msgs"
-  "std_srvs"
-  "diagnostic_msgs"
-)
+
+ament_target_dependencies(bno055_node shared_lib)
 
 install(TARGETS bno055_node
   DESTINATION lib/${PROJECT_NAME})
