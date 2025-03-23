@@ -1,7 +1,7 @@
 // src/components/DashboardHeader.js
 import React, { useContext } from 'react';
 import { ROSContext } from '../ROSContext'; // Assuming you're using context for connection status
-import logo from '../assets/Icarus_Full_Emblem_4Kfit.png'; // Adjust the path as needed
+import logo from '../assets/Icarus_Flat_Banner_4Kfit_B.png'; // Adjust the path as needed
 import refreshIcon from '../assets/refresh-cw-alt-3-svgrepo-com.svg'; // Adjust the path as needed
 
 /**
@@ -20,16 +20,16 @@ const DashboardHeader = ({ vehicleName, dashboardName }) => {
   };
 
   const headerStyle = {
-    background: '#333',
+    background: '#b16200',
     color: '#fff',
-    padding: '10px 15px',
+    padding: '5px 15px',
     display: 'flex',
     alignItems: 'center',
-    fontFamily: 'MyCustomFont, sans-serif', // Use your custom font here
+    fontFamily: 'MW Font', // Use your custom font here
   };
 
   const logoStyle = {
-    height: '100px', // adjust size as needed
+    height: '70px', // adjust size as needed
     marginRight: '15px',
   };
 
@@ -79,8 +79,7 @@ const DashboardHeader = ({ vehicleName, dashboardName }) => {
     <header style={headerStyle}>
       <img src={logo} alt="Logo" style={logoStyle} />
       <div style={titleContainerStyle}>
-        <h1 style={{ margin: 0 }}>{vehicleName}</h1>
-        <h3 style={{ margin: 0, fontWeight: 'normal' }}>{dashboardName}</h3>
+        <h1 style={{ margin: 40 }}>{dashboardName}</h1>
       </div>
       <div style={refreshStatusContainerStyle}>
         {connectionStatus !== 'Connected' && (

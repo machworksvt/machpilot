@@ -15,12 +15,37 @@ code {
 
 .panel {
   background: #000000;
-  border: 2px dashed #b16200;
-  color: #b16200;
-  padding: 5px;
-  margin: 5px;
+  border: 1px solid #904f00;
+  color: #904f00;
+  padding: 1px;
+  margin: 0px;
   border-radius: 4px;
   text-align: center;
-  
 }
 
+.dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('./assets/Icarus_Full_No_Emblem_1080fit.png') no-repeat center;
+  background-size: contain;
+  opacity: 0.1; /* Adjust transparency as needed */
+  z-index: 0;
+}
+
+@font-face {
+  font-family: 'VCR OSD Mono';
+  src: url('./assets/VCR_OSD_MONO_1.001.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'MW Font';
+  src: url('./assets/MachWorks.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

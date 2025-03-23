@@ -8,7 +8,7 @@ function App() {
   return (
     <ROSProvider>
       <div className="App">
-        <DashboardHeader vehicleName="ICARUS" dashboardName="Engine Dashboard" />
+        <DashboardHeader />
         <EngineDashboard />
       </div>
     </ROSProvider>

@@ -15,7 +15,6 @@ const EngineDataPanel = () => {
   const egt = engineData ? engineData.egt : 0;
   const pump_power = engineData ? engineData.pump_power : 0;
 
-
   return (
     <div className="panel engine-data-panel" >
       <h3>Engine Data</h3>
