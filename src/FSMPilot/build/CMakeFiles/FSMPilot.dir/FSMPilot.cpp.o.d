@@ -12,7 +12,7 @@ CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h \
  /usr/include/c++/9/pstl/pstl_config.h \
- /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.hpp \
+ /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.cpp \
  /usr/include/c++/9/iostream /usr/include/c++/9/ostream \
  /usr/include/c++/9/ios /usr/include/c++/9/iosfwd \
  /usr/include/c++/9/bits/stringfwd.h /usr/include/c++/9/bits/memoryfwd.h \
@@ -142,4 +142,5 @@ CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o: \
  /usr/include/c++/9/bits/basic_ios.tcc \
  /usr/include/c++/9/bits/ostream.tcc /usr/include/c++/9/istream \
  /usr/include/c++/9/bits/istream.tcc /usr/include/c++/9/array \
- /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h
+ /usr/include/c++/9/utility /usr/include/c++/9/bits/stl_relops.h \
+ /home/noahk/programs/machpilot/src/FSMPilot/motorManager.cpp

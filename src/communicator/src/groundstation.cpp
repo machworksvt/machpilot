@@ -41,6 +41,7 @@ class GroundStationNode : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "Connection succeeded. Waiting for ICARUS detection.");
       // subscribe to system found event
       mavsdk_.subscribe_on_new_system(std::bind(&GroundStationNode::system_found_callback, this));
+
     }
 
     public:
@@ -61,9 +62,6 @@ class GroundStationNode : public rclcpp::Node
         RCLCPP_INFO(this->get_logger(), "Telemetry, action and param created.");
         // now we subscribe to all the telemetry we except to get from the vehicle
       }
-    
-    
-    
 
     Mavsdk mavsdk_{Mavsdk::Configuration{ComponentType::GroundStation}};
 

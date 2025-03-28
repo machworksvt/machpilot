@@ -85,12 +85,12 @@ clean: CMakeFiles/FSMPilot.dir/clean
 CMakeFiles/FSMPilot.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles --progress-num=1,2,3 "Built target FSMPilot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles --progress-num=1,2 "Built target FSMPilot"
 .PHONY : CMakeFiles/FSMPilot.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/FSMPilot.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/FSMPilot.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles 0
 .PHONY : CMakeFiles/FSMPilot.dir/rule
@@ -102,7 +102,7 @@ FSMPilot: CMakeFiles/FSMPilot.dir/rule
 # codegen rule for target.
 CMakeFiles/FSMPilot.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles --progress-num=1,2,3 "Finished codegen for target FSMPilot"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles --progress-num=1,2 "Finished codegen for target FSMPilot"
 .PHONY : CMakeFiles/FSMPilot.dir/codegen
 
 # clean rule for target.

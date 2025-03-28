@@ -153,30 +153,6 @@ FSMPilot.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/FSMPilot.cpp.s
 .PHONY : FSMPilot.cpp.s
 
-ScreenManager.o: ScreenManager.cpp.o
-.PHONY : ScreenManager.o
-
-# target to build an object file
-ScreenManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o
-.PHONY : ScreenManager.cpp.o
-
-ScreenManager.i: ScreenManager.cpp.i
-.PHONY : ScreenManager.i
-
-# target to preprocess a source file
-ScreenManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/ScreenManager.cpp.i
-.PHONY : ScreenManager.cpp.i
-
-ScreenManager.s: ScreenManager.cpp.s
-.PHONY : ScreenManager.s
-
-# target to generate assembly for a file
-ScreenManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/FSMPilot.dir/build.make CMakeFiles/FSMPilot.dir/ScreenManager.cpp.s
-.PHONY : ScreenManager.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -189,9 +165,6 @@ help:
 	@echo "... FSMPilot.o"
 	@echo "... FSMPilot.i"
 	@echo "... FSMPilot.s"
-	@echo "... ScreenManager.o"
-	@echo "... ScreenManager.i"
-	@echo "... ScreenManager.s"
 .PHONY : help
 
 

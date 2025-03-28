@@ -1,8 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o"
   "CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o.d"
-  "CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o"
-  "CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o.d"
   "FSMPilot"
   "FSMPilot.pdb"
 )

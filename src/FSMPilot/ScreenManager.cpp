@@ -1,27 +1,24 @@
-#include <tinyfsm.hpp>
-#include "ScreenManager.hpp"
 #include <iostream>
 
-class ScreenOn;
-class ScreenOff;
-
-class ScreenOn: public ScreenManager{
-    void entry() override{
-        std::cout<<"Screen On\n";
-    }
-    void react(ScreenOffEvent const & e) override{
-        transit<ScreenOff>();
-    }
+enum ScreenState{
+    ScreenOn,
+    ScreenOff,
 };
 
 
-class ScreenOff: public ScreenManager{
-    void entry() override{
-        std::cout<<"Screen Off\n";
-    }
-    void react(ScreenOnEvent const & e) override{
-        transit<ScreenOn>();
-    }
-};
+ScreenState current_screen_state=ScreenOff;
 
-FSM_INITIAL_STATE(ScreenManager,ScreenOn);
+void set_screen_state(ScreenState new_state){
+    if (new_state==current_screen_state){
+        return;
+    };
+    current_screen_state=new_state;
+    switch (new_state){
+        case ScreenState::ScreenOn:
+            std::cout << "\tScreen Set To On\n";
+            break;
+        case ScreenState::ScreenOff:
+            std::cout << "\tScreen Set To Off\n";
+            break;
+    };
+}
