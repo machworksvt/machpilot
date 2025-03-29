@@ -772,19 +772,23 @@ private:
     std::function<void(const interfaces::msg::CanMsg & msg)> handler;
   };
 
-private:
   bool send_can_msg(interfaces::msg::CanMsg msg) {
-    interfaces::srv::SendCanMessage::Request::SharedPtr request = std::make_shared<interfaces::srv::SendCanMessage::Request>();
+    auto request = std::make_shared<interfaces::srv::SendCanMessage::Request>();
     request->msg = msg;
-    auto response = can_tx_srv_->async_send_request(request);
-
-    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), response) == rclcpp::FutureReturnCode::SUCCESS) {
-      return response.get()->success;
-    } else {
-      RCLCPP_ERROR(this->get_logger(), "Failed to call service send_can_message");
-      return false;
+    auto future = can_tx_srv_->async_send_request(request);
+  
+    // Wait for the future with a timeout loop without calling spin.
+    auto timeout = std::chrono::seconds(2);
+    auto start_time = std::chrono::steady_clock::now();
+    while (future.wait_for(std::chrono::milliseconds(100)) != std::future_status::ready) {
+      if (std::chrono::steady_clock::now() - start_time > timeout) {
+        RCLCPP_ERROR(this->get_logger(), "Timeout waiting for can_tx service response");
+        return false;
+      }
+      // You might want to sleep briefly to avoid busy-waiting.
     }
-  }
+    return future.get()->success;
+  }  
 
 private:
   void setup_messsage_map() {
