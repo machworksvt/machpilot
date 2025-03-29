@@ -785,7 +785,7 @@ private:
         RCLCPP_ERROR(this->get_logger(), "Timeout waiting for can_tx service response");
         return false;
       }
-      // You might want to sleep briefly to avoid busy-waiting.
+      std::this_thread::sleep_for(5ms);
     }
     return future.get()->success;
   }  
