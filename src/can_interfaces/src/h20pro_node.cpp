@@ -1114,10 +1114,10 @@ private:
       current_errors_ = errors_message_;
     }
 
-    RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
-    for (const auto & err : error_messages) {
-      RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
-    }
+    //RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
+    //for (const auto & err : error_messages) {
+    //  RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
+    //}
   }
 
 private:

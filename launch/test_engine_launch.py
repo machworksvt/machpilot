@@ -21,12 +21,23 @@ def generate_launch_description():
         name='h20pro_node'
     )
 
+    """
     rosbridge_launch = IncludeLaunchDescription(
         XMLLaunchDescriptionSource(
             os.path.join(
                 get_package_share_directory('rosbridge_server'),
                 'launch',
                 'rosbridge_websocket_launch.xml'
+            )
+        )
+    )
+    """
+
+    rosbridge_launch = IncludeLaunchDescription(
+        XMLLaunchDescriptionSource(
+            os.path.join(
+                get_package_share_directory("rosbridge_server"),
+                "launch/rosbridge_websocket_launch.xml",
             )
         )
     )
@@ -44,8 +55,6 @@ def generate_launch_description():
         ]
     )
 
-    # Optionally, use TimerAction to delay the startup of nodes that depend on others.
-    # For example, start h20pro_node 2 seconds after can_bridge_node, and web bridge 2 seconds after h20pro_node.
     return LaunchDescription([
         can_bridge_node,
         TimerAction(period=5.0, actions=[h20pro_node]),
