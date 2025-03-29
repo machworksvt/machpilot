@@ -81,13 +81,16 @@ public:
       can_processing_group_ is used to handle the can message subscription, reentrant type
     */
     
-    CallbackGroup::SharedPtr action_callback_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-    CallbackGroup::SharedPtr throttle_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+    action_callback_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    throttle_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
     SubscriptionOptions throttle_sub_options;
     throttle_sub_options.callback_group = throttle_processing_group_;
-    CallbackGroup::SharedPtr can_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+    can_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
     SubscriptionOptions can_sub_options;
     can_sub_options.callback_group = can_processing_group_;
+
+    kill_service_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    // action options
     
     can_rx_sub_ = this->create_subscription<interfaces::msg::CanMsg>(
       "/can_rx", 10, std::bind(&CanInterfaceNode::handle_can_rx, this, _1), can_sub_options); //subscribe to the can_rx topic
@@ -159,12 +162,15 @@ public:
     //the kill service/handling of running mode
     kill_service_ = this->create_service<std_srvs::srv::Trigger>(
       "/h20pro/kill",
-      std::bind(&CanInterfaceNode::handle_kill_service, this, _1, _2)
+      std::bind(&CanInterfaceNode::handle_kill_service, this, _1, _2),
+      rmw_qos_profile_default,
+      kill_service_group_
     );
 
     throttle_timer_ = this->create_wall_timer(
       100ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this), throttle_processing_group_);
     
+      RCLCPP_INFO(this->get_logger(), "finished constructor");
   }
 
   ~CanInterfaceNode()
@@ -240,12 +246,13 @@ private:
 private:
   rclcpp_action::GoalResponse handle_starter_test_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::StarterTest::Goal> goal) { //callback for handling request
-      std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
       RCLCPP_INFO(this->get_logger(), "Received Request to run starter test.");
-
-      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
-        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting starter test request.");
-        return rclcpp_action::GoalResponse::REJECT;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+          RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting starter test request.");
+          return rclcpp_action::GoalResponse::REJECT;
+        }
       }
       RCLCPP_INFO(this->get_logger(), "Accepting request to run starter test.");
       return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
@@ -1373,6 +1380,12 @@ private:
 
 private:
   std::mutex state_mutex_; //This could be improved to have a more fine-grained locking strategy
+
+private:
+  CallbackGroup::SharedPtr action_callback_group_;
+  CallbackGroup::SharedPtr throttle_processing_group_;
+  CallbackGroup::SharedPtr can_processing_group_;
+  CallbackGroup::SharedPtr kill_service_group_;
 
 };
 
