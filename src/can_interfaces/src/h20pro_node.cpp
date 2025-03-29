@@ -193,22 +193,16 @@ private:
     if (msg.data < 0 || msg.data > 100) {
       RCLCPP_WARN(this->get_logger(), "Throttle command out of range (0-100%%): %f. Clamping.", msg.data);
     } 
-    { //lock the mutex to update the throttle command
-      std::lock_guard<std::mutex> lock(state_mutex_);
-      throttle_cmd_ = std::max(0.0f, std::min(msg.data, 100.0f));
-    }
+    throttle_cmd_.store(std::max(0.0f, std::min(msg.data, 100.0f)));
   }
 
 private:
   void send_throttle_command_callback() {
-    {
-      std::lock_guard<std::mutex> lock(state_mutex_); //lock the mutex to read the throttle command
-      if (!under_throttle_control_) return; //if we are not under throttle control, don't send the command
-    } 
+    if (!under_throttle_control_.load()) return; //if we are not under throttle control, don't send the command
     interfaces::msg::CanMsg throttle_message = interfaces::msg::CanMsg(throttle_off_msg_);
     //the first 2 bytes are the throttle command
     //byte 0 is the high byte, byte 1 is the low byte
-    uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_ * 10); //convert to 0-1000 range
+    uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_.load() * 10); //convert to 0-1000 range
     throttle_message.data[0] = (throttle_cmd_value >> 8) & 0xFF;
     throttle_message.data[1] = throttle_cmd_value & 0xFF;
 
@@ -721,11 +715,8 @@ private:
       if (has_passed) {
         //we succeeded
         //we can safely enable throttle control
-        {
-          std::lock_guard<std::mutex> lock(state_mutex_);
-          throttle_cmd_ = 0; //idle throttle by default
-          under_throttle_control_ = true;
-        }
+        throttle_cmd_.store(0.0); //idle throttle by default
+        under_throttle_control_.store(true);
         result->success = true;
         goal_handle->succeed(result);
         return;
@@ -759,10 +750,7 @@ private:
 
 private:
   bool kill_control() {
-    {
-      std::lock_guard<std::mutex> lock(state_mutex_);
-      under_throttle_control_ = false;
-    }
+    under_throttle_control_.store(false);
     return send_can_msg(control_off_msg_);
   }
 
@@ -1063,7 +1051,6 @@ private:
 
     engine2_data_pub_->publish(pump_rpm_message_);
 
-
     {
       std::lock_guard<std::mutex> lock(state_mutex_);
       current_pump_data_ = pump_rpm_message_;
@@ -1114,10 +1101,10 @@ private:
       current_errors_ = errors_message_;
     }
 
-    RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
-    for (const auto & err : error_messages) {
-      RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
-    }
+    //RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
+    //for (const auto & err : error_messages) {
+    //  RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
+    //}
   }
 
 private:
@@ -1284,8 +1271,8 @@ private:
   interfaces::msg::VoltageCurrent current_voltage_current_;
 
   //Other pieces of information relevant to engine operation
-  bool under_throttle_control_ = false;
-  float throttle_cmd_ = 0.0;
+  std::atomic<bool> under_throttle_control_{false};
+  std::atomic<float> throttle_cmd_{0.0};
 
   //timer for sending throttle control commands
   rclcpp::TimerBase::SharedPtr throttle_timer_;
