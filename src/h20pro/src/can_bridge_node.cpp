@@ -94,12 +94,13 @@ class CANHandler : public rclcpp::Node {
             struct can_frame frame;
             while(running_) {
             //lock for thread-safe socket access
+            ssize_t nbytes;
             {
                 std::lock_guard<std::mutex> lock(mutex_);
-                ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-                if (nbytes > 0) {
+                nbytes = read(socket_fd_, &frame, sizeof(struct can_frame)); 
+            }
+            if (nbytes > 0) {
                 frame_callback(frame);
-                }
             }
             std::this_thread::sleep_for(10ms);
             }
