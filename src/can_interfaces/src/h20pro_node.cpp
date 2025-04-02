@@ -670,7 +670,7 @@ private:
 
 private:
   void execute_start(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Start>> goal_handle) {
-      RCLCPP_DEBUG(this->get_logger(), "Starting engine.");
+      RCLCPP_INFO(this->get_logger(), "Starting engine.");
 
       auto result = std::make_shared<interfaces::action::Start::Result>();
 
@@ -680,6 +680,8 @@ private:
         goal_handle->abort(result); //abort out due to failure
         return;
       }
+
+      RCLCPP_INFO(this->get_logger(), "Sent start command. Waiting for engine to start.");
 
       auto start_time = this->now();
       bool has_passed = false;
@@ -704,7 +706,8 @@ private:
 
         {
           std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine}
-          if(current_engine_data_.state == 5) { //if we see the engine state change to 5, we declare success
+          RCLCPP_INFO(this->get_logger(), "Engine state: %u", current_engine_data_.state);
+          if(current_engine_data_.state == 11) { //if we see the engine state change to 11, we declare success
             has_passed = true;
             break;
           }
@@ -780,7 +783,7 @@ private:
     // Wait for the future with a timeout loop without calling spin.
     auto timeout = std::chrono::seconds(2);
     auto start_time = std::chrono::steady_clock::now();
-    while (future.wait_for(std::chrono::milliseconds(100)) != std::future_status::ready) {
+    while (future.wait_for(std::chrono::milliseconds(5)) != std::future_status::ready) {
       if (std::chrono::steady_clock::now() - start_time > timeout) {
         RCLCPP_ERROR(this->get_logger(), "Timeout waiting for can_tx service response");
         return false;

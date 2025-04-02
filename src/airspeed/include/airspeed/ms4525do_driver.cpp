@@ -19,7 +19,6 @@ extern "C" {
     #include <linux/kernel.h>
 }
 
-/**
 int main() {
     MS4525DO ms = MS4525DO(0x28);
     while(1) {
@@ -31,7 +30,7 @@ int main() {
     }
     
 }
-*/
+
 
 MS4525DO::MS4525DO(int addr) {
     file_ = open(I2C_FILE_PATH, O_RDWR);
