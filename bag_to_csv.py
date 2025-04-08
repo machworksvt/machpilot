@@ -88,7 +88,7 @@ def bag_to_csv(bag_path):
             csv_filename = os.path.join(bag_path, topic_name.strip("/").replace("/", "_") + ".csv")
             csv_file = open(csv_filename, "w")        
             writer = csv.writer(csv_file)
-            header = ["timestap"] + sorted(flat_msg.keys())
+            header = ["timestamp"] + sorted(flat_msg.keys())
             writer.writerow(header)
             csv_writers[topic_name] = (writer, csv_file)
             header_written.add(topic_name)
