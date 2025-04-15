@@ -1,6 +1,8 @@
 CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o: \
  /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/9/iostream \
+ /usr/include/stdc-predef.h \
+ /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.hpp \
+ /usr/include/c++/9/iostream \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \

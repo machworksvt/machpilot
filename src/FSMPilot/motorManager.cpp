@@ -1,13 +1,5 @@
-
-
+#include "motorManager.hpp"
 #include <iostream>
-
-enum MotorSound{
-    Loud,
-    Quiet,
-    Silent,
-};
-
 
 MotorSound current_motor_state=Silent;
 

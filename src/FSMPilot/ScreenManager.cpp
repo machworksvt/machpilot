@@ -1,10 +1,5 @@
+#include "ScreenManager.hpp"
 #include <iostream>
-
-enum ScreenState{
-    ScreenOn,
-    ScreenOff,
-};
-
 
 ScreenState current_screen_state=ScreenOff;
 
