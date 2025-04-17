@@ -2,6 +2,9 @@
 #include "rc/math/math.h"
 #include "rc/time.h"
 
+// local magnetic field vector for Blacksburg, attained from NOAA's calculator
+#define INCLINATION 64.0972
+
 using std::placeholders::_1;
 
 class STATE_ESTMATORNode : public Controller
@@ -13,9 +16,25 @@ public:
     raw_state_;
     state_estimate_;
 
-    // initializing the Kalman filters
-    imu_kf_ = RC_KALMAN_INITIALIZER;
+    // initializing magnetic field reference
+    double mag_x = cos(INCLINATION * M_PI / 180.0),
+           mag_y = 0.0,
+           mag_z = sin(INCLINATION * M_PI / 180.0);
 
+    mag_norm_ = RC_VECTOR_INITIALIZER;
+    rc_vector_alloc(&mag_norm_, 3);
+
+    mag_norm_.d[0] = mag_x;
+    mag_norm_.d[1] = mag_y;
+    mag_norm_.d[2] = mag_z;
+    
+    // initializing the Kalman filters
+    if (imu_kf_init() == -1) {
+      std::cout << "IMU KF not initialized" << std::endl;
+      return;
+    }
+
+    // initializing raw state
     raw_state_.imu_omega_1 = RC_VECTOR_INITIALIZER;
     raw_state_.imu_omega_2 = RC_VECTOR_INITIALIZER;
     raw_state_.imu_accel_1 = RC_VECTOR_INITIALIZER;
@@ -44,6 +63,17 @@ public:
     rc_matrix_alloc(&raw_state_.imu_var_t_1, 3, 3);
     rc_matrix_alloc(&raw_state_.imu_var_t_2, 3, 3);
 
+    // initializing estimated state
+    state_estimate_.imu_omega_1 = RC_VECTOR_INITIALIZER;
+    state_estimate_.imu_omega_2 = RC_VECTOR_INITIALIZER;
+    state_estimate_.imu_quat_1 = RC_VECTOR_INITIALIZER;
+    state_estimate_.imu_quat_2 = RC_VECTOR_INITIALIZER;
+
+    rc_vector_alloc(&state_estimate_.imu_omega_1, 3);
+    rc_vector_alloc(&state_estimate_.imu_omega_2, 3);
+    rc_vector_alloc(&state_estimate_.imu_quat_1, 4);
+    rc_vector_alloc(&state_estimate_.imu_quat_2, 4);
+
     bmp_t_subscriber_ = this->create_subscription<sensor_msgs::msg::Temperature>(
     "bmp_temp", 10, std::bind(&STATE_ESTMATORNode::topic_callback<sensor_msgs::msg::Temperature::SharedPtr>, this, _1));
     bmp_p_subscriber_ = this->create_subscription<sensor_msgs::msg::FluidPressure>(
@@ -58,6 +88,50 @@ public:
     imu_subscriber_ = this->create_subscription<sensor_msgs::msg::Imu>(
     "imu", 10, std::bind(&STATE_ESTMATORNode::topic_callback<sensor_msgs::msg::Imu::SharedPtr>, this, _1));
 
+  }
+
+  uint8_t imu_kf_init() {
+    rc_matrix_t F = RC_MATRIX_INITIALIZER;
+    rc_matrix_t G = RC_MATRIX_INITIALIZER;
+    rc_matrix_t H = RC_MATRIX_INITIALIZER;
+    rc_matrix_t Q = RC_MATRIX_INITIALIZER;
+    rc_matrix_t R = RC_MATRIX_INITIALIZER;
+    rc_matrix_t Pi = RC_MATRIX_INITIALIZER;
+
+    imu_kf_ = RC_KALMAN_INITIALIZER;
+
+    uint8_t Nx = 7, Ny = 9, Nu = 1;
+
+    rc_matrix_zeros(&F, Nx, Nx);
+    rc_matrix_zeros(&G, Nx, Nu);
+    rc_matrix_zeros(&H, Ny, Nx);
+    rc_matrix_zeros(&Q, Nx, Nx);
+    rc_matrix_zeros(&R, Ny, Ny);
+    rc_matrix_zeros(&Pi, Nx, Nx);
+
+    // F, rest are zeros for now
+    F.d[0][0] = 1.0;
+    F.d[1][1] = 1.0;
+    F.d[2][2] = 1.0;
+    F.d[3][3] = 1.0;
+    F.d[4][5] = 1.0;
+    F.d[5][5] = 1.0;
+    F.d[6][6] = 1.0;
+
+    // H for gyrometer, rest are zeros for now
+    H.d[0][4] = 1.0;
+    H.d[1][5] = 1.0;
+    H.d[2][6] = 1.0;
+
+    if (rc_kalman_alloc_lin(&imu_kf_, F, G, H, Q, R, Pi) == -1) {
+      return -1;
+    }
+    rc_matrix_free(&F);
+    rc_matrix_free(&G);
+    rc_matrix_free(&H);
+    rc_matrix_free(&Q);
+    rc_matrix_free(&R);
+    rc_matrix_free(&Pi);
   }
 
 private:
@@ -189,6 +263,7 @@ private:
     vdp[1]->d[1] = msg->linear_acceleration.y;
     vdp[1]->d[2] = msg->linear_acceleration.z;
 
+    // orientation may not be included, depending on the sensor used
     vdp[2]->d[0] = msg->orientation.w;
     vdp[2]->d[1] = msg->orientation.x;
     vdp[2]->d[2] = msg->orientation.y;
@@ -214,6 +289,7 @@ private:
   raw_state_t raw_state_;
   state_estimate_t state_estimate_;
   rc_kalman_t imu_kf_;
+  rc_vector_t mag_norm_;
 };
 
 int main(int argc, char ** argv)

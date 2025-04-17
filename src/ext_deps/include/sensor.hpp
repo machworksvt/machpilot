@@ -17,6 +17,9 @@
  * Includes functions to initialize, reset, calibrate, run, stop, and publish data.
  * #TODO include other /msgs formats
  */
+
+#define DT 0.005 // seconds, should be used for timers
+
 class Sensor : public rclcpp::Node {
 public:
     /**

@@ -48,4 +48,9 @@ typedef struct {
 // a store for filtered data incoming from sensors and current control outputs
 typedef struct {
     double pitot_time_1f;
+
+    rc_vector_t imu_omega_1;
+    rc_vector_t imu_omega_2;
+    rc_vector_t imu_quat_1;
+    rc_vector_t imu_quat_2;
 } state_estimate_t;

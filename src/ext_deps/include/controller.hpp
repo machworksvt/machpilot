@@ -17,6 +17,9 @@
  * Includes functions to initialize, reset, run, stop.
  * #TODO include other /msgs formats
  */
+
+#define DT 0.005 // seconds, should be used for timers
+
 class Controller : public rclcpp::Node {
 public:
     /**
