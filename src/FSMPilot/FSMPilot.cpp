@@ -1,213 +1,178 @@
-#include <tinyfsm.hpp>
-#include "ScreenManager.hpp"
+#include "FSMPilot.hpp"
 #include <iostream>
 #include <array>
+#include "ErrorManagerList.hpp"
 
-
-// Event declarations
-struct InitializeSubsystem : tinyfsm::Event {
-  size_t subsystem_id;
-  InitializeSubsystem(size_t id) : subsystem_id(id) {}
-};
-
-struct ARMMotor      : tinyfsm::Event { };
-struct TakeOff       : tinyfsm::Event { };
-struct Landing       : tinyfsm::Event { };
-struct DisarmEvent   : tinyfsm::Event { };
-struct ShutdownEvent : tinyfsm::Event { };
-
-class Uninitialized;
-class Initialized;
-class Armed;
-class Flight;
-class Disarm;
-class Shutdown;
-
-// Base state machine class
-class StateMachine : public tinyfsm::Fsm<StateMachine> {
-public:
-    virtual void react(InitializeSubsystem const & e) {};
-    virtual void react(ARMMotor            const & e) {};
-    virtual void react(TakeOff             const & e) {};
-    virtual void react(Landing             const & e) {};
-    virtual void react(DisarmEvent         const & e) {};
-    virtual void react(ShutdownEvent       const & e) {};
-    
-    virtual bool screen_on()=0;
-
-    virtual void entry_start() {}
-    virtual void entry_end() {}
-
-    void entry() {
-      entry_start();
-
-      if (screen_on()){
-        ScreenManager::dispatch(ScreenOnEvent());
-      }else{
-        ScreenManager::dispatch(ScreenOffEvent());
-      }
-      entry_end();
-    };
-    void exit() {}
-};
-
-
-static const size_t SUBSYSTEM_COUNT = 2;
-static const std::string SUBSYSTEM_NAMES[SUBSYSTEM_COUNT]={"subsystems1","subsystems2"};
-
-// Uninitialized state:
-// Holds an array to track what systems are initializated
-// use InitializeSubsystem event to initailize a subsystem
-// once all subsystems are initalized transitions to Initialized
-class Uninitialized : public StateMachine {
-private:
-  std::array<bool, SUBSYSTEM_COUNT> subsystems;
-  size_t init_count;
-public:
-  Uninitialized() : subsystems{}, init_count(0) {}
-private:
-  void entry_start() override {
-    std::cout << "Entering Uninitialized state\n";
+// --- Define Extern Constants ---
+std::string sub_system_to_String(SubSystems id) {
+  switch (id) {
+      case SUBSYSTEM_0: return "Subsystem 0";
+      case SUBSYSTEM_1: return "Subsystem 1";
+      default: return "Unknown Subsystem";
   }
-  void entry_end() override{
-    if (SUBSYSTEM_COUNT==0){
-      std::cout << "No subsystems need be initialized transitioning to initalizied state directly\n";
-      transit<Initialized>();
+};
+
+// --- Base State Machine Method Implementations ---
+
+// Default empty implementations for react methods in the base class
+void StateMachine::react(InitializeSubsystem const & e)     {}
+void StateMachine::react(ArmMotor const & e)                {}
+void StateMachine::react(ManualControl const & e)           {}
+void StateMachine::react(RelinquishManualControl const & e) {}
+void StateMachine::react(DisarmEvent const & e)             {}
+void StateMachine::react(ShutdownEvent const & e)           {}
+void StateMachine::react(OnFireEvent const & e)             {
+    std::cout <<"\t"<<get_name() << " received fire event\n";
+}
+void StateMachine::react(FireSuppressedEvent const & e)     {
+    std::cout <<"\t"<<get_name() << " received fire suppressed event\n";
+}
+
+// Default implementation for get_motor_state
+MotorSound StateMachine::get_motor_state() {
+    return MotorSound::Silent;
+}
+
+
+void StateMachine::entry_start() {
+    std::cout << "Entering state: " << get_name() << "\n";
+}
+void StateMachine::entry_end()   {}
+
+
+void StateMachine::entry() {
+    entry_start();
+
+    for (ErrorManager* error_handler : error_handlers) {
+        error_handler->message_state_machine_if_error();
     }
-  }
 
-  void react(InitializeSubsystem const & e) override {
+
+    set_screen_state(get_screen_state());
+    set_motor_state(get_motor_state());
+
+    entry_end();
+}
+
+
+// --- Uninitialized State Implementation ---
+Uninitialized::Uninitialized() : subsystems{}, init_count(0) {}
+
+std::string Uninitialized::get_name() const{
+    return "Uninitialized";
+}
+
+void Uninitialized::entry_end() {
+    if (SUBSYSTEM_COUNT == 0) {
+        std::cout << "No subsystems need be initialized transitioning to initialized state directly\n";
+        transit<Initialized>();
+    }
+}
+
+void Uninitialized::react(InitializeSubsystem const & e) {
     if (e.subsystem_id < SUBSYSTEM_COUNT) {
-      if (!subsystems[e.subsystem_id]) {
-        subsystems[e.subsystem_id] = true;
-        ++init_count;
-        std::cout << "Subsystem " << SUBSYSTEM_NAMES[e.subsystem_id] << " initialized (" 
-                  << init_count << "/" << SUBSYSTEM_COUNT << ")\n";
-        if (init_count == SUBSYSTEM_COUNT) {
-          transit<Initialized>();
+        std::string subsystem_name = sub_system_to_String(e.subsystem_id);
+
+        if (!subsystems[e.subsystem_id]) {
+            subsystems[e.subsystem_id] = true;
+            ++init_count;
+            std::cout << "Subsystem " << subsystem_name << " initialized ("
+                      << init_count << "/" << SUBSYSTEM_COUNT << ")\n";
+            if (init_count == SUBSYSTEM_COUNT) {
+                transit<Initialized>();
+            }
+        } else {
+            std::cout << "Subsystem " << subsystem_name << " has already been initialized\n";
         }
-      } else {
-        std::cout << "Subsystem " << SUBSYSTEM_NAMES[e.subsystem_id] << " has already been initialized\n";
-      }
     } else {
-      std::cout << "Invalid Subsystem id: " << e.subsystem_id << "\n";
+        std::cout << "Invalid Subsystem id: " << e.subsystem_id << "\n";
     }
-  }
+}
 
-  bool screen_on() override{
-    return true;
-  }
-};
+ScreenState Uninitialized::get_screen_state() {
+    return ScreenState::ScreenOn;
+}
 
-// Initialized state: on receiving ARMMotor, transition to Armed.
-class Initialized : public StateMachine {
-  void entry_start() override {
-    std::cout << "Transitioned to Initialized state\n";
-  }
-  void react(ARMMotor const &) override {
+// --- Initialized State Implementation ---
+
+std::string Initialized::get_name() const{
+    return "Initialized";
+}
+
+void Initialized::react(ArmMotor const &) {
     transit<Armed>();
-  }
+}
 
-  bool screen_on() override{
-    return true;
-  }
-};
+ScreenState Initialized::get_screen_state() {
+    return ScreenState::ScreenOn;
+}
 
-// Armed state: on receiving TakeOff, transition to Flight. on reciving DisarmEvent, transition to Disarm
-class Armed : public StateMachine {
-  void entry_start() override {
-    std::cout << "Transitioned to Armed state\n";
-  }
-  void react(TakeOff const &) override {
-    transit<Flight>();
-  }
-  void react(DisarmEvent const &) override {
+MotorSound Initialized::get_motor_state() {
+    return MotorSound::Quiet;
+}
+
+// --- Armed State Implementation ---
+
+
+std::string Armed::get_name() const{
+    return "Armed";
+}
+
+void Armed::react(ManualControl const &) {
+    transit<ManualFlight>();
+}
+
+void Armed::react(DisarmEvent const &) {
     transit<Disarm>();
-  }
+}
 
-  bool screen_on() override{
-    return true;
-  }
-};
+ScreenState Armed::get_screen_state() {
+    return ScreenState::ScreenOff;
+}
 
-// Flight state: on receiving Landing, transition to Armed.
-class Flight : public StateMachine {
-  void entry_start() override {
-    std::cout << "Transitioned to Flight state\n";
-  }
-  void react(Landing const &) override {
+MotorSound Armed::get_motor_state() {
+    return MotorSound::Loud;
+}
+
+// --- ManualFlight State Implementation ---
+
+std::string ManualFlight::get_name() const{
+    return "ManualFlight";
+}
+
+void ManualFlight::react(RelinquishManualControl const &) {
     transit<Armed>();
-  }
+}
 
-  bool screen_on() override{
-    return false;
-  }
-};
+ScreenState ManualFlight::get_screen_state() {
+    return ScreenState::ScreenOff;
+}
 
-// Disarm state: on receiving Shutdown, transition to Shutdown.
-class Disarm : public StateMachine {
-  void entry_start() override {
-    std::cout << "Transitioned to Disarm state\n";
-  }
-  void react(ShutdownEvent const &) override {
+// --- Disarm State Implementation ---
+std::string Disarm::get_name() const{
+    return "Disarm";
+}
+
+void Disarm::react(ShutdownEvent const &) {
     transit<Shutdown>();
-  }
+}
 
-  bool screen_on() override{
-    return true;
-  }
-};
+ScreenState Disarm::get_screen_state() {
+    return ScreenState::ScreenOn;
+}
 
-// Shutdown state: final state.
-class Shutdown : public StateMachine {
-  void entry_start() override {
-    std::cout << "Transitioned to Shutdown state\n";
-  }
-  bool screen_on() override{
-    return false;
-  }
-};
+MotorSound Disarm::get_motor_state() {
+    return MotorSound::Quiet;
+}
 
-// Define the initial state
+// --- Shutdown State Implementation ---
+std::string Shutdown::get_name() const{
+    return "Shutdown";
+}
+
+ScreenState Shutdown::get_screen_state() {
+    return ScreenState::ScreenOff;
+}
+
+// --- Define the Initial State ---
 FSM_INITIAL_STATE(StateMachine, Uninitialized)
-
-
-
-template<typename E>
-void send_event(E const & event)
-{
-    StateMachine::template dispatch<E>(event);
-}
-
-
-int main(){
-    // Dispatch events in sequence to simulate state transitions.
-    // The FSM starts in Uninitialized state.
-    
-    ScreenManager::start();
-    StateMachine::start();
-
-    // Initialize two sensors.
-    send_event(InitializeSubsystem(0));
-
-    // Initialize sensor 0 twice
-    send_event(InitializeSubsystem(0));
-
-    send_event(InitializeSubsystem(1));
-    
-    // Transition from Initialized to Armed.
-    send_event(ARMMotor());
-    
-    // Transition from Armed to Flight.
-    send_event(TakeOff());
-    
-    // Transition from Flight to Landing.
-    send_event(Landing());
-    
-    // Transition from Landing to Disarm.
-    send_event(DisarmEvent());
-    
-    // Transition from Disarm to Shutdown.
-    send_event(ShutdownEvent());
-    return 0;
-}

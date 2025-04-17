@@ -43,6 +43,7 @@
 
 using namespace std::chrono_literals;
 using namespace std::placeholders;
+using namespace rclcpp;
 
 #define CAN_ID_BASE0 0x100
 #define CAN_ID_BASE1 0x120
@@ -50,19 +51,16 @@ using namespace std::placeholders;
 
 /*
   TODO:
-    Refactor to use the CanMsg datatype subscription and service from the can_bridge_node
-    Implement the throttle profile action
-
+    - Replace the throttle value and under_throttle_control_ with atomics to speed things up
+    - Make multiple mutexes for each of the data types to speed things up
 */
+
 class CanInterfaceNode : public rclcpp::Node
 {
 public:
   CanInterfaceNode()
   : Node("h20pro_node")
   {
-
-    can_rx_sub_ = this->create_subscription<interfaces::msg::CanMsg>(
-      "/can_rx", 10, std::bind(&CanInterfaceNode::handle_can_rx, this, _1));
 
     can_tx_srv_ = this->create_client<interfaces::srv::SendCanMessage>("/can_tx");
 
@@ -74,6 +72,28 @@ public:
     setup_messsage_map();
 
     RCLCPP_INFO(this->get_logger(), "CAN interface node initialized");
+
+
+    /*
+      three processing groups are created to handle the different types of callbacks
+      throttle_processing_group_ is used to handle the throttle command subscription and the throttle publish timer, reentrant type
+      action_callback_group_ is used to handle the action servers, mutually exclusive type, since actions shouldn't happen simultanously
+      can_processing_group_ is used to handle the can message subscription, reentrant type
+    */
+    
+    action_callback_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    throttle_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+    SubscriptionOptions throttle_sub_options;
+    throttle_sub_options.callback_group = throttle_processing_group_;
+    can_processing_group_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
+    SubscriptionOptions can_sub_options;
+    can_sub_options.callback_group = can_processing_group_;
+
+    kill_service_group_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    // action options
+    
+    can_rx_sub_ = this->create_subscription<interfaces::msg::CanMsg>(
+      "/can_rx", 10, std::bind(&CanInterfaceNode::handle_can_rx, this, _1), can_sub_options); //subscribe to the can_rx topic
 
     engine_data_pub_ = this->create_publisher<interfaces::msg::EngineData>("/h20pro/engine_data", 10);
     engine2_data_pub_ = this->create_publisher<interfaces::msg::PumpRpm>("/h20pro/engine_data2", 10);
@@ -87,14 +107,16 @@ public:
     system_info2_pub_ = this->create_publisher<interfaces::msg::SystemInfo2>("/h20pro/system_info2", 10);
     voltage_current_pub_ = this->create_publisher<interfaces::msg::VoltageCurrent>("/h20pro/voltage_current", 10);
 
-    throttle_cmd_sub_ = this->create_subscription<std_msgs::msg::Float32>("/h20pro/throttle_command", 10, std::bind(&CanInterfaceNode::throttle_command_callback, this, _1)); //this prolly isn't right
+    throttle_cmd_sub_ = this->create_subscription<std_msgs::msg::Float32>("/h20pro/throttle_command", 10, std::bind(&CanInterfaceNode::throttle_command_callback, this, _1), throttle_sub_options); //this prolly isn't right
 
     this->starter_test_action_server_ = rclcpp_action::create_server<interfaces::action::StarterTest>(
       this,
       "/h20pro/starter_test",
       std::bind(&CanInterfaceNode::handle_starter_test_goal, this, _1, _2),
       std::bind(&CanInterfaceNode::handle_starter_test_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_starter_test_accepted, this, _1)
+      std::bind(&CanInterfaceNode::handle_starter_test_accepted, this, _1),
+      rcl_action_server_get_default_options(),
+      action_callback_group_
     ); //register and bind the action for the starter test.
 
     this->pump_test_action_server_ = rclcpp_action::create_server<interfaces::action::PumpTest>(
@@ -102,7 +124,9 @@ public:
       "/h20pro/pump_test",
       std::bind(&CanInterfaceNode::handle_pump_test_goal, this, _1, _2),
       std::bind(&CanInterfaceNode::handle_pump_test_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_pump_test_accepted, this, _1)
+      std::bind(&CanInterfaceNode::handle_pump_test_accepted, this, _1),
+      rcl_action_server_get_default_options(),
+      action_callback_group_
     ); //register and bind the action for the pump test.
 
     this->igniter_test_action_server_ = rclcpp_action::create_server<interfaces::action::IgniterTest>(
@@ -110,7 +134,9 @@ public:
       "/h20pro/igniter_test",
       std::bind(&CanInterfaceNode::handle_igniter_test_goal, this, _1, _2),
       std::bind(&CanInterfaceNode::handle_igniter_test_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_igniter_test_accepted, this, _1)
+      std::bind(&CanInterfaceNode::handle_igniter_test_accepted, this, _1),
+      rcl_action_server_get_default_options(),
+      action_callback_group_
     ); //register and bind the action for the igniter test.
 
     this->prime_action_server_ = rclcpp_action::create_server<interfaces::action::Prime>(
@@ -118,7 +144,9 @@ public:
       "/h20pro/prime",
       std::bind(&CanInterfaceNode::handle_prime_goal, this, _1, _2),
       std::bind(&CanInterfaceNode::handle_prime_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_prime_accepted, this, _1)
+      std::bind(&CanInterfaceNode::handle_prime_accepted, this, _1),
+      rcl_action_server_get_default_options(),
+      action_callback_group_
     ); //register and bind the action for the prime test.
 
     this->start_action_server_ = rclcpp_action::create_server<interfaces::action::Start>(
@@ -126,18 +154,23 @@ public:
       "/h20pro/start",
       std::bind(&CanInterfaceNode::handle_start_goal, this, _1, _2),
       std::bind(&CanInterfaceNode::handle_start_cancel, this, _1),
-      std::bind(&CanInterfaceNode::handle_start_accepted, this, _1)
+      std::bind(&CanInterfaceNode::handle_start_accepted, this, _1),
+      rcl_action_server_get_default_options(),
+      action_callback_group_
     ); //register and bind the action for the start test.
     //TODO: The other 3 actions
     //the kill service/handling of running mode
     kill_service_ = this->create_service<std_srvs::srv::Trigger>(
       "/h20pro/kill",
-      std::bind(&CanInterfaceNode::handle_kill_service, this, _1, _2)
+      std::bind(&CanInterfaceNode::handle_kill_service, this, _1, _2),
+      rmw_qos_profile_default,
+      kill_service_group_
     );
 
     throttle_timer_ = this->create_wall_timer(
-      100ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this));
+      100ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this), throttle_processing_group_);
     
+      RCLCPP_INFO(this->get_logger(), "finished constructor");
   }
 
   ~CanInterfaceNode()
@@ -147,6 +180,8 @@ public:
 
 private:
   void handle_can_rx(const interfaces::msg::CanMsg::SharedPtr msg) {
+    //not locking the thread here because it doesn't need to be locked for the entire duration of message processing.
+    //lock happens in each message handler
     uint32_t can_id = msg->id;
     uint8_t can_dlc = msg->dlc;
     if (message_map_.find(can_id) != message_map_.end()) {
@@ -164,16 +199,16 @@ private:
     if (msg.data < 0 || msg.data > 100) {
       RCLCPP_WARN(this->get_logger(), "Throttle command out of range (0-100%%): %f. Clamping.", msg.data);
     } 
-    throttle_cmd_ = std::max(0.0f, std::min(msg.data, 100.0f));
+    throttle_cmd_.store(std::max(0.0f, std::min(msg.data, 100.0f)));
   }
 
 private:
   void send_throttle_command_callback() {
-    if (!under_throttle_control_) return;
+    if (!under_throttle_control_.load()) return; //if we are not under throttle control, don't send the command
     interfaces::msg::CanMsg throttle_message = interfaces::msg::CanMsg(throttle_off_msg_);
     //the first 2 bytes are the throttle command
     //byte 0 is the high byte, byte 1 is the low byte
-    uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_ * 10); //convert to 0-1000 range
+    uint16_t throttle_cmd_value = static_cast<uint16_t>(throttle_cmd_.load() * 10); //convert to 0-1000 range
     throttle_message.data[0] = (throttle_cmd_value >> 8) & 0xFF;
     throttle_message.data[1] = throttle_cmd_value & 0xFF;
 
@@ -212,10 +247,12 @@ private:
   rclcpp_action::GoalResponse handle_starter_test_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::StarterTest::Goal> goal) { //callback for handling request
       RCLCPP_INFO(this->get_logger(), "Received Request to run starter test.");
-
-      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
-        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting starter test request.");
-        return rclcpp_action::GoalResponse::REJECT;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+          RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting starter test request.");
+          return rclcpp_action::GoalResponse::REJECT;
+        }
       }
       RCLCPP_INFO(this->get_logger(), "Accepting request to run starter test.");
       return rclcpp_action::GoalResponse::ACCEPT_AND_EXECUTE;
@@ -258,11 +295,12 @@ private:
         goal_handle->canceled(result);
         return;
       }
-
-      if(current_engine_data_.real_rpm > 6000) { //if we hit the target RPM, declare that we passed
-        has_passed = true;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if(current_engine_data_.real_rpm > 6000) { //if we hit the target RPM, declare that we passed
+          has_passed = true;
+        }
       }
-
       if(!check_all_healthy()) { //if errors are encountered, we fail the test.
         kill_tests();
         has_passed = false;
@@ -299,12 +337,13 @@ private:
   rclcpp_action::GoalResponse handle_pump_test_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::PumpTest::Goal> goal) { //callback for handling request
       RCLCPP_INFO(this->get_logger(), "Received Request to run pump test.");
-
-      if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
-        RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting pump test request.");
-        return rclcpp_action::GoalResponse::REJECT;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
+          RCLCPP_WARN(this->get_logger(), "Engine is not in OFF state - Rejecting pump test request.");
+          return rclcpp_action::GoalResponse::REJECT;
+        }
       }
-
       if (goal->fuel_ml <= 0 || goal->fuel_ml > 4500) { //reaonable check for range of acceptable requests
         RCLCPP_WARN(this->get_logger(), "Pump request of %u ml is out of range (0-4500) - Rejecting pump test request.", goal->fuel_ml);
         return rclcpp_action::GoalResponse::REJECT;
@@ -338,7 +377,12 @@ private:
     pump_test_msg.data[0] = static_cast<uint8_t>(goal->pump_power_percent / 0.4); //hope this works, lol
 
     //assume inputs have been validated at this point, if not, rip
-    uint32_t pump_start_count_ml = current_fuel_ambient_.fuel_consumed; //record how much fuel was pumped when we started
+    uint32_t pump_start_count_ml;
+    
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      pump_start_count_ml = current_fuel_ambient_.fuel_consumed;
+    }
 
     if (!send_can_msg(pump_test_msg)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write to CAN bus for pump test.");
@@ -351,9 +395,25 @@ private:
 
     //TODO: probably should add a timeout
 
-    while(current_fuel_ambient_.fuel_consumed - pump_start_count_ml < goal->fuel_ml) { //while we haven't pumped the desired amount of fuel yet
-      feedback->fuel_pumped_ml = (current_fuel_ambient_.fuel_consumed - pump_start_count_ml);
-      feedback->fuel_pump_rate = current_fuel_ambient_.fuel_flow;
+    while(true) { //while we haven't pumped the desired amount of fuel yet
+      //briefly lock to obtain the relevant data
+      uint32_t fuel_consumed;
+      uint32_t pump_rpm;
+      uint32_t fuel_flow;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_);
+        fuel_consumed = current_fuel_ambient_.fuel_consumed;
+        pump_rpm = current_pump_data_.pump_rpm;
+        fuel_flow = current_fuel_ambient_.fuel_flow;
+      }
+
+      //check if we meed break condition
+      if ((fuel_consumed - pump_start_count_ml) >= goal->fuel_ml) {
+        break;
+      }
+      
+      feedback->fuel_pumped_ml = (fuel_consumed - pump_start_count_ml);
+      feedback->fuel_pump_rate = fuel_flow;
 
       if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
         result->success = false;
@@ -364,7 +424,7 @@ private:
 
       goal_handle->publish_feedback(feedback); //update the requester
 
-      RCLCPP_INFO(this->get_logger(), "Pumping fuel at %u RPM, %u/%u ml", current_pump_data_.pump_rpm, (current_fuel_ambient_.fuel_consumed - pump_start_count_ml), goal->fuel_ml);
+      RCLCPP_INFO(this->get_logger(), "Pumping fuel at %u RPM, %u/%u ml", pump_rpm, (fuel_consumed - pump_start_count_ml), goal->fuel_ml);
 
       if(!check_all_healthy()) { //if errors are encountered, fail the test
         RCLCPP_WARN(this->get_logger(), "Errors encountered during pump test. Stopping.");
@@ -403,6 +463,7 @@ private:
 private:
   rclcpp_action::GoalResponse handle_igniter_test_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::IgniterTest::Goal> goal) { //callback for handling request
+      std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
       RCLCPP_INFO(this->get_logger(), "Received Request to run igniter test.");
 
       if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
@@ -449,8 +510,11 @@ private:
         return;
       }
 
-      if(current_glow_plugs_.glow_plug_i[0] > 1 && current_glow_plugs_.glow_plug_i[1] > 1) { //if we see current on both connectors > 1A, we declare we passed.
-        has_passed = true;
+      {
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if(current_glow_plugs_.glow_plug_i[0] > 1 && current_glow_plugs_.glow_plug_i[1] > 1) { //if we see current on both connectors > 1A, we declare we passed.
+          has_passed = true;
+        }
       }
 
       if(!check_all_healthy()) { //if errors are encountered, we fail the test.
@@ -488,6 +552,7 @@ private:
 private:
   rclcpp_action::GoalResponse handle_prime_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::Prime::Goal> goal) { //callback for handling request
+      std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
       RCLCPP_INFO(this->get_logger(), "Received Request to run prime test.");
 
       if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
@@ -542,10 +607,13 @@ private:
         return;
       }
 
-      if(current_fuel_ambient_.fuel_flow > 0) { //if we see fuel flow, we declare success
-        has_passed = true;
+      if (!has_passed) { //if we haven't passed yet, check if we have fuel flow, avoiding locking when it's not necessary
+        std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
+        if(current_fuel_ambient_.fuel_flow > 0) { //if we see fuel flow, we declare success
+          has_passed = true;
+        }
       }
-
+      
       if(!check_all_healthy()) { //if errors are encountered, we fail the test.
         RCLCPP_WARN(this->get_logger(), "Errors encountered during priming. Stopping.");
         has_passed = false;
@@ -582,6 +650,7 @@ private:
 private:
   rclcpp_action::GoalResponse handle_start_goal(const rclcpp_action::GoalUUID & uuid,
     std::shared_ptr<const interfaces::action::Start::Goal> goal) { //callback for handling request
+      std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine
       RCLCPP_INFO(this->get_logger(), "Received Request to start engine. This is NOT a test.");
 
       if (current_engine_data_.state != 0) { //engine needs to be in state 0 to attempt start
@@ -601,7 +670,7 @@ private:
 
 private:
   void execute_start(const std::shared_ptr<rclcpp_action::ServerGoalHandle<interfaces::action::Start>> goal_handle) {
-      RCLCPP_DEBUG(this->get_logger(), "Starting engine.");
+      RCLCPP_INFO(this->get_logger(), "Starting engine.");
 
       auto result = std::make_shared<interfaces::action::Start::Result>();
 
@@ -611,6 +680,8 @@ private:
         goal_handle->abort(result); //abort out due to failure
         return;
       }
+
+      RCLCPP_INFO(this->get_logger(), "Sent start command. Waiting for engine to start.");
 
       auto start_time = this->now();
       bool has_passed = false;
@@ -633,10 +704,13 @@ private:
           return;
         }
 
-
-        if(current_engine_data_.state == 5) { //if we see the engine state change to 5, we declare success
-          has_passed = true;
-          break;
+        {
+          std::lock_guard<std::mutex> lock(state_mutex_); //lock because we are going to be reading the state of the engine}
+          RCLCPP_INFO(this->get_logger(), "Engine state: %u", current_engine_data_.state);
+          if(current_engine_data_.state == 11) { //if we see the engine state change to 11, we declare success
+            has_passed = true;
+            break;
+          }
         }
 
         if(!check_all_healthy()) { //if errors are encountered, we fail the test.
@@ -651,8 +725,8 @@ private:
       if (has_passed) {
         //we succeeded
         //we can safely enable throttle control
-        throttle_cmd_ = 0; //idle throttle by default
-        under_throttle_control_ = true;
+        throttle_cmd_.store(0.0); //idle throttle by default
+        under_throttle_control_.store(true);
         result->success = true;
         goal_handle->succeed(result);
         return;
@@ -686,7 +760,7 @@ private:
 
 private:
   bool kill_control() {
-    under_throttle_control_ = false;
+    under_throttle_control_.store(false);
     return send_can_msg(control_off_msg_);
   }
 
@@ -701,19 +775,23 @@ private:
     std::function<void(const interfaces::msg::CanMsg & msg)> handler;
   };
 
-private:
   bool send_can_msg(interfaces::msg::CanMsg msg) {
-    interfaces::srv::SendCanMessage::Request::SharedPtr request = std::make_shared<interfaces::srv::SendCanMessage::Request>();
+    auto request = std::make_shared<interfaces::srv::SendCanMessage::Request>();
     request->msg = msg;
-    auto response = can_tx_srv_->async_send_request(request);
-
-    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), response) == rclcpp::FutureReturnCode::SUCCESS) {
-      return response.get()->success;
-    } else {
-      RCLCPP_ERROR(this->get_logger(), "Failed to call service send_can_message");
-      return false;
+    auto future = can_tx_srv_->async_send_request(request);
+  
+    // Wait for the future with a timeout loop without calling spin.
+    auto timeout = std::chrono::seconds(2);
+    auto start_time = std::chrono::steady_clock::now();
+    while (future.wait_for(std::chrono::milliseconds(5)) != std::future_status::ready) {
+      if (std::chrono::steady_clock::now() - start_time > timeout) {
+        RCLCPP_ERROR(this->get_logger(), "Timeout waiting for can_tx service response");
+        return false;
+      }
+      std::this_thread::sleep_for(5ms);
     }
-  }
+    return future.get()->success;
+  }  
 
 private:
   void setup_messsage_map() {
@@ -816,7 +894,10 @@ private:
 
     engine_data_pub_->publish(engine_pub_msg_);
 
-    current_engine_data_ = engine_pub_msg_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_engine_data_ = engine_pub_msg_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(),
                 "Engine Data (CAN ID 0x100): SetRPM: %u 1/min, RealRPM: %u 1/min, EGT: %.1f°C, State: %uv (%s), Pump Power: %.1f%%",
@@ -841,7 +922,11 @@ private:
 
     voltage_current_pub_->publish(voltage_current_msg_);
 
-    current_voltage_current_ = voltage_current_msg_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_voltage_current_ = voltage_current_msg_;
+    }
+    
 
     RCLCPP_DEBUG(this->get_logger(), "Voltage/Current Data (CAN ID 0x101): BV: %f V, EC: %f A", battery_voltage, engine_current);
   }
@@ -866,7 +951,12 @@ private:
 
     fuel_ambient_pub_->publish(fuel_ambient_msg_);
 
-    current_fuel_ambient_ = fuel_ambient_msg_;
+
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_fuel_ambient_ = fuel_ambient_msg_;
+    }
+    
 
     RCLCPP_DEBUG(this->get_logger(), "Fuel/Ambient (CAN ID 0x102): Fuel Rate: %u ml/min, Fuel Consumed: %u ml, Engine Pressure: %f mbar, Ambient Temp: %d C", 
                 fuel_flow, fuel_consumed, engine_box_pressure, ambient_temperature);
@@ -891,8 +981,11 @@ private:
 
     statistics_pub_->publish(statistics_msg_);
 
-    current_statistics_ = statistics_msg_;
-
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_statistics_ = statistics_msg_;
+    }
+    
     RCLCPP_DEBUG(this->get_logger(), "Statistics (CAN ID 0x103): Runs OK: %u, Runs Failed: %u, Total Runtime: %u s", runs_ok, runs_aborted, total_runtime);
   }
 
@@ -920,7 +1013,10 @@ private:
 
     last_run_info_pub_->publish(last_run_info_msg_);
 
-    current_last_run_info_ = last_run_info_msg_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_last_run_info_ = last_run_info_msg_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "Last Run Info: (CAN ID 0x104), Last Runtime: %u s, Last Off RPM: %u 1/min, Last Off EGT: %u, Last Off Pump Power: %.1f%%, Last Off State: %u (%s)", 
                 last_run_time, last_off_rpm, last_off_egt, last_off_pump_power, last_off_state, last_off_state_str.c_str());
@@ -946,7 +1042,10 @@ private:
 
     system_info_pub_->publish(system_info_message_);
 
-    current_system_info_ = system_info_message_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_system_info_ = system_info_message_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "System Info (CAN ID 0x105): Serial Number: %u, FW Version: %u, Engine Type: %u, Engine Subtype: %u", 
                 serial_number, fw_version, engine_type, engine_subtype);
@@ -966,7 +1065,10 @@ private:
 
     engine2_data_pub_->publish(pump_rpm_message_);
 
-    current_pump_data_ = pump_rpm_message_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_pump_data_ = pump_rpm_message_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "Pump RPM (CAN ID 0x106): Pump RPM: %u 1/min", pump_rpm);
   }
@@ -1008,12 +1110,15 @@ private:
 
     errors_current_pub_->publish(errors_message_);
 
-    current_errors_ = errors_message_;
-
-    RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
-    for (const auto & err : error_messages) {
-      RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_errors_ = errors_message_;
     }
+
+    //RCLCPP_WARN(this->get_logger(), "Errors (CAN ID 0x107): Error Mask: 0x%016lX", error_mask);
+    //for (const auto & err : error_messages) {
+    //  RCLCPP_WARN(this->get_logger(), "  %s", err.c_str());
+    //}
   }
 
 private:
@@ -1040,7 +1145,11 @@ private:
 
     glow_plugs_pub_->publish(glow_plugs_message_);
 
-    current_glow_plugs_ = glow_plugs_message_;
+
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_glow_plugs_ = glow_plugs_message_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "Glow Plugs (CAN ID 0x107): GP1 Voltage: %f V, GP1 Current: %f A, GP2 Voltage: %f V, GP2 Current: %f A, Sequence: %d", 
                 glow_plug_1_v, glow_plug_1_i, glow_plug_2_v, glow_plug_2_i, sekevence);
@@ -1066,7 +1175,11 @@ private:
 
     ng_reg_pub_->publish(ng_reg_message_);
 
-    current_ng_reg_ = ng_reg_message_;
+
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_ng_reg_ = ng_reg_message_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "NGReg (CAN ID 0x108): Integrator: %f %%, Windup: %u, Error: %f %%, Pump Power: %f %%", 
                 integrator, windup, error, pump_power);
@@ -1089,7 +1202,10 @@ private:
 
     system_info2_pub_->publish(system_info2_message_);
 
-    current_system_info2_ = system_info2_message_;
+    {
+      std::lock_guard<std::mutex> lock(state_mutex_);
+      current_system_info2_ = system_info2_message_;
+    }
 
     RCLCPP_DEBUG(this->get_logger(), "System Info 2 (CAN ID 0x109): ECU HW Serial Number: %u, EIU SW Version: %u", 
                 ecu_hw_serial_number, eiu_sw_version);
@@ -1098,6 +1214,7 @@ private:
 private:
   bool check_all_healthy() {
     //check for any errors that prevent operation/startup
+    std::lock_guard<std::mutex> lock(state_mutex_);
     for(uint8_t bit = 0; bit < 64; bit++) {
       if((current_errors_.error_mask >> bit) & 1ULL) {
         auto it = error_map_.find(bit);
@@ -1168,8 +1285,8 @@ private:
   interfaces::msg::VoltageCurrent current_voltage_current_;
 
   //Other pieces of information relevant to engine operation
-  bool under_throttle_control_ = false;
-  float throttle_cmd_ = 0.0;
+  std::atomic<bool> under_throttle_control_{false};
+  std::atomic<float> throttle_cmd_{0.0};
 
   //timer for sending throttle control commands
   rclcpp::TimerBase::SharedPtr throttle_timer_;
@@ -1268,13 +1385,24 @@ private:
 private:
   interfaces::msg::CanMsg test_off_msg_ = interfaces::msg::CanMsg();
 
+private:
+  std::mutex state_mutex_; //This could be improved to have a more fine-grained locking strategy
+
+private:
+  CallbackGroup::SharedPtr action_callback_group_;
+  CallbackGroup::SharedPtr throttle_processing_group_;
+  CallbackGroup::SharedPtr can_processing_group_;
+  CallbackGroup::SharedPtr kill_service_group_;
+
 };
 
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
   auto node = std::make_shared<CanInterfaceNode>();
-  rclcpp::spin(node);
+  rclcpp::executors::MultiThreadedExecutor executor;
+  executor.add_node(node);
+  executor.spin();
   rclcpp::shutdown();
   return 0;
 }

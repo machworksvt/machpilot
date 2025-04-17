@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"/home/noahk/programs/machpilot/src/FSMPilot/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

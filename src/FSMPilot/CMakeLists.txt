@@ -14,4 +14,4 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 include_directories("${CMAKE_SOURCE_DIR}/tinyfsm/include")
 
 # Add the executable
-add_executable(FSMPilot FSMPilot.cpp ScreenManager.cpp)
+add_executable(FSMPilot main.cpp FSMPilot.cpp motorManager.cpp ScreenManager.cpp ErrorManager.cpp FireManager.cpp FireManager.cpp ErrorManagerList.cpp)

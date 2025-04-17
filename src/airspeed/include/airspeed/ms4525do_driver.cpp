@@ -19,7 +19,9 @@ extern "C" {
     #include <linux/kernel.h>
 }
 
-/**
+float offset = 0.0;
+bool calibFlag = false;
+
 int main() {
     MS4525DO ms = MS4525DO(0x28);
     while(1) {
@@ -31,17 +33,25 @@ int main() {
     }
     
 }
-*/
+
 
 MS4525DO::MS4525DO(int addr) {
     file_ = open(I2C_FILE_PATH, O_RDWR);
     addr_ = addr;
 
-    data_.press = 0;
-    data_.temp = 0;
-    data_.status = 0;
+    data_.press = 0.0;
+    data_.temp = 0.0;
+    data_.status = 0.0;
 
     init();
+
+    for (int i = 0; i < 100; i++) {
+        readDF4();
+        std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        offset += data_.press / 100;
+    }
+
+    calibFlag = true;
 }
 
 MS4525DO::~MS4525DO() {
@@ -102,6 +112,10 @@ uint8_t MS4525DO::readDF2() {
         float pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
         data_.press = pressure;
     }
+
+    if (calibFlag) {
+        data_.press -= offset;
+    }
     
     return 0;
 }
@@ -130,6 +144,10 @@ uint8_t MS4525DO::readDF3() {
 
         float tempC = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
         data_.temp = tempC;
+    }
+
+    if (calibFlag) {
+        data_.press -= offset;
     }
     
     return 0;
@@ -160,6 +178,10 @@ uint8_t MS4525DO::readDF4() {
         float tempC = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
         data_.temp = tempC;
     }
+
+    if (calibFlag) {
+            data_.press -= offset;
+        }
     
     return 0;
 }
@@ -180,3 +202,4 @@ bool MS4525DO::statusMessages(uint8_t status) {
     }
     return false;
 }
+

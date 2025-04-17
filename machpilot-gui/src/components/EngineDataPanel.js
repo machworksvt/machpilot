@@ -1,7 +1,6 @@
 // src/components/EngineDataPanel.js
 import React from 'react';
 import useROSSubscription from '../useROSSubscription';
-import EngineRpmGauge from './RpmGauge';
 
 // Component for displaying engine data
 const EngineDataPanel = () => {

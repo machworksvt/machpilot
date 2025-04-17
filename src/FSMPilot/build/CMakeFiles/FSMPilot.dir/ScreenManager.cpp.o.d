@@ -1,8 +1,8 @@
 CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o: \
  /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.cpp \
  /usr/include/stdc-predef.h \
- /home/noahk/programs/machpilot/src/FSMPilot/tinyfsm/include/tinyfsm.hpp \
- /usr/include/c++/9/type_traits \
+ /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.hpp \
+ /usr/include/c++/9/iostream \
  /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -11,9 +11,7 @@ CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o: \
  /usr/include/x86_64-linux-gnu/gnu/stubs.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h \
- /usr/include/c++/9/pstl/pstl_config.h \
- /home/noahk/programs/machpilot/src/FSMPilot/ScreenManager.hpp \
- /usr/include/c++/9/iostream /usr/include/c++/9/ostream \
+ /usr/include/c++/9/pstl/pstl_config.h /usr/include/c++/9/ostream \
  /usr/include/c++/9/ios /usr/include/c++/9/iosfwd \
  /usr/include/c++/9/bits/stringfwd.h /usr/include/c++/9/bits/memoryfwd.h \
  /usr/include/c++/9/bits/postypes.h /usr/include/c++/9/cwchar \
@@ -38,7 +36,7 @@ CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o: \
  /usr/include/c++/9/typeinfo /usr/include/c++/9/bits/hash_bytes.h \
  /usr/include/c++/9/new /usr/include/c++/9/bits/nested_exception.h \
  /usr/include/c++/9/bits/move.h /usr/include/c++/9/bits/concept_check.h \
- /usr/include/c++/9/bits/char_traits.h \
+ /usr/include/c++/9/type_traits /usr/include/c++/9/bits/char_traits.h \
  /usr/include/c++/9/bits/stl_algobase.h \
  /usr/include/c++/9/bits/functexcept.h \
  /usr/include/c++/9/bits/cpp_type_traits.h \

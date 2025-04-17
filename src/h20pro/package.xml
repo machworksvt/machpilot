@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>h20pro</name>
+  <version>1.0.0</version>
+  <description>This package contains the software required to run a Hybl Turbines H20Pro engine using its CAN bus protocol. It assumes that SocketCAN is used to create the interface, and depends on the "interfaces" packaing in the machpilot project.</description>
+  <maintainer email="ncollins22@vt.edu">Nathan Collins</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>rclcpp</depend>
+  <depend>std_srvs</depend>
+  <depend>std_msgs</depend>
+  <depend>interfaces</depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

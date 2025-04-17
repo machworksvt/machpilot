@@ -21,11 +21,10 @@ const EngineDashboard = () => {
   const ngReg = useROSSubscription('/h20pro/ng_reg', 'interfaces/msg/NgReg');
   const statistics = useROSSubscription('/h20pro/statistics', 'interfaces/msg/Statistics');
   const systemInfo = useROSSubscription('/h20pro/system_info', 'interfaces/msg/SystemInfo');
-  const systemInfo2 = useROSSubscription('/h20pro/system_info2', 'interfaces/msg/SystemInfo2');
+  const systemInfo2 = useROSSubscription('/h20pro/system_info2', 'interfaces/msg/PumpRpm');
   const voltageCurrent = useROSSubscription('/h20pro/voltage_current', 'interfaces/msg/VoltageCurrent');
-  
 
-  const throttlePublisher = new ROSLIB.Topic({
+  var throttlePublisher = new ROSLIB.Topic({
     ros: ros,
     name: '/h20pro/throttle_command',
     messageType: 'std_msgs/msg/Float32',
@@ -82,17 +81,24 @@ const EngineDashboard = () => {
 
   const throttle_command = throttle ? throttle.data : 0;
 
-  const primeAction = new ROSLIB.Action({
+  var primeAction = new ROSLIB.Action({
     ros: ros,
     name: '/h20pro/prime',
     actionType: 'interfaces/action/Prime',
     timeout: 5,
   });
 
-  const startAction = new ROSLIB.Action({
+  var startAction = new ROSLIB.Action({
     ros: ros,
     name: '/h20pro/start',
     actionType: 'interfaces/action/Start',
+    timeout: 5,
+  });
+
+  var starterTestAction = new ROSLIB.Action({
+    ros: ros,
+    name: '/h20pro/starter_test',
+    actionType: 'interfaces/action/StarterTest',
     timeout: 5,
   });
 
@@ -126,14 +132,37 @@ const EngineDashboard = () => {
       }
   };
 
+  const [isRunningStartTest, setIsRunningStartTest] = useState(false);
+  const [startTestButtonText, setStartTestButtonText] = useState('Start Test');
+
+  const startTestButton = () => {
+    console.log("Start Test Button Clicked");
+
+    var goal = {};
+
+    setIsRunningStartTest(true);
+    setStartTestButtonText('Running Test...');
+    var goal_id = starterTestAction.sendGoal(goal,
+    function(result) {
+      console.log(result);
+      setIsRunningStartTest(false);
+      setStartTestButtonText('Start Test');
+    },
+    function(feedback) {
+      console.log(feedback);
+    },
+    );
+    console.log(goal_id);
+  };
+
   const [isPriming, setIsPriming] = useState(false);
   const [primeButtonText, setPrimeButtonText] = useState('Prime');
 
   const primeButton = () => {
     console.log("Prime Button Clicked");
     var goal = {
-      pump_power_percent: 10,
-    }
+      pump_power_percent: 10
+    };
 
     setIsPriming(true);
     setPrimeButtonText('Priming...');
@@ -154,7 +183,7 @@ const EngineDashboard = () => {
 
   const startButton = () => {
     console.log("Start Button Clicked");
-    var goal = {}
+    var goal = {};
 
     setIsStarting(true);
     setStartButtonText('Starting...');
@@ -254,6 +283,20 @@ const EngineDashboard = () => {
     zIndex: 1000
   };
 
+  const startTestButtonStyle = {
+    backgroundColor: '#8B0000', // DarkRed
+    color: isRunningStartTest ? '#fff' : '#000',
+    border: 'none',
+    borderRadius: '5px',
+    padding: '10px 20px',
+    fontSize: '20px',
+    fontFamily: 'MW Font',
+    fontWeight: 'bold',
+    cursor: 'crosshair',
+    position: 'relative',
+    zIndex: 1000
+  };
+
   return (
     <div className="dashboard engine-dashboard" style={dashboardStyle}>
       <div style={gridStyle}>
@@ -262,6 +305,7 @@ const EngineDashboard = () => {
           <button onClick={primeButton} disabled={isPriming} style={primeButtonStyle}>{primeButtonText}</button>
           <button onClick={startButton} disabled={isStarting} style={startButtonStyle}>{startButtonText}</button>
           <button onClick={killEngine} disabled={isKilling} style={killButtonStyle}>{killButtonText}</button>
+          <button onClick={startTestButton} disabled={isRunningStartTest} style={startTestButtonStyle}>{startTestButtonText}</button>
           <input
           type="range"
           min="0"

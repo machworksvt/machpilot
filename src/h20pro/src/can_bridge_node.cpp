@@ -73,6 +73,7 @@ class CANHandler : public rclcpp::Node {
         }
 
         can_rx_pub_ = this->create_publisher<interfaces::msg::CanMsg>("/can_rx", 10); //publish the received can messages
+        can_tx_pub_ = this->create_publisher<interfaces::msg::CanMsg>("/can_tx", 10); //publish the sent can messages
         can_tx_srv_ = this->create_service<interfaces::srv::SendCanMessage>("/can_tx", std::bind(&CANHandler::handle_can_tx, this, _1, _2)); //service to send can messages
 
 
@@ -94,12 +95,13 @@ class CANHandler : public rclcpp::Node {
             struct can_frame frame;
             while(running_) {
             //lock for thread-safe socket access
+            ssize_t nbytes;
             {
                 std::lock_guard<std::mutex> lock(mutex_);
-                ssize_t nbytes = read(socket_fd_, &frame, sizeof(struct can_frame));
-                if (nbytes > 0) {
+                nbytes = read(socket_fd_, &frame, sizeof(struct can_frame)); 
+            }
+            if (nbytes > 0) {
                 frame_callback(frame);
-                }
             }
             std::this_thread::sleep_for(10ms);
             }
@@ -129,6 +131,7 @@ class CANHandler : public rclcpp::Node {
     void handle_can_tx(const std::shared_ptr<interfaces::srv::SendCanMessage::Request> request,
         std::shared_ptr<interfaces::srv::SendCanMessage::Response> response) {
         struct can_frame frame;
+        can_tx_pub_->publish(request->msg); //publish the sent can message
         frame.can_id = request->msg.id;
         frame.can_dlc = request->msg.dlc;
         std::memcpy(frame.data, request->msg.data.data(), request->msg.data.size());
@@ -144,6 +147,7 @@ class CANHandler : public rclcpp::Node {
         std::atomic<bool> running_;
         rclcpp::Publisher<interfaces::msg::CanMsg>::SharedPtr can_rx_pub_;
         rclcpp::Service<interfaces::srv::SendCanMessage>::SharedPtr can_tx_srv_;
+        rclcpp::Publisher<interfaces::msg::CanMsg>::SharedPtr can_tx_pub_;
     };
 
 int main(int argc, char * argv[])
