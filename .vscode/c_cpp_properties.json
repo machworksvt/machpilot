@@ -22,7 +22,8 @@
                 "${workspaceFolder}/src/FSMPilot",
                 "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/interfaces/action/**",
-                "${workspaceFolder}/src/interfaces/action"
+                "${workspaceFolder}/src/interfaces/action",
+                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
