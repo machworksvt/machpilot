@@ -1,4 +1,5 @@
 /*
+
     This node is designed to abtract the can interface of the jetson nano. It is designed to be used in the MachPilot project.
 
     It simply forms a thread-safe interface to the can bus, and publishes the data to ROS2 topics.
@@ -158,4 +159,3 @@ int main(int argc, char * argv[])
     rclcpp::shutdown();
     return 0;
 }
-    

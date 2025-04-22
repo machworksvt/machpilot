@@ -50,9 +50,9 @@ using namespace rclcpp;
 #define CAN_ID_BASE2 0x140
 
 /*
-  TODO:
-    - Replace the throttle value and under_throttle_control_ with atomics to speed things up
-    - Make multiple mutexes for each of the data types to speed things up
+  4/22/2025: Making the following modifications:
+    - Changed logic of start action to start throttle control rather than only sending the keep alive command (was **maybe** causing an issue I don't believe radek entirely)
+    - Changing the order of error byte decoding (was backwards)
 */
 
 class CanInterfaceNode : public rclcpp::Node
@@ -167,8 +167,9 @@ public:
       kill_service_group_
     );
 
-    throttle_timer_ = this->create_wall_timer(
-      100ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this), throttle_processing_group_);
+    // this timer broadcasts keep-alive and throttle commands at 20Hz
+    throttle_timer_ = this->create_wall_timer( 
+      50ms, std::bind(&CanInterfaceNode::send_throttle_command_callback, this), throttle_processing_group_);
     
       RCLCPP_INFO(this->get_logger(), "finished constructor");
   }
@@ -212,6 +213,9 @@ private:
     throttle_message.data[0] = (throttle_cmd_value >> 8) & 0xFF;
     throttle_message.data[1] = throttle_cmd_value & 0xFF;
 
+    send_keep_alive_command(); //send the keep alive command
+                              // one of the things I changed here - keep alive and throttle are now synchronous always
+
     if (!send_can_msg(throttle_message)) {
       RCLCPP_WARN(this->get_logger(), "Failed to write throttle command to CAN bus. Disabling throttle control for safety.");
       if (!kill_control()) {
@@ -228,6 +232,12 @@ private:
         RCLCPP_ERROR(this->get_logger(), "Failed to disable throttle control. May be emergency situation.");
       }
     }
+  }
+
+private:
+  void start_throttle_control() {
+    under_throttle_control_.store(true);
+    throttle_cmd_.store(0.0f); //reset the throttle command
   }
 
 private:
@@ -686,6 +696,8 @@ private:
       auto start_time = this->now();
       bool has_passed = false;
 
+      start_throttle_control(); //start throttle control, we are going to need it.
+
       while(this->now() - start_time < 90s) { //90 second timeout. We exit the loop if we reach state 5, running.
         
         if(goal_handle->is_canceling()) { //if we are cancelled, stop the test
@@ -693,14 +705,6 @@ private:
           kill_control();
           kill_throttle();
           goal_handle->canceled(result);
-          return;
-        }
-
-        if (!send_can_msg(keep_alive_msg_)) { //send keep alive command to keep the engine running
-          RCLCPP_WARN(this->get_logger(), "Error encounter sending keep-alive command during startup. Aborting for safety.");
-          kill_control(); //Attempt to kill the control completely, although this probably does not work if we just failed to send a frame.
-          result->success = false;
-          goal_handle->abort(result); //abort out due to failure
           return;
         }
 
@@ -719,14 +723,12 @@ private:
           break;
         }
 
-        std::this_thread::sleep_for(100ms);
+        std::this_thread::sleep_for(10ms); //small sleep to avoid busy loop
       }
 
       if (has_passed) {
         //we succeeded
         //we can safely enable throttle control
-        throttle_cmd_.store(0.0); //idle throttle by default
-        under_throttle_control_.store(true);
         result->success = true;
         goal_handle->succeed(result);
         return;
@@ -1082,16 +1084,16 @@ private:
     errors_message_.header = create_header(frame_id);
 
     uint64_t error_mask = (static_cast<uint64_t>(msg.data[0]) << 56) | (static_cast<uint64_t>(msg.data[1]) << 48) | (static_cast<uint64_t>(msg.data[2]) << 40) | (static_cast<uint64_t>(msg.data[3]) << 32) | (static_cast<uint64_t>(msg.data[4]) << 24) | (static_cast<uint64_t>(msg.data[5]) << 16) | (static_cast<uint64_t>(msg.data[6]) << 8) | msg.data[7];
-
+    //another change here -- swapped the order
     std::vector<std::string> error_messages;
 
     bool reset_required = false;
 
-    for (uint8_t bit = 0; bit < 64; ++bit) {
+    for (uint8_t bit = 0; bit < 64; ++bit) { //needed to flip the order this is traversed in
       // Check if the bit is set.
       if ((error_mask >> bit) & 1ULL) {
         // Look up the error in the map.
-        auto it = error_map_.find(bit);
+        auto it = error_map_.find(63 - bit);
         if (it != error_map_.end()) {
           // Format an error message. For example: "PreStart RPM high: Rotor speed too high for startup. ..."
           std::string err_message = it->second.name + ": " + it->second.description;
