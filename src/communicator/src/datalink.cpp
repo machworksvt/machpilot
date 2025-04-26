@@ -45,6 +45,8 @@ class DataLinkNode : public rclcpp::Node
     {
       //declare parameter for path to the serial device
       this->declare_parameter("connection_path", "serial:///dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A10O8MJG-if00-port0:57600"); //defaults to what I'm pretty sure it is
+      this->declare_parameter("auto_discover", true); //defaults to true
+      this->declare_parameter("topic_prefix", "/h20pro/"); 
 
       // Setup mavlink connection
       ConnectionResult connection_result = mavsdk_.add_any_connection(this->get_parameter("connection_path").as_string());
@@ -55,6 +57,14 @@ class DataLinkNode : public rclcpp::Node
       RCLCPP_INFO(this->get_logger(), "Connection succeeded. Waiting for ground station detection.");
       // subscribe to system found event
       mavsdk_.subscribe_on_new_system(std::bind(&DataLinkNode::system_found_callback, this));
+
+      // create a timer to check for new systems every  2 second
+      if (this->get_parameter("auto_discover").as_bool()) {
+       auto discovery_period = std::chrono::seconds(2000);  // 2 seconds
+       topic_discovery_timer_ = this->create_wall_timer(
+          discovery_period, std::bind(&DataLinkNode::discovery_callback, this));
+
+      }
     }
 
   public:
@@ -64,6 +74,32 @@ class DataLinkNode : public rclcpp::Node
     void system_found_callback() {
       RCLCPP_INFO(this->get_logger(), "System detected. Verifying it is a ground station.");
       link_setup(mavsdk_.systems().at(0));
+    }
+
+    void discover_topics() {
+      auto topic_names_and_types = this->get_topic_names_and_types();
+      std::string prefix = this->get_parameter("topic_prefix").as_string();
+      for (const auto& topic : topic_names_and_types) {
+        const auto& topic_name = topic.first;
+        const auto& topic_types = topic.second;
+        
+        if t(topic.name.find(prefix) != 0) continue; // skip topics that don't start with the prefix
+
+        if (subscribed_topics_.find(topic_name) != subscribed_topics_.end()) continue; // skip already subscribed topics
+
+        // Try to subscribe to the topic based on it type
+        for (const auto& type : topic_types)  {
+          if (subscribe_to_topic(topic_name, topic_types)) {
+            subscribed_topics_.insert(topic_name);
+            RCLCPP_INFO(this->get_logger(), "Subscribed to topic: %s of type: %s", topic_name.c_str(), topic_types.c_str());
+            break;
+          }
+        }
+      }
+    }
+
+    bool subscribe_to_topic(const std::string& topic_name, const std::vector<std::string>& topic_types) {
+    
     }
 
   private:
