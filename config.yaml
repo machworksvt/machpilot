@@ -1,0 +1,142 @@
+---
+# physical parts on the plane
+# strings need not be quoted unless a potential special character is entered (\anything)
+part:
+- type: sensor
+
+  sensor: MS4525DO
+  sensor_type: pitot_tube
+  senses:
+  - Temperature
+  - Dynamic_Pressure
+  
+  comms_protocol: i2c
+  i2c_addr: '0x28'
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+    
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+    
+- type: sensor
+
+  sensor: ADXL345
+  sensor_type: accelerometer
+  senses:
+  - 3_Axis_Acceleration
+  
+  comms_protocol: i2c
+  i2c_addr: 
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+    
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+    
+- type: actuator
+
+  actuator: SSD1306
+  actuator_type: display
+  acts:
+  - information
+  
+  comms_protocol: 
+  location:
+    x: 
+    y: 
+    z: 
+    
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+    
+- type: actuator
+
+  actuator: PCA9685
+  actuator_type: servo_board
+  acts:
+  - Servos
+  
+  comms_protocol: i2c
+  i2c_addr: '0x40'
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+    
+  orientation: 
+    psi: 
+    theta: 
+    phi: 
+    
+- type: sensor
+
+  sensor: BNO055
+  sensor_type: 9_DOF_IMU
+  senses:
+  - 3_Axis_Acceleration
+  - 3_Axis_Angular_Velocity
+  - 3_Axis_Magnetic_Field
+  - Temperature
+  
+  comms_protocol: i2c
+  i2c_addr: '0x29'
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+    
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+    
+- type: sensor
+
+  sensor: MPU9250
+  sensor_type: 9_DOF_IMU
+  senses:
+  - 3_Axis_Acceleration
+  - 3_Axis_Angular_Velocity
+  - 3_Axis_Magnetic_Field
+  - Temperature
+  
+  comms_protocol: i2c
+  i2c_addr: 
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+  orientation:
+    psi: 
+    theta: 
+    phi: 

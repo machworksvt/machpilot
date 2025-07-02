@@ -82,7 +82,7 @@
             "actuator": "PCA9685",
             "actuator_type": "servo_board",
             "acts": [
-                "servos"
+                "Servos"
             ],
 
             "comms_protocol": "i2c",
