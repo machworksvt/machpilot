@@ -1,0 +1,67 @@
+FROM ros:humble-ros-base
+
+# set enviroment variables
+ENV DEBIAN_FRONTEND=noninteractive
+ENV ROS_DISTRO=humble
+
+# install system dependencies
+RUN apt-get update && apt-get install -y \
+    # Dev tools
+    build-essential \
+    cmake \
+    git \ 
+    nano \ 
+    gdb \
+    valgrind \
+    curl \
+    # Python tools
+    python3-pip \
+    python3-colcon-common-extensions \
+    python3-colcon-mixin \
+    python3-rosdep \
+    python3-vcstool \
+    python3-argcomplete \
+    # Additional ROS2 packages
+    ros-humble-ros2bag \
+    ros-humble-lifecycle-msgs \
+    ros-humble-rclcpp-lifecycle \
+    # Testing and quantity tools
+    ros-humble-ament-cmake-gtest \
+    ros-humble-ament-cmake-pytest \
+    ros-humble-ament-lint-auto \
+    ros-humble-ament-lint-common \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install \
+    pytest \
+    pytest-cov \
+    flake8 \
+    black 
+
+
+# Set up rosdep
+RUN rosdep init || echo "rosdep already initialized"
+RUN rosdep update
+
+# Set up colcon mixins
+RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml || true
+RUN colcon mixin update default || true
+
+# Add convenient aliases
+RUN echo "alias ll='ls -alF'" >> ~/.bashrc && \
+    echo "alias la='ls -A'" >> ~/.bashrc && \
+    echo "alias l='ls -CF'" >> ~/.bashrc && \
+    echo "alias cb='colcon build'" >> ~/.bashrc && \
+    echo "alias cbt='colcon build && colcon test'" >> ~/.bashrc && \
+    echo "alias cs='source install/setup.bash'" >> ~/.bashrc
+
+# Set up ROS2 environment in bashrc
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
+    echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc
+
+# Create entrypoint script
+COPY docker/ros_entrypoint.sh /ros_entrypoint.sh
+RUN chmod +x /ros_entrypoint.sh
+
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["bash"]

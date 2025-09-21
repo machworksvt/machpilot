@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  # Development enviroment
+  dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev 
+    container_name: icarus_dev
+    volumes:
+      - ./src:/workspace/src:rw
+      - ./build:/workspace/build:rw
+      - ./install:/workspace/install:rw
+      - ./log:/workspace/log:rw
+      - ./config:/workspace/config:ro
+    environment:
+      - ROS_DOMAIN_ID=0
+      - RMW_IMPLEMENTATION=rmw_cyclonedx_cpp
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
+
+    
