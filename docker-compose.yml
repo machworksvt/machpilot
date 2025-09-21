@@ -15,7 +15,6 @@ services:
       - ./config:/workspace/config:ro
     environment:
       - ROS_DOMAIN_ID=0
-      - RMW_IMPLEMENTATION=rmw_cyclonedx_cpp
     network_mode: host
     stdin_open: true
     tty: true
