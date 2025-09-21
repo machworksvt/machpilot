@@ -1,4 +1,4 @@
-#include <device_driver.hpp>
+#include <device_driver.hpp> // replace with real name
 #include <memory>
 #include <iostream>
 
@@ -6,11 +6,11 @@
 
 using std::placeholders::_1;
 
-class DeviceNode : public Device
+class DeviceNode : public Device // replace DeviceNode with real name, not Device
 {
 public:
 
-DeviceNode(int args) : Device("node_name")
+DeviceNode(int args) : Device("node_name") // replace args with config items, like bus number, address, etc.
 {
 
 }
@@ -45,7 +45,7 @@ CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
     return CallbackReturn::SUCCESS;
 }
 
-~PCA9685Node()
+~DeviceNode()
 {
 
 }
