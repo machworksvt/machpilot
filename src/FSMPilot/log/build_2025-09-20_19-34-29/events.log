@@ -1,0 +1,136 @@
+[0.000000] (-) TimerEvent: {}
+[0.000348] (fsm_ros_wrapper) JobQueued: {'identifier': 'fsm_ros_wrapper', 'dependencies': OrderedDict()}
+[0.000993] (fsm_ros_wrapper) JobStarted: {'identifier': 'fsm_ros_wrapper'}
+[0.005180] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'cmake'}
+[0.006058] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'build'}
+[0.006104] (fsm_ros_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', '--', '-j32', '-l32'], 'cwd': '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'noahw'), ('GIT_ASKPASS', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/noahw'), ('TERM_PROGRAM_VERSION', '1.104.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-ec8ebeb0-991f-49bb-b69f-a090ec7afd87.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'noahw'), ('NAME', 'Mustang'), ('WSL_INTEROP', '/run/WSL/315_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/libnvvp:/mnt/c/Program Files/Eclipse Adoptium/jdk-21.0.4.7-hotspot/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.3.2/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/noahk/.cargo/bin:/mnt/c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64:/mnt/c/Users/noahk/ffmpeg/bin:/mnt/c/Users/noahk/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/noahk/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts:/mnt/c/Program Files/LLVM/bin:/snap/bin:/home/noahw/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-68bc1c4511.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.023109] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.083313] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rclcpp: 16.0.14 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[0.100006] (-) TimerEvent: {}
+[0.200194] (-) TimerEvent: {}
+[0.230946] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[0.232110] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[0.235028] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[0.239416] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[0.245006] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[0.259438] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[0.260050] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[0.300289] (-) TimerEvent: {}
+[0.400537] (-) TimerEvent: {}
+[0.500803] (-) TimerEvent: {}
+[0.601063] (-) TimerEvent: {}
+[0.701318] (-) TimerEvent: {}
+[0.801565] (-) TimerEvent: {}
+[0.901797] (-) TimerEvent: {}
+[1.002042] (-) TimerEvent: {}
+[1.102294] (-) TimerEvent: {}
+[1.202569] (-) TimerEvent: {}
+[1.302821] (-) TimerEvent: {}
+[1.403089] (-) TimerEvent: {}
+[1.503341] (-) TimerEvent: {}
+[1.603609] (-) TimerEvent: {}
+[1.703879] (-) TimerEvent: {}
+[1.804155] (-) TimerEvent: {}
+[1.904416] (-) TimerEvent: {}
+[2.004674] (-) TimerEvent: {}
+[2.104919] (-) TimerEvent: {}
+[2.205227] (-) TimerEvent: {}
+[2.305499] (-) TimerEvent: {}
+[2.405857] (-) TimerEvent: {}
+[2.506468] (-) TimerEvent: {}
+[2.606790] (-) TimerEvent: {}
+[2.707099] (-) TimerEvent: {}
+[2.807353] (-) TimerEvent: {}
+[2.907748] (-) TimerEvent: {}
+[3.008007] (-) TimerEvent: {}
+[3.108281] (-) TimerEvent: {}
+[3.208535] (-) TimerEvent: {}
+[3.308821] (-) TimerEvent: {}
+[3.409078] (-) TimerEvent: {}
+[3.509338] (-) TimerEvent: {}
+[3.609605] (-) TimerEvent: {}
+[3.709985] (-) TimerEvent: {}
+[3.810393] (-) TimerEvent: {}
+[3.910726] (-) TimerEvent: {}
+[4.010997] (-) TimerEvent: {}
+[4.111249] (-) TimerEvent: {}
+[4.211503] (-) TimerEvent: {}
+[4.311771] (-) TimerEvent: {}
+[4.412037] (-) TimerEvent: {}
+[4.512347] (-) TimerEvent: {}
+[4.612610] (-) TimerEvent: {}
+[4.712874] (-) TimerEvent: {}
+[4.813180] (-) TimerEvent: {}
+[4.913479] (-) TimerEvent: {}
+[5.013703] (-) TimerEvent: {}
+[5.113963] (-) TimerEvent: {}
+[5.214273] (-) TimerEvent: {}
+[5.314545] (-) TimerEvent: {}
+[5.414817] (-) TimerEvent: {}
+[5.515155] (-) TimerEvent: {}
+[5.615454] (-) TimerEvent: {}
+[5.715761] (-) TimerEvent: {}
+[5.816268] (-) TimerEvent: {}
+[5.916542] (-) TimerEvent: {}
+[6.016798] (-) TimerEvent: {}
+[6.117059] (-) TimerEvent: {}
+[6.217380] (-) TimerEvent: {}
+[6.317641] (-) TimerEvent: {}
+[6.418110] (-) TimerEvent: {}
+[6.518332] (-) TimerEvent: {}
+[6.537200] (fsm_ros_wrapper) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[6.593706] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Configuring done\n'}
+[6.598750] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Generating done\n'}
+[6.600553] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Build files have been written to: /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper\n'}
+[6.613091] (fsm_ros_wrapper) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target state_machine_node\x1b[0m\n'}
+[6.618431] (-) TimerEvent: {}
+[6.619762] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o\x1b[0m\n'}
+[6.620314] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o\x1b[0m\n'}
+[6.620400] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o\x1b[0m\n'}
+[6.620433] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/motorManager.cpp.o\x1b[0m\n'}
+[6.620459] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 55%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ScreenManager.cpp.o\x1b[0m\n'}
+[6.620624] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o\x1b[0m\n'}
+[6.621545] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 77%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o\x1b[0m\n'}
+[6.621764] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o\x1b[0m\n'}
+[6.625554] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kfsm_ros_wrapper/state_machine_node.hpp: No such file or directory\n'}
+[6.625755] (fsm_ros_wrapper) StderrLine: {'line': b'    1 | #include \x1b[01;31m\x1b[K"fsm_ros_wrapper/state_machine_node.hpp"\x1b[m\x1b[K\n'}
+[6.625818] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.625872] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.625923] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[6.625973] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[6.626209] (fsm_ros_wrapper) StderrLine: {'line': b'    4 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[6.626297] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.626331] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.626356] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FireManager.hpp:1\x1b[m\x1b[K,\n'}
+[6.626380] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FireManager.cpp:1\x1b[m\x1b[K:\n'}
+[6.626410] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.hpp:4:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[6.626435] (fsm_ros_wrapper) StderrLine: {'line': b'    4 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[6.626457] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.626480] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.626505] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.cpp:1:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[6.626528] (fsm_ros_wrapper) StderrLine: {'line': b'    1 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[6.626559] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.626580] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.626601] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1\n'}
+[6.626622] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** Waiting for unfinished jobs....\n'}
+[6.626645] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:160: CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o] Error 1\n'}
+[6.626666] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:146: CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o] Error 1\n'}
+[6.626687] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1\n'}
+[6.626992] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManagerList.hpp:1\x1b[m\x1b[K,\n'}
+[6.627094] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManagerList.cpp:1\x1b[m\x1b[K:\n'}
+[6.627154] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.hpp:4:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[6.627214] (fsm_ros_wrapper) StderrLine: {'line': b'    4 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[6.627268] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.627319] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.627442] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:174: CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o] Error 1\n'}
+[6.710501] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ros_main.cpp:2:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Kfsm_ros_wrapper/state_machine_node.hpp: No such file or directory\n'}
+[6.710660] (fsm_ros_wrapper) StderrLine: {'line': b'    2 | #include \x1b[01;31m\x1b[K"fsm_ros_wrapper/state_machine_node.hpp"\x1b[m\x1b[K\n'}
+[6.710690] (fsm_ros_wrapper) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[6.710718] (fsm_ros_wrapper) StderrLine: {'line': b'compilation terminated.\n'}
+[6.716297] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:76: CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o] Error 1\n'}
+[6.718820] (-) TimerEvent: {}
+[6.739390] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2\n'}
+[6.739536] (fsm_ros_wrapper) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[6.740763] (fsm_ros_wrapper) CommandEnded: {'returncode': 2}
+[6.745476] (fsm_ros_wrapper) JobEnded: {'identifier': 'fsm_ros_wrapper', 'rc': 2}
+[6.755982] (-) EventReactorShutdown: {}

@@ -1,0 +1,315 @@
+[0.000000] (-) TimerEvent: {}
+[0.000413] (fsm_ros_wrapper) JobQueued: {'identifier': 'fsm_ros_wrapper', 'dependencies': OrderedDict()}
+[0.000528] (fsm_ros_wrapper) JobStarted: {'identifier': 'fsm_ros_wrapper'}
+[0.007355] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'cmake'}
+[0.008345] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'build'}
+[0.008881] (fsm_ros_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', '--', '-j32', '-l32'], 'cwd': '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'noahw'), ('GIT_ASKPASS', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/noahw'), ('TERM_PROGRAM_VERSION', '1.104.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-ec8ebeb0-991f-49bb-b69f-a090ec7afd87.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/noahw/programs/machpilot/src/FSMPilot/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'noahw'), ('NAME', 'Mustang'), ('WSL_INTEROP', '/run/WSL/315_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/libnvvp:/mnt/c/Program Files/Eclipse Adoptium/jdk-21.0.4.7-hotspot/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.3.2/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/noahk/.cargo/bin:/mnt/c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64:/mnt/c/Users/noahk/ffmpeg/bin:/mnt/c/Users/noahk/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/noahk/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts:/mnt/c/Program Files/LLVM/bin:/snap/bin:/home/noahw/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-68bc1c4511.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper:/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper:/opt/ros/humble'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up:VSCODE_SERVER_TAR/up')]), 'shell': False}
+[0.063536] (fsm_ros_wrapper) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target state_machine_node\x1b[0m\n'}
+[0.075113] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o\x1b[0m\n'}
+[0.075297] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o\x1b[0m\n'}
+[0.075453] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o\x1b[0m\n'}
+[0.075595] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o\x1b[0m\n'}
+[0.075782] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o\x1b[0m\n'}
+[0.076183] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o\x1b[0m\n'}
+[0.099838] (-) TimerEvent: {}
+[0.197999] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.198175] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198207] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198232] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.198257] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198281] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198305] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.198328] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198350] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198372] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.198395] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198417] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198438] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.198459] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198480] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198501] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.198612] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.198639] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.198663] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.199926] (-) TimerEvent: {}
+[0.226127] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.hpp:6\x1b[m\x1b[K,\n'}
+[0.226389] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.cpp:3\x1b[m\x1b[K:\n'}
+[0.226423] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.226480] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.226558] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.226629] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.226708] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.226763] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.226790] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.226817] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.226842] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.226864] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.226888] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227134] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227175] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227202] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227229] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227251] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227274] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227295] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227317] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.hpp:6\x1b[m\x1b[K,\n'}
+[0.227338] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FireManager.hpp:1\x1b[m\x1b[K,\n'}
+[0.227360] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FireManager.cpp:1\x1b[m\x1b[K:\n'}
+[0.227382] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227406] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227427] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227447] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227468] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227489] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227510] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227532] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227553] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227574] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227596] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227617] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227638] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227660] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227680] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.227701] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.227728] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.227748] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231037] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManager.hpp:6\x1b[m\x1b[K,\n'}
+[0.231266] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManagerList.hpp:1\x1b[m\x1b[K,\n'}
+[0.231341] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ErrorManagerList.cpp:1\x1b[m\x1b[K:\n'}
+[0.231368] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231401] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231425] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231447] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231471] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231492] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231513] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231536] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231558] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231579] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231601] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231621] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231641] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231663] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231683] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.231704] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[0.231725] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[0.231745] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.233374] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.233459] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.233493] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.234036] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.234119] (fsm_ros_wrapper) StderrLine: {'line': b'  103 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.234184] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.234213] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kredefinition of \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.234239] (fsm_ros_wrapper) StderrLine: {'line': b'  103 | FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.234583] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.234618] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 previously defined here\n'}
+[0.234651] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.234676] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.234705] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.234728] (fsm_ros_wrapper) StderrLine: {'line': b'  125 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.234752] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.234778] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kredefinition of \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.234801] (fsm_ros_wrapper) StderrLine: {'line': b'  125 | FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.234822] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.234843] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 previously defined here\n'}
+[0.234864] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.234885] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.234906] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.234933] (fsm_ros_wrapper) StderrLine: {'line': b'  151 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.234954] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.234975] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kredefinition of \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.234996] (fsm_ros_wrapper) StderrLine: {'line': b'  151 | FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235016] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235036] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 previously defined here\n'}
+[0.235059] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235080] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235120] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.235145] (fsm_ros_wrapper) StderrLine: {'line': b'  169 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.235167] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.235189] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kredefinition of \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.235211] (fsm_ros_wrapper) StderrLine: {'line': b'  169 | FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235234] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235258] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 previously defined here\n'}
+[0.235280] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235302] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235322] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:28:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Knon-member function \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 cannot have cv-qualifier\n'}
+[0.235344] (fsm_ros_wrapper) StderrLine: {'line': b'  191 | FSMPilotStates get_state() \x1b[01;31m\x1b[Kconst\x1b[m\x1b[K{\n'}
+[0.235365] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;31m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.235386] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:16:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kredefinition of \xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.235432] (fsm_ros_wrapper) StderrLine: {'line': b'  191 | FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235483] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235526] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates get_state()\x1b[m\x1b[K\xe2\x80\x99 previously defined here\n'}
+[0.235552] (fsm_ros_wrapper) StderrLine: {'line': b'   62 | FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K() const{\n'}
+[0.235577] (fsm_ros_wrapper) StderrLine: {'line': b'      |                \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235601] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.235624] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.235647] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Uninitialized>::value_type tinyfsm::_state_instance<Uninitialized>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.235669] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:204:1:\x1b[m\x1b[K   required from here\n'}
+[0.235691] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Uninitialized>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KUninitialized\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.235714] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.235736] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235758] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.235779] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:68:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KUninitialized\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.235801] (fsm_ros_wrapper) StderrLine: {'line': b'   68 | class \x1b[01;36m\x1b[KUninitialized\x1b[m\x1b[K : public StateMachine {\n'}
+[0.235822] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.235843] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.235865] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.235886] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.244137] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.244377] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.244419] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Initialized>::value_type tinyfsm::_state_instance<Initialized>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.244447] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:\x1b[m\x1b[K   required from \xe2\x80\x98\x1b[01m\x1b[Kvoid tinyfsm::Fsm<F>::transit() [with S = Initialized; F = StateMachine]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.244477] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:73:29:\x1b[m\x1b[K   required from here\n'}
+[0.244501] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Initialized>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KInitialized\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.244527] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.244556] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.244578] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.244598] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:82:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KInitialized\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.244620] (fsm_ros_wrapper) StderrLine: {'line': b'   82 | class \x1b[01;36m\x1b[KInitialized\x1b[m\x1b[K : public StateMachine {\n'}
+[0.244687] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.244747] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.244775] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.244802] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.244866] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.244913] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.244958] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Armed>::value_type tinyfsm::_state_instance<Armed>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.244994] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:\x1b[m\x1b[K   required from \xe2\x80\x98\x1b[01m\x1b[Kvoid tinyfsm::Fsm<F>::transit() [with S = Armed; F = StateMachine]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245019] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:112:19:\x1b[m\x1b[K   required from here\n'}
+[0.245043] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Armed>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KArmed\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245179] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.245235] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.245367] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.245424] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:90:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KArmed\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.245456] (fsm_ros_wrapper) StderrLine: {'line': b'   90 | class \x1b[01;36m\x1b[KArmed\x1b[m\x1b[K : public StateMachine {\n'}
+[0.245480] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~\x1b[m\x1b[K\n'}
+[0.245502] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245527] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.245549] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.245574] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.245597] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.245622] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<ManualFlight>::value_type tinyfsm::_state_instance<ManualFlight>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.245647] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:\x1b[m\x1b[K   required from \xe2\x80\x98\x1b[01m\x1b[Kvoid tinyfsm::Fsm<F>::transit() [with S = ManualFlight; F = StateMachine]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245671] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:134:26:\x1b[m\x1b[K   required from here\n'}
+[0.245694] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<ManualFlight>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KManualFlight\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245720] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.245742] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.245764] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.245794] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:99:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KManualFlight\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.245817] (fsm_ros_wrapper) StderrLine: {'line': b'   99 | class \x1b[01;36m\x1b[KManualFlight\x1b[m\x1b[K : public StateMachine {\n'}
+[0.245839] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.245860] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.245883] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.245904] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.245930] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.245953] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.245974] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Disarm>::value_type tinyfsm::_state_instance<Disarm>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.245996] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:\x1b[m\x1b[K   required from \xe2\x80\x98\x1b[01m\x1b[Kvoid tinyfsm::Fsm<F>::transit() [with S = Disarm; F = StateMachine]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246017] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:138:20:\x1b[m\x1b[K   required from here\n'}
+[0.246038] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Disarm>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KDisarm\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246060] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.246081] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.246102] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.246123] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:106:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KDisarm\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.246145] (fsm_ros_wrapper) StderrLine: {'line': b'  106 | class \x1b[01;36m\x1b[KDisarm\x1b[m\x1b[K : public StateMachine {\n'}
+[0.246166] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~\x1b[m\x1b[K\n'}
+[0.246186] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246208] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.246228] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.246248] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4\x1b[m\x1b[K,\n'}
+[0.246269] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.246290] (fsm_ros_wrapper) StderrLine: {'line': b'/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Shutdown>::value_type tinyfsm::_state_instance<Shutdown>::value\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.246312] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:\x1b[m\x1b[K   required from \xe2\x80\x98\x1b[01m\x1b[Kvoid tinyfsm::Fsm<F>::transit() [with S = Shutdown; F = StateMachine]\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246515] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:178:22:\x1b[m\x1b[K   required from here\n'}
+[0.246560] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[Kcannot declare variable \xe2\x80\x98\x1b[01m\x1b[Ktinyfsm::_state_instance<Shutdown>::value\x1b[m\x1b[K\xe2\x80\x99 to be of abstract type \xe2\x80\x98\x1b[01m\x1b[KShutdown\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246588] (fsm_ros_wrapper) StderrLine: {'line': b'   80 |   typename _state_instance<S>::value_type \x1b[01;31m\x1b[K_state_instance<S>\x1b[m\x1b[K::value;\n'}
+[0.246612] (fsm_ros_wrapper) StderrLine: {'line': b'      |                                           \x1b[01;31m\x1b[K^~~~~~~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[0.246635] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[0.246657] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:114:7:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K  because the following virtual functions are pure within \xe2\x80\x98\x1b[01m\x1b[KShutdown\x1b[m\x1b[K\xe2\x80\x99:\n'}
+[0.246679] (fsm_ros_wrapper) StderrLine: {'line': b'  114 | class \x1b[01;36m\x1b[KShutdown\x1b[m\x1b[K : public StateMachine {\n'}
+[0.246700] (fsm_ros_wrapper) StderrLine: {'line': b'      |       \x1b[01;36m\x1b[K^~~~~~~~\x1b[m\x1b[K\n'}
+[0.246722] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:\x1b[m\x1b[K \x1b[01;36m\x1b[Knote: \x1b[m\x1b[K    \xe2\x80\x98\x1b[01m\x1b[Kvirtual FSMPilotStates StateMachine::get_state()\x1b[m\x1b[K\xe2\x80\x99\n'}
+[0.246743] (fsm_ros_wrapper) StderrLine: {'line': b'   59 |     virtual FSMPilotStates \x1b[01;36m\x1b[Kget_state\x1b[m\x1b[K()=0;\n'}
+[0.246764] (fsm_ros_wrapper) StderrLine: {'line': b'      |                            \x1b[01;36m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[0.246785] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:146: CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o] Error 1\n'}
+[0.246806] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** Waiting for unfinished jobs....\n'}
+[0.246826] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:160: CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o] Error 1\n'}
+[0.247142] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:174: CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o] Error 1\n'}
+[0.254780] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1\n'}
+[0.300125] (-) TimerEvent: {}
+[0.400874] (-) TimerEvent: {}
+[0.501857] (-) TimerEvent: {}
+[0.602908] (-) TimerEvent: {}
+[0.704083] (-) TimerEvent: {}
+[0.805100] (-) TimerEvent: {}
+[0.906218] (-) TimerEvent: {}
+[1.006737] (-) TimerEvent: {}
+[1.107871] (-) TimerEvent: {}
+[1.208963] (-) TimerEvent: {}
+[1.310068] (-) TimerEvent: {}
+[1.411193] (-) TimerEvent: {}
+[1.415602] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:8\x1b[m\x1b[K,\n'}
+[1.415772] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1\x1b[m\x1b[K:\n'}
+[1.415820] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.415874] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.415913] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416270] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416311] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416357] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416380] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416404] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416426] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416447] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416470] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416492] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416513] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416535] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416556] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416576] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416613] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416642] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416663] (fsm_ros_wrapper) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:8\x1b[m\x1b[K,\n'}
+[1.416685] (fsm_ros_wrapper) StderrLine: {'line': b'                 from \x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/ros_main.cpp:2\x1b[m\x1b[K:\n'}
+[1.416706] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:75:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Uninitialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416732] (fsm_ros_wrapper) StderrLine: {'line': b'   75 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416755] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416775] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:83:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Initialized::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416797] (fsm_ros_wrapper) StderrLine: {'line': b'   83 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416819] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416847] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:91:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Armed::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416869] (fsm_ros_wrapper) StderrLine: {'line': b'   91 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416890] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416923] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:100:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates ManualFlight::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.416947] (fsm_ros_wrapper) StderrLine: {'line': b'  100 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.416968] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.416989] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:107:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Disarm::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.417011] (fsm_ros_wrapper) StderrLine: {'line': b'  107 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.417032] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.417054] (fsm_ros_wrapper) StderrLine: {'line': b'\x1b[01m\x1b[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:115:20:\x1b[m\x1b[K \x1b[01;31m\x1b[Kerror: \x1b[m\x1b[K\xe2\x80\x98\x1b[01m\x1b[KFSMPilotStates Shutdown::get_state() const\x1b[m\x1b[K\xe2\x80\x99 marked \xe2\x80\x98\x1b[01m\x1b[Koverride\x1b[m\x1b[K\xe2\x80\x99, but does not override\n'}
+[1.417075] (fsm_ros_wrapper) StderrLine: {'line': b'  115 |     FSMPilotStates \x1b[01;31m\x1b[Kget_state\x1b[m\x1b[K() const override;\n'}
+[1.417097] (fsm_ros_wrapper) StderrLine: {'line': b'      |                    \x1b[01;31m\x1b[K^~~~~~~~~\x1b[m\x1b[K\n'}
+[1.511983] (-) TimerEvent: {}
+[1.612986] (-) TimerEvent: {}
+[1.714023] (-) TimerEvent: {}
+[1.714346] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:76: CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o] Error 1\n'}
+[1.814943] (-) TimerEvent: {}
+[1.916128] (-) TimerEvent: {}
+[2.017186] (-) TimerEvent: {}
+[2.118437] (-) TimerEvent: {}
+[2.219619] (-) TimerEvent: {}
+[2.320692] (-) TimerEvent: {}
+[2.421837] (-) TimerEvent: {}
+[2.522981] (-) TimerEvent: {}
+[2.624092] (-) TimerEvent: {}
+[2.725281] (-) TimerEvent: {}
+[2.826372] (-) TimerEvent: {}
+[2.927581] (-) TimerEvent: {}
+[3.028337] (-) TimerEvent: {}
+[3.129470] (-) TimerEvent: {}
+[3.214126] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1\n'}
+[3.214401] (fsm_ros_wrapper) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2\n'}
+[3.214457] (fsm_ros_wrapper) StderrLine: {'line': b'gmake: *** [Makefile:146: all] Error 2\n'}
+[3.216675] (fsm_ros_wrapper) CommandEnded: {'returncode': 2}
+[3.229551] (-) TimerEvent: {}
+[3.230948] (fsm_ros_wrapper) JobEnded: {'identifier': 'fsm_ros_wrapper', 'rc': 2}
+[3.241642] (-) EventReactorShutdown: {}

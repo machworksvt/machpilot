@@ -1,0 +1,11 @@
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:[m[K In member function ‘[01m[Kvoid StateMachine::entry()[m[K’:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:48:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kvoid StateMachineNode::publish_state(FSMPilotStates)[m[K’ is private within this context
+   48 |     [01;31m[Kmain_node->publish_state(get_state())[m[K;
+      |     [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~[m[K
+In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:5[m[K:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:17:10:[m[K [01;36m[Knote: [m[Kdeclared private here
+   17 |     void [01;36m[Kpublish_state[m[K(FSMPilotStates state);
+      |          [01;36m[K^~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

@@ -1,0 +1,14 @@
+[0.014s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.082s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.095s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
+[0.095s] [ 20%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[0.096s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[1.511s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:[m[K In member function ‘[01m[Kvoid StateMachine::entry()[m[K’:
+[1.511s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:48:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpublish_state[m[K’ was not declared in this scope
+[1.511s]    48 |     [01;31m[Kpublish_state[m[K(get_state());
+[1.511s]       |     [01;31m[K^~~~~~~~~~~~~[m[K
+[1.748s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+[1.748s] gmake[2]: *** Waiting for unfinished jobs....
+[5.993s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[5.993s] gmake: *** [Makefile:146: all] Error 2
+[5.994s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

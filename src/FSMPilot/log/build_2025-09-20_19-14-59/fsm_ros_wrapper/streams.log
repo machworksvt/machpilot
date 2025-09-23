@@ -1,0 +1,58 @@
+[0.011s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/noahw/programs/machpilot/src/FSMPilot -DCMAKE_INSTALL_PREFIX=/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper
+[0.269s] -- The C compiler identification is GNU 11.4.0
+[0.931s] -- The CXX compiler identification is GNU 11.4.0
+[1.393s] -- Detecting C compiler ABI info
+[1.560s] -- Detecting C compiler ABI info - done
+[1.564s] -- Check for working C compiler: /usr/bin/gcc - skipped
+[1.567s] -- Detecting C compile features
+[1.568s] -- Detecting C compile features - done
+[1.570s] -- Detecting CXX compiler ABI info
+[1.738s] -- Detecting CXX compiler ABI info - done
+[1.742s] -- Check for working CXX compiler: /usr/bin/g++ - skipped
+[1.742s] -- Detecting CXX compile features
+[1.742s] -- Detecting CXX compile features - done
+[1.760s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[1.838s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.908s] -- Found rclcpp: 16.0.14 (/opt/ros/humble/share/rclcpp/cmake)
+[2.139s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[2.143s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[2.153s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[2.168s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.184s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.225s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[2.228s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[3.842s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[5.641s] -- Found FastRTPS: /opt/ros/humble/include  
+[9.727s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[9.742s] -- Looking for pthread.h
+[9.925s] -- Looking for pthread.h - found
+[9.925s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[10.067s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[10.067s] -- Found Threads: TRUE  
+[10.156s] -- Configuring done
+[10.163s] -- Generating done
+[10.165s] -- Build files have been written to: /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper
+[10.171s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /home/noahw/programs/machpilot/src/FSMPilot -DCMAKE_INSTALL_PREFIX=/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper
+[10.173s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[10.194s] [ 11%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
+[10.194s] [ 22%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[10.194s] [ 44%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[10.194s] [ 44%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/motorManager.cpp.o[0m
+[10.194s] [ 55%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ScreenManager.cpp.o[0m
+[10.194s] [ 66%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o[0m
+[10.195s] [ 77%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o[0m
+[10.195s] [ 88%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o[0m
+[10.208s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1:10:[m[K [01;31m[Kfatal error: [m[Kfsm_ros_wrapper/state_machine_node.hpp: No such file or directory
+[10.209s]     1 | #include [01;31m[K"fsm_ros_wrapper/state_machine_node.hpp"[m[K
+[10.209s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[10.209s] compilation terminated.
+[10.209s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1
+[10.209s] gmake[2]: *** Waiting for unfinished jobs....
+[10.434s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/ros_main.cpp:2:10:[m[K [01;31m[Kfatal error: [m[Kfsm_ros_wrapper/state_machine_node.hpp: No such file or directory
+[10.434s]     2 | #include [01;31m[K"fsm_ros_wrapper/state_machine_node.hpp"[m[K
+[10.434s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[10.434s] compilation terminated.
+[10.435s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:76: CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o] Error 1
+[10.435s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[10.435s] gmake: *** [Makefile:146: all] Error 2
+[10.436s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

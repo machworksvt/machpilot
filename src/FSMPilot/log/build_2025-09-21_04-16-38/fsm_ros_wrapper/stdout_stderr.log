@@ -1,0 +1,30 @@
+[35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:[m[K In member function ‘[01m[Kvoid StateMachineNode::publish_state(FSMPilotStates)[m[K’:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:87:70:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kstd_msgs::msg::UInt64_<std::allocator<void> >::UInt64_(FSMPilotStates&)[m[K’
+   87 |     state_publisher->publish(static_cast<std_msgs::msg::UInt64>(state[01;31m[K)[m[K);
+      |                                                                      [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/u_int64.hpp:7[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:7[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:45:12:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd_msgs::msg::UInt64_<ContainerAllocator>::UInt64_(const ContainerAllocator&, rosidl_runtime_cpp::MessageInitialization) [with ContainerAllocator = std::allocator<void>][m[K’
+   45 |   explicit [01;36m[KUInt64_[m[K(const ContainerAllocator & _alloc, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+      |            [01;36m[K^~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:45:47:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KFSMPilotStates[m[K’ to ‘[01m[Kconst std::allocator<void>&[m[K’
+   45 |   explicit UInt64_([01;36m[Kconst ContainerAllocator & _alloc[m[K, rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+      |                    [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:36:12:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd_msgs::msg::UInt64_<ContainerAllocator>::UInt64_(rosidl_runtime_cpp::MessageInitialization) [with ContainerAllocator = std::allocator<void>][m[K’
+   36 |   explicit [01;36m[KUInt64_[m[K(rosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL)
+      |            [01;36m[K^~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:36:62:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KFSMPilotStates[m[K’ to ‘[01m[Krosidl_runtime_cpp::MessageInitialization[m[K’
+   36 |   explicit UInt64_([01;36m[Krosidl_runtime_cpp::MessageInitialization _init = rosidl_runtime_cpp::MessageInitialization::ALL[m[K)
+      |                    [01;36m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::UInt64_<std::allocator<void> >::UInt64_(const std_msgs::msg::UInt64_<std::allocator<void> >&)[m[K’
+   32 | struct [01;36m[KUInt64_[m[K
+      |        [01;36m[K^~~~~~~[m[K
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KFSMPilotStates[m[K’ to ‘[01m[Kconst std_msgs::msg::UInt64_<std::allocator<void> >&[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:32:8:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kconstexpr std_msgs::msg::UInt64_<std::allocator<void> >::UInt64_(std_msgs::msg::UInt64_<std::allocator<void> >&&)[m[K’
+[01m[K/opt/ros/humble/include/std_msgs/std_msgs/msg/detail/u_int64__struct.hpp:32:8:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KFSMPilotStates[m[K’ to ‘[01m[Kstd_msgs::msg::UInt64_<std::allocator<void> >&&[m[K’
+gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

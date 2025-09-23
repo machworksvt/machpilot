@@ -1,0 +1,16 @@
+[0.007s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.031s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.046s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
+[0.046s] [ 20%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[0.046s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[0.047s] [ 40%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o[0m
+[0.048s] [ 50%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o[0m
+[0.049s] [ 60%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o[0m
+[1.629s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:16:1:[m[K [01;31m[Kerror: [m[K‘[01m[Koutput_node[m[K’ does not name a type
+[1.629s]    16 | [01;31m[Koutput_node[m[K=nullptr;
+[1.629s]       | [01;31m[K^~~~~~~~~~~[m[K
+[1.920s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+[1.920s] gmake[2]: *** Waiting for unfinished jobs....
+[7.155s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[7.156s] gmake: *** [Makefile:146: all] Error 2
+[7.160s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

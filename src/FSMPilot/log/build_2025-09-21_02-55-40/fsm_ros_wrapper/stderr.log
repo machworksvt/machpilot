@@ -1,0 +1,52 @@
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+   62 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+  103 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+  103 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+      |                [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+   62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+      |                [01;36m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+  125 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+  125 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+      |                [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+   62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+      |                [01;36m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+  151 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+  151 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+      |                [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+   62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+      |                [01;36m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+  169 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+  169 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+      |                [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+   62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+      |                [01;36m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+  191 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+      |                            [01;31m[K^~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+  191 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+      |                [01;31m[K^~~~~~~~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+   62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+      |                [01;36m[K^~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

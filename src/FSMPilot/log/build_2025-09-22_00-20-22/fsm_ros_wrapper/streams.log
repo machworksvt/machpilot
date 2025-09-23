@@ -1,0 +1,14 @@
+[0.008s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.028s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.042s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[1.313s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:9:1:[m[K [01;31m[Kerror: [m[Kexpected initializer before ‘[01m[Kstd[m[K’
+[1.313s]     9 | [01;31m[Kstd[m[K::string sub_system_to_String(SubSystems id) {
+[1.313s]       | [01;31m[K^~~[m[K
+[1.320s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:[m[K In member function ‘[01m[Kvoid StateMachine::entry()[m[K’:
+[1.320s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:48:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpubish_state[m[K’ was not declared in this scope
+[1.320s]    48 |     [01;31m[Kpubish_state[m[K(output_node,get_state());
+[1.320s]       |     [01;31m[K^~~~~~~~~~~~[m[K
+[1.557s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+[1.557s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[1.557s] gmake: *** [Makefile:146: all] Error 2
+[1.558s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

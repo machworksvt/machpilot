@@ -1,0 +1,15 @@
+[0.007s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.024s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.037s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[1.217s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:[m[K In member function ‘[01m[Kvoid StateMachine::entry()[m[K’:
+[1.217s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:48:29:[m[K [01;31m[Kerror: [m[K‘[01m[Kvoid StateMachineNode::publish_state(FSMPilotStates)[m[K’ is private within this context
+[1.217s]    48 |     [01;31m[Kmain_node->publish_state(get_state())[m[K;
+[1.217s]       |     [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~[m[K
+[1.217s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:5[m[K:
+[1.217s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:17:10:[m[K [01;36m[Knote: [m[Kdeclared private here
+[1.217s]    17 |     void [01;36m[Kpublish_state[m[K(FSMPilotStates state);
+[1.217s]       |          [01;36m[K^~~~~~~~~~~~~[m[K
+[1.437s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+[1.437s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[1.437s] gmake: *** [Makefile:146: all] Error 2
+[1.438s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

@@ -1,0 +1,67 @@
+[0.009s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.056s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.142s] -- Found rclcpp: 16.0.14 (/opt/ros/humble/share/rclcpp/cmake)
+[0.382s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.385s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.392s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.401s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.414s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.453s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.455s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[7.309s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[7.396s] -- Configuring done
+[7.406s] -- Generating done
+[7.408s] -- Build files have been written to: /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper
+[7.425s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[7.437s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
+[7.437s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o[0m
+[7.437s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[7.459s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:1:34:[m[K [01;35m[Kwarning: [m[Kextra tokens at end of #include directive
+[7.459s]     1 | #include "state_machine_node.hpp"[01;35m[K;[m[K
+[7.459s]       |                                  [01;35m[K^[m[K
+[7.465s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:1:10:[m[K [01;31m[Kfatal error: [m[Kstate_machine_node.hpp: No such file or directory
+[7.465s]     1 | #include [01;31m[K"state_machine_node.hpp"[m[K;
+[7.465s]       |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[7.465s] compilation terminated.
+[7.466s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:188: CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o] Error 1
+[7.466s] gmake[2]: *** Waiting for unfinished jobs....
+[8.819s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[8.819s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:38:[m[K [01;31m[Kerror: [m[K‘[01m[KUInt8[m[K’ is not a member of ‘[01m[Kstd_msgs::msg[m[K’; did you mean ‘[01m[KUInt64[m[K’?
+[8.819s]    19 |     rclcpp::Publisher<std_msgs::msg::[01;31m[KUInt8[m[K>::SharedPtr state_publisher;
+[8.819s]       |                                      [01;31m[K^~~~~[m[K
+[8.819s]       |                                      [32m[KUInt64[m[K
+[8.819s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:43:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[8.819s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8[01;31m[K>[m[K::SharedPtr state_publisher;
+[8.819s]       |                                           [01;31m[K^[m[K
+[8.820s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/ros_main.cpp:2[m[K:
+[8.820s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:38:[m[K [01;31m[Kerror: [m[K‘[01m[KUInt8[m[K’ is not a member of ‘[01m[Kstd_msgs::msg[m[K’; did you mean ‘[01m[KUInt64[m[K’?
+[8.820s]    19 |     rclcpp::Publisher<std_msgs::msg::[01;31m[KUInt8[m[K>::SharedPtr state_publisher;
+[8.820s]       |                                      [01;31m[K^~~~~[m[K
+[8.820s]       |                                      [32m[KUInt64[m[K
+[8.820s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:43:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[8.820s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8[01;31m[K>[m[K::SharedPtr state_publisher;
+[8.820s]       |                                           [01;31m[K^[m[K
+[8.824s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:46:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ at end of member declaration
+[8.824s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8>::[01;31m[KSharedPtr[m[K state_publisher;
+[8.824s]       |                                              [01;31m[K^~~~~~~~~[m[K
+[8.824s]       |                                                       [32m[K;[m[K
+[8.824s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:46:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ at end of member declaration
+[8.824s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8>::[01;31m[KSharedPtr[m[K state_publisher;
+[8.824s]       |                                              [01;31m[K^~~~~~~~~[m[K
+[8.824s]       |                                                       [32m[K;[m[K
+[8.826s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:56:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_publisher[m[K’ does not name a type
+[8.826s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr [01;31m[Kstate_publisher[m[K;
+[8.826s]       |                                                        [01;31m[K^~~~~~~~~~~~~~~[m[K
+[8.826s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:19:56:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_publisher[m[K’ does not name a type
+[8.826s]    19 |     rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr [01;31m[Kstate_publisher[m[K;
+[8.826s]       |                                                        [01;31m[K^~~~~~~~~~~~~~~[m[K
+[8.871s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:[m[K In constructor ‘[01m[KStateMachineNode::StateMachineNode()[m[K’:
+[8.871s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:26:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kstate_publisher_[m[K’ was not declared in this scope; did you mean ‘[01m[Kcreate_publisher[m[K’?
+[8.871s]    26 |     [01;31m[Kstate_publisher_[m[K = this->create_publisher<std_msgs::msg::String>("fsm/current_state", 10);
+[8.871s]       |     [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[8.871s]       |     [32m[Kcreate_publisher[m[K
+[9.117s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:76: CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o] Error 1
+[10.518s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1
+[10.518s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[10.518s] gmake: *** [Makefile:146: all] Error 2
+[10.520s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

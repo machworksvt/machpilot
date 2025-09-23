@@ -1,0 +1,231 @@
+[0.000000] (-) TimerEvent: {}
+[0.000366] (fsm_ros_wrapper) JobQueued: {'identifier': 'fsm_ros_wrapper', 'dependencies': OrderedDict()}
+[0.000596] (fsm_ros_wrapper) JobStarted: {'identifier': 'fsm_ros_wrapper'}
+[0.004306] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'cmake'}
+[0.004816] (fsm_ros_wrapper) Command: {'cmd': ['/usr/bin/cmake', '/home/noahw/programs/machpilot/src/FSMPilot', '-DCMAKE_INSTALL_PREFIX=/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper'], 'cwd': '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'noahw'), ('GIT_ASKPASS', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/noahw'), ('OLDPWD', '/home/noahw/programs/machpilot/src'), ('TERM_PROGRAM_VERSION', '1.104.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-8254185a-61b2-457a-9289-2bd01ade18a6.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'noahw'), ('NAME', 'Mustang'), ('WSL_INTEROP', '/run/WSL/315_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/libnvvp:/mnt/c/Program Files/Eclipse Adoptium/jdk-21.0.4.7-hotspot/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.3.2/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/noahk/.cargo/bin:/mnt/c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64:/mnt/c/Users/noahk/ffmpeg/bin:/mnt/c/Users/noahk/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/noahk/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts:/mnt/c/Program Files/LLVM/bin:/snap/bin:/home/noahw/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ef499bd5f2.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.099741] (-) TimerEvent: {}
+[0.169245] (fsm_ros_wrapper) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199840] (-) TimerEvent: {}
+[0.300052] (-) TimerEvent: {}
+[0.400258] (-) TimerEvent: {}
+[0.500465] (-) TimerEvent: {}
+[0.600683] (-) TimerEvent: {}
+[0.700946] (-) TimerEvent: {}
+[0.796459] (fsm_ros_wrapper) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.801014] (-) TimerEvent: {}
+[0.901199] (-) TimerEvent: {}
+[1.001456] (-) TimerEvent: {}
+[1.101714] (-) TimerEvent: {}
+[1.201975] (-) TimerEvent: {}
+[1.220589] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.302085] (-) TimerEvent: {}
+[1.348255] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.352244] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/gcc - skipped\n'}
+[1.352386] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.352419] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.354078] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.402173] (-) TimerEvent: {}
+[1.502524] (-) TimerEvent: {}
+[1.540560] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.544060] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/g++ - skipped\n'}
+[1.544223] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.544398] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.545761] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.602606] (-) TimerEvent: {}
+[1.616376] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.656975] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rclcpp: 16.0.14 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[1.702707] (-) TimerEvent: {}
+[1.802951] (-) TimerEvent: {}
+[1.835077] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.836868] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.840387] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.845802] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.852695] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.871097] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[1.872015] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[1.902999] (-) TimerEvent: {}
+[2.003242] (-) TimerEvent: {}
+[2.103509] (-) TimerEvent: {}
+[2.203758] (-) TimerEvent: {}
+[2.304015] (-) TimerEvent: {}
+[2.404276] (-) TimerEvent: {}
+[2.504544] (-) TimerEvent: {}
+[2.604802] (-) TimerEvent: {}
+[2.705059] (-) TimerEvent: {}
+[2.805313] (-) TimerEvent: {}
+[2.905624] (-) TimerEvent: {}
+[3.005877] (-) TimerEvent: {}
+[3.106158] (-) TimerEvent: {}
+[3.206443] (-) TimerEvent: {}
+[3.306697] (-) TimerEvent: {}
+[3.406959] (-) TimerEvent: {}
+[3.464205] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[3.507010] (-) TimerEvent: {}
+[3.607288] (-) TimerEvent: {}
+[3.707536] (-) TimerEvent: {}
+[3.807796] (-) TimerEvent: {}
+[3.908040] (-) TimerEvent: {}
+[4.008334] (-) TimerEvent: {}
+[4.108668] (-) TimerEvent: {}
+[4.208945] (-) TimerEvent: {}
+[4.309198] (-) TimerEvent: {}
+[4.409459] (-) TimerEvent: {}
+[4.509736] (-) TimerEvent: {}
+[4.610018] (-) TimerEvent: {}
+[4.710327] (-) TimerEvent: {}
+[4.810581] (-) TimerEvent: {}
+[4.910863] (-) TimerEvent: {}
+[5.011120] (-) TimerEvent: {}
+[5.111386] (-) TimerEvent: {}
+[5.211674] (-) TimerEvent: {}
+[5.265052] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[5.311752] (-) TimerEvent: {}
+[5.412006] (-) TimerEvent: {}
+[5.512264] (-) TimerEvent: {}
+[5.612543] (-) TimerEvent: {}
+[5.712895] (-) TimerEvent: {}
+[5.813135] (-) TimerEvent: {}
+[5.913365] (-) TimerEvent: {}
+[6.013623] (-) TimerEvent: {}
+[6.113891] (-) TimerEvent: {}
+[6.214149] (-) TimerEvent: {}
+[6.314414] (-) TimerEvent: {}
+[6.414656] (-) TimerEvent: {}
+[6.514904] (-) TimerEvent: {}
+[6.615125] (-) TimerEvent: {}
+[6.715384] (-) TimerEvent: {}
+[6.815599] (-) TimerEvent: {}
+[6.915846] (-) TimerEvent: {}
+[7.016088] (-) TimerEvent: {}
+[7.116364] (-) TimerEvent: {}
+[7.216596] (-) TimerEvent: {}
+[7.316842] (-) TimerEvent: {}
+[7.417118] (-) TimerEvent: {}
+[7.517370] (-) TimerEvent: {}
+[7.617626] (-) TimerEvent: {}
+[7.717951] (-) TimerEvent: {}
+[7.818226] (-) TimerEvent: {}
+[7.918488] (-) TimerEvent: {}
+[8.018743] (-) TimerEvent: {}
+[8.118996] (-) TimerEvent: {}
+[8.219273] (-) TimerEvent: {}
+[8.319539] (-) TimerEvent: {}
+[8.419829] (-) TimerEvent: {}
+[8.520089] (-) TimerEvent: {}
+[8.620352] (-) TimerEvent: {}
+[8.715431] (fsm_ros_wrapper) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[8.718578] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[8.720413] (-) TimerEvent: {}
+[8.820595] (-) TimerEvent: {}
+[8.848853] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[8.849267] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[8.920685] (-) TimerEvent: {}
+[8.975253] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[8.975778] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[9.020771] (-) TimerEvent: {}
+[9.028789] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Configuring done\n'}
+[9.034039] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Generating done\n'}
+[9.036051] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Build files have been written to: /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper\n'}
+[9.040861] (fsm_ros_wrapper) CommandEnded: {'returncode': 0}
+[9.041299] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'build'}
+[9.041754] (fsm_ros_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', '--', '-j32', '-l32'], 'cwd': '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'noahw'), ('GIT_ASKPASS', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/noahw'), ('OLDPWD', '/home/noahw/programs/machpilot/src'), ('TERM_PROGRAM_VERSION', '1.104.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-8254185a-61b2-457a-9289-2bd01ade18a6.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'noahw'), ('NAME', 'Mustang'), ('WSL_INTEROP', '/run/WSL/315_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/libnvvp:/mnt/c/Program Files/Eclipse Adoptium/jdk-21.0.4.7-hotspot/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.3.2/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/noahk/.cargo/bin:/mnt/c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64:/mnt/c/Users/noahk/ffmpeg/bin:/mnt/c/Users/noahk/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/noahk/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts:/mnt/c/Program Files/LLVM/bin:/snap/bin:/home/noahw/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ef499bd5f2.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[9.063932] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o\x1b[0m\n'}
+[9.064126] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 20%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o\x1b[0m\n'}
+[9.064263] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o\x1b[0m\n'}
+[9.064541] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o\x1b[0m\n'}
+[9.064970] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ScreenManager.cpp.o\x1b[0m\n'}
+[9.065264] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o\x1b[0m\n'}
+[9.065415] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o\x1b[0m\n'}
+[9.065452] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o\x1b[0m\n'}
+[9.065764] (fsm_ros_wrapper) StdoutLine: {'line': b'[ 90%] \x1b[32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/motorManager.cpp.o\x1b[0m\n'}
+[9.120946] (-) TimerEvent: {}
+[9.221228] (-) TimerEvent: {}
+[9.321475] (-) TimerEvent: {}
+[9.421758] (-) TimerEvent: {}
+[9.522029] (-) TimerEvent: {}
+[9.622291] (-) TimerEvent: {}
+[9.722604] (-) TimerEvent: {}
+[9.822905] (-) TimerEvent: {}
+[9.923257] (-) TimerEvent: {}
+[10.023547] (-) TimerEvent: {}
+[10.123818] (-) TimerEvent: {}
+[10.224221] (-) TimerEvent: {}
+[10.324496] (-) TimerEvent: {}
+[10.424875] (-) TimerEvent: {}
+[10.525258] (-) TimerEvent: {}
+[10.625524] (-) TimerEvent: {}
+[10.725804] (-) TimerEvent: {}
+[10.826218] (-) TimerEvent: {}
+[10.926562] (-) TimerEvent: {}
+[11.026921] (-) TimerEvent: {}
+[11.127206] (-) TimerEvent: {}
+[11.227506] (-) TimerEvent: {}
+[11.327841] (-) TimerEvent: {}
+[11.428132] (-) TimerEvent: {}
+[11.528581] (-) TimerEvent: {}
+[11.628857] (-) TimerEvent: {}
+[11.729114] (-) TimerEvent: {}
+[11.829374] (-) TimerEvent: {}
+[11.929732] (-) TimerEvent: {}
+[12.030020] (-) TimerEvent: {}
+[12.130313] (-) TimerEvent: {}
+[12.230585] (-) TimerEvent: {}
+[12.330861] (-) TimerEvent: {}
+[12.431239] (-) TimerEvent: {}
+[12.531540] (-) TimerEvent: {}
+[12.631914] (-) TimerEvent: {}
+[12.732228] (-) TimerEvent: {}
+[12.832588] (-) TimerEvent: {}
+[12.932873] (-) TimerEvent: {}
+[13.033144] (-) TimerEvent: {}
+[13.133451] (-) TimerEvent: {}
+[13.233723] (-) TimerEvent: {}
+[13.333988] (-) TimerEvent: {}
+[13.434309] (-) TimerEvent: {}
+[13.534580] (-) TimerEvent: {}
+[13.634834] (-) TimerEvent: {}
+[13.735030] (-) TimerEvent: {}
+[13.835298] (-) TimerEvent: {}
+[13.935807] (-) TimerEvent: {}
+[14.036087] (-) TimerEvent: {}
+[14.136328] (-) TimerEvent: {}
+[14.236599] (-) TimerEvent: {}
+[14.336859] (-) TimerEvent: {}
+[14.437136] (-) TimerEvent: {}
+[14.537439] (-) TimerEvent: {}
+[14.637729] (-) TimerEvent: {}
+[14.737991] (-) TimerEvent: {}
+[14.838214] (-) TimerEvent: {}
+[14.938513] (-) TimerEvent: {}
+[15.038841] (-) TimerEvent: {}
+[15.139124] (-) TimerEvent: {}
+[15.147706] (fsm_ros_wrapper) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable state_machine_node\x1b[0m\n'}
+[15.239224] (-) TimerEvent: {}
+[15.339639] (-) TimerEvent: {}
+[15.440184] (-) TimerEvent: {}
+[15.540709] (-) TimerEvent: {}
+[15.570351] (fsm_ros_wrapper) StdoutLine: {'line': b'[100%] Built target state_machine_node\n'}
+[15.576378] (fsm_ros_wrapper) CommandEnded: {'returncode': 0}
+[15.577054] (fsm_ros_wrapper) JobProgress: {'identifier': 'fsm_ros_wrapper', 'progress': 'install'}
+[15.579981] (fsm_ros_wrapper) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'], 'cwd': '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'noahw'), ('GIT_ASKPASS', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass.sh'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('MOTD_SHOWN', 'update-motd'), ('HOME', '/home/noahw'), ('OLDPWD', '/home/noahw/programs/machpilot/src'), ('TERM_PROGRAM_VERSION', '1.104.1'), ('VSCODE_IPC_HOOK_CLI', '/run/user/1000/vscode-ipc-8254185a-61b2-457a-9289-2bd01ade18a6.sock'), ('ROS_PYTHON_VERSION', '3'), ('VSCODE_GIT_ASKPASS_MAIN', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/extensions/git/dist/askpass-main.js'), ('VSCODE_GIT_ASKPASS_NODE', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/node'), ('VSCODE_PYTHON_AUTOACTIVATE_GUARD', '1'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('COLORTERM', 'truecolor'), ('WSL_DISTRO_NAME', 'Ubuntu-22.04'), ('WAYLAND_DISPLAY', 'wayland-0'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'noahw'), ('NAME', 'Mustang'), ('WSL_INTEROP', '/run/WSL/315_interop'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/noahw/.vscode-server/bin/0f0d87fa9e96c856c5212fc86db137ac0d783365/bin/remote-cli:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/bin:/mnt/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v12.6/libnvvp:/mnt/c/Program Files/Eclipse Adoptium/jdk-21.0.4.7-hotspot/bin:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0/:/mnt/c/Windows/System32/OpenSSH/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/MATLAB/R2024b/bin:/mnt/c/Program Files/CMake/bin:/mnt/c/Program Files/NVIDIA Corporation/Nsight Compute 2024.3.2/:/mnt/c/Program Files (x86)/Windows Kits/10/Windows Performance Toolkit/:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/Users/noahk/.cargo/bin:/mnt/c/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.42.34433/bin/Hostx64/x64:/mnt/c/Users/noahk/ffmpeg/bin:/mnt/c/Users/noahk/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/noahk/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312:/mnt/c/Users/noahk/AppData/Local/Packages/PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0/LocalCache/local-packages/Python312/Scripts:/mnt/c/Program Files/LLVM/bin:/snap/bin:/home/noahw/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('VSCODE_GIT_IPC_HANDLE', '/run/user/1000/vscode-git-ef499bd5f2.sock'), ('TERM_PROGRAM', 'vscode'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('SHELL', '/bin/bash'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('VSCODE_GIT_ASKPASS_EXTRA_ARGS', ''), ('PWD', '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('HOSTTYPE', 'x86_64'), ('WSLENV', 'VSCODE_WSL_EXT_LOCATION/up'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[15.584545] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[15.584753] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/lib/fsm_ros_wrapper/state_machine_node\n'}
+[15.587533] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Set runtime path of "/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/lib/fsm_ros_wrapper/state_machine_node" to ""\n'}
+[15.587749] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/package_run_dependencies/fsm_ros_wrapper\n'}
+[15.587985] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/parent_prefix_path/fsm_ros_wrapper\n'}
+[15.588208] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/ament_prefix_path.sh\n'}
+[15.588271] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/ament_prefix_path.dsv\n'}
+[15.588336] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/path.sh\n'}
+[15.588366] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/path.dsv\n'}
+[15.588390] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.bash\n'}
+[15.588413] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.sh\n'}
+[15.588561] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.zsh\n'}
+[15.588662] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.dsv\n'}
+[15.588690] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/package.dsv\n'}
+[15.588712] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/packages/fsm_ros_wrapper\n'}
+[15.588734] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/cmake/fsm_ros_wrapperConfig.cmake\n'}
+[15.588873] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/cmake/fsm_ros_wrapperConfig-version.cmake\n'}
+[15.588933] (fsm_ros_wrapper) StdoutLine: {'line': b'-- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/package.xml\n'}
+[15.589897] (fsm_ros_wrapper) CommandEnded: {'returncode': 0}
+[15.598472] (fsm_ros_wrapper) JobEnded: {'identifier': 'fsm_ros_wrapper', 'rc': 0}
+[15.599339] (-) EventReactorShutdown: {}

@@ -1,0 +1,15 @@
+[0.013s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.073s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.086s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[0.086s] [ 20%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o[0m
+[1.500s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:4:27:[m[K [01;31m[Kerror: [m[K‘[01m[KFSMPilotStates[m[K’ was not declared in this scope
+[1.500s]     4 | std::string_view get_name([01;31m[KFSMPilotStates[m[K state) {
+[1.500s]       |                           [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.500s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:4:49:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K,[m[K’ or ‘[01m[K;[m[K’ before ‘[01m[K{[m[K’ token
+[1.500s]     4 | std::string_view get_name(FSMPilotStates state) [01;31m[K{[m[K
+[1.500s]       |                                                 [01;31m[K^[m[K
+[1.742s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:188: CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o] Error 1
+[1.742s] gmake[2]: *** Waiting for unfinished jobs....
+[6.545s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[6.546s] gmake: *** [Makefile:146: all] Error 2
+[6.549s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

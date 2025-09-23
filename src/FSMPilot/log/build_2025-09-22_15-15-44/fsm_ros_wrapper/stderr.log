@@ -1,0 +1,67 @@
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:[m[K In constructor ‘[01m[KStateMachineNode::StateMachineNode()[m[K’:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:12:17:[m[K [01;31m[Kerror: [m[Kno match for ‘[01m[Koperator=[m[K’ (operand types are ‘[01m[Kstd::shared_ptr<StateMachineNode>[m[K’ and ‘[01m[KStateMachineNode*[m[K’)
+   12 |     output_node=[01;31m[Kthis[m[K
+      |                 [01;31m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:4[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:363:9:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Yp> std::shared_ptr<_Tp>::_Assignable<const std::shared_ptr<_Yp>&> std::shared_ptr<_Tp>::operator=(const std::shared_ptr<_Yp>&) [with _Yp = _Yp; _Tp = StateMachineNode][m[K’
+  363 |         [01;36m[Koperator[m[K=(const shared_ptr<_Yp>& __r) noexcept
+      |         [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:363:9:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:12:17:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kconst std::shared_ptr<_Tp>[m[K’ and ‘[01m[KStateMachineNode*[m[K’
+   12 |     output_node=[01;36m[Kthis[m[K
+      |                 [01;36m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:4[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:374:9:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Yp> std::shared_ptr<_Tp>::_Assignable<std::auto_ptr<_Up> > std::shared_ptr<_Tp>::operator=(std::auto_ptr<_Up>&&) [with _Yp = _Yp; _Tp = StateMachineNode][m[K’
+  374 |         [01;36m[Koperator[m[K=(auto_ptr<_Yp>&& __r)
+      |         [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:374:9:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:12:17:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kstd::auto_ptr<_Up>[m[K’ and ‘[01m[KStateMachineNode*[m[K’
+   12 |     output_node=[01;36m[Kthis[m[K
+      |                 [01;36m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:4[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:391:9:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Yp> std::shared_ptr<_Tp>::_Assignable<std::shared_ptr<_Yp> > std::shared_ptr<_Tp>::operator=(std::shared_ptr<_Yp>&&) [with _Yp = _Yp; _Tp = StateMachineNode][m[K’
+  391 |         [01;36m[Koperator[m[K=(shared_ptr<_Yp>&& __r) noexcept
+      |         [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:391:9:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:12:17:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kstd::shared_ptr<_Tp>[m[K’ and ‘[01m[KStateMachineNode*[m[K’
+   12 |     output_node=[01;36m[Kthis[m[K
+      |                 [01;36m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:4[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:399:9:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class _Yp, class _Del> std::shared_ptr<_Tp>::_Assignable<std::unique_ptr<_Up, _Ep> > std::shared_ptr<_Tp>::operator=(std::unique_ptr<_Up, _Ep>&&) [with _Yp = _Yp; _Del = _Del; _Tp = StateMachineNode][m[K’
+  399 |         [01;36m[Koperator[m[K=(unique_ptr<_Yp, _Del>&& __r)
+      |         [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:399:9:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:12:17:[m[K [01;36m[Knote: [m[K  mismatched types ‘[01m[Kstd::unique_ptr<_Tp, _Dp>[m[K’ and ‘[01m[KStateMachineNode*[m[K’
+   12 |     output_node=[01;36m[Kthis[m[K
+      |                 [01;36m[K^~~~[m[K
+In file included from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/include/fsm_ros_wrapper/state_machine_node.hpp:4[m[K,
+                 from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/state_machine_node.cpp:1[m[K:
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:359:19:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd::shared_ptr<_Tp>& std::shared_ptr<_Tp>::operator=(const std::shared_ptr<_Tp>&) [with _Tp = StateMachineNode][m[K’
+  359 |       shared_ptr& [01;36m[Koperator[m[K=(const shared_ptr&) noexcept = default;
+      |                   [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:359:29:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KStateMachineNode*[m[K’ to ‘[01m[Kconst std::shared_ptr<StateMachineNode>&[m[K’
+  359 |       shared_ptr& operator=([01;36m[Kconst shared_ptr&[m[K) noexcept = default;
+      |                             [01;36m[K^~~~~~~~~~~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:383:7:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Kstd::shared_ptr<_Tp>& std::shared_ptr<_Tp>::operator=(std::shared_ptr<_Tp>&&) [with _Tp = StateMachineNode][m[K’
+  383 |       [01;36m[Koperator[m[K=(shared_ptr&& __r) noexcept
+      |       [01;36m[K^~~~~~~~[m[K
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:383:30:[m[K [01;36m[Knote: [m[K  no known conversion for argument 1 from ‘[01m[KStateMachineNode*[m[K’ to ‘[01m[Kstd::shared_ptr<StateMachineNode>&&[m[K’
+  383 |       operator=([01;36m[Kshared_ptr&& __r[m[K) noexcept
+      |                 [01;36m[K~~~~~~~~~~~~~^~~[m[K
+gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:90: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

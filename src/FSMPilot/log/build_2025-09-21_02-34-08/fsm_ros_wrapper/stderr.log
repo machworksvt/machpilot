@@ -1,0 +1,4 @@
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:[m[K In function ‘[01m[Kstd::string_view get_name(FSMPilotStates)[m[K’:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilotStates.cpp:19:1:[m[K [01;35m[Kwarning: [m[Kcontrol reaches end of non-void function [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wreturn-type-Wreturn-type]8;;[m[K]
+   19 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K

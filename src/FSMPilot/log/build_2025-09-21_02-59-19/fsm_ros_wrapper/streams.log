@@ -1,0 +1,26 @@
+[0.010s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.068s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.081s] [ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[0.304s] [ 20%] [32m[1mLinking CXX executable state_machine_node[0m
+[0.708s] [100%] Built target state_machine_node
+[0.714s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.719s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper
+[0.723s] -- Install configuration: ""
+[0.724s] -- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/lib/fsm_ros_wrapper/state_machine_node
+[0.727s] -- Set runtime path of "/home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/lib/fsm_ros_wrapper/state_machine_node" to ""
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/package_run_dependencies/fsm_ros_wrapper
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/parent_prefix_path/fsm_ros_wrapper
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/ament_prefix_path.sh
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/ament_prefix_path.dsv
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/path.sh
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/environment/path.dsv
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.bash
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.sh
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.zsh
+[0.727s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/local_setup.dsv
+[0.727s] -- Installing: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/package.dsv
+[0.728s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/ament_index/resource_index/packages/fsm_ros_wrapper
+[0.728s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/cmake/fsm_ros_wrapperConfig.cmake
+[0.728s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/cmake/fsm_ros_wrapperConfig-version.cmake
+[0.728s] -- Up-to-date: /home/noahw/programs/machpilot/src/FSMPilot/install/fsm_ros_wrapper/share/fsm_ros_wrapper/package.xml
+[0.729s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper

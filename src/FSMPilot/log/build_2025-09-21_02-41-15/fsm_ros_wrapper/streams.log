@@ -1,0 +1,151 @@
+[0.006s] Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
+[0.027s] [35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
+[0.039s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o[0m
+[0.039s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
+[0.040s] [ 40%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
+[0.040s] [ 50%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o[0m
+[0.040s] [ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
+[0.040s] [ 60%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o[0m
+[0.041s] [ 70%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilotStates.cpp.o[0m
+[0.158s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.158s]    62 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.158s]       |                            [01;31m[K^~~~~[m[K
+[0.158s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.158s]   103 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.158s]       |                            [01;31m[K^~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:103:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+[0.159s]   103 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+[0.159s]       |                [01;31m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+[0.159s]    62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+[0.159s]       |                [01;36m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.159s]   125 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.159s]       |                            [01;31m[K^~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:125:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+[0.159s]   125 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+[0.159s]       |                [01;31m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+[0.159s]    62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+[0.159s]       |                [01;36m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.159s]   151 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.159s]       |                            [01;31m[K^~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:151:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+[0.159s]   151 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+[0.159s]       |                [01;31m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+[0.159s]    62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+[0.159s]       |                [01;36m[K^~~~~~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.159s]   169 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.159s]       |                            [01;31m[K^~~~~[m[K
+[0.159s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:169:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+[0.159s]   169 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+[0.160s]       |                [01;31m[K^~~~~~~~~[m[K
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+[0.160s]    62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+[0.160s]       |                [01;36m[K^~~~~~~~~[m[K
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:28:[m[K [01;31m[Kerror: [m[Knon-member function ‘[01m[KFSMPilotStates get_state()[m[K’ cannot have cv-qualifier
+[0.160s]   191 | FSMPilotStates get_state() [01;31m[Kconst[m[K{
+[0.160s]       |                            [01;31m[K^~~~~[m[K
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:191:16:[m[K [01;31m[Kerror: [m[Kredefinition of ‘[01m[KFSMPilotStates get_state()[m[K’
+[0.160s]   191 | FSMPilotStates [01;31m[Kget_state[m[K() const{
+[0.160s]       |                [01;31m[K^~~~~~~~~[m[K
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:62:16:[m[K [01;36m[Knote: [m[K‘[01m[KFSMPilotStates get_state()[m[K’ previously defined here
+[0.160s]    62 | FSMPilotStates [01;36m[Kget_state[m[K() const{
+[0.160s]       |                [01;36m[K^~~~~~~~~[m[K
+[0.160s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.160s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.160s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<Uninitialized>::value_type tinyfsm::_state_instance<Uninitialized>::value[m[K’:
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:204:1:[m[K   required from here
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<Uninitialized>::value[m[K’ to be of abstract type ‘[01m[KUninitialized[m[K’
+[0.160s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.160s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.160s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:68:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KUninitialized[m[K’:
+[0.160s]    68 | class [01;36m[KUninitialized[m[K : public StateMachine {
+[0.160s]       |       [01;36m[K^~~~~~~~~~~~~[m[K
+[0.160s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.160s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.160s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.172s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.172s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.172s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<Initialized>::value_type tinyfsm::_state_instance<Initialized>::value[m[K’:
+[0.172s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:[m[K   required from ‘[01m[Kvoid tinyfsm::Fsm<F>::transit() [with S = Initialized; F = StateMachine][m[K’
+[0.172s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:73:29:[m[K   required from here
+[0.172s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<Initialized>::value[m[K’ to be of abstract type ‘[01m[KInitialized[m[K’
+[0.172s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.172s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.172s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.172s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:81:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KInitialized[m[K’:
+[0.172s]    81 | class [01;36m[KInitialized[m[K : public StateMachine {
+[0.172s]       |       [01;36m[K^~~~~~~~~~~[m[K
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.173s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.173s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.173s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.173s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.173s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<Armed>::value_type tinyfsm::_state_instance<Armed>::value[m[K’:
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:[m[K   required from ‘[01m[Kvoid tinyfsm::Fsm<F>::transit() [with S = Armed; F = StateMachine][m[K’
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:112:19:[m[K   required from here
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<Armed>::value[m[K’ to be of abstract type ‘[01m[KArmed[m[K’
+[0.173s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.173s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.173s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:88:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KArmed[m[K’:
+[0.173s]    88 | class [01;36m[KArmed[m[K : public StateMachine {
+[0.173s]       |       [01;36m[K^~~~~[m[K
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.173s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.173s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.173s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.173s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.173s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<ManualFlight>::value_type tinyfsm::_state_instance<ManualFlight>::value[m[K’:
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:[m[K   required from ‘[01m[Kvoid tinyfsm::Fsm<F>::transit() [with S = ManualFlight; F = StateMachine][m[K’
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:134:26:[m[K   required from here
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<ManualFlight>::value[m[K’ to be of abstract type ‘[01m[KManualFlight[m[K’
+[0.173s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.173s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.173s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:96:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KManualFlight[m[K’:
+[0.173s]    96 | class [01;36m[KManualFlight[m[K : public StateMachine {
+[0.173s]       |       [01;36m[K^~~~~~~~~~~~[m[K
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.173s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.173s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.173s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.173s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.173s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<Disarm>::value_type tinyfsm::_state_instance<Disarm>::value[m[K’:
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:[m[K   required from ‘[01m[Kvoid tinyfsm::Fsm<F>::transit() [with S = Disarm; F = StateMachine][m[K’
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:138:20:[m[K   required from here
+[0.173s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<Disarm>::value[m[K’ to be of abstract type ‘[01m[KDisarm[m[K’
+[0.173s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.174s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.174s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:102:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KDisarm[m[K’:
+[0.174s]   102 | class [01;36m[KDisarm[m[K : public StateMachine {
+[0.174s]       |       [01;36m[K^~~~~~[m[K
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.174s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.174s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.174s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:4[m[K,
+[0.174s]                  from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.174s] /home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp: In instantiation of ‘[01m[Ktinyfsm::_state_instance<Shutdown>::value_type tinyfsm::_state_instance<Shutdown>::value[m[K’:
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:137:27:[m[K   required from ‘[01m[Kvoid tinyfsm::Fsm<F>::transit() [with S = Shutdown; F = StateMachine][m[K’
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:178:22:[m[K   required from here
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/third_party/tinyfsm/include/tinyfsm.hpp:80:43:[m[K [01;31m[Kerror: [m[Kcannot declare variable ‘[01m[Ktinyfsm::_state_instance<Shutdown>::value[m[K’ to be of abstract type ‘[01m[KShutdown[m[K’
+[0.174s]    80 |   typename _state_instance<S>::value_type [01;31m[K_state_instance<S>[m[K::value;
+[0.174s]       |                                           [01;31m[K^~~~~~~~~~~~~~~~~~[m[K
+[0.174s] In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:1[m[K:
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:109:7:[m[K [01;36m[Knote: [m[K  because the following virtual functions are pure within ‘[01m[KShutdown[m[K’:
+[0.174s]   109 | class [01;36m[KShutdown[m[K : public StateMachine {
+[0.174s]       |       [01;36m[K^~~~~~~~[m[K
+[0.174s] [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.hpp:59:28:[m[K [01;36m[Knote: [m[K    ‘[01m[Kvirtual FSMPilotStates StateMachine::get_state()[m[K’
+[0.174s]    59 |     virtual FSMPilotStates [01;36m[Kget_state[m[K()=0;
+[0.174s]       |                            [01;36m[K^~~~~~~~~[m[K
+[0.182s] gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+[0.182s] gmake[2]: *** Waiting for unfinished jobs....
+[6.006s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+[6.006s] gmake: *** [Makefile:146: all] Error 2
+[6.007s] Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

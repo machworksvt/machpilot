@@ -1,0 +1,10 @@
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:9:1:[m[K [01;31m[Kerror: [m[Kexpected initializer before ‘[01m[Kstd[m[K’
+    9 | [01;31m[Kstd[m[K::string sub_system_to_String(SubSystems id) {
+      | [01;31m[K^~~[m[K
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:[m[K In member function ‘[01m[Kvoid StateMachine::entry()[m[K’:
+[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:48:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kpubish_state[m[K’ was not declared in this scope
+   48 |     [01;31m[Kpubish_state[m[K(output_node,get_state());
+      |     [01;31m[K^~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2
