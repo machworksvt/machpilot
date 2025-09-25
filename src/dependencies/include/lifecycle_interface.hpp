@@ -62,6 +62,12 @@ public:
      */
     virtual CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) = 0;
 
+    /**
+     * Called when error arises, changes state based on success or failure
+     * on SUCCESS, set state to Unconfigured (0) and on FAILURE, set state to Finalized (3)
+     * @param[in] state the state enum to be changed 
+     */
+    virtual CallbackReturn on_error(const rclcpp_lifecycle::State &state) = 0;
 private:
     
 };

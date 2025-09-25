@@ -7,7 +7,6 @@
 # 
 # 3. check if the commented-out lines are in use, especially if custom interfaces are in use
 
-
 cmake_minimum_required(VERSION 3.8)
 project(<name>)
 
@@ -24,14 +23,6 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
-
-# --- Custom Interfaces (optional) ---
-# rosidl_generate_interfaces(${PROJECT_NAME}
-#   "msg/Example.msg"
-#   "srv/DoSomething.srv"
-#   "action/Move.action"
-#   DEPENDENCIES builtin_interfaces std_msgs
-# )
 
 # --- Library (optional) ---
 # add_library(${PROJECT_NAME}_lib
@@ -51,7 +42,7 @@ add_executable(<node_name> src/<node_name>.cpp src/<driver_name>.c)
 
 target_include_directories(<node_name> PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/<node_name>>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
 
 ament_target_dependencies(<node_name> 
@@ -61,28 +52,22 @@ ament_target_dependencies(<node_name>
   rosidl_default_generators)
 
 # --- Installation ---
-install(TARGETS pca9685_node #${PROJECT_NAME}_lib # libraries
+install(TARGETS <node_name> #${PROJECT_NAME}_lib # libraries
 #  EXPORT export_${PROJECT_NAME} # for child dependencies
   DESTINATION lib/${PROJECT_NAME}
 )
 
-# the following will be used when launch files are implemented, just uncomment
+# the commented lines will be used when launch files are implemented, just uncomment
 install(DIRECTORY
   #launch
   #config
   DESTINATION share/${PROJECT_NAME}
 )
 
-# --- Export interfaces for downstream packages ---
+# --- Export interfaces for downstream packages (optional) ---
 # ament_export_include_directories(include)
 # ament_export_libraries(${PROJECT_NAME}_lib)
 # ament_export_dependencies(rclcpp std_msgs sensor_msgs)
-
-# Required for custom interfaces
-# ament_export_targets(export_${PROJECT_NAME})
-# rosidl_target_interfaces(${PROJECT_NAME}_lib
-#   ${PROJECT_NAME} "rosidl_typesupport_cpp"
-# )
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

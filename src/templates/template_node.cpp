@@ -1,4 +1,4 @@
-#include <device_driver.hpp> // replace with real name
+// #include <device_driver.hpp> replace with real name
 #include <memory>
 #include <iostream>
 
@@ -40,6 +40,12 @@ CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) override
 }
 
 CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+CallbackReturn on_error(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
     return CallbackReturn::SUCCESS;

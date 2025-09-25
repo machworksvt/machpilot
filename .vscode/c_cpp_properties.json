@@ -18,6 +18,7 @@
                 "${workspaceFolder}/src/orient/src/**",
                 "${workspaceFolder}/src/pwm/include/**",
                 "${workspaceFolder}/src/dependencies/include/**",
+                "${workspaceFolder}/src/dependencies/include",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
                 "${workspaceFolder}/src/FSMPilot/tinyfsm/include",
                 "${workspaceFolder}/src/FSMPilot",

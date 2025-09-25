@@ -13,3 +13,6 @@
 [submodule "src/gnc/third_party/casadi"]
 	path = src/gnc/third_party/casadi
 	url = https://github.com/casadi/casadi.git
+[submodule "src/dependencies/librobotcontrol"]
+	path = src/dependencies/librobotcontrol
+	url = https://github.com/beagleboard/librobotcontrol
