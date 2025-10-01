@@ -27,7 +27,7 @@ int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
     sprintf((*info).bus, "%s%d", bus_path, bus_num);
-
+    // open the I2C bus
     (*info).fd = open((*info).bus, O_RDWR);
 
     if (info->fd < 0) {
@@ -41,18 +41,22 @@ int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
 int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 
+    // prepare the data structures for the ioctl call
     struct i2c_rdwr_ioctl_data idata;
     struct i2c_msg msgs[2];
     
+    // populate the data structures
     if (i2c_populate_data(&idata, info, msgs, I2C_M_RD, reg, size, data)) {
         return -1;
     }
 
+    // verify that the second message is marked as a read transaction
     if (idata.msgs[1].flags != I2C_M_RD) {
         perror("I2C: not marked as read transaction");
         return -2;
     }
 
+    // perform the I2C transaction
     if (ioctl(info->fd, I2C_RDWR, idata) != idata.nmsgs) {
         perror("I2C: communication error");
         return -3;
@@ -64,18 +68,22 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 
 int i2c_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 
+    // prepare the data structures for the ioctl call
     struct i2c_rdwr_ioctl_data idata;
     struct i2c_msg msgs[2];
 
+    // populate the data structures
     if (i2c_populate_data(&idata, info, msgs, 0, reg, size, data)) {
         return -1;
     }
 
+    // verify that the second message is marked as a write transaction
     if (idata.msgs[1].flags != 0) {
         perror("I2C: not marked as write transaction");
         return -2;
     }
 
+    // perform the I2C transaction
     if (ioctl(info->fd, I2C_RDWR, idata) != idata.nmsgs) {
         perror("I2C: communication error");
         return -3;
