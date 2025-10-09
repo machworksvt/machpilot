@@ -1,6 +1,0 @@
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o: in function `StateMachine::entry()':
-FSMPilot.cpp:(.text+0x4b4): undefined reference to `pubish_state(std::shared_ptr<StateMachineNode>, FSMPilotStates)'
-collect2: error: ld returned 1 exit status
-gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:287: state_machine_node] Error 1
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2

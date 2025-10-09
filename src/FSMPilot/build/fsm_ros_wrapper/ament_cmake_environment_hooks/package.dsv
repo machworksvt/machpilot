@@ -1,4 +1,0 @@
-source;share/fsm_ros_wrapper/local_setup.bash
-source;share/fsm_ros_wrapper/local_setup.dsv
-source;share/fsm_ros_wrapper/local_setup.sh
-source;share/fsm_ros_wrapper/local_setup.zsh

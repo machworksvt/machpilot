@@ -1,4 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
-[ 10%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
-[ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
-[ 30%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m

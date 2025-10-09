@@ -1,9 +1,0 @@
-In file included from [01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:6[m[K:
-[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/publisher.hpp:6:10:[m[K [01;31m[Kfatal error: [m[Kfsm_ros_wrapper/state_machine_node.hpp: No such file or directory
-    6 | #include [01;31m[K"fsm_ros_wrapper/state_machine_node.hpp"[m[K
-      |          [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
-compilation terminated.
-gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2

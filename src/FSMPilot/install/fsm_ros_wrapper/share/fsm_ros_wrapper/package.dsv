@@ -1,8 +1,0 @@
-source;share/fsm_ros_wrapper/hook/cmake_prefix_path.ps1
-source;share/fsm_ros_wrapper/hook/cmake_prefix_path.dsv
-source;share/fsm_ros_wrapper/hook/cmake_prefix_path.sh
-source;share/fsm_ros_wrapper/local_setup.bash
-source;share/fsm_ros_wrapper/local_setup.dsv
-source;share/fsm_ros_wrapper/local_setup.ps1
-source;share/fsm_ros_wrapper/local_setup.sh
-source;share/fsm_ros_wrapper/local_setup.zsh

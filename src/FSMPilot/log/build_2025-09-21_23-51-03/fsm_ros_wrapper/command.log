@@ -1,2 +1,0 @@
-Invoking command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32
-Invoked command in '/home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/noahw/programs/machpilot/src/FSMPilot/build/fsm_ros_wrapper -- -j32 -l32

@@ -1,7 +1,0 @@
-[01m[K/home/noahw/programs/machpilot/src/FSMPilot/src/FSMPilot.cpp:16:1:[m[K [01;31m[Kerror: [m[K‘[01m[Koutput_node[m[K’ does not name a type
-   16 | [01;31m[Koutput_node[m[K=nullptr;
-      | [01;31m[K^~~~~~~~~~~[m[K
-gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:104: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o] Error 1
-gmake[2]: *** Waiting for unfinished jobs....
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2

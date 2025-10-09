@@ -1,9 +1,0 @@
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o:(.bss+0x0): multiple definition of `output_node'; CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o:(.bss+0x0): first defined here
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o:(.bss+0x0): multiple definition of `output_node'; CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o:(.bss+0x0): first defined here
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o:(.bss+0x0): multiple definition of `output_node'; CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o:(.bss+0x0): first defined here
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o:(.bss+0x0): multiple definition of `output_node'; CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o:(.bss+0x0): first defined here
-/usr/bin/ld: CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o:(.bss+0x0): multiple definition of `output_node'; CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o:(.bss+0x0): first defined here
-collect2: error: ld returned 1 exit status
-gmake[2]: *** [CMakeFiles/state_machine_node.dir/build.make:287: state_machine_node] Error 1
-gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/state_machine_node.dir/all] Error 2
-gmake: *** [Makefile:146: all] Error 2

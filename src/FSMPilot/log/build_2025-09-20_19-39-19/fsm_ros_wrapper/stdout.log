@@ -1,7 +1,0 @@
-[35m[1mConsolidate compiler generated dependencies of target state_machine_node[0m
-[ 22%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ros_main.cpp.o[0m
-[ 22%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/state_machine_node.cpp.o[0m
-[ 33%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManager.cpp.o[0m
-[ 44%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FireManager.cpp.o[0m
-[ 55%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/FSMPilot.cpp.o[0m
-[ 66%] [32mBuilding CXX object CMakeFiles/state_machine_node.dir/src/ErrorManagerList.cpp.o[0m
