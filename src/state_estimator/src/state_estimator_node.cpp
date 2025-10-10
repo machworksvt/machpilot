@@ -1,16 +1,23 @@
 #include "state_estimator.h"
-#include "rc/math/math.h"
-#include "rc/time.h"
+
+#include <rclcpp/rclcpp.hpp>
+
+#include <sensor_msgs/msg/temperature.hpp>
+#include <sensor_msgs/msg/fluid_pressure.hpp>
+#include <sensor_msgs/msg/imu.hpp>
+#include <std_msgs/msg/float64.hpp>
+#include <diagnostic_msgs/msg/diagnostic_array.hpp>
+#include <diagnostic_msgs/msg/diagnostic_status.hpp>
 
 // local magnetic field vector for Blacksburg, attained from NOAA's calculator
 #define INCLINATION 64.0972
 
 using std::placeholders::_1;
 
-class STATE_ESTMATORNode : public Controller
+class STATE_ESTMATORNode : public rclcpp::Node
 {
 public:
-  STATE_ESTMATORNode() : Controller("state_estimator_node") {
+  STATE_ESTMATORNode() : rclcpp::Node("state_estimator_node") {
 
     // initializing state variables
     raw_state_;
@@ -29,7 +36,7 @@ public:
     mag_norm_.d[2] = mag_z;
     
     // initializing the Kalman filters
-    if (imu_kf_init() == -1) {
+    if (imu_kf_init()) {
       std::cout << "IMU KF not initialized" << std::endl;
       return;
     }
@@ -132,6 +139,8 @@ public:
     rc_matrix_free(&Q);
     rc_matrix_free(&R);
     rc_matrix_free(&Pi);
+
+    return 0;
   }
 
 private:

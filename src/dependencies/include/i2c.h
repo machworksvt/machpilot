@@ -12,6 +12,8 @@
 #include <errno.h>
 #include <string.h>
 
+#define I2C_FILE_PATH "/dev/i2c-" // default I2C file path prefix
+
 // stores permanent items related to the device: bus number and address
 typedef struct _I2CInfo {
     uint8_t bus_num;

@@ -14,7 +14,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-set(CMAKE_CXX_STANDARD 18) # cpp standard, 18 for our project
+set(CMAKE_CXX_STANDARD 17) # cpp standard, 17 for our project
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # find dependencies
@@ -41,7 +41,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 add_executable(<node_name> src/<node_name>.cpp src/<driver_name>.c)
 
 target_include_directories(<node_name> PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/<node_name>>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/<name>>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
 
@@ -50,6 +50,8 @@ ament_target_dependencies(<node_name>
   rclcpp_lifecycle 
   rclcpp_action
   rosidl_default_generators)
+
+target_link_libraries(<node_name> pthread) # good to include for system calls
 
 # --- Installation ---
 install(TARGETS <node_name> #${PROJECT_NAME}_lib # libraries

@@ -1,3 +1,12 @@
+# ------------------------------------------------------------------------------------------
+#                    THIS FILE IS A TEMPLATE, REMOVE THIS WHEN IN USE
+# ------------------------------------------------------------------------------------------
+# 1. find-replace all <name>, <node_name>, and <driver_name> with the real names
+#
+# 2. add more find_package() lines as needed
+# 
+# 3. check if the commented-out lines are in use, especially if custom interfaces are in use
+
 cmake_minimum_required(VERSION 3.8)
 project(airspeed)
 
@@ -5,33 +14,69 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+set(CMAKE_CXX_STANDARD 17) # cpp standard, 17 for our project
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
-find_package(shared_lib REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
 
-file(GLOB MS4525DO_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed/*.cpp"
-  )
+# --- Library (optional) ---
+# add_library(${PROJECT_NAME}_lib
+#   src/your_library.cpp
+# )
+# target_include_directories(${PROJECT_NAME}_lib PUBLIC
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#   $<INSTALL_INTERFACE:include>
+# )
+# ament_target_dependencies(${PROJECT_NAME}_lib
+#   rclcpp
+#   std_msgs
+# )
 
-add_library(ms4525do STATIC ${MS4525DO_SOURCES})
+# --- Node Executable ---
+add_executable(ms4525do_node 
+  src/ms4525do_node.cpp 
+  src/ms4525do_driver.cpp
+  ../dependencies/src/i2c.c)
 
-target_include_directories(ms4525do PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
-  )
-
-add_executable(ms4525do_node src/ms4525do_node.cpp)
-target_include_directories(ms4525do_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+target_include_directories(ms4525do_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
-target_link_libraries(ms4525do_node ms4525do)
-target_compile_features(ms4525do_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(ms4525do_node shared_lib)
 
-install(TARGETS ms4525do_node
-  DESTINATION lib/${PROJECT_NAME})
+ament_target_dependencies(ms4525do_node 
+  rclcpp 
+  rclcpp_lifecycle 
+  rclcpp_action
+  rosidl_default_generators
+  std_msgs
+  sensor_msgs)
+
+target_link_libraries(ms4525do_node pthread) # good to include for system calls
+
+# --- Installation ---
+install(TARGETS ms4525do_node #${PROJECT_NAME}_lib # libraries
+#  EXPORT export_${PROJECT_NAME} # for child dependencies
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# the commented lines will be used when launch files are implemented, just uncomment
+install(DIRECTORY
+  #launch
+  #config
+  DESTINATION share/${PROJECT_NAME}
+)
+
+# --- Export interfaces for downstream packages (optional) ---
+# ament_export_include_directories(include)
+# ament_export_libraries(${PROJECT_NAME}_lib)
+# ament_export_dependencies(rclcpp std_msgs sensor_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -41,7 +86,7 @@ if(BUILD_TESTING)
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
+  # set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 

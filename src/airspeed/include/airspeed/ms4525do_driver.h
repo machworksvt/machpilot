@@ -1,8 +1,13 @@
-#ifndef _ms4525do_i2c_driver_dot_h
-#define _ms4525do_i2c_driver_dot_h
+#ifndef MS4525DO_I2C_DRIVER_DOT_H
+#define MS4525DO_I2C_DRIVER_DOT_H
 
 #include <cstring>
 #include <cstdint>
+
+extern "C" {
+    #include <i2c.h>
+}
+
 
 #define STATUS_NORMAL 0
 #define STATUS_RESERVED 1
@@ -24,30 +29,30 @@
     #define MIN 0.5
 #endif
 
-#define MAXP 1
-#define MINP -1
+#define MAXP 1.0
+#define MINP -1.0
 
-#define MINT -50
-#define MAXT 150
+#define PSI2PA 6894.76 // conversion factor from psi to pascal
 
-#define I2C_FILE_PATH "/dev/i2c-7"
-
-typedef struct {
-    uint8_t status;
-    float temp;
-    float press;
-} PITOTData;
+#define MINT -50.0
+#define MAXT 150.0
 
 class MS4525DO {
 private:
-    uint8_t init();
+    uint8_t init(uint8_t bus_num, const char *bus_path);
     bool statusMessages(uint8_t status);
 public:
-    PITOTData data_;
-    uint8_t addr_;
-    int file_;
+    I2CInfo _i2c_info;
+    struct {
+        float pressure;
+        float temp;
+        uint8_t status;
+    } _data;
+    bool calibFlag = false;
+    float p_offset;
+    float t_offset;
     
-    MS4525DO(int addr);
+    MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr);
     ~MS4525DO();
     uint8_t readMR();
     uint8_t readDF2();
