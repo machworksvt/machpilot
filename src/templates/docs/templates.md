@@ -59,3 +59,12 @@ See `--- Installation ---`.
 `install(TARGETS <node_name> #${PROJECT_NAME}_lib # libraries #  EXPORT export_${PROJECT_NAME} # for child dependencies DESTINATION lib/${PROJECT_NAME} )` installs every previous item to the project, linking it to the node. Uncomment the commented lines if used. Uncomment `EXPORT export_${PROJECT_NAME}` if this package is a dependency for others.
 
 `install(DIRECTORY #launch #config DESTINATION share/${PROJECT_NAME} )` installs the `launch` and `config` folders/files to the ROS2 installation tree. If these are implemented, uncomment the lines to install them.
+
+### Part 6: Tips
+
+Defining Variables:
+Sometimes, a path or other value will be reused many times within a CMakeLists file. This can be streamlined by creating environment variables.
+
+- Environment variables are called with the `${VARIABLE}` syntax. All usages will be replaced with the value set to it.
+- They can be created and set at the same time with the `set(VARIABLE, "value")` command in CMake. This should be done before the first usage of `${VARIABLE}`.
+- If this is setting an environment variable, the name should be unique among the entire build system. Specific naming should be used that refers to the value when creating an environment variable.

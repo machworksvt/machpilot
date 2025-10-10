@@ -1,25 +1,22 @@
 #include <memory>
 #include <iostream>
-#include "controller.hpp"
+#include "lifecycle_interface.hpp"
 
 using std::placeholders::_1;
 
-extern "C" {
-  #include "pca9685_driver.h"
-}
+#include "pca9685_driver.h"
 
-class PCA9685Node : public Controller
+class PCA9685Node : public Device
 {
 public:
-PCA9685Node(int addr) : Controller("pca9685_node")
+PCA9685Node(int addr) : Device("pca9685_node")
 {
-    pca9685_ = std::make_shared<PCA9685>(addr);
+    _pca = std::make_shared<PCA9685>(I2C_FILE_PATH, 0, addr);
+    RCLCPP_INFO(get_logger(), "PCA9685: reset successful");
 
-    pca9685_.reset();
-    // Create publishers for temperature and fluid pressure
-    pwm_subscriber_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
-    "servo_angles", 10, std::bind(&PCA9685Node::topic_callback, this, _1));
-    std::cout << "pwm node initialized" << std::endl;
+    _timer = this->create_wall_timer(
+        std::chrono::milliseconds(1000),
+        std::bind(&PCA9685Node::timer_callback, this));
 }
 
 ~PCA9685Node()
@@ -28,25 +25,71 @@ PCA9685Node(int addr) : Controller("pca9685_node")
 }
 
 private:
-void topic_callback(const std_msgs::msg::Float32MultiArray::SharedPtr msg) const 
+CallbackReturn on_configure(const rclcpp_lifecycle::State &state) override
 {
-    for (uint8_t i = 0; i < msg->data.size(); i++) {
-        pca9685_->angles_[i] = msg->data.at(i);
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+
+    
+    if (_pca->reset() != 0) {
+        RCLCPP_ERROR(get_logger(), "PCA9685: reset failed");
+        return CallbackReturn::FAILURE;
     }
 
-    pca9685_->pwm_set_all();
+    return CallbackReturn::SUCCESS;
 }
 
-std::shared_ptr<PCA9685> pca9685_;
-rclcpp::TimerBase::SharedPtr timer_;
-rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr pwm_subscriber_;
+CallbackReturn on_cleanup(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+CallbackReturn on_error(const rclcpp_lifecycle::State &state) override
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+    return CallbackReturn::SUCCESS;
+}
+
+int timer_callback() {
+    
+}
+
+private:
+std::shared_ptr<PCA9685> _pca;
+rclcpp::TimerBase::SharedPtr _timer;
 };
 
 int main(int argc, char * argv[])
 {
+    setvbuf(stdout, NULL, _IONBF, BUFSIZ);
+
     rclcpp::init(argc, argv);
+
+    rclcpp::executors::SingleThreadedExecutor exe;
+
     auto node = std::make_shared<PCA9685Node>(0x40);
-    rclcpp::spin(node);
+
+    exe.add_node(node->get_node_base_interface());
+    exe.spin();
+
     rclcpp::shutdown();
     return 0;
 }
