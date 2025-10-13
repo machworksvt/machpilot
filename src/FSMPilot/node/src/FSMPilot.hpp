@@ -60,10 +60,16 @@ public:
     virtual void exit() {}
 };
 
+enum sub_system_active: unsigned char{
+    UNINITIALIZED=0,
+    INITIALIZED=1,
+    UNUSED=2,
+};
+
 // --- State Class Declarations ---
 class Uninitialized : public StateMachine {
 private:
-    std::array<bool, SUBSYSTEM_COUNT> subsystems;
+    std::array<sub_system_active, SUBSYSTEM_COUNT> subsystems;
     size_t init_count;
 public:
     Uninitialized();
@@ -120,5 +126,7 @@ void send_event(E const & event)
 {
     StateMachine::template dispatch<E>(event);
 }
+
+int set_subsystems(char* file);
 
 #endif // STATEMACHINE_HPP

@@ -31,19 +31,6 @@ include_directories(
 )
 
 # Add the executable for the ROS 2 node.
-add_executable(state_machine_node
-    ../node/src/ros_main.cpp
-    ../node/src/state_machine_node.cpp
-    ../node/src/FSMPilot.cpp
-    ../node/src/motorManager.cpp
-    ../node/src/ScreenManager.cpp
-    ../node/src/ErrorManager.cpp
-    ../node/src/FireManager.cpp
-    ../node/src/ErrorManagerList.cpp
-    ../node/src/FSMPilotStates.cpp
-    ../node/src/sub_systems.cpp
-)
-
 add_executable(state_machine_tester
     src/ros_main.cpp
     ../node/src/FSMPilotStates.cpp
@@ -51,22 +38,12 @@ add_executable(state_machine_tester
 
 
 # Link the executable against its dependencies
-ament_target_dependencies(state_machine_node
-  "rclcpp"
-  "std_msgs"
-)
-
 ament_target_dependencies(state_machine_tester
   "rclcpp"
   "std_msgs"
 )
 
 # Install the executable
-install(TARGETS
-  state_machine_node
-  DESTINATION lib/${PROJECT_NAME}
-)
-
 install(TARGETS
   state_machine_tester
   DESTINATION lib/${PROJECT_NAME}

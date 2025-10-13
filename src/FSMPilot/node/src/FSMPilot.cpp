@@ -4,6 +4,8 @@
 #include "ErrorManagerList.hpp"
 #include "state_machine_node.hpp"
 #include "publisher.hpp"
+#include <fstream>
+#include <string>
 
 
 std::shared_ptr<StateMachineNode> output_node=nullptr;
@@ -52,8 +54,10 @@ void StateMachine::entry() {
 }
 
 
+static std::array<sub_system_active, SUBSYSTEM_COUNT> subsystems_start;
+
 // --- Uninitialized State Implementation ---
-Uninitialized::Uninitialized() : subsystems{}, init_count(0) {}
+Uninitialized::Uninitialized() : subsystems{subsystems_start}, init_count(0) {}
 
 
 FSMPilotStates Uninitialized::get_state() const{
@@ -73,21 +77,26 @@ void Uninitialized::entry_end() {
 
 void Uninitialized::react(InitializeSubsystem const & e) {
     if (e.subsystem_id < SUBSYSTEM_COUNT) {
-        std::string subsystem_name = sub_system_to_String(e.subsystem_id);
-
-        if (!subsystems[e.subsystem_id]) {
-            subsystems[e.subsystem_id] = true;
-            ++init_count;
-            std::cout << "Subsystem " << subsystem_name << " initialized ("
-                      << init_count << "/" << SUBSYSTEM_COUNT << ")\n";
-            if (init_count == SUBSYSTEM_COUNT) {
-                transit<Initialized>();
-            }
-        } else {
-            std::cout << "Subsystem " << subsystem_name << " has already been initialized\n";
+        std::string_view subsystem_name = SubSystemToString(e.subsystem_id);
+        
+        switch (subsystems[e.subsystem_id]){
+            case sub_system_active::UNINITIALIZED:
+                subsystems[e.subsystem_id] = sub_system_active::INITIALIZED;    
+                ++init_count;
+                std::cerr << "Subsystem " << subsystem_name << " initialized ("<< init_count << "/" << SUBSYSTEM_COUNT << ")\n";
+                if (init_count == SUBSYSTEM_COUNT) {
+                    transit<Initialized>();
+                }
+                break;
+            case sub_system_active::INITIALIZED:
+                std::cerr << "Subsystem " << subsystem_name << " has already been initialized\n";
+                break;
+            case sub_system_active::UNUSED:
+                std::cerr << "Subsystem " << subsystem_name << " is not being used\n";
+                break;
         }
     } else {
-        std::cout << "Invalid Subsystem id: " << e.subsystem_id << "\n";
+        std::cerr << "Invalid Subsystem id: " << e.subsystem_id << "\n";
     }
 }
 
@@ -195,6 +204,95 @@ std::string Shutdown::get_name() const{
 
 ScreenState Shutdown::get_screen_state() {
     return ScreenState::ScreenOff;
+}
+
+int set_subsystems(char* file){
+
+    //for the purpose of this function INITIALIZED means we have read in a value for this subsystem yet
+    subsystems_start.fill(sub_system_active::INITIALIZED);
+
+    std::unordered_map<std::string_view, uint8_t> mapping;
+
+    for (u_int8_t s_id=0;s_id<SUBSYSTEM_COUNT;s_id++){
+        SubSystems s=static_cast<SubSystems>(s_id);
+
+        std::string_view name=SubSystemToString(s);
+
+        if (!mapping.emplace(name, s_id).second) {
+            std::cerr << "Error: Duplicate subsystem name generated: " << name << std::endl;
+            return 1;
+        }
+    }
+
+    std::ifstream inputFile(file);
+    if (!inputFile.is_open()) {
+        std::cerr << "Error: Could not open file: " << file << std::endl;
+        return 1;
+    }
+    
+    std::string line;
+    if (!std::getline(inputFile, line)) {
+        std::cerr << "Error: Invalid CSV file." << std::endl;
+        return 1;
+    }
+
+    if (line.rfind("Subsystem Name,Active", 0) != 0) {
+        std::cerr << "Error: Invalid CSV header. Expected 'Subsystem Name,Active'." << std::endl;
+        return 1;
+    }
+
+    while (std::getline(inputFile, line)) {
+        size_t sep_index = line.find(',');
+        if (sep_index == std::string::npos) {
+            std::cerr << "Error: Malformed line (no comma found)" << line << std::endl;
+            return 1;
+        }
+
+        std::string_view subsystem_name{line.data(),sep_index};
+        std::string_view active_str{line.data()+sep_index+1,line.length()-sep_index-1};
+        
+        auto it = mapping.find(std::string(subsystem_name));
+        if (it == mapping.end()) {
+            std::cerr << "Error: Unrecognized subsystem '" << subsystem_name << "' in CSV." << std::endl;
+            return 1;
+        }
+        uint8_t subsystem_id = it->second;
+        
+        sub_system_active new_value;
+        if (active_str == "TRUE") {
+            new_value = sub_system_active::UNINITIALIZED;
+        } else if (active_str == "FALSE") {
+            new_value = sub_system_active::UNUSED;
+        } else {
+            std::cerr << "Error: Subsystem '" << subsystem_name << "' has unrecognized state: '" << active_str << "'." << std::endl;
+            return 1;
+        }
+
+        switch (subsystems_start[subsystem_id]){
+            case sub_system_active::INITIALIZED:
+                subsystems_start[subsystem_id]=new_value;
+                break;
+            case sub_system_active::UNINITIALIZED:
+            case sub_system_active::UNUSED:
+                std::cerr << "subsystem " << subsystem_name << "defined twice in csv" << std::endl;
+                return 1;
+        }
+    }
+
+
+    for (u_int8_t s_id=0;s_id<SUBSYSTEM_COUNT;s_id++){
+
+        if (subsystems_start[s_id]==sub_system_active::INITIALIZED){
+            SubSystems s=(SubSystems)s_id;
+
+            std::string_view name = SubSystemToString(static_cast<SubSystems>(s_id));
+            std::cerr << "Error: Subsystem '" << name << "' was not defined in the CSV." << std::endl;
+            return 1;
+        }
+    }
+
+    return 0;
+    
 }
 
 // --- Define the Initial State ---
