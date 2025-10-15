@@ -74,9 +74,9 @@ enum Mode2Bits {
 
 class PCA9685 {
 private:
+public:
     I2CInfo i2c_info_;
 
-public:
     PCA9685(const char *bus_path, uint8_t bus_num, uint16_t addr);
     ~PCA9685();
     int reset();
