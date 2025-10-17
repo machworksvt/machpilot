@@ -150,7 +150,7 @@ ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
     if (bytes_read == -1) {
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
             // No data available right now, not an error in non-blocking mode
-            return -1;
+            return 0;
         }
 
         if (errno == EINTR) {
@@ -161,8 +161,13 @@ ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
                 if (bytes_read != -1) break;
                 if (errno != EINTR) break; // exit if error is not EINTR
             }
-            if (bytes_read == -1) {
-                perror("UART: Read failed after EINTR");
+            if (bytes_read != -1) return bytes_read;
+
+            if (errno == EAGAIN || errno == EWOULDBLOCK) return 0;
+
+            if (errno == EINTR) {
+                // Still interrupted after retries
+                perror("UART: Read interrupted");
                 return -1;
             }
         }
