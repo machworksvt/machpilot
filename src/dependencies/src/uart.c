@@ -148,6 +148,11 @@ ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
     // read data from the UART device
     ssize_t bytes_read = read(info->fd, data, size);
     if (bytes_read == -1) {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            // No data available right now, not an error in non-blocking mode
+            return -1;
+        }
+
         if (errno == EINTR) {
             // Interrupted by signal, retry read
             uint8_t retries = EINTR_RETRIES;
@@ -161,18 +166,11 @@ ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
                 return -1;
             }
         }
-
-        if (errno == EAGAIN || errno == EWOULDBLOCK) {
-            // No data available right now, not an error in non-blocking mode
-            return 0;
-        }
         
         perror("UART: Read failed");
 
         return -1;
     }
-
-    tcdrain(info->fd); // flush the input buffer
 
     return bytes_read;
 }
