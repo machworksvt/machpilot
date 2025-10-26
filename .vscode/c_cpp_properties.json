@@ -10,6 +10,7 @@
                 "/opt/ros/jazzy/include/**",
                 "/usr/include/**",
                 "${workspaceFolder}/src/airspeed/include/**",
+                "${workspaceFolder}/src/accel/include/**",
                 "${workspaceFolder}/src/templates/**",
                 "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/state_estimator/include/**",
