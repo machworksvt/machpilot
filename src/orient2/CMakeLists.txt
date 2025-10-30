@@ -99,7 +99,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 # )
 
 # --- Node Executable ---
-add_executable(mpu9250_node src/mpu9250_node.cpp src/<driver_name>.c)
+add_executable(mpu9250_node src/mpu9250_node.cpp src/mpu9250_driver.c)
 
 target_include_directories(mpu9250_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/orient2>
