@@ -1,10 +1,12 @@
-#ifndef _adxl345_i2c_driver_dot_h
-#define _adxl345_i2c_driver_dot_h
+#ifndef ADXL345_DRIVER_DOT_H
+#define ADXL345_DRIVER_DOT_H
 
 #include <cstring>
 #include <cstdint>
 
-#define I2C_FILE_PATH "/dev/i2c-7"
+extern "C" {
+    #include <i2c.h>
+}
 
 #define ADDR 0x1D
 

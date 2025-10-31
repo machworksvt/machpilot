@@ -1,6 +1,9 @@
-#include "controller.hpp"
-#include "rc/math/vector.h"
-#include "rc/math/matrix.h"
+#ifndef STATE_ESTIMATOR_H
+#define STATE_ESTIMATOR_H
+
+#include <rc/math.h>
+#include <rc/time.h>
+
 
 // a store for raw data incoming from sensors
 typedef struct {
@@ -54,3 +57,5 @@ typedef struct {
     rc_vector_t imu_quat_1;
     rc_vector_t imu_quat_2;
 } state_estimate_t;
+
+#endif // STATE_ESTIMATOR_H

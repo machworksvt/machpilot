@@ -1,3 +1,12 @@
+# ------------------------------------------------------------------------------------------
+#                    THIS FILE IS A TEMPLATE, REMOVE THIS WHEN IN USE
+# ------------------------------------------------------------------------------------------
+# 1. find-replace all <name>, <node_name>, and <driver_name> with the real names
+#
+# 2. add more find_package() lines as needed
+# 
+# 3. check if the commented-out lines are in use, especially if custom interfaces are in use
+
 cmake_minimum_required(VERSION 3.8)
 project(pwm)
 
@@ -5,69 +14,72 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
+set(CMAKE_CXX_STANDARD 17) # cpp standard, 17 for our project
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
+
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(diagnostic_msgs REQUIRED)
 
-# Glob together all .c files from the pca9685 repo ALL SUBFOLDERS WITH .C FILES
-file(GLOB PCA9685_SOURCES
-    "${CMAKE_CURRENT_SOURCE_DIR}/include/pwm/*.cpp"
+# --- Library (optional) ---
+# add_library(${PROJECT_NAME}_lib
+#   src/your_library.cpp
+# )
+# target_include_directories(${PROJECT_NAME}_lib PUBLIC
+#   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+#   $<INSTALL_INTERFACE:include>
+# )
+# ament_target_dependencies(${PROJECT_NAME}_lib
+#   rclcpp
+#   std_msgs
+# )
+
+# --- Node Executable ---
+add_executable(pca9685_node src/pca9685_node.cpp src/pca9685_driver.cpp ../dependencies/src/i2c.c)
+
+target_link_libraries(pca9685_node pthread) # good to include for system calls
+
+target_include_directories(pca9685_node PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
+  $<INSTALL_INTERFACE:include>)
+
+ament_target_dependencies(pca9685_node
+  "rclcpp" 
+  "rclcpp_lifecycle" 
+  "rclcpp_action"
+  "rosidl_default_generators"
+  "std_msgs"
+  "sensor_msgs"
+  "std_srvs"
+  "diagnostic_msgs"
   )
 
-# Make a library out of it
-add_library(pca9685 STATIC ${PCA9685_SOURCES})
-
-# include it
-target_include_directories(pca9685 PUBLIC
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
+# --- Installation ---
+install(TARGETS pca9685_node #${PROJECT_NAME}_lib # libraries
+#  EXPORT export_${PROJECT_NAME} # for child dependencies
+  DESTINATION lib/${PROJECT_NAME}
 )
 
-add_executable(pca9685_node src/pca9685_node.cpp)
-add_executable(pca9685_node_2 src/pca9685_node_2.cpp)
-
-target_include_directories(pca9685_node PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
-  $<INSTALL_INTERFACE:include>)
-target_include_directories(pca9685_node_2 PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/pwm>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../ext_deps/include>
-  $<INSTALL_INTERFACE:include>)
-
-target_link_libraries(pca9685_node pca9685)
-target_link_libraries(pca9685_node_2 pca9685)
-target_compile_features(pca9685_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  pca9685_node
-  "rclcpp"
-  "std_msgs"
-  "sensor_msgs"
-  "std_srvs"
-  "diagnostic_msgs"
-)
-target_compile_features(pca9685_node_2 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
-ament_target_dependencies(
-  pca9685_node_2
-  "rclcpp"
-  "std_msgs"
-  "sensor_msgs"
-  "std_srvs"
-  "diagnostic_msgs"
+# the commented lines will be used when launch files are implemented, just uncomment
+install(DIRECTORY
+  #launch
+  #config
+  DESTINATION share/${PROJECT_NAME}
 )
 
-
-install(TARGETS pca9685_node
-  DESTINATION lib/${PROJECT_NAME})
-
-install(TARGETS pca9685_node_2
-  DESTINATION lib/${PROJECT_NAME})
+# --- Export interfaces for downstream packages (optional) ---
+# ament_export_include_directories(include)
+# ament_export_libraries(${PROJECT_NAME}_lib)
+# ament_export_dependencies(rclcpp std_msgs sensor_msgs)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -77,9 +89,8 @@ if(BUILD_TESTING)
   # the following line skips cpplint (only works in a git repo)
   # comment the line when this package is in a git repo and when
   # a copyright and license is added to all source files
-  set(ament_cmake_cpplint_FOUND TRUE)
+  # set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
 
 ament_package()
-
