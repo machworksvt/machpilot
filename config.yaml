@@ -72,7 +72,8 @@ part:
   actuator: PCA9685
   actuator_type: servo_board
   acts:
-  - Servos
+  - servos
+  - landing_gear
   
   comms_protocol: i2c
   i2c_addr: '0x40'
@@ -95,10 +96,10 @@ part:
   sensor: BNO055
   sensor_type: 9_DOF_IMU
   senses:
-  - 3_Axis_Acceleration
-  - 3_Axis_Angular_Velocity
-  - 3_Axis_Magnetic_Field
-  - Temperature
+  - 3_axis_acceleration
+  - 3_axis_angular_velocity
+  - 3_axis_magnetic_field
+  - temperature
   
   comms_protocol: i2c
   i2c_addr: '0x29'
@@ -121,9 +122,9 @@ part:
   sensor: MPU9250
   sensor_type: 9_DOF_IMU
   senses:
-  - 3_Axis_Acceleration
-  - 3_Axis_Angular_Velocity
-  - 3_Axis_Magnetic_Field
+  - 3_axis_acceleration
+  - 3_axis_angular_velocity
+  - 3_axis_magnetic_field
   - Temperature
   
   comms_protocol: i2c
@@ -131,6 +132,69 @@ part:
   i2c_busses:
   - 1
   - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+  orientation:
+    psi: 
+    theta: 
+    phi:
+
+- type: sensor
+
+  sensor: BMP390
+  sensor_type: barometer
+  senses:
+  - Static_Pressure
+  - Temperature
+  
+  comms_protocol: i2c
+  i2c_addr: 
+  i2c_busses:
+  - 1
+  - 7
+  
+  location:
+    x: 
+    y: 
+    z: 
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+
+- type: comms
+
+  communicator: RFD900x
+  communicates:
+  - telemetry
+  
+  comms_protocol: uart
+  uart_busses:
+  - 0
+  - 1
+  
+  location:
+    x: 
+    y: 
+    z: 
+  orientation:
+    psi: 
+    theta: 
+    phi: 
+
+- type: comms
+
+  communicator: RFD900x
+  communicates:
+  - telemetry
+  
+  comms_protocol: uart
+  uart_busses:
+  - 0
+  - 1
   
   location:
     x: 
