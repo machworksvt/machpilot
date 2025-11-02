@@ -16,7 +16,7 @@
                 "${workspaceFolder}/src/state_estimator/include/**",
                 "${workspaceFolder}/src/pressure/src/bmp390/**",
                 "${workspaceFolder}/src/orient2/src/mpu9250/**",
-                "${workspaceFolder}/src/orient/src/**",
+                "${workspaceFolder}/src/orient/include/**",
                 "${workspaceFolder}/src/pwm/include/**",
                 "${workspaceFolder}/src/dependencies/include/**",
                 "${workspaceFolder}/src/dependencies/librobotcontrol/library/include/**",
