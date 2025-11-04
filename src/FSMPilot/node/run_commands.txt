@@ -1,0 +1,11 @@
+set up environment
+source install/setup.bash
+
+build
+colcon build --packages-select fsm_pilot
+colcon build --packages-select fsm_pilot_tester
+colcon build --packages-select fsm_pilot fsm_pilot_tester
+
+run
+ros2 run fsm_pilot state_machine_node --ros-args -p  config_file:="src/FSMPilot/node/ActiveSubsystems.csv"
+ros2 run fsm_pilot_tester state_machine_tester

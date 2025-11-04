@@ -24,19 +24,14 @@ void StateMachine::react(OnFireEvent const & e)             {
 void StateMachine::react(FireSuppressedEvent const & e)     {
     std::cout <<"\t"<<get_name() << " received fire suppressed event\n";
 }
-
-// Default implementation for get_motor_state
+int  StateMachine::set_active_subsystems(const char* file){return 1;}
 MotorSound StateMachine::get_motor_state() {
     return MotorSound::Silent;
 }
-
-
 void StateMachine::entry_start() {
-    std::cout << "Entering state: " << get_name() << "\n";
+    std::cout << "\tEntering state: " << get_name() <<std::endl;
 }
 void StateMachine::entry_end()   {}
-
-
 void StateMachine::entry() {
     entry_start();
 
@@ -53,52 +48,47 @@ void StateMachine::entry() {
     entry_end();
 }
 
-
-static std::array<sub_system_active, SUBSYSTEM_COUNT> subsystems_start;
-
 // --- Uninitialized State Implementation ---
-Uninitialized::Uninitialized() : subsystems{subsystems_start}, init_count(0) {}
-
-
+Uninitialized::Uninitialized() : subsystems{}, initialized_count(0), active_subsystems(SUBSYSTEM_COUNT) {}
 FSMPilotStates Uninitialized::get_state() const{
     return FSMPilotStates::UNINITIALIZED;
 }
-
 std::string Uninitialized::get_name() const{
     return "Uninitialized";
 }
-
 void Uninitialized::entry_end() {
     if (SUBSYSTEM_COUNT == 0) {
         std::cout << "No subsystems need be initialized transitioning to initialized state directly\n";
         transit<Initialized>();
     }
 }
-
 void Uninitialized::react(InitializeSubsystem const & e) {
+
     if (e.subsystem_id < SUBSYSTEM_COUNT) {
         std::string_view subsystem_name = SubSystemToString(e.subsystem_id);
         
         switch (subsystems[e.subsystem_id]){
             case sub_system_active::UNINITIALIZED:
                 subsystems[e.subsystem_id] = sub_system_active::INITIALIZED;    
-                ++init_count;
-                std::cerr << "Subsystem " << subsystem_name << " initialized ("<< init_count << "/" << SUBSYSTEM_COUNT << ")\n";
-                if (init_count == SUBSYSTEM_COUNT) {
+                initialized_count+=1;
+                std::cerr << "Subsystem " << subsystem_name << " initialized ("<< initialized_count << "/" << active_subsystems << ")" << std::endl;;
+                if (initialized_count == active_subsystems) {
                     transit<Initialized>();
                 }
                 break;
             case sub_system_active::INITIALIZED:
-                std::cerr << "Subsystem " << subsystem_name << " has already been initialized\n";
+                std::cerr << "Subsystem " << subsystem_name << " has already been initialized" << std::endl;
                 break;
             case sub_system_active::UNUSED:
-                std::cerr << "Subsystem " << subsystem_name << " is not being used\n";
+                std::cerr << "Subsystem " << subsystem_name << " is not being used" << std::endl;
                 break;
         }
     } else {
-        std::cerr << "Invalid Subsystem id: " << e.subsystem_id << "\n";
+        std::cerr << "Invalid Subsystem id: " << e.subsystem_id  << std::endl;
     }
 }
+
+
 
 ScreenState Uninitialized::get_screen_state() {
     return ScreenState::ScreenOn;
@@ -206,10 +196,24 @@ ScreenState Shutdown::get_screen_state() {
     return ScreenState::ScreenOff;
 }
 
-int set_subsystems(char* file){
+void Shutdown::entry_end() {
+    rclcpp::shutdown();
+}
+
+
+
+//CSV Parser
+std::string_view sub_system_active_to_string(sub_system_active s){
+    std::array<std::string_view,3> outputs={"UNINITIALIZED","INITIALIZED","UNUSED"};
+
+    return outputs[s];
+}
+
+
+int Uninitialized::set_active_subsystems(const char* file){
 
     //for the purpose of this function INITIALIZED means we have read in a value for this subsystem yet
-    subsystems_start.fill(sub_system_active::INITIALIZED);
+    subsystems.fill(sub_system_active::INITIALIZED);
 
     std::unordered_map<std::string_view, uint8_t> mapping;
 
@@ -248,8 +252,16 @@ int set_subsystems(char* file){
             return 1;
         }
 
+        //extract all the characters before the comma
         std::string_view subsystem_name{line.data(),sep_index};
+
+        //extract all the character after the comma
         std::string_view active_str{line.data()+sep_index+1,line.length()-sep_index-1};
+
+        //remove all trailing control charters from active
+        while (!active_str.empty() && std::isspace(active_str.back())){
+            active_str.remove_suffix(1);
+        }
         
         auto it = mapping.find(std::string(subsystem_name));
         if (it == mapping.end()) {
@@ -264,13 +276,15 @@ int set_subsystems(char* file){
         } else if (active_str == "FALSE") {
             new_value = sub_system_active::UNUSED;
         } else {
-            std::cerr << "Error: Subsystem '" << subsystem_name << "' has unrecognized state: '" << active_str << "'." << std::endl;
+            std::cerr << "len" << active_str.length();
+            std::cerr << "active str (" << active_str << ")" << std::endl;
+            std::cerr << "Error: Subsystem '" << subsystem_name << "' has unrecognized state: '" << active_str << "'. end of line" << std::endl;
             return 1;
         }
 
-        switch (subsystems_start[subsystem_id]){
+        switch (subsystems[subsystem_id]){
             case sub_system_active::INITIALIZED:
-                subsystems_start[subsystem_id]=new_value;
+                subsystems[subsystem_id]=new_value;
                 break;
             case sub_system_active::UNINITIALIZED:
             case sub_system_active::UNUSED:
@@ -279,15 +293,22 @@ int set_subsystems(char* file){
         }
     }
 
-
-    for (u_int8_t s_id=0;s_id<SUBSYSTEM_COUNT;s_id++){
-
-        if (subsystems_start[s_id]==sub_system_active::INITIALIZED){
-            SubSystems s=(SubSystems)s_id;
-
-            std::string_view name = SubSystemToString(static_cast<SubSystems>(s_id));
-            std::cerr << "Error: Subsystem '" << name << "' was not defined in the CSV." << std::endl;
-            return 1;
+    
+    active_subsystems=0;
+    
+    for (u_int8_t subsystem_id=0;subsystem_id<SUBSYSTEM_COUNT;subsystem_id++){
+        switch (subsystems[subsystem_id]){
+            case sub_system_active::INITIALIZED:
+                {
+                std::string_view name = SubSystemToString(static_cast<SubSystems>(subsystem_id));
+                std::cerr << "Error: Subsystem '" << name << "' was not defined in the CSV." << std::endl;
+                break;
+                }
+            case sub_system_active::UNINITIALIZED:
+                active_subsystems+=1;
+                break;
+            case sub_system_active::UNUSED:
+                break;
         }
     }
 

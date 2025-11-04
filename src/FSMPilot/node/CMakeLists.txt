@@ -2,7 +2,6 @@
 cmake_minimum_required(VERSION 3.10)
 
 # Explicitly set the compilers to g++ and gcc
-set(CMAKE_C_COMPILER "gcc")
 set(CMAKE_CXX_COMPILER "g++")
 
 # Set C++ standard
@@ -10,16 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Add the executable
-cmake_minimum_required(VERSION 3.10)
 project(fsm_pilot)
-
-# Explicitly set the compilers
-set(CMAKE_C_COMPILER "gcc")
-set(CMAKE_CXX_COMPILER "g++")
-
-# Set C++ standard
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Find necessary ROS 2 packages
 find_package(ament_cmake REQUIRED)
@@ -32,7 +22,6 @@ include_directories(
 )
 
 # Add the executable for the ROS 2 node.
-# List all source files: the new ROS wrapper files AND your existing state machine implementation files.
 add_executable(state_machine_node
     src/ros_main.cpp
     src/state_machine_node.cpp

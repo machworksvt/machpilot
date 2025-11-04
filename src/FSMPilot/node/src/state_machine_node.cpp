@@ -1,6 +1,7 @@
 #include "state_machine_node.hpp"
 #include "FSMPilotStates.hpp"
 #include "FSMPilot.hpp"
+#include "tinyfsm.hpp"
 #include <chrono>
 #include <string>
 using namespace std::chrono_literals;
@@ -8,6 +9,7 @@ using namespace std::chrono_literals;
 StateMachineNode::StateMachineNode()
 : Node("state_machine_node")
 {
+
     state_publisher = this->create_publisher<std_msgs::msg::UInt64>("fsm/current_state",10);
 
     // === Subscribers for Events ===
@@ -77,6 +79,8 @@ StateMachineNode::StateMachineNode()
             RCLCPP_INFO(this->get_logger(), "Event: FireSuppressed");
             send_event(FireSuppressedEvent{});
         });
+
+    
 }
 
 void pubish_state(std::shared_ptr<StateMachineNode> node,FSMPilotStates message){

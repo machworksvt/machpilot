@@ -55,6 +55,7 @@ public:
     virtual FSMPilotStates get_state() const=0;
     virtual void entry_start();
     virtual void entry_end();
+    virtual int set_active_subsystems(const char* file);
 
     void entry();
     virtual void exit() {}
@@ -70,7 +71,8 @@ enum sub_system_active: unsigned char{
 class Uninitialized : public StateMachine {
 private:
     std::array<sub_system_active, SUBSYSTEM_COUNT> subsystems;
-    size_t init_count;
+    size_t initialized_count;
+    size_t active_subsystems;
 public:
     Uninitialized();
 private:
@@ -79,6 +81,7 @@ private:
     void entry_end() override;
     void react(InitializeSubsystem const & e) override;
     ScreenState get_screen_state() override;
+    int set_active_subsystems(const char* file) override;
 };
 
 class Initialized : public StateMachine {
@@ -117,6 +120,7 @@ class Shutdown : public StateMachine {
     FSMPilotStates get_state() const override;
     std::string get_name() const override;
     ScreenState get_screen_state() override;
+    void entry_end() override;
 };
 
 
@@ -126,7 +130,5 @@ void send_event(E const & event)
 {
     StateMachine::template dispatch<E>(event);
 }
-
-int set_subsystems(char* file);
 
 #endif // STATEMACHINE_HPP
