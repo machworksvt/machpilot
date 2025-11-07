@@ -1,4 +1,6 @@
-#include <sensor.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/magnetic_field.hpp>
+#include <sensor_msgs/msg/imu.hpp>
 
 extern "C" {
     #include "driver_mpu9250_basic.h"
@@ -9,7 +11,7 @@ class MPU9250Node : public rclcpp::Node
 public:
   MPU9250Node() : Node("mpu9250_node") 
   {
-
+    // Create publishers for IMU and mag. data
     imu_publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("mpu_imu", 10);
     mag_publisher_ = this->create_publisher<sensor_msgs::msg::MagneticField>("mpu_mag", 10);
   
@@ -44,9 +46,10 @@ public:
                     "MPU: accel = [%.2f, %.2f, %.2f] m/s^2, gyro = [%.2f, %.2f, %.2f] degrees/s, mag = [%.2f, %.2f, %.2f] T",
                     accel[0], accel[1], accel[2], gyro[0], gyro[1], gyro[2], mag[0], mag[1], mag[2]);
   
-        auto imu_msg = sensor_msgs::msg::Imu();
+        // Create messsage packets for IMU and magnetometer
+        sensor_msgs::msg::Imu imu_msg = sensor_msgs::msg::Imu();
         imu_msg.header.stamp = this->now();
-        imu_msg.header.frame_id = "mpu9250_frame";
+        imu_msg.header.frame_id = "mpu9250_frame_imu";
 
         imu_msg.linear_acceleration.x = accel[0];
         imu_msg.linear_acceleration.y = accel[1];
@@ -60,9 +63,9 @@ public:
 
         imu_publisher_->publish(imu_msg);
 
-        auto mag_msg = sensor_msgs::msg::MagneticField();
+        sensor_msgs::msg::MagneticField mag_msg = sensor_msgs::msg::MagneticField();
         mag_msg.header.stamp = this->now();
-        mag_msg.header.frame_id = "bmp390_frame";
+        mag_msg.header.frame_id = "mpu9250_frame_mag";
 
         mag_msg.magnetic_field.x = mag[0];
         mag_msg.magnetic_field.y = mag[1];
@@ -92,6 +95,27 @@ private:
   rclcpp::TimerBase::SharedPtr timer_;
   rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr imu_publisher_;
   rclcpp::Publisher<sensor_msgs::msg::MagneticField>::SharedPtr mag_publisher_;
+
+  // Initialize sensor, retry given number of times on failure (default 2)
+  uint8_t sensor_init(mpu9250_interface_t interface, mpu9250_address_t addr, const int max_init_retries = 3) {
+    for (int attempt = 0; attempt < max_init_retries; attempt++)  {
+      RCLCPP_INFO(this->get_logger(), "Attempting to initialize MPU9250 (attempt %d/%d)...", attempt, max_init_retries);
+      
+      uint8_t status = mpu9250_basic_init(interface, addr);
+      if (status == 0) {
+        RCLCPP_INFO(this->get_logger(), "MPU9250 initialized successfully on attempt %d", attempt);
+        return 0;
+      }
+      
+      RCLCPP_WARN(this->get_logger(), "Failed to initialize MPU9250 on attempt %d, error code: %d", attempt, status);
+      
+      if (attempt < max_init_retries) {
+        RCLCPP_INFO(this->get_logger(), "Retrying in 1 second...");
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+      }
+    }
+    return 1;
+  }
 };
 
 
