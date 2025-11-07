@@ -100,7 +100,8 @@
         "rope": "cpp",
         "slist": "cpp",
         "scoped_allocator": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "__locale": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
