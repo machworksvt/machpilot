@@ -22,7 +22,6 @@ namespace ublox {
         uint8_t ck_a, uint8_t ck_b){
             auto [calc_a, calc_b] = calculateChecksum(data, length);
             return (calc_a == ck_a) && (calc_b == ck_b);
-
         }
 
 
