@@ -1,6 +1,6 @@
 #include <i2c.h>
 
-int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t reg, uint8_t size, uint8_t *data) {
+int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t *regbuf, uint8_t size, uint8_t *data) {
     if (read_or_write != I2C_M_RD && read_or_write != 0) {
         perror("Invalid I2C transaction requested");
         return -1;
@@ -10,7 +10,7 @@ int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i
     msgs[0].addr = info->address;
     msgs[0].flags = 0;
     msgs[0].len = 1;
-    msgs[0].buf = &reg;
+    msgs[0].buf = regbuf;
 
     // for the data exchange transaction
     msgs[1].addr = info->address;
@@ -44,9 +44,10 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
     // prepare the data structures for the ioctl call
     struct i2c_rdwr_ioctl_data idata;
     struct i2c_msg msgs[2];
+    uint8_t regbuf[1] = {reg};
     
     // populate the data structures
-    if (i2c_populate_data(&idata, info, msgs, I2C_M_RD, reg, size, data)) {
+    if (i2c_populate_data(&idata, info, msgs, I2C_M_RD, regbuf, size, data)) {
         return -1;
     }
 
@@ -57,7 +58,7 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
     }
 
     // perform the I2C transaction
-    if (ioctl(info->fd, I2C_RDWR, idata) != idata.nmsgs) {
+    if (ioctl(info->fd, I2C_RDWR, &idata) != idata.nmsgs) {
         perror("I2C: communication error");
         return -3;
     }
@@ -71,9 +72,11 @@ int i2c_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
     // prepare the data structures for the ioctl call
     struct i2c_rdwr_ioctl_data idata;
     struct i2c_msg msgs[2];
+    uint8_t regbuf[1] = {reg};
+
 
     // populate the data structures
-    if (i2c_populate_data(&idata, info, msgs, 0, reg, size, data)) {
+    if (i2c_populate_data(&idata, info, msgs, 0, regbuf, size, data)) {
         return -1;
     }
 
@@ -84,7 +87,7 @@ int i2c_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
     }
 
     // perform the I2C transaction
-    if (ioctl(info->fd, I2C_RDWR, idata) != idata.nmsgs) {
+    if (ioctl(info->fd, I2C_RDWR, &idata) != idata.nmsgs) {
         perror("I2C: communication error");
         return -3;
     }

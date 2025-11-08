@@ -25,7 +25,7 @@ typedef struct _I2CInfo {
 
 // function prototypes
 // do not use i2c_populate_data() directly, it is called by i2c_read() and i2c_write()
-int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t reg, uint8_t size, uint8_t *data);
+int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t *regbuf, uint8_t size, uint8_t *data);
 
 // i2c_init() must be called before i2c_read() or i2c_write(), to set up the bus and open the file descriptor
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num);

@@ -26,16 +26,26 @@ int main() {
 */
 
 PCA9685::PCA9685(const char *bus_path, uint8_t bus_num, uint16_t addr) {
-    I2CInfo _i2c_info;
-    _i2c_info.bus_num = bus_num;
+    i2c_info_.bus_num = bus_num;
 
-    if (i2c_init(&_i2c_info, bus_path, bus_num) != 0) {
+    if (i2c_init(&i2c_info_, bus_path, bus_num) != 0) {
         perror("PCA9685: bus initialization failed");
         exit(1);
     }
 
-    _i2c_info.address = addr;
+    i2c_info_.address = addr;
 
+    // Initialize the PCA9685
+    if (reset() != 0) {
+        perror("PCA9685: reset failed during initialization");
+        exit(1);
+    }
+    
+    // Set frequency to default value (FREQ is defined in header)
+    if (set_frequency(FREQ) != 0) {
+        perror("PCA9685: frequency setup failed during initialization");
+        exit(1);
+    }
 }
 
 PCA9685::~PCA9685() {
@@ -43,24 +53,8 @@ PCA9685::~PCA9685() {
 }
 
 int PCA9685::reset() {
-    // software reset by writing 0b00000110 to general call address 0x00
-    uint8_t buf[1] = {0b00000110};
-
-    if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, buf)) {
-        perror("PCA9685: reset write failed");
-        return -1;
-    }
-
     struct timespec rqtp;
     struct timespec rmtp;
-    rqtp.tv_sec = 0;
-    rqtp.tv_nsec = TBUF; // 4.7 us
-
-    // wait 4.7 us for reset to complete
-    if (nanosleep(&rqtp, &rmtp)) {
-        perror("PCA9685: reset delay interrupted");
-        return -1;
-    }
 
     // read MODE1 register to check if RESTART is set
     uint8_t mode1[1];
@@ -99,6 +93,51 @@ int PCA9685::reset() {
         }
     }   
 
+    return 0;
+}
+
+int PCA9685::set_frequency(uint16_t freq) {
+    // Calculate prescale value for desired frequency
+    // PCA9685 internal oscillator is 25MHz
+    // PWM frequency = 25MHz / (4096 * (prescale + 1))
+    // prescale = (25MHz / (4096 * freq)) - 1
+    uint8_t prescale = (uint8_t)(25000000.0 / (4096.0 * freq) - 1.0 + 0.5); // +0.5 for rounding
+    
+    // Read current MODE1 register
+    uint8_t mode1[1];
+    if(i2c_read(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+        perror("PCA9685: frequency read MODE1 failed");
+        return -1;
+    }
+    
+    // Set SLEEP bit to enter sleep mode (required to change prescale)
+    uint8_t sleep_mode = mode1[0] | SLEEP;
+    if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, &sleep_mode)) {
+        perror("PCA9685: frequency sleep write failed");
+        return -1;
+    }
+    
+    // Write prescale value
+    if(i2c_write(&i2c_info_, PCA9685_PRESCALE, 1, &prescale)) {
+        perror("PCA9685: frequency prescale write failed");
+        return -1;
+    }
+    
+    // Restore MODE1 register (clear SLEEP bit)
+    if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+        perror("PCA9685: frequency restore MODE1 failed");
+        return -1;
+    }
+    
+    // Wait for oscillator to stabilize
+    struct timespec rqtp, rmtp;
+    rqtp.tv_sec = 0;
+    rqtp.tv_nsec = SBUF; // 500 us
+    if (nanosleep(&rqtp, &rmtp)) {
+        perror("PCA9685: frequency stabilization interrupted");
+        return -1;
+    }
+    
     return 0;
 }
 
@@ -142,7 +181,7 @@ int PCA9685::set_angle_all(double *angles_deg) {
     // iterate through all channels and set angle
     for (int ch = 0; ch < 16; ch++) {
 
-        if (set_angle(ch, angles_deg[ch])) {
+        if (set_angle(angles_deg[ch], ch)) {
             printf("PCA9685: set_angle_all failed at channel %d\n", ch);
             failure_flag = true;
             continue;
