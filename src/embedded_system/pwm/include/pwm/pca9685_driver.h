@@ -80,6 +80,7 @@ public:
     PCA9685(const char *bus_path, uint8_t bus_num, uint16_t addr);
     ~PCA9685();
     int reset();
+    int set_frequency(uint16_t freq);
     int set_angle(double angle_deg, uint8_t ch);
     int set_angle_all(double *angles_deg);
 };
