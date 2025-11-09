@@ -27,13 +27,14 @@
                 "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/interfaces/action/**",
                 "${workspaceFolder}/src/interfaces/action",
-                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**"
+                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**",
+                "${workspaceFolder}/src/FSMPilot/**"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "gnu11",
-            "cppStandard": "c++14"
+            "cppStandard": "c++17"
         }
     ],
     "version": 4

@@ -100,7 +100,11 @@
         "rope": "cpp",
         "slist": "cpp",
         "scoped_allocator": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "barrier": "cpp",
+        "latch": "cpp",
+        "ranges": "cpp",
+        "syncstream": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
