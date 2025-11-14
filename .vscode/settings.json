@@ -102,5 +102,12 @@
         "scoped_allocator": "cpp",
         "valarray": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "python-envs.pythonProjects": [
+        {
+            "path": "build",
+            "envManager": "ms-python.python:venv",
+            "packageManager": "ms-python.python:pip"
+        }
+    ]
 }
