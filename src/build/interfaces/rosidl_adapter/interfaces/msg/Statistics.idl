@@ -1,0 +1,30 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/Statistics.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "Statistics.msg")
+    struct Statistics {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "number of runs that were successful")
+      uint32 runs_ok;
+
+      @verbatim (language="comment", text=
+        "number of runs that failed")
+      uint32 runs_aborted;
+
+      @verbatim (language="comment", text=
+        "total time the engine has been running (s)")
+      uint64 total_runtime;
+    };
+  };
+};

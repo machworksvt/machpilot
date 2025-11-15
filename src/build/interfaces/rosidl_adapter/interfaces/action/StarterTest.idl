@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from interfaces/action/StarterTest.action
+// generated code does not contain a copyright notice
+
+
+module interfaces {
+  module action {
+    @verbatim (language="comment", text=
+      "StarterTest.action" "\n"
+      "Request")
+    struct StarterTest_Goal {
+      uint8 structure_needs_at_least_one_member;
+    };
+    @verbatim (language="comment", text=
+      "Results")
+    struct StarterTest_Result {
+      boolean success;
+    };
+    @verbatim (language="comment", text=
+      "Feedback")
+    struct StarterTest_Feedback {
+      uint8 structure_needs_at_least_one_member;
+    };
+  };
+};

@@ -1,0 +1,4 @@
+# generated from rosidl_cmake/cmake/rosidl_cmake-extras.cmake.in
+
+set(interfaces_IDL_FILES "msg/CanMsg.idl;msg/EngineData.idl;msg/PumpRpm.idl;msg/Errors.idl;msg/FuelAmbient.idl;msg/GlowPlugs.idl;msg/LastRunInfo.idl;msg/NgReg.idl;msg/Statistics.idl;msg/SystemInfo.idl;msg/SystemInfo2.idl;msg/VoltageCurrent.idl;srv/SendCanMessage.idl;action/StarterTest.idl;action/Start.idl;action/Prime.idl;action/IgniterTest.idl;action/PumpTest.idl;action/ThrottleProfile.idl")
+set(interfaces_INTERFACE_FILES "msg/CanMsg.msg;msg/EngineData.msg;msg/PumpRpm.msg;msg/Errors.msg;msg/FuelAmbient.msg;msg/GlowPlugs.msg;msg/LastRunInfo.msg;msg/NgReg.msg;msg/Statistics.msg;msg/SystemInfo.msg;msg/SystemInfo2.msg;msg/VoltageCurrent.msg;srv/SendCanMessage.srv;srv/SendCanMessage_Request.msg;srv/SendCanMessage_Response.msg;action/StarterTest.action;action/Start.action;action/Prime.action;action/IgniterTest.action;action/PumpTest.action;action/ThrottleProfile.action")

@@ -1,0 +1,38 @@
+[0.192s] Invoking command in '/workspace/src/build/FSMPilot': /usr/bin/cmake /workspace/src/vehicle_manager_system/FSMPilot -DCMAKE_INSTALL_PREFIX=/workspace/src/install/FSMPilot
+[0.841s] -- The C compiler identification is GNU 11.4.0
+[1.230s] -- The CXX compiler identification is GNU 11.4.0
+[1.307s] -- Detecting C compiler ABI info
+[1.996s] -- Detecting C compiler ABI info - done
+[2.041s] -- Check for working C compiler: /usr/bin/gcc - skipped
+[2.046s] -- Detecting C compile features
+[2.049s] -- Detecting C compile features - done
+[2.094s] -- Detecting CXX compiler ABI info
+[2.774s] -- Detecting CXX compiler ABI info - done
+[2.820s] -- Check for working CXX compiler: /usr/bin/g++ - skipped
+[2.823s] -- Detecting CXX compile features
+[2.826s] -- Detecting CXX compile features - done
+[2.851s] -- Configuring done
+[3.091s] -- Generating done
+[3.211s] -- Build files have been written to: /workspace/src/build/FSMPilot
+[3.218s] Invoked command in '/workspace/src/build/FSMPilot' returned '0': /usr/bin/cmake /workspace/src/vehicle_manager_system/FSMPilot -DCMAKE_INSTALL_PREFIX=/workspace/src/install/FSMPilot
+[3.264s] Invoking command in '/workspace/src/build/FSMPilot': /usr/bin/cmake --build /workspace/src/build/FSMPilot -- -j4 -l4
+[3.495s] [ 25%] [32mBuilding CXX object CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o[0m
+[3.500s] [ 37%] [32mBuilding CXX object CMakeFiles/FSMPilot.dir/main.cpp.o[0m
+[3.512s] [ 50%] [32mBuilding CXX object CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o[0m
+[3.515s] [ 50%] [32mBuilding CXX object CMakeFiles/FSMPilot.dir/motorManager.cpp.o[0m
+[3.575s] In file included from [01m[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.cpp:1[m[K:
+[3.580s] [01m[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.hpp:4:10:[m[K [01;31m[Kfatal error: [m[Ktinyfsm.hpp: No such file or directory
+[3.585s]     4 | #include [01;31m[K<tinyfsm.hpp>[m[K
+[3.587s]       |          [01;31m[K^~~~~~~~~~~~~[m[K
+[3.605s] compilation terminated.
+[3.612s] In file included from [01m[K/workspace/src/vehicle_manager_system/FSMPilot/main.cpp:1[m[K:
+[3.621s] [01m[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.hpp:4:10:[m[K [01;31m[Kfatal error: [m[Ktinyfsm.hpp: No such file or directory
+[3.626s]     4 | #include [01;31m[K<tinyfsm.hpp>[m[K
+[3.628s]       |          [01;31m[K^~~~~~~~~~~~~[m[K
+[3.629s] compilation terminated.
+[3.632s] gmake[2]: *** [CMakeFiles/FSMPilot.dir/build.make:90: CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o] Error 1
+[3.636s] gmake[2]: *** Waiting for unfinished jobs....
+[3.639s] gmake[2]: *** [CMakeFiles/FSMPilot.dir/build.make:76: CMakeFiles/FSMPilot.dir/main.cpp.o] Error 1
+[5.181s] gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/FSMPilot.dir/all] Error 2
+[5.184s] gmake: *** [Makefile:91: all] Error 2
+[5.188s] Invoked command in '/workspace/src/build/FSMPilot' returned '2': /usr/bin/cmake --build /workspace/src/build/FSMPilot -- -j4 -l4

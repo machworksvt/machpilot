@@ -1,0 +1,2 @@
+# SendCanMessage.srv
+CanMsg msg

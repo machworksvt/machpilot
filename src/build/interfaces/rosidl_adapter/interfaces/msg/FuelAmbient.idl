@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/FuelAmbient.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "FuelAmbient.msg")
+    struct FuelAmbient {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "ml/min")
+      uint32 fuel_flow;
+
+      @verbatim (language="comment", text=
+        "ml")
+      uint32 fuel_consumed;
+
+      @verbatim (language="comment", text=
+        "mbar")
+      float engine_box_pressure;
+
+      @verbatim (language="comment", text=
+        "C")
+      int16 ambient_temperature;
+    };
+  };
+};

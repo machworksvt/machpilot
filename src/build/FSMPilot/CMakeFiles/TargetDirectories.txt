@@ -1,0 +1,3 @@
+/workspace/src/build/FSMPilot/CMakeFiles/FSMPilot.dir
+/workspace/src/build/FSMPilot/CMakeFiles/edit_cache.dir
+/workspace/src/build/FSMPilot/CMakeFiles/rebuild_cache.dir

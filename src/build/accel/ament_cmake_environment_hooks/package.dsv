@@ -1,0 +1,4 @@
+source;share/accel/local_setup.bash
+source;share/accel/local_setup.dsv
+source;share/accel/local_setup.sh
+source;share/accel/local_setup.zsh

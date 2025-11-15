@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/SystemInfo.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "SystemInfo.msg")
+    struct SystemInfo {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "serial number of the engine")
+      uint16 serial_number;
+
+      @verbatim (language="comment", text=
+        "firmware version of the engine")
+      uint16 fw_version;
+
+      @verbatim (language="comment", text=
+        "type of the engine")
+      uint8 engine_type;
+
+      @verbatim (language="comment", text=
+        "subtype of the engine")
+      uint8 engine_subtype;
+    };
+  };
+};

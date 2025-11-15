@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/CanMsg.msg
+// generated code does not contain a copyright notice
+
+
+module interfaces {
+  module msg {
+    typedef uint8 uint8__8[8];
+    @verbatim (language="comment", text=
+      "CanMsg.msg")
+    struct CanMsg {
+      @verbatim (language="comment", text=
+        "message id")
+      uint16 id;
+
+      @verbatim (language="comment", text=
+        "data length")
+      uint8 dlc;
+
+      @verbatim (language="comment", text=
+        "data")
+      uint8__8 data;
+    };
+  };
+};

@@ -1,0 +1,25 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from interfaces/action/Start.action
+// generated code does not contain a copyright notice
+
+
+module interfaces {
+  module action {
+    @verbatim (language="comment", text=
+      "Start Engine" "\n"
+      "Starts engine and persists at idle. Begins to listen to throttle command.")
+    struct Start_Goal {
+      uint8 structure_needs_at_least_one_member;
+    };
+    struct Start_Result {
+      @verbatim (language="comment", text=
+        "Results")
+      boolean success;
+    };
+    struct Start_Feedback {
+      @verbatim (language="comment", text=
+        "Feedback")
+      string msg;
+    };
+  };
+};

@@ -1,0 +1,34 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/NgReg.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "NgReg.msg")
+    struct NgReg {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "Ng_Reg integrator, %")
+      float integrator;
+
+      @verbatim (language="comment", text=
+        "windup code")
+      uint16 windup;
+
+      @verbatim (language="comment", text=
+        "Ng_Reg error, %")
+      float error;
+
+      @verbatim (language="comment", text=
+        "high-res pump power, %")
+      float pump_power;
+    };
+  };
+};

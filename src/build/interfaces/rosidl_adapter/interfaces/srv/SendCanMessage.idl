@@ -1,0 +1,18 @@
+// generated from rosidl_adapter/resource/srv.idl.em
+// with input from interfaces/srv/SendCanMessage.srv
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+
+module interfaces {
+  module srv {
+    @verbatim (language="comment", text=
+      "SendCanMessage.srv")
+    struct SendCanMessage_Request {
+      interfaces::msg::CanMsg msg;
+    };
+    struct SendCanMessage_Response {
+      boolean success;
+    };
+  };
+};

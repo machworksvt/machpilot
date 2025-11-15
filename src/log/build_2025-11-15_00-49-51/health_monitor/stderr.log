@@ -1,0 +1,4 @@
+[31mCMake Error at CMakeLists.txt:33 (install):
+  install TARGETS given target "_lib" which does not exist.
+
+[0m

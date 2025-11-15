@@ -1,0 +1,22 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/PumpRpm.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    @verbatim (language="comment", text=
+      "PumpRpm.msg")
+    struct PumpRpm {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "1/min")
+      uint32 pump_rpm;
+    };
+  };
+};

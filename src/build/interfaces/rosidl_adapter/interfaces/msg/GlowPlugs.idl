@@ -1,0 +1,31 @@
+// generated from rosidl_adapter/resource/msg.idl.em
+// with input from interfaces/msg/GlowPlugs.msg
+// generated code does not contain a copyright notice
+
+#include "interfaces/msg/CanMsg.idl"
+#include "std_msgs/msg/Header.idl"
+
+module interfaces {
+  module msg {
+    typedef float float__2[2];
+    @verbatim (language="comment", text=
+      "GlowPlugs.msg")
+    struct GlowPlugs {
+      std_msgs::msg::Header header;
+
+      interfaces::msg::CanMsg can_msg;
+
+      @verbatim (language="comment", text=
+        "Voltage of glow plugs")
+      float__2 glow_plug_v;
+
+      @verbatim (language="comment", text=
+        "Current of glow plugs")
+      float__2 glow_plug_i;
+
+      @verbatim (language="comment", text=
+        "???")
+      int16 sekevence;
+    };
+  };
+};

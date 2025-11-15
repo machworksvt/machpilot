@@ -10,7 +10,7 @@ class ErrorMonitorNode : public rclcpp::Node
 {
   public:
     ErrorMonitorNode()
-    : Node("error_monitor"), sensors{"Engine", "Radio", "GPS", "Servos", "IMU", "Pitot tubes"}
+    : Node("error_monitor")
     {
         publisher = this->create_publisher<std_msgs::msg::String>("temp", 10);
         
