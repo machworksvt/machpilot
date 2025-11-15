@@ -1,0 +1,7 @@
+Sensor,Instance,Error,Level,Decription
+1,1,1,3,Engine will not start
+1,1,2,2,Engine low on fuel
+1,1,3,3,Engine out of fuel
+2,1,1,3,Loss of signal
+2,1,2,3,Not receiving commands
+2,1,3,3,Not sending info
