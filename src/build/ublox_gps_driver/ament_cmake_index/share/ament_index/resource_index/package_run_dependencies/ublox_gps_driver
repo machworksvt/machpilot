@@ -1,1 +1,0 @@
-rclcpp;rclcpp_lifecycle;sensor_msgs;diagnostic_msgs;lifecycle_msgs;ament_lint_auto;ament_lint_common;ament_cmake_gtest

@@ -1,2 +1,0 @@
-/usr/bin/ar qc libublox_parser.a CMakeFiles/ublox_parser.dir/src/ublox_parser.cpp.o
-/usr/bin/ranlib libublox_parser.a

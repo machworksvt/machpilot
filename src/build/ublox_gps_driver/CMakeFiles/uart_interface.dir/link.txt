@@ -1,2 +1,0 @@
-/usr/bin/ar qc libuart_interface.a CMakeFiles/uart_interface.dir/src/uart_interface.cpp.o
-/usr/bin/ranlib libuart_interface.a

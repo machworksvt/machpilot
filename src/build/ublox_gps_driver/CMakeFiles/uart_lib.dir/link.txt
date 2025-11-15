@@ -1,2 +1,0 @@
-/usr/bin/ar qc libuart_lib.a CMakeFiles/uart_lib.dir/workspace/src/embedded_system/dependencies/src/uart.c.o
-/usr/bin/ranlib libuart_lib.a
