@@ -1,8 +1,0 @@
-# Prime.action
-# Runs fuel priming sequence. May need to be repeated.
-float32 pump_power_percent #0-10%
-
----
-bool success
-
----

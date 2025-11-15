@@ -1,4 +1,0 @@
-# SendCanMessage.srv
-CanMsg msg
----
-bool success
