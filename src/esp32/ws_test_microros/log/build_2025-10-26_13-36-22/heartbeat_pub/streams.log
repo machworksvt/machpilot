@@ -1,0 +1,59 @@
+[0.010s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub
+[0.021s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.122s] -- Found rcl: 5.3.10 (/opt/ros/humble/share/rcl/cmake)
+[0.271s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.273s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.277s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.283s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.290s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.308s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[0.309s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[5.355s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[5.360s] -- Found std_msgs: 4.9.0 (/opt/ros/humble/share/std_msgs/cmake)
+[5.369s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[5.432s] -- Added test 'cppcheck' to perform static code analysis on C / C++ code
+[5.432s] -- Configured cppcheck include dirs: 
+[5.432s] -- Configured cppcheck exclude dirs and/or files: 
+[5.433s] -- Added test 'lint_cmake' to check CMake code style
+[5.433s] -- Added test 'uncrustify' to check C / C++ code style
+[5.433s] -- Configured uncrustify additional arguments: 
+[5.434s] -- Added test 'xmllint' to check XML markup files
+[5.434s] -- Configuring done
+[5.440s] -- Generating done
+[5.441s] -- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub
+[5.447s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub
+[5.450s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub -- -j16 -l16
+[5.478s] [ 50%] [32mBuilding C object CMakeFiles/heartbeat_publisher.dir/src/heartbeat_publisher.c.o[0m
+[5.552s] [01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:[m[K In function ‘[01m[Kmain[m[K’:
+[5.553s] [01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:64:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_publisher_fini[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+[5.553s]    64 |     [01;35m[Krcl_publisher_fini(&publisher, &node)[m[K;
+[5.553s]       |     [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.553s] [01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:65:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_node_fini[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+[5.553s]    65 |     [01;35m[Krcl_node_fini(&node)[m[K;
+[5.553s]       |     [01;35m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[5.553s] [01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:66:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_shutdown[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+[5.553s]    66 |     [01;35m[Krcl_shutdown(&context)[m[K;
+[5.553s]       |     [01;35m[K^~~~~~~~~~~~~~~~~~~~~~[m[K
+[5.569s] [100%] [32m[1mLinking C executable heartbeat_publisher[0m
+[5.716s] [100%] Built target heartbeat_publisher
+[5.725s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --build /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub -- -j16 -l16
+[5.746s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub
+[5.750s] -- Install configuration: ""
+[5.750s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/lib/heartbeat_pub/heartbeat_publisher
+[5.750s] -- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/lib/heartbeat_pub/heartbeat_publisher" to ""
+[5.750s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/ament_index/resource_index/package_run_dependencies/heartbeat_pub
+[5.750s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/ament_index/resource_index/parent_prefix_path/heartbeat_pub
+[5.751s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/environment/ament_prefix_path.sh
+[5.751s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/environment/ament_prefix_path.dsv
+[5.751s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/environment/path.sh
+[5.751s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/environment/path.dsv
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/local_setup.bash
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/local_setup.sh
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/local_setup.zsh
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/local_setup.dsv
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/package.dsv
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/ament_index/resource_index/packages/heartbeat_pub
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/cmake/heartbeat_pubConfig.cmake
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/cmake/heartbeat_pubConfig-version.cmake
+[5.752s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub/share/heartbeat_pub/package.xml
+[5.754s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake --install /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub

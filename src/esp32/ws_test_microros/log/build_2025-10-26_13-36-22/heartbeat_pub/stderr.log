@@ -1,0 +1,10 @@
+[01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:[m[K In function ‘[01m[Kmain[m[K’:
+[01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:64:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_publisher_fini[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+   64 |     [01;35m[Krcl_publisher_fini(&publisher, &node)[m[K;
+      |     [01;35m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:65:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_node_fini[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+   65 |     [01;35m[Krcl_node_fini(&node)[m[K;
+      |     [01;35m[K^~~~~~~~~~~~~~~~~~~~[m[K
+[01m[K/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub/src/heartbeat_publisher.c:66:5:[m[K [01;35m[Kwarning: [m[Kignoring return value of ‘[01m[Krcl_shutdown[m[K’ declared with attribute ‘[01m[Kwarn_unused_result[m[K’ [[01;35m[K]8;;https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wunused-result-Wunused-result]8;;[m[K]
+   66 |     [01;35m[Krcl_shutdown(&context)[m[K;
+      |     [01;35m[K^~~~~~~~~~~~~~~~~~~~~~[m[K

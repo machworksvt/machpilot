@@ -1,0 +1,210 @@
+[0.017s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/micro_ros_setup -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup
+[0.330s] -- The C compiler identification is GNU 11.4.0
+[1.077s] -- The CXX compiler identification is GNU 11.4.0
+[1.568s] -- Detecting C compiler ABI info
+[1.750s] -- Detecting C compiler ABI info - done
+[1.755s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.756s] -- Detecting C compile features
+[1.757s] -- Detecting C compile features - done
+[1.762s] -- Detecting CXX compiler ABI info
+[1.928s] -- Detecting CXX compiler ABI info - done
+[1.933s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.934s] -- Detecting CXX compile features
+[1.934s] -- Detecting CXX compile features - done
+[1.945s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[2.061s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[2.151s] -- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)
+[2.224s] -- Added test 'copyright' to check source files copyright and LICENSE
+[2.250s] -- Added test 'flake8' to check Python code syntax and style conventions
+[2.252s] -- Added test 'lint_cmake' to check CMake code style
+[2.254s] -- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+[2.259s] -- Added test 'xmllint' to check XML markup files
+[2.264s] -- Configuring done
+[2.267s] -- Generating done
+[2.267s] -- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup
+[2.271s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/micro_ros_setup -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup
+[2.272s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup -- -j16 -l16
+[2.300s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup -- -j16 -l16
+[2.323s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup
+[2.326s] -- Install configuration: ""
+[2.327s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/ament_index/resource_index/package_run_dependencies/micro_ros_setup
+[2.327s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/ament_index/resource_index/parent_prefix_path/micro_ros_setup
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/environment/ament_prefix_path.sh
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/environment/ament_prefix_path.dsv
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/environment/path.sh
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/environment/path.dsv
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/local_setup.bash
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/local_setup.sh
+[2.328s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/local_setup.zsh
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/local_setup.dsv
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/package.dsv
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/ament_index/resource_index/packages/micro_ros_setup
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/cmake/micro_ros_setupConfig.cmake
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/cmake/micro_ros_setupConfig-version.cmake
+[2.329s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/share/micro_ros_setup/package.xml
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/dev_uros_packages.repos
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/client-colcon.meta
+[2.330s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/package.xml
+[2.331s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/create.sh
+[2.331s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/build.sh
+[2.331s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/flash.sh
+[2.331s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/generic/client_uros_packages.repos
+[2.332s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/android/dev_ros2_packages.txt
+[2.332s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra
+[2.333s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5
+[2.333s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/board.repos
+[2.333s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/client-colcon.meta
+[2.333s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/create.sh
+[2.334s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/build.sh
+[2.334s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/configure.sh
+[2.334s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/flash.sh
+[2.335s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/ra6m5/client_uros_packages.repos
+[2.335s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/dev_uros_packages.repos
+[2.335s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/list_apps.sh
+[2.336s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/renesas_ra/dev_ros2_packages.txt
+[2.336s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr
+[2.336s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/dev_uros_packages.repos
+[2.337s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic
+[2.337s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/supported_platforms
+[2.337s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/board.repos
+[2.337s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/client-colcon.meta
+[2.338s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/package.xml
+[2.338s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/create.sh
+[2.338s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/build.sh
+[2.339s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/configure.sh
+[2.339s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/flash.sh
+[2.339s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/generic/client_uros_packages.repos
+[2.339s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/list_apps.sh
+[2.340s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/zephyr/dev_ros2_packages.txt
+[2.340s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos
+[2.340s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze
+[2.341s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/board.repos
+[2.341s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/client-colcon.meta
+[2.341s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/package.xml
+[2.341s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/create.sh
+[2.342s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/build.sh
+[2.342s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/configure.sh
+[2.343s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/flash.sh
+[2.343s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446ze/client_uros_packages.repos
+[2.343s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/dev_uros_packages.repos
+[2.343s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32
+[2.343s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/board.repos
+[2.344s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/client-colcon.meta
+[2.344s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/package.xml
+[2.344s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/create.sh
+[2.345s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/README.md
+[2.345s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/build.sh
+[2.345s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/configure.sh
+[2.345s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/flash.sh
+[2.346s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/esp32/client_uros_packages.repos
+[2.346s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21
+[2.346s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/board.repos
+[2.346s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/client-colcon.meta
+[2.346s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/package.xml
+[2.347s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/create.sh
+[2.347s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/build.sh
+[2.347s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/configure.sh
+[2.348s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/flash.sh
+[2.348s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/crazyflie21/client_uros_packages.repos
+[2.348s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407
+[2.349s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/board.repos
+[2.349s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/client-colcon.meta
+[2.349s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/package.xml
+[2.350s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/create.sh
+[2.350s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/build.sh
+[2.351s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/configure.sh
+[2.351s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/flash.sh
+[2.352s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/olimex-stm32-e407/client_uros_packages.repos
+[2.352s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/list_apps.sh
+[2.352s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/dev_ros2_packages.txt
+[2.353s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg
+[2.353s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/board.repos
+[2.354s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/client-colcon.meta
+[2.355s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/package.xml
+[2.355s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/create.sh
+[2.355s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/build.sh
+[2.356s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/configure.sh
+[2.357s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/flash.sh
+[2.358s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f746zg/client_uros_packages.repos
+[2.358s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi
+[2.358s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/board.repos
+[2.359s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/client-colcon.meta
+[2.359s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/package.xml
+[2.359s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/create.sh
+[2.359s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/build.sh
+[2.360s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/configure.sh
+[2.360s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/flash.sh
+[2.360s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f767zi/client_uros_packages.repos
+[2.361s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re
+[2.361s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/board.repos
+[2.362s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/client-colcon.meta
+[2.362s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/package.xml
+[2.362s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/create.sh
+[2.362s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/build.sh
+[2.362s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/configure.sh
+[2.363s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/flash.sh
+[2.363s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/freertos/nucleo_f446re/client_uros_packages.repos
+[2.363s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/agent_uros_packages.repos
+[2.363s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian
+[2.364s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/dev_uros_packages.repos
+[2.364s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic
+[2.365s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/supported_platforms
+[2.365s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/client-colcon.meta
+[2.365s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/create.sh
+[2.366s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/build.sh
+[2.366s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/configure.sh
+[2.366s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/flash.sh
+[2.367s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/generic/client_uros_packages.repos
+[2.367s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/raspbian/dev_ros2_packages.txt
+[2.367s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host
+[2.368s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/dev_uros_packages.repos
+[2.368s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic
+[2.369s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/package.xml
+[2.370s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/create.sh
+[2.370s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/client_host_packages.repos
+[2.370s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/client-host-colcon.meta
+[2.371s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/build.sh
+[2.371s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/generic/flash.sh
+[2.371s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/client_ros2_packages.txt
+[2.371s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/host/dev_ros2_packages.txt
+[2.372s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/agent_ros2_packages.txt
+[2.372s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/utils.sh
+[2.372s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/client_ros2_packages.txt
+[2.372s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed
+[2.373s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/dev_uros_packages.repos
+[2.373s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic
+[2.374s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/supported_platforms
+[2.374s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/board.repos
+[2.374s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/package.xml
+[2.374s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/create.sh
+[2.374s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/build.sh
+[2.375s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/flash.sh
+[2.375s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/generic/client_uros_packages.repos
+[2.375s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/list_apps.sh
+[2.375s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/mbed/dev_ros2_packages.txt
+[2.376s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/client_uros_packages.repos
+[2.376s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib
+[2.376s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/dev_uros_packages.repos
+[2.376s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic
+[2.376s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/client-colcon.meta
+[2.377s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/package.xml
+[2.377s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/create.sh
+[2.377s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/build.sh
+[2.378s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/demo_toolchain.cmake
+[2.378s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/flash.sh
+[2.379s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/generic/client_uros_packages.repos
+[2.379s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/./config/generate_lib/dev_ros2_packages.txt
+[2.380s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/create_ws.sh
+[2.380s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/create_agent_ws.sh
+[2.380s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/create_firmware_ws.sh
+[2.381s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/configure_firmware.sh
+[2.381s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/flash_firmware.sh
+[2.381s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/build_firmware.sh
+[2.382s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/build_agent.sh
+[2.382s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/yaml_filter.py
+[2.382s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/clean_env.sh
+[2.383s] -- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup/lib/micro_ros_setup/component
+[2.385s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_setup

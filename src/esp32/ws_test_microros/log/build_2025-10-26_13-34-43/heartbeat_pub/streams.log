@@ -1,0 +1,7 @@
+[0.016s] Invoking command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub
+[0.077s] [31mCMake Error at CMakeLists.txt:13:
+[0.077s]   Parse error.  Expected a command name, got unquoted argument with text "`".
+[0.077s] 
+[0.077s] [0m
+[0.077s] -- Configuring incomplete, errors occurred!
+[0.086s] Invoked command in '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/heartbeat_pub' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble CONDA_PROMPT_MODIFIER=(base) /usr/bin/cmake /home/jbrenden/machpilot/src/esp32/ws_test_microros/src/heartbeat_pub -DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/heartbeat_pub

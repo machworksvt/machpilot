@@ -1,0 +1,1092 @@
+[0.000000] (-) TimerEvent: {}
+[0.000145] (-) JobUnselected: {'identifier': 'micro_ros_setup'}
+[0.000182] (micro_ros_msgs) JobQueued: {'identifier': 'micro_ros_msgs', 'dependencies': OrderedDict()}
+[0.000198] (micro_ros_agent) JobQueued: {'identifier': 'micro_ros_agent', 'dependencies': OrderedDict([('micro_ros_msgs', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs')])}
+[0.000210] (micro_ros_msgs) JobStarted: {'identifier': 'micro_ros_msgs'}
+[0.007536] (micro_ros_msgs) JobProgress: {'identifier': 'micro_ros_msgs', 'progress': 'cmake'}
+[0.007732] (micro_ros_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/uros/micro_ros_msgs', '-DUAGENT_BUILD_EXECUTABLE=OFF', '-DUAGENT_P2P_PROFILE=OFF', '--no-warn-unused-cli', '-DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[0.013676] (micro_ros_msgs) StdoutLine: {'line': b'Not searching for unused variables given on the command line.\n'}
+[0.099397] (-) TimerEvent: {}
+[0.156389] (micro_ros_msgs) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.199550] (-) TimerEvent: {}
+[0.300023] (-) TimerEvent: {}
+[0.400392] (-) TimerEvent: {}
+[0.500906] (-) TimerEvent: {}
+[0.601382] (-) TimerEvent: {}
+[0.693993] (micro_ros_msgs) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.701474] (-) TimerEvent: {}
+[0.802073] (-) TimerEvent: {}
+[0.902806] (-) TimerEvent: {}
+[1.003223] (-) TimerEvent: {}
+[1.032915] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.103473] (-) TimerEvent: {}
+[1.191716] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[1.196371] (micro_ros_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[1.196698] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[1.196858] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[1.198875] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[1.203607] (-) TimerEvent: {}
+[1.303922] (-) TimerEvent: {}
+[1.346219] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[1.351030] (micro_ros_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[1.351320] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[1.351451] (micro_ros_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[1.353230] (micro_ros_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[1.404148] (-) TimerEvent: {}
+[1.450569] (micro_ros_msgs) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.504365] (-) TimerEvent: {}
+[1.512822] (micro_ros_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.519811] (micro_ros_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.528512] (micro_ros_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.604548] (-) TimerEvent: {}
+[1.705067] (-) TimerEvent: {}
+[1.723302] (micro_ros_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.758726] (micro_ros_msgs) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[1.805508] (-) TimerEvent: {}
+[1.906270] (-) TimerEvent: {}
+[1.956941] (micro_ros_msgs) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[2.006539] (-) TimerEvent: {}
+[2.093242] (micro_ros_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[2.106532] (-) TimerEvent: {}
+[2.206864] (-) TimerEvent: {}
+[2.256249] (micro_ros_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.307036] (-) TimerEvent: {}
+[2.387298] (micro_ros_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[2.390153] (micro_ros_msgs) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[2.407350] (-) TimerEvent: {}
+[2.508003] (-) TimerEvent: {}
+[2.608539] (-) TimerEvent: {}
+[2.708931] (-) TimerEvent: {}
+[2.798188] (micro_ros_msgs) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[2.798411] (micro_ros_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[2.798470] (micro_ros_msgs) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[2.798505] (micro_ros_msgs) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[2.809130] (-) TimerEvent: {}
+[2.813041] (micro_ros_msgs) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[2.895474] (micro_ros_msgs) StdoutLine: {'line': b"-- Added test 'copyright' to check source files copyright and LICENSE\n"}
+[2.899141] (micro_ros_msgs) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[2.900966] (micro_ros_msgs) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[2.909320] (-) TimerEvent: {}
+[2.909811] (micro_ros_msgs) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.933521] (micro_ros_msgs) StdoutLine: {'line': b'-- Generating done\n'}
+[2.935049] (micro_ros_msgs) StdoutLine: {'line': b'-- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs\n'}
+[2.942006] (micro_ros_msgs) CommandEnded: {'returncode': 0}
+[2.942657] (micro_ros_msgs) JobProgress: {'identifier': 'micro_ros_msgs', 'progress': 'build'}
+[2.944524] (micro_ros_msgs) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs', '--', '-j16', '-l16'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[2.970581] (micro_ros_msgs) StdoutLine: {'line': b'[  2%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[2.977992] (micro_ros_msgs) StdoutLine: {'line': b'[  4%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[2.986886] (micro_ros_msgs) StdoutLine: {'line': b'[  4%] Built target ament_cmake_python_copy_micro_ros_msgs\n'}
+[3.009697] (-) TimerEvent: {}
+[3.110389] (-) TimerEvent: {}
+[3.175015] (micro_ros_msgs) StdoutLine: {'line': b'running egg_info\n'}
+[3.175470] (micro_ros_msgs) StdoutLine: {'line': b'creating micro_ros_msgs.egg-info\n'}
+[3.183165] (micro_ros_msgs) StdoutLine: {'line': b'writing micro_ros_msgs.egg-info/PKG-INFO\n'}
+[3.183394] (micro_ros_msgs) StdoutLine: {'line': b'writing dependency_links to micro_ros_msgs.egg-info/dependency_links.txt\n'}
+[3.183456] (micro_ros_msgs) StdoutLine: {'line': b'writing top-level names to micro_ros_msgs.egg-info/top_level.txt\n'}
+[3.183549] (micro_ros_msgs) StdoutLine: {'line': b"writing manifest file 'micro_ros_msgs.egg-info/SOURCES.txt'\n"}
+[3.186294] (micro_ros_msgs) StdoutLine: {'line': b"reading manifest file 'micro_ros_msgs.egg-info/SOURCES.txt'\n"}
+[3.186647] (micro_ros_msgs) StdoutLine: {'line': b"writing manifest file 'micro_ros_msgs.egg-info/SOURCES.txt'\n"}
+[3.210613] (-) TimerEvent: {}
+[3.212035] (micro_ros_msgs) StdoutLine: {'line': b'[  4%] Built target ament_cmake_python_build_micro_ros_msgs_egg\n'}
+[3.276231] (micro_ros_msgs) StdoutLine: {'line': b'[  4%] Built target micro_ros_msgs__cpp\n'}
+[3.282153] (micro_ros_msgs) StdoutLine: {'line': b'[  6%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.284295] (micro_ros_msgs) StdoutLine: {'line': b'[  8%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.284798] (micro_ros_msgs) StdoutLine: {'line': b'[ 10%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[3.289069] (micro_ros_msgs) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_c.dir/rosidl_generator_c/micro_ros_msgs/msg/detail/graph__functions.c.o\x1b[0m\n'}
+[3.289535] (micro_ros_msgs) StdoutLine: {'line': b'[ 17%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_c.dir/rosidl_generator_c/micro_ros_msgs/msg/detail/node__functions.c.o\x1b[0m\n'}
+[3.289699] (micro_ros_msgs) StdoutLine: {'line': b'[ 17%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_c.dir/rosidl_generator_c/micro_ros_msgs/msg/detail/entity__functions.c.o\x1b[0m\n'}
+[3.310748] (-) TimerEvent: {}
+[3.371859] (micro_ros_msgs) StdoutLine: {'line': b'[ 19%] \x1b[32m\x1b[1mLinking C shared library libmicro_ros_msgs__rosidl_generator_c.so\x1b[0m\n'}
+[3.410890] (-) TimerEvent: {}
+[3.488374] (micro_ros_msgs) StdoutLine: {'line': b'[ 19%] Built target micro_ros_msgs__rosidl_generator_c\n'}
+[3.496353] (micro_ros_msgs) StdoutLine: {'line': b'[ 25%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[3.496559] (micro_ros_msgs) StdoutLine: {'line': b'[ 25%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.496633] (micro_ros_msgs) StdoutLine: {'line': b'[ 25%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.511094] (-) TimerEvent: {}
+[3.521420] (micro_ros_msgs) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/micro_ros_msgs/msg/entity__type_support.cpp.o\x1b[0m\n'}
+[3.521774] (micro_ros_msgs) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/micro_ros_msgs/msg/graph__type_support.cpp.o\x1b[0m\n'}
+[3.521894] (micro_ros_msgs) StdoutLine: {'line': b'[ 31%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/micro_ros_msgs/msg/node__type_support.cpp.o\x1b[0m\n'}
+[3.568416] (micro_ros_msgs) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/micro_ros_msgs/msg/detail/node__type_support.cpp.o\x1b[0m\n'}
+[3.568928] (micro_ros_msgs) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/micro_ros_msgs/msg/detail/entity__type_support.cpp.o\x1b[0m\n'}
+[3.569076] (micro_ros_msgs) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/micro_ros_msgs/msg/detail/graph__type_support.cpp.o\x1b[0m\n'}
+[3.587838] (micro_ros_msgs) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/micro_ros_msgs/msg/detail/dds_fastrtps/node__type_support.cpp.o\x1b[0m\n'}
+[3.588081] (micro_ros_msgs) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/micro_ros_msgs/msg/detail/dds_fastrtps/graph__type_support.cpp.o\x1b[0m\n'}
+[3.588521] (micro_ros_msgs) StdoutLine: {'line': b'[ 44%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/micro_ros_msgs/msg/detail/dds_fastrtps/entity__type_support.cpp.o\x1b[0m\n'}
+[3.611277] (-) TimerEvent: {}
+[3.711784] (-) TimerEvent: {}
+[3.812379] (-) TimerEvent: {}
+[3.869140] (micro_ros_msgs) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/micro_ros_msgs/msg/entity__type_support.cpp.o\x1b[0m\n'}
+[3.869407] (micro_ros_msgs) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/micro_ros_msgs/msg/graph__type_support.cpp.o\x1b[0m\n'}
+[3.869742] (micro_ros_msgs) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/micro_ros_msgs/msg/node__type_support.cpp.o\x1b[0m\n'}
+[3.912498] (-) TimerEvent: {}
+[3.914232] (micro_ros_msgs) StdoutLine: {'line': b'[ 53%] \x1b[32m\x1b[1mLinking CXX shared library libmicro_ros_msgs__rosidl_typesupport_c.so\x1b[0m\n'}
+[3.925989] (micro_ros_msgs) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/micro_ros_msgs/msg/detail/node__type_support.c.o\x1b[0m\n'}
+[3.926301] (micro_ros_msgs) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/micro_ros_msgs/msg/detail/entity__type_support.c.o\x1b[0m\n'}
+[3.926697] (micro_ros_msgs) StdoutLine: {'line': b'[ 59%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/micro_ros_msgs/msg/detail/graph__type_support.c.o\x1b[0m\n'}
+[3.955971] (micro_ros_msgs) StdoutLine: {'line': b'[ 61%] \x1b[32m\x1b[1mLinking CXX shared library libmicro_ros_msgs__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[3.973109] (micro_ros_msgs) StdoutLine: {'line': b'[ 65%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/micro_ros_msgs/msg/detail/graph__type_support_c.cpp.o\x1b[0m\n'}
+[3.973469] (micro_ros_msgs) StdoutLine: {'line': b'[ 65%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/micro_ros_msgs/msg/detail/node__type_support_c.cpp.o\x1b[0m\n'}
+[3.975006] (micro_ros_msgs) StdoutLine: {'line': b'[ 68%] \x1b[32m\x1b[1mLinking C shared library libmicro_ros_msgs__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[3.978032] (micro_ros_msgs) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/micro_ros_msgs/msg/detail/entity__type_support_c.cpp.o\x1b[0m\n'}
+[4.012660] (-) TimerEvent: {}
+[4.089377] (micro_ros_msgs) StdoutLine: {'line': b'[ 70%] Built target micro_ros_msgs__rosidl_typesupport_c\n'}
+[4.112830] (-) TimerEvent: {}
+[4.148131] (micro_ros_msgs) StdoutLine: {'line': b'[ 70%] Built target micro_ros_msgs__rosidl_typesupport_introspection_c\n'}
+[4.148655] (micro_ros_msgs) StdoutLine: {'line': b'[ 70%] Built target micro_ros_msgs__rosidl_typesupport_cpp\n'}
+[4.212997] (-) TimerEvent: {}
+[4.218421] (micro_ros_msgs) StdoutLine: {'line': b'[ 72%] \x1b[32m\x1b[1mLinking CXX shared library libmicro_ros_msgs__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[4.247661] (micro_ros_msgs) StdoutLine: {'line': b'[ 74%] \x1b[32m\x1b[1mLinking CXX shared library libmicro_ros_msgs__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[4.313143] (-) TimerEvent: {}
+[4.336656] (micro_ros_msgs) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking CXX shared library libmicro_ros_msgs__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[4.393886] (micro_ros_msgs) StdoutLine: {'line': b'[ 76%] Built target micro_ros_msgs__rosidl_typesupport_fastrtps_cpp\n'}
+[4.413457] (-) TimerEvent: {}
+[4.413869] (micro_ros_msgs) StdoutLine: {'line': b'[ 76%] Built target micro_ros_msgs__rosidl_typesupport_introspection_cpp\n'}
+[4.476064] (micro_ros_msgs) StdoutLine: {'line': b'[ 76%] Built target micro_ros_msgs__rosidl_typesupport_fastrtps_c\n'}
+[4.490796] (micro_ros_msgs) StdoutLine: {'line': b'[ 76%] Built target micro_ros_msgs\n'}
+[4.504602] (micro_ros_msgs) StdoutLine: {'line': b'[ 78%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[4.513599] (-) TimerEvent: {}
+[4.613952] (-) TimerEvent: {}
+[4.714336] (-) TimerEvent: {}
+[4.814741] (-) TimerEvent: {}
+[4.861490] (micro_ros_msgs) StdoutLine: {'line': b'[ 78%] Built target micro_ros_msgs__py\n'}
+[4.874204] (micro_ros_msgs) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_py.dir/rosidl_generator_py/micro_ros_msgs/msg/_node_s.c.o\x1b[0m\n'}
+[4.874406] (micro_ros_msgs) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_py.dir/rosidl_generator_py/micro_ros_msgs/msg/_graph_s.c.o\x1b[0m\n'}
+[4.874710] (micro_ros_msgs) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_generator_py.dir/rosidl_generator_py/micro_ros_msgs/msg/_entity_s.c.o\x1b[0m\n'}
+[4.914985] (-) TimerEvent: {}
+[5.002025] (micro_ros_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/micro_ros_msgs/libmicro_ros_msgs__rosidl_generator_py.so\x1b[0m\n'}
+[5.015186] (-) TimerEvent: {}
+[5.115584] (-) TimerEvent: {}
+[5.128444] (micro_ros_msgs) StdoutLine: {'line': b'[ 87%] Built target micro_ros_msgs__rosidl_generator_py\n'}
+[5.141563] (micro_ros_msgs) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[5.142038] (micro_ros_msgs) StdoutLine: {'line': b'[ 91%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[5.142964] (micro_ros_msgs) StdoutLine: {'line': b'[ 93%] \x1b[32mBuilding C object CMakeFiles/micro_ros_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[5.210169] (micro_ros_msgs) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[5.210571] (micro_ros_msgs) StdoutLine: {'line': b'[ 97%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[5.210662] (micro_ros_msgs) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\x1b[0m\n'}
+[5.215774] (-) TimerEvent: {}
+[5.308039] (micro_ros_msgs) StdoutLine: {'line': b'[100%] Built target micro_ros_msgs__rosidl_typesupport_c__pyext\n'}
+[5.308402] (micro_ros_msgs) StdoutLine: {'line': b'[100%] Built target micro_ros_msgs__rosidl_typesupport_fastrtps_c__pyext\n'}
+[5.308542] (micro_ros_msgs) StdoutLine: {'line': b'[100%] Built target micro_ros_msgs__rosidl_typesupport_introspection_c__pyext\n'}
+[5.314898] (micro_ros_msgs) CommandEnded: {'returncode': 0}
+[5.315954] (-) TimerEvent: {}
+[5.385143] (micro_ros_msgs) JobProgress: {'identifier': 'micro_ros_msgs', 'progress': 'install'}
+[5.391092] (micro_ros_msgs) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_msgs'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[5.395727] (micro_ros_msgs) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[5.396271] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/ament_index/resource_index/rosidl_interfaces/micro_ros_msgs\n'}
+[5.396335] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.396555] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.396754] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/graph.h\n'}
+[5.396820] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/rosidl_generator_c__visibility_control.h\n'}
+[5.396884] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/node.h\n'}
+[5.397061] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/entity.h\n'}
+[5.397367] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.397475] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__type_support.h\n'}
+[5.397587] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__struct.h\n'}
+[5.397699] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__struct.h\n'}
+[5.397810] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__functions.c\n'}
+[5.397921] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__functions.h\n'}
+[5.398121] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__type_support.h\n'}
+[5.398191] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__functions.h\n'}
+[5.398306] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__type_support.h\n'}
+[5.398420] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__functions.c\n'}
+[5.398534] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__functions.h\n'}
+[5.398648] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__functions.c\n'}
+[5.398761] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__struct.h\n'}
+[5.398875] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/library_path.sh\n'}
+[5.399079] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/library_path.dsv\n'}
+[5.399130] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_generator_c.so\n'}
+[5.399167] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_generator_c.so" to ""\n'}
+[5.399203] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.399297] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.399411] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.399534] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__rosidl_typesupport_fastrtps_c.h\n'}
+[5.399650] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__rosidl_typesupport_fastrtps_c.h\n'}
+[5.399761] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__rosidl_typesupport_fastrtps_c.h\n'}
+[5.399873] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[5.399984] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_fastrtps_c.so\n'}
+[5.400185] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[5.400232] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.400267] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.400360] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[5.400473] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.400583] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__type_support.c\n'}
+[5.400705] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__type_support.c\n'}
+[5.400880] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__type_support.c\n'}
+[5.400946] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__rosidl_typesupport_introspection_c.h\n'}
+[5.401086] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__rosidl_typesupport_introspection_c.h\n'}
+[5.401246] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__rosidl_typesupport_introspection_c.h\n'}
+[5.401323] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_introspection_c.so\n'}
+[5.401434] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_introspection_c.so" to ""\n'}
+[5.401545] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_c.so\n'}
+[5.401655] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_c.so" to ""\n'}
+[5.401772] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.401883] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.401994] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[5.402116] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/graph.hpp\n'}
+[5.402227] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/entity.hpp\n'}
+[5.402361] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/node.hpp\n'}
+[5.402476] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.402588] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__type_support.hpp\n'}
+[5.402700] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__traits.hpp\n'}
+[5.402820] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__traits.hpp\n'}
+[5.402941] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__builder.hpp\n'}
+[5.403008] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__type_support.hpp\n'}
+[5.403046] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__struct.hpp\n'}
+[5.403324] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__builder.hpp\n'}
+[5.403694] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__struct.hpp\n'}
+[5.403760] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__builder.hpp\n'}
+[5.403798] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__traits.hpp\n'}
+[5.403855] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__type_support.hpp\n'}
+[5.403972] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__struct.hpp\n'}
+[5.404093] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.404216] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.404332] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[5.404453] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.404569] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[5.404685] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/dds_fastrtps\n'}
+[5.404875] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[5.404937] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[5.405052] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_fastrtps_cpp.so\n'}
+[5.405175] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[5.405224] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs\n'}
+[5.405344] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg\n'}
+[5.405470] (micro_ros_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail\n'}
+[5.405588] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__type_support.cpp\n'}
+[5.405701] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__rosidl_typesupport_introspection_cpp.hpp\n'}
+[5.405820] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/node__rosidl_typesupport_introspection_cpp.hpp\n'}
+[5.405933] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/entity__type_support.cpp\n'}
+[5.406047] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__rosidl_typesupport_introspection_cpp.hpp\n'}
+[5.406160] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/include/micro_ros_msgs/micro_ros_msgs/msg/detail/graph__type_support.cpp\n'}
+[5.406273] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_introspection_cpp.so\n'}
+[5.406443] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[5.406483] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_cpp.so\n'}
+[5.406521] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_typesupport_cpp.so" to ""\n'}
+[5.406555] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/pythonpath.sh\n'}
+[5.406589] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/pythonpath.dsv\n'}
+[5.406624] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs-3.0.1-py3.10.egg-info\n'}
+[5.406659] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs-3.0.1-py3.10.egg-info/top_level.txt\n'}
+[5.406698] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs-3.0.1-py3.10.egg-info/PKG-INFO\n'}
+[5.406732] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs-3.0.1-py3.10.egg-info/dependency_links.txt\n'}
+[5.406766] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs-3.0.1-py3.10.egg-info/SOURCES.txt\n'}
+[5.406808] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs\n'}
+[5.406847] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_c.c\n'}
+[5.406881] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg\n'}
+[5.406915] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_node.py\n'}
+[5.406948] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_entity_s.c\n'}
+[5.406982] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/__init__.py\n'}
+[5.407020] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_graph_s.c\n'}
+[5.407054] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_node_s.c\n'}
+[5.407087] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_entity.py\n'}
+[5.407122] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_graph.py\n'}
+[5.407155] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[5.407189] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/__init__.py\n'}
+[5.407249] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.407288] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/_micro_ros_msgs_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[5.407324] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.407359] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.407392] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/libmicro_ros_msgs__rosidl_generator_py.so\n'}
+[5.416161] (-) TimerEvent: {}
+[5.436157] (micro_ros_msgs) StdoutLine: {'line': b"Listing '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs'...\n"}
+[5.436467] (micro_ros_msgs) StdoutLine: {'line': b"Compiling '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/__init__.py'...\n"}
+[5.436605] (micro_ros_msgs) StdoutLine: {'line': b"Listing '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg'...\n"}
+[5.436696] (micro_ros_msgs) StdoutLine: {'line': b"Compiling '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/__init__.py'...\n"}
+[5.436814] (micro_ros_msgs) StdoutLine: {'line': b"Compiling '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_entity.py'...\n"}
+[5.436914] (micro_ros_msgs) StdoutLine: {'line': b"Compiling '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_graph.py'...\n"}
+[5.437031] (micro_ros_msgs) StdoutLine: {'line': b"Compiling '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/msg/_node.py'...\n"}
+[5.440249] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.440547] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[5.440620] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.440862] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_introspection_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[5.441166] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so\n'}
+[5.441234] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages/micro_ros_msgs/micro_ros_msgs_s__rosidl_typesupport_c.cpython-310-x86_64-linux-gnu.so" to ""\n'}
+[5.441431] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_generator_py.so\n'}
+[5.441533] (micro_ros_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib/libmicro_ros_msgs__rosidl_generator_py.so" to ""\n'}
+[5.441754] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Graph.idl\n'}
+[5.442024] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Node.idl\n'}
+[5.442133] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Entity.idl\n'}
+[5.442222] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Graph.msg\n'}
+[5.442432] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Node.msg\n'}
+[5.442524] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/msg/Entity.msg\n'}
+[5.442681] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/ament_index/resource_index/package_run_dependencies/micro_ros_msgs\n'}
+[5.442879] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/ament_index/resource_index/parent_prefix_path/micro_ros_msgs\n'}
+[5.443122] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/ament_prefix_path.sh\n'}
+[5.443187] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/ament_prefix_path.dsv\n'}
+[5.443231] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/path.sh\n'}
+[5.443284] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/environment/path.dsv\n'}
+[5.443588] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/local_setup.bash\n'}
+[5.443896] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/local_setup.sh\n'}
+[5.444176] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/local_setup.zsh\n'}
+[5.444420] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/local_setup.dsv\n'}
+[5.444483] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/package.dsv\n'}
+[5.444522] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/ament_index/resource_index/packages/micro_ros_msgs\n'}
+[5.444812] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_generator_cExport.cmake\n'}
+[5.444922] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_generator_cExport-noconfig.cmake\n'}
+[5.445012] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[5.445137] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[5.445354] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_introspection_cExport.cmake\n'}
+[5.445499] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[5.445708] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_cExport.cmake\n'}
+[5.445853] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[5.446109] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_generator_cppExport.cmake\n'}
+[5.446158] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[5.446271] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[5.446383] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[5.446496] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[5.446609] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_cppExport.cmake\n'}
+[5.446676] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgs__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[5.446889] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_generator_pyExport.cmake\n'}
+[5.447066] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/export_micro_ros_msgs__rosidl_generator_pyExport-noconfig.cmake\n'}
+[5.447107] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/rosidl_cmake-extras.cmake\n'}
+[5.447228] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[5.447340] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[5.447453] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[5.447587] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[5.447628] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[5.447665] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[5.447701] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgsConfig.cmake\n'}
+[5.447738] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake/micro_ros_msgsConfig-version.cmake\n'}
+[5.447774] (micro_ros_msgs) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/package.xml\n'}
+[5.449957] (micro_ros_msgs) CommandEnded: {'returncode': 0}
+[5.516262] (-) TimerEvent: {}
+[5.542944] (micro_ros_msgs) JobEnded: {'identifier': 'micro_ros_msgs', 'rc': 0}
+[5.545346] (micro_ros_agent) JobStarted: {'identifier': 'micro_ros_agent'}
+[5.616443] (-) TimerEvent: {}
+[5.668160] (micro_ros_agent) JobProgress: {'identifier': 'micro_ros_agent', 'progress': 'cmake'}
+[5.669248] (micro_ros_agent) Command: {'cmd': ['/usr/bin/cmake', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src/uros/micro-ROS-Agent/micro_ros_agent', '-DUAGENT_BUILD_EXECUTABLE=OFF', '-DUAGENT_P2P_PROFILE=OFF', '--no-warn-unused-cli', '-DCMAKE_INSTALL_PREFIX=/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[5.674600] (micro_ros_agent) StdoutLine: {'line': b'Not searching for unused variables given on the command line.\n'}
+[5.716596] (-) TimerEvent: {}
+[5.797838] (micro_ros_agent) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[5.816700] (-) TimerEvent: {}
+[5.917018] (-) TimerEvent: {}
+[6.017508] (-) TimerEvent: {}
+[6.118128] (-) TimerEvent: {}
+[6.218975] (-) TimerEvent: {}
+[6.230494] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[6.319130] (-) TimerEvent: {}
+[6.382125] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[6.387117] (micro_ros_agent) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[6.387355] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[6.387607] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[6.419375] (-) TimerEvent: {}
+[6.517532] (micro_ros_agent) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[6.519459] (-) TimerEvent: {}
+[6.619780] (-) TimerEvent: {}
+[6.720201] (-) TimerEvent: {}
+[6.820595] (-) TimerEvent: {}
+[6.920998] (-) TimerEvent: {}
+[6.973507] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[7.021248] (-) TimerEvent: {}
+[7.105353] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[7.110015] (micro_ros_agent) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[7.110259] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[7.110523] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[7.121455] (-) TimerEvent: {}
+[7.221778] (-) TimerEvent: {}
+[7.322183] (-) TimerEvent: {}
+[7.422608] (-) TimerEvent: {}
+[7.523200] (-) TimerEvent: {}
+[7.623651] (-) TimerEvent: {}
+[7.724237] (-) TimerEvent: {}
+[7.824752] (-) TimerEvent: {}
+[7.925246] (-) TimerEvent: {}
+[8.025755] (-) TimerEvent: {}
+[8.126141] (-) TimerEvent: {}
+[8.226543] (-) TimerEvent: {}
+[8.327133] (-) TimerEvent: {}
+[8.427852] (-) TimerEvent: {}
+[8.528287] (-) TimerEvent: {}
+[8.628899] (-) TimerEvent: {}
+[8.729436] (-) TimerEvent: {}
+[8.830095] (-) TimerEvent: {}
+[8.843900] (micro_ros_agent) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.845980] (micro_ros_agent) StdoutLine: {'line': b'-- Generating done\n'}
+[8.846399] (micro_ros_agent) StdoutLine: {'line': b'-- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent\n'}
+[8.850932] (micro_ros_agent) CommandEnded: {'returncode': 0}
+[8.851483] (micro_ros_agent) JobProgress: {'identifier': 'micro_ros_agent', 'progress': 'build'}
+[8.851561] (micro_ros_agent) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent', '--', '-j16', '-l16'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[8.880864] (micro_ros_agent) StdoutLine: {'line': b"[  6%] \x1b[34m\x1b[1mCreating directories for 'xrceagent'\x1b[0m\n"}
+[8.918770] (micro_ros_agent) StdoutLine: {'line': b"[ 12%] \x1b[34m\x1b[1mPerforming download step (git clone) for 'xrceagent'\x1b[0m\n"}
+[8.930263] (-) TimerEvent: {}
+[8.930893] (micro_ros_agent) StderrLine: {'line': b"Cloning into 'xrceagent'...\n"}
+[9.030490] (-) TimerEvent: {}
+[9.130816] (-) TimerEvent: {}
+[9.231268] (-) TimerEvent: {}
+[9.331616] (-) TimerEvent: {}
+[9.431978] (-) TimerEvent: {}
+[9.532354] (-) TimerEvent: {}
+[9.632759] (-) TimerEvent: {}
+[9.733228] (-) TimerEvent: {}
+[9.833575] (-) TimerEvent: {}
+[9.934074] (-) TimerEvent: {}
+[10.034460] (-) TimerEvent: {}
+[10.135096] (-) TimerEvent: {}
+[10.235831] (-) TimerEvent: {}
+[10.277929] (micro_ros_agent) StderrLine: {'line': b'HEAD is now at 57d0862 Release v2.4.2\n'}
+[10.325296] (micro_ros_agent) StdoutLine: {'line': b"[ 18%] \x1b[34m\x1b[1mPerforming update step for 'xrceagent'\x1b[0m\n"}
+[10.336062] (-) TimerEvent: {}
+[10.344675] (micro_ros_agent) StdoutLine: {'line': b"[ 25%] \x1b[34m\x1b[1mNo patch step for 'xrceagent'\x1b[0m\n"}
+[10.360059] (micro_ros_agent) StdoutLine: {'line': b"[ 31%] \x1b[34m\x1b[1mPerforming configure step for 'xrceagent'\x1b[0m\n"}
+[10.365923] (micro_ros_agent) StdoutLine: {'line': b'loading initial cache file /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent/agent/tmp/xrceagent-cache-.cmake\n'}
+[10.436216] (-) TimerEvent: {}
+[10.495208] (micro_ros_agent) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[10.536333] (-) TimerEvent: {}
+[10.636914] (-) TimerEvent: {}
+[10.737664] (-) TimerEvent: {}
+[10.838043] (-) TimerEvent: {}
+[10.910671] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[10.938238] (-) TimerEvent: {}
+[11.038707] (-) TimerEvent: {}
+[11.052782] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[11.058875] (micro_ros_agent) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[11.059295] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[11.059628] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[11.138856] (-) TimerEvent: {}
+[11.205796] (micro_ros_agent) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[11.239134] (-) TimerEvent: {}
+[11.339608] (-) TimerEvent: {}
+[11.439960] (-) TimerEvent: {}
+[11.540360] (-) TimerEvent: {}
+[11.640902] (-) TimerEvent: {}
+[11.642430] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[11.741081] (-) TimerEvent: {}
+[11.791779] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[11.796566] (micro_ros_agent) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[11.796759] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[11.797014] (micro_ros_agent) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[11.806184] (micro_ros_agent) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[11.841385] (-) TimerEvent: {}
+[11.941741] (-) TimerEvent: {}
+[11.966059] (micro_ros_agent) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[11.966655] (micro_ros_agent) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[12.042010] (-) TimerEvent: {}
+[12.115111] (micro_ros_agent) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[12.115772] (micro_ros_agent) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[12.126381] (micro_ros_agent) StdoutLine: {'line': b'-- Configuring done\n'}
+[12.127715] (micro_ros_agent) StdoutLine: {'line': b'-- Generating done\n'}
+[12.128414] (micro_ros_agent) StdoutLine: {'line': b'-- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent/agent/src/xrceagent-build\n'}
+[12.142135] (-) TimerEvent: {}
+[12.142662] (micro_ros_agent) StdoutLine: {'line': b"[ 37%] \x1b[34m\x1b[1mPerforming build step for 'xrceagent'\x1b[0m\n"}
+[12.167543] (micro_ros_agent) StdoutLine: {'line': b"[ 12%] \x1b[34m\x1b[1mCreating directories for 'uagent'\x1b[0m\n"}
+[12.205273] (micro_ros_agent) StdoutLine: {'line': b"[ 25%] \x1b[34m\x1b[1mNo download step for 'uagent'\x1b[0m\n"}
+[12.218232] (micro_ros_agent) StdoutLine: {'line': b"[ 37%] \x1b[34m\x1b[1mNo update step for 'uagent'\x1b[0m\n"}
+[12.231312] (micro_ros_agent) StdoutLine: {'line': b"[ 50%] \x1b[34m\x1b[1mNo patch step for 'uagent'\x1b[0m\n"}
+[12.242290] (-) TimerEvent: {}
+[12.245518] (micro_ros_agent) StdoutLine: {'line': b"[ 62%] \x1b[34m\x1b[1mPerforming configure step for 'uagent'\x1b[0m\n"}
+[12.250539] (micro_ros_agent) StdoutLine: {'line': b'loading initial cache file /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent/agent/src/xrceagent-build/uagent-prefix/tmp/uagent-cache-.cmake\n'}
+[12.253987] (micro_ros_agent) StdoutLine: {'line': b"-- Setting build type to 'Release' as none was specified.\n"}
+[12.342455] (-) TimerEvent: {}
+[12.442867] (-) TimerEvent: {}
+[12.543252] (-) TimerEvent: {}
+[12.643652] (-) TimerEvent: {}
+[12.744040] (-) TimerEvent: {}
+[12.844388] (-) TimerEvent: {}
+[12.944739] (-) TimerEvent: {}
+[13.045096] (-) TimerEvent: {}
+[13.145475] (-) TimerEvent: {}
+[13.245811] (-) TimerEvent: {}
+[13.346186] (-) TimerEvent: {}
+[13.446533] (-) TimerEvent: {}
+[13.546921] (-) TimerEvent: {}
+[13.647410] (-) TimerEvent: {}
+[13.748043] (-) TimerEvent: {}
+[13.848444] (-) TimerEvent: {}
+[13.949053] (-) TimerEvent: {}
+[14.049490] (-) TimerEvent: {}
+[14.149941] (-) TimerEvent: {}
+[14.250272] (-) TimerEvent: {}
+[14.289909] (micro_ros_agent) StderrLine: {'line': b'\x1b[33mCMake Warning (dev) at /usr/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake:438 (message):\n'}
+[14.290290] (micro_ros_agent) StderrLine: {'line': b'  The package name passed to `find_package_handle_standard_args` (tinyxml2)\n'}
+[14.290356] (micro_ros_agent) StderrLine: {'line': b'  does not match the name of the calling package (TinyXML2).  This can lead\n'}
+[14.290472] (micro_ros_agent) StderrLine: {'line': b'  to problems in calling code that expects `find_package` result variables\n'}
+[14.290509] (micro_ros_agent) StderrLine: {'line': b'  (e.g., `_FOUND`) to follow a certain pattern.\n'}
+[14.290543] (micro_ros_agent) StderrLine: {'line': b'Call Stack (most recent call first):\n'}
+[14.290584] (micro_ros_agent) StderrLine: {'line': b'  cmake/modules/FindTinyXML2.cmake:40 (find_package_handle_standard_args)\n'}
+[14.290618] (micro_ros_agent) StderrLine: {'line': b'  /opt/ros/humble/share/fastrtps/cmake/fastrtps-config.cmake:51 (find_package)\n'}
+[14.290687] (micro_ros_agent) StderrLine: {'line': b'  CMakeLists.txt:153 (find_package)\n'}
+[14.290722] (micro_ros_agent) StderrLine: {'line': b'This warning is for project developers.  Use -Wno-dev to suppress it.\n'}
+[14.290762] (micro_ros_agent) StderrLine: {'line': b'\x1b[0m\n'}
+[14.290795] (micro_ros_agent) StdoutLine: {'line': b'-- Found tinyxml2: /usr/lib/x86_64-linux-gnu/libtinyxml2.so  \n'}
+[14.350404] (-) TimerEvent: {}
+[14.450791] (-) TimerEvent: {}
+[14.551199] (-) TimerEvent: {}
+[14.651607] (-) TimerEvent: {}
+[14.751995] (-) TimerEvent: {}
+[14.852349] (-) TimerEvent: {}
+[14.952733] (-) TimerEvent: {}
+[14.973965] (micro_ros_agent) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[14.982676] (micro_ros_agent) StdoutLine: {'line': b'-- Configuring done\n'}
+[14.992585] (micro_ros_agent) StdoutLine: {'line': b'-- Generating done\n'}
+[14.993072] (micro_ros_agent) StdoutLine: {'line': b'-- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent/agent/src/xrceagent-build\n'}
+[15.006192] (micro_ros_agent) StdoutLine: {'line': b"[ 75%] \x1b[34m\x1b[1mPerforming build step for 'uagent'\x1b[0m\n"}
+[15.037280] (micro_ros_agent) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/Root.cpp.o\x1b[0m\n'}
+[15.037802] (micro_ros_agent) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/AgentInstance.cpp.o\x1b[0m\n'}
+[15.037993] (micro_ros_agent) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/Agent.cpp.o\x1b[0m\n'}
+[15.038215] (micro_ros_agent) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/processor/Processor.cpp.o\x1b[0m\n'}
+[15.038411] (micro_ros_agent) StdoutLine: {'line': b'[ 11%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/client/ProxyClient.cpp.o\x1b[0m\n'}
+[15.038584] (micro_ros_agent) StdoutLine: {'line': b'[ 14%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/participant/Participant.cpp.o\x1b[0m\n'}
+[15.038931] (micro_ros_agent) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/publisher/Publisher.cpp.o\x1b[0m\n'}
+[15.039142] (micro_ros_agent) StdoutLine: {'line': b'[ 19%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/subscriber/Subscriber.cpp.o\x1b[0m\n'}
+[15.039260] (micro_ros_agent) StdoutLine: {'line': b'[ 21%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/datawriter/DataWriter.cpp.o\x1b[0m\n'}
+[15.039335] (micro_ros_agent) StdoutLine: {'line': b'[ 23%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/datareader/DataReader.cpp.o\x1b[0m\n'}
+[15.039511] (micro_ros_agent) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/requester/Requester.cpp.o\x1b[0m\n'}
+[15.039905] (micro_ros_agent) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/replier/Replier.cpp.o\x1b[0m\n'}
+[15.040220] (micro_ros_agent) StdoutLine: {'line': b'[ 30%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/object/XRCEObject.cpp.o\x1b[0m\n'}
+[15.040524] (micro_ros_agent) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/topic/Topic.cpp.o\x1b[0m\n'}
+[15.041320] (micro_ros_agent) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/types/MessageHeader.cpp.o\x1b[0m\n'}
+[15.046561] (micro_ros_agent) StdoutLine: {'line': b'[ 38%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/types/XRCETypes.cpp.o\x1b[0m\n'}
+[15.052866] (-) TimerEvent: {}
+[15.153244] (-) TimerEvent: {}
+[15.253765] (-) TimerEvent: {}
+[15.354242] (-) TimerEvent: {}
+[15.454730] (-) TimerEvent: {}
+[15.555212] (-) TimerEvent: {}
+[15.655638] (-) TimerEvent: {}
+[15.756083] (-) TimerEvent: {}
+[15.820814] (micro_ros_agent) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/types/SubMessageHeader.cpp.o\x1b[0m\n'}
+[15.856235] (-) TimerEvent: {}
+[15.879133] (micro_ros_agent) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/message/InputMessage.cpp.o\x1b[0m\n'}
+[15.956378] (-) TimerEvent: {}
+[16.056833] (-) TimerEvent: {}
+[16.157297] (-) TimerEvent: {}
+[16.257786] (-) TimerEvent: {}
+[16.358250] (-) TimerEvent: {}
+[16.458716] (-) TimerEvent: {}
+[16.559215] (-) TimerEvent: {}
+[16.610326] (micro_ros_agent) StdoutLine: {'line': b'[ 45%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/message/OutputMessage.cpp.o\x1b[0m\n'}
+[16.659584] (-) TimerEvent: {}
+[16.762011] (-) TimerEvent: {}
+[16.862464] (-) TimerEvent: {}
+[16.900317] (micro_ros_agent) StdoutLine: {'line': b'[ 47%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/utils/ArgumentParser.cpp.o\x1b[0m\n'}
+[16.914396] (micro_ros_agent) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/stream_framing/StreamFramingProtocol.cpp.o\x1b[0m\n'}
+[16.914870] (micro_ros_agent) StdoutLine: {'line': b'[ 52%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/Server.cpp.o\x1b[0m\n'}
+[16.918022] (micro_ros_agent) StdoutLine: {'line': b'[ 54%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/custom/CustomAgent.cpp.o\x1b[0m\n'}
+[16.962781] (-) TimerEvent: {}
+[17.063244] (-) TimerEvent: {}
+[17.163696] (-) TimerEvent: {}
+[17.264171] (-) TimerEvent: {}
+[17.291704] (micro_ros_agent) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/udp/UDPv4AgentLinux.cpp.o\x1b[0m\n'}
+[17.364323] (-) TimerEvent: {}
+[17.464838] (-) TimerEvent: {}
+[17.565298] (-) TimerEvent: {}
+[17.665785] (-) TimerEvent: {}
+[17.766246] (-) TimerEvent: {}
+[17.866834] (-) TimerEvent: {}
+[17.967305] (-) TimerEvent: {}
+[18.067771] (-) TimerEvent: {}
+[18.168858] (-) TimerEvent: {}
+[18.269336] (-) TimerEvent: {}
+[18.369828] (-) TimerEvent: {}
+[18.470302] (-) TimerEvent: {}
+[18.570786] (-) TimerEvent: {}
+[18.671237] (-) TimerEvent: {}
+[18.771741] (-) TimerEvent: {}
+[18.872195] (-) TimerEvent: {}
+[18.972668] (-) TimerEvent: {}
+[19.074224] (-) TimerEvent: {}
+[19.174690] (-) TimerEvent: {}
+[19.275125] (-) TimerEvent: {}
+[19.375559] (-) TimerEvent: {}
+[19.476022] (-) TimerEvent: {}
+[19.576466] (-) TimerEvent: {}
+[19.587229] (micro_ros_agent) StdoutLine: {'line': b'[ 59%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/udp/UDPv6AgentLinux.cpp.o\x1b[0m\n'}
+[19.676624] (-) TimerEvent: {}
+[19.777072] (-) TimerEvent: {}
+[19.878117] (-) TimerEvent: {}
+[19.978562] (-) TimerEvent: {}
+[20.079000] (-) TimerEvent: {}
+[20.179440] (-) TimerEvent: {}
+[20.279917] (-) TimerEvent: {}
+[20.350202] (micro_ros_agent) StdoutLine: {'line': b'[ 61%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/tcp/TCPv4AgentLinux.cpp.o\x1b[0m\n'}
+[20.383012] (-) TimerEvent: {}
+[20.483511] (-) TimerEvent: {}
+[20.584045] (-) TimerEvent: {}
+[20.635876] (micro_ros_agent) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/tcp/TCPv6AgentLinux.cpp.o\x1b[0m\n'}
+[20.684229] (-) TimerEvent: {}
+[20.759337] (micro_ros_agent) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/serial/SerialAgentLinux.cpp.o\x1b[0m\n'}
+[20.784353] (-) TimerEvent: {}
+[20.884808] (-) TimerEvent: {}
+[20.943576] (micro_ros_agent) StdoutLine: {'line': b'[ 69%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/serial/TermiosAgentLinux.cpp.o\x1b[0m\n'}
+[20.984131] (micro_ros_agent) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/serial/MultiSerialAgentLinux.cpp.o\x1b[0m\n'}
+[20.984879] (-) TimerEvent: {}
+[21.085281] (-) TimerEvent: {}
+[21.185772] (-) TimerEvent: {}
+[21.286235] (-) TimerEvent: {}
+[21.386696] (-) TimerEvent: {}
+[21.487239] (-) TimerEvent: {}
+[21.587660] (-) TimerEvent: {}
+[21.623674] (micro_ros_agent) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/serial/MultiTermiosAgentLinux.cpp.o\x1b[0m\n'}
+[21.687855] (-) TimerEvent: {}
+[21.728599] (micro_ros_agent) StdoutLine: {'line': b'[ 76%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/serial/PseudoTerminalAgentLinux.cpp.o\x1b[0m\n'}
+[21.788029] (-) TimerEvent: {}
+[21.888548] (-) TimerEvent: {}
+[21.989003] (-) TimerEvent: {}
+[22.089821] (-) TimerEvent: {}
+[22.191846] (-) TimerEvent: {}
+[22.292278] (-) TimerEvent: {}
+[22.392738] (-) TimerEvent: {}
+[22.421636] (micro_ros_agent) StdoutLine: {'line': b'[ 78%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/can/CanAgentLinux.cpp.o\x1b[0m\n'}
+[22.492899] (-) TimerEvent: {}
+[22.593331] (-) TimerEvent: {}
+[22.693765] (-) TimerEvent: {}
+[22.794227] (-) TimerEvent: {}
+[22.894744] (-) TimerEvent: {}
+[22.995241] (-) TimerEvent: {}
+[23.095695] (-) TimerEvent: {}
+[23.142921] (micro_ros_agent) StdoutLine: {'line': b'[ 80%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/discovery/DiscoveryServerLinux.cpp.o\x1b[0m\n'}
+[23.195853] (-) TimerEvent: {}
+[23.296322] (-) TimerEvent: {}
+[23.396793] (-) TimerEvent: {}
+[23.499002] (-) TimerEvent: {}
+[23.599461] (-) TimerEvent: {}
+[23.666978] (micro_ros_agent) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/transport/discovery/DiscoveryServer.cpp.o\x1b[0m\n'}
+[23.699627] (-) TimerEvent: {}
+[23.800146] (-) TimerEvent: {}
+[23.900736] (-) TimerEvent: {}
+[24.001184] (-) TimerEvent: {}
+[24.101628] (-) TimerEvent: {}
+[24.202926] (-) TimerEvent: {}
+[24.213723] (micro_ros_agent) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/types/TopicPubSubType.cpp.o\x1b[0m\n'}
+[24.303074] (-) TimerEvent: {}
+[24.403528] (-) TimerEvent: {}
+[24.504023] (-) TimerEvent: {}
+[24.606111] (-) TimerEvent: {}
+[24.708113] (-) TimerEvent: {}
+[24.808597] (-) TimerEvent: {}
+[24.909027] (-) TimerEvent: {}
+[25.009531] (-) TimerEvent: {}
+[25.018947] (micro_ros_agent) StdoutLine: {'line': b'[ 88%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/xmlobjects/xmlobjects.cpp.o\x1b[0m\n'}
+[25.109654] (-) TimerEvent: {}
+[25.210110] (-) TimerEvent: {}
+[25.315289] (-) TimerEvent: {}
+[25.415739] (-) TimerEvent: {}
+[25.516180] (-) TimerEvent: {}
+[25.616651] (-) TimerEvent: {}
+[25.717536] (-) TimerEvent: {}
+[25.818054] (-) TimerEvent: {}
+[25.918523] (-) TimerEvent: {}
+[26.019014] (-) TimerEvent: {}
+[26.028412] (micro_ros_agent) StdoutLine: {'line': b'[ 90%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/middleware/fast/FastEntities.cpp.o\x1b[0m\n'}
+[26.119184] (-) TimerEvent: {}
+[26.219663] (-) TimerEvent: {}
+[26.259711] (micro_ros_agent) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/middleware/fast/FastMiddleware.cpp.o\x1b[0m\n'}
+[26.319821] (-) TimerEvent: {}
+[26.324446] (micro_ros_agent) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/middleware/fastdds/FastDDSEntities.cpp.o\x1b[0m\n'}
+[26.343769] (micro_ros_agent) StdoutLine: {'line': b'[ 97%] \x1b[32mBuilding CXX object CMakeFiles/microxrcedds_agent.dir/src/cpp/middleware/fastdds/FastDDSMiddleware.cpp.o\x1b[0m\n'}
+[26.419998] (-) TimerEvent: {}
+[26.520493] (-) TimerEvent: {}
+[26.620983] (-) TimerEvent: {}
+[26.721480] (-) TimerEvent: {}
+[26.821975] (-) TimerEvent: {}
+[26.922479] (-) TimerEvent: {}
+[27.023036] (-) TimerEvent: {}
+[27.123535] (-) TimerEvent: {}
+[27.224074] (-) TimerEvent: {}
+[27.324553] (-) TimerEvent: {}
+[27.425132] (-) TimerEvent: {}
+[27.525640] (-) TimerEvent: {}
+[27.626230] (-) TimerEvent: {}
+[27.726759] (-) TimerEvent: {}
+[27.827289] (-) TimerEvent: {}
+[27.927815] (-) TimerEvent: {}
+[28.028328] (-) TimerEvent: {}
+[28.128896] (-) TimerEvent: {}
+[28.229401] (-) TimerEvent: {}
+[28.330280] (-) TimerEvent: {}
+[28.431454] (-) TimerEvent: {}
+[28.532302] (-) TimerEvent: {}
+[28.634028] (-) TimerEvent: {}
+[28.734472] (-) TimerEvent: {}
+[28.835033] (-) TimerEvent: {}
+[28.935699] (-) TimerEvent: {}
+[29.036397] (-) TimerEvent: {}
+[29.137018] (-) TimerEvent: {}
+[29.237550] (-) TimerEvent: {}
+[29.337978] (-) TimerEvent: {}
+[29.438608] (-) TimerEvent: {}
+[29.539260] (-) TimerEvent: {}
+[29.639843] (-) TimerEvent: {}
+[29.740342] (-) TimerEvent: {}
+[29.840857] (-) TimerEvent: {}
+[29.941326] (-) TimerEvent: {}
+[30.041799] (-) TimerEvent: {}
+[30.142248] (-) TimerEvent: {}
+[30.242710] (-) TimerEvent: {}
+[30.343190] (-) TimerEvent: {}
+[30.443694] (-) TimerEvent: {}
+[30.544180] (-) TimerEvent: {}
+[30.644719] (-) TimerEvent: {}
+[30.745167] (-) TimerEvent: {}
+[30.845742] (-) TimerEvent: {}
+[30.946170] (-) TimerEvent: {}
+[31.046716] (-) TimerEvent: {}
+[31.147295] (-) TimerEvent: {}
+[31.247870] (-) TimerEvent: {}
+[31.348505] (-) TimerEvent: {}
+[31.449159] (-) TimerEvent: {}
+[31.549635] (-) TimerEvent: {}
+[31.650101] (-) TimerEvent: {}
+[31.750482] (-) TimerEvent: {}
+[31.851247] (-) TimerEvent: {}
+[31.951644] (-) TimerEvent: {}
+[32.052071] (-) TimerEvent: {}
+[32.152419] (-) TimerEvent: {}
+[32.252831] (-) TimerEvent: {}
+[32.353253] (-) TimerEvent: {}
+[32.453694] (-) TimerEvent: {}
+[32.554162] (-) TimerEvent: {}
+[32.654741] (-) TimerEvent: {}
+[32.755245] (-) TimerEvent: {}
+[32.855765] (-) TimerEvent: {}
+[32.956220] (-) TimerEvent: {}
+[33.056661] (-) TimerEvent: {}
+[33.157083] (-) TimerEvent: {}
+[33.257508] (-) TimerEvent: {}
+[33.324189] (micro_ros_agent) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX shared library libmicroxrcedds_agent.so\x1b[0m\n'}
+[33.357686] (-) TimerEvent: {}
+[33.458164] (-) TimerEvent: {}
+[33.558597] (-) TimerEvent: {}
+[33.621234] (micro_ros_agent) StdoutLine: {'line': b'[100%] Built target microxrcedds_agent\n'}
+[33.636218] (micro_ros_agent) StdoutLine: {'line': b"\x1b[34m\x1b[1mNo install step for 'uagent'\x1b[0m\n"}
+[33.649787] (micro_ros_agent) StdoutLine: {'line': b"\x1b[34m\x1b[1mCompleted 'uagent'\x1b[0m\n"}
+[33.658779] (-) TimerEvent: {}
+[33.668298] (micro_ros_agent) StdoutLine: {'line': b'Built target uagent\n'}
+[33.683621] (micro_ros_agent) StdoutLine: {'line': b"[ 43%] \x1b[34m\x1b[1mPerforming install step for 'xrceagent'\x1b[0m\n"}
+[33.712498] (micro_ros_agent) StdoutLine: {'line': b'\x1b[35m\x1b[1mConsolidate compiler generated dependencies of target microxrcedds_agent\x1b[0m\n'}
+[33.750181] (micro_ros_agent) StdoutLine: {'line': b'[100%] Built target microxrcedds_agent\n'}
+[33.758884] (-) TimerEvent: {}
+[33.761331] (micro_ros_agent) StdoutLine: {'line': b'\x1b[36mInstall the project...\x1b[0m\n'}
+[33.767594] (micro_ros_agent) StdoutLine: {'line': b'-- Install configuration: "Release"\n'}
+[33.768017] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/libmicroxrcedds_agent.so.2.4.2\n'}
+[33.770065] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/libmicroxrcedds_agent.so.2.4\n'}
+[33.770503] (micro_ros_agent) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/libmicroxrcedds_agent.so.2.4.2" to ""\n'}
+[33.770558] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/libmicroxrcedds_agent.so\n'}
+[33.770594] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent\n'}
+[33.770985] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/p2p\n'}
+[33.771032] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/p2p/InternalClientManager.hpp\n'}
+[33.771076] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/p2p/InternalClient.hpp\n'}
+[33.771139] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/datawriter\n'}
+[33.771476] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/datawriter/DataWriter.hpp\n'}
+[33.771824] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/Agent.hpp\n'}
+[33.771875] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types\n'}
+[33.771910] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types/SubMessageHeader.hpp\n'}
+[33.771945] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types/TopicPubSubType.hpp\n'}
+[33.771980] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types/MessageHeader.hpp\n'}
+[33.772014] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types/XRCETypes.hpp\n'}
+[33.772176] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/types/Optional.hpp\n'}
+[33.772260] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport\n'}
+[33.772407] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/p2p\n'}
+[33.772577] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/p2p/AgentDiscovererLinux.hpp\n'}
+[33.772642] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/p2p/AgentDiscoverer.hpp\n'}
+[33.772750] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/udp\n'}
+[33.772919] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/udp/UDPv6AgentLinux.hpp\n'}
+[33.773034] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/udp/UDPv6AgentWindows.hpp\n'}
+[33.773199] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/udp/UDPv4AgentWindows.hpp\n'}
+[33.773313] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/udp/UDPv4AgentLinux.hpp\n'}
+[33.773425] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/util\n'}
+[33.773591] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/util/InterfaceWindows.hpp\n'}
+[33.773707] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/util/InterfaceLinux.hpp\n'}
+[33.773826] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/Server.hpp\n'}
+[33.774048] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/discovery\n'}
+[33.774096] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/discovery/DiscoveryServerLinux.hpp\n'}
+[33.774190] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/discovery/DiscoveryServerWindows.hpp\n'}
+[33.774302] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/discovery/DiscoveryServer.hpp\n'}
+[33.774417] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp\n'}
+[33.774529] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPv4AgentWindows.hpp\n'}
+[33.774657] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPv6AgentLinux.hpp\n'}
+[33.774697] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPServerBase.hpp\n'}
+[33.774732] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPv4AgentLinux.hpp\n'}
+[33.774765] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPv6AgentWindows.hpp\n'}
+[33.774803] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/tcp/TCPConnection.hpp\n'}
+[33.774843] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint\n'}
+[33.775090] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/MultiSerialEndPoint.hpp\n'}
+[33.775246] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/CanEndPoint.hpp\n'}
+[33.775347] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/IPv6EndPoint.hpp\n'}
+[33.775535] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/CustomEndPoint.hpp\n'}
+[33.775581] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/SerialEndPoint.hpp\n'}
+[33.775617] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/endpoint/IPv4EndPoint.hpp\n'}
+[33.775652] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/can\n'}
+[33.776422] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/can/CanAgentLinux.hpp\n'}
+[33.776612] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/custom\n'}
+[33.777265] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/custom/CustomAgent.hpp\n'}
+[33.777423] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/SessionManager.hpp\n'}
+[33.777531] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/stream_framing\n'}
+[33.777686] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/stream_framing/StreamFramingProtocol.hpp\n'}
+[33.777730] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial\n'}
+[33.777863] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/MultiTermiosAgentLinux.hpp\n'}
+[33.777920] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/SerialAgentLinux.hpp\n'}
+[33.778103] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/baud_rate_table_linux.h\n'}
+[33.778223] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/MultiSerialAgentLinux.hpp\n'}
+[33.778382] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/TermiosAgentLinux.hpp\n'}
+[33.778518] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/serial/PseudoTerminalAgentLinux.hpp\n'}
+[33.778577] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/transport/TransportRc.hpp\n'}
+[33.778660] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/Root.hpp\n'}
+[33.778805] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client\n'}
+[33.778986] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/ProxyClient.hpp\n'}
+[33.779026] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session\n'}
+[33.779070] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session/Session.hpp\n'}
+[33.779135] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session/SessionInfo.hpp\n'}
+[33.779171] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session/stream\n'}
+[33.779208] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session/stream/OutputStream.hpp\n'}
+[33.779528] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/client/session/stream/InputStream.hpp\n'}
+[33.779692] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/processor\n'}
+[33.780284] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/processor/Processor.hpp\n'}
+[33.780483] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/reader\n'}
+[33.780680] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/reader/Reader.hpp\n'}
+[33.780726] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/subscriber\n'}
+[33.780857] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/subscriber/Subscriber.hpp\n'}
+[33.780984] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/replier\n'}
+[33.781108] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/replier/Replier.hpp\n'}
+[33.781417] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware\n'}
+[33.781498] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fast\n'}
+[33.781641] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fast/FastMiddleware.hpp\n'}
+[33.781768] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fast/FastEntities.hpp\n'}
+[33.781985] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fastdds\n'}
+[33.782116] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fastdds/FastDDSMiddleware.hpp\n'}
+[33.782232] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/fastdds/FastDDSEntities.hpp\n'}
+[33.782347] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/utils\n'}
+[33.782465] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/utils/Callbacks.hpp\n'}
+[33.782579] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/ced\n'}
+[33.782693] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/ced/CedEntities.hpp\n'}
+[33.782808] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/ced/CedMiddleware.hpp\n'}
+[33.782922] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/middleware/Middleware.hpp\n'}
+[33.783039] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/participant\n'}
+[33.783156] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/participant/Participant.hpp\n'}
+[33.783270] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/AgentInstance.hpp\n'}
+[33.783384] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/requester\n'}
+[33.783661] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/requester/Requester.hpp\n'}
+[33.783809] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils\n'}
+[33.783927] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/ArgumentParser.hpp\n'}
+[33.784045] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/SeqNum.hpp\n'}
+[33.784157] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/Color.hpp\n'}
+[33.784269] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/Conversion.hpp\n'}
+[33.784381] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/Functions.hpp\n'}
+[33.784493] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/SharedMutexPriority.hpp\n'}
+[33.784609] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/Time.hpp\n'}
+[33.784723] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/SharedMutex.hpp\n'}
+[33.784838] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/utils/TokenBucket.hpp\n'}
+[33.784959] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/visibility.hpp\n'}
+[33.785072] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/datareader\n'}
+[33.785156] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/datareader/DataReader.hpp\n'}
+[33.785239] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/message\n'}
+[33.785398] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/message/InputMessage.hpp\n'}
+[33.785527] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/message/Packet.hpp\n'}
+[33.785881] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/message/OutputMessage.hpp\n'}
+[33.785960] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/scheduler\n'}
+[33.786003] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/scheduler/PacketScheduler.hpp\n'}
+[33.786043] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/scheduler/Scheduler.hpp\n'}
+[33.786080] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/logger\n'}
+[33.786118] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/logger/Logger.hpp\n'}
+[33.786165] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/publisher\n'}
+[33.786203] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/publisher/Publisher.hpp\n'}
+[33.786240] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/object\n'}
+[33.786281] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/object/XRCEObject.hpp\n'}
+[33.786318] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/topic\n'}
+[33.786356] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/topic/Topic.hpp\n'}
+[33.786395] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/microxrcedds_agent/cmake/microxrcedds_agentTargets.cmake\n'}
+[33.786433] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/microxrcedds_agent/cmake/microxrcedds_agentTargets-release.cmake\n'}
+[33.786470] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/include/uxr/agent/config.hpp\n'}
+[33.786507] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/microxrcedds_agent/LICENSE\n'}
+[33.786547] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/microxrcedds_agent/cmake/microxrcedds_agentConfig.cmake\n'}
+[33.786584] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/microxrcedds_agent/cmake/microxrcedds_agentConfigVersion.cmake\n'}
+[33.797484] (micro_ros_agent) StdoutLine: {'line': b"[ 50%] \x1b[34m\x1b[1mCompleted 'xrceagent'\x1b[0m\n"}
+[33.816594] (micro_ros_agent) StdoutLine: {'line': b'[ 50%] Built target xrceagent\n'}
+[33.831025] (micro_ros_agent) StdoutLine: {'line': b"[ 56%] \x1b[34m\x1b[1mCreating directories for 'micro_ros_agent'\x1b[0m\n"}
+[33.859130] (-) TimerEvent: {}
+[33.869194] (micro_ros_agent) StdoutLine: {'line': b"[ 62%] \x1b[34m\x1b[1mNo download step for 'micro_ros_agent'\x1b[0m\n"}
+[33.881682] (micro_ros_agent) StdoutLine: {'line': b"[ 68%] \x1b[34m\x1b[1mNo update step for 'micro_ros_agent'\x1b[0m\n"}
+[33.894395] (micro_ros_agent) StdoutLine: {'line': b"[ 75%] \x1b[34m\x1b[1mNo patch step for 'micro_ros_agent'\x1b[0m\n"}
+[33.907991] (micro_ros_agent) StdoutLine: {'line': b"[ 81%] \x1b[34m\x1b[1mPerforming configure step for 'micro_ros_agent'\x1b[0m\n"}
+[33.913123] (micro_ros_agent) StdoutLine: {'line': b'loading initial cache file /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent/micro_ros_agent-prefix/tmp/micro_ros_agent-cache-.cmake\n'}
+[33.916191] (micro_ros_agent) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[33.959373] (-) TimerEvent: {}
+[34.016376] (micro_ros_agent) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[34.059658] (-) TimerEvent: {}
+[34.160146] (-) TimerEvent: {}
+[34.260891] (-) TimerEvent: {}
+[34.361360] (-) TimerEvent: {}
+[34.461734] (-) TimerEvent: {}
+[34.562110] (-) TimerEvent: {}
+[34.662506] (-) TimerEvent: {}
+[34.762880] (-) TimerEvent: {}
+[34.863275] (-) TimerEvent: {}
+[34.963620] (-) TimerEvent: {}
+[35.063969] (-) TimerEvent: {}
+[35.164317] (-) TimerEvent: {}
+[35.264667] (-) TimerEvent: {}
+[35.365076] (-) TimerEvent: {}
+[35.465634] (-) TimerEvent: {}
+[35.566354] (-) TimerEvent: {}
+[35.666758] (-) TimerEvent: {}
+[35.767189] (-) TimerEvent: {}
+[35.867642] (-) TimerEvent: {}
+[35.967999] (-) TimerEvent: {}
+[36.068398] (-) TimerEvent: {}
+[36.168906] (-) TimerEvent: {}
+[36.269432] (-) TimerEvent: {}
+[36.369981] (-) TimerEvent: {}
+[36.470528] (-) TimerEvent: {}
+[36.571153] (-) TimerEvent: {}
+[36.671721] (-) TimerEvent: {}
+[36.772220] (-) TimerEvent: {}
+[36.872733] (-) TimerEvent: {}
+[36.973325] (-) TimerEvent: {}
+[37.073723] (-) TimerEvent: {}
+[37.174114] (-) TimerEvent: {}
+[37.186019] (micro_ros_agent) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[37.189512] (micro_ros_agent) StdoutLine: {'line': b'-- Looking for C++ include pthread.h\n'}
+[37.274287] (-) TimerEvent: {}
+[37.350262] (micro_ros_agent) StdoutLine: {'line': b'-- Looking for C++ include pthread.h - found\n'}
+[37.350503] (micro_ros_agent) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[37.374494] (-) TimerEvent: {}
+[37.474831] (-) TimerEvent: {}
+[37.500885] (micro_ros_agent) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[37.501818] (micro_ros_agent) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[37.504125] (micro_ros_agent) StdoutLine: {'line': b'-- Found rosidl_cmake: 3.1.7 (/opt/ros/humble/share/rosidl_cmake/cmake)\n'}
+[37.504939] (micro_ros_agent) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[37.575151] (-) TimerEvent: {}
+[37.675616] (-) TimerEvent: {}
+[37.776281] (-) TimerEvent: {}
+[37.877091] (-) TimerEvent: {}
+[37.977989] (-) TimerEvent: {}
+[38.078369] (-) TimerEvent: {}
+[38.178761] (-) TimerEvent: {}
+[38.279485] (-) TimerEvent: {}
+[38.380206] (-) TimerEvent: {}
+[38.480712] (-) TimerEvent: {}
+[38.581095] (-) TimerEvent: {}
+[38.681689] (-) TimerEvent: {}
+[38.782416] (-) TimerEvent: {}
+[38.882909] (-) TimerEvent: {}
+[38.983459] (-) TimerEvent: {}
+[39.014328] (micro_ros_agent) StdoutLine: {'line': b'-- Found fastrtps_cmake_module: 2.2.2 (/opt/ros/humble/share/fastrtps_cmake_module/cmake)\n'}
+[39.020920] (micro_ros_agent) StdoutLine: {'line': b'-- Found rmw_dds_common: 1.6.0 (/opt/ros/humble/share/rmw_dds_common/cmake)\n'}
+[39.083849] (-) TimerEvent: {}
+[39.184450] (-) TimerEvent: {}
+[39.196266] (micro_ros_agent) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[39.201931] (micro_ros_agent) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[39.206730] (micro_ros_agent) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[39.214951] (micro_ros_agent) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[39.237485] (micro_ros_agent) StdoutLine: {'line': b'-- Found rmw_fastrtps_shared_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_shared_cpp/cmake)\n'}
+[39.284662] (-) TimerEvent: {}
+[39.385300] (-) TimerEvent: {}
+[39.485755] (-) TimerEvent: {}
+[39.586219] (-) TimerEvent: {}
+[39.686655] (-) TimerEvent: {}
+[39.787066] (-) TimerEvent: {}
+[39.887652] (-) TimerEvent: {}
+[39.988241] (-) TimerEvent: {}
+[40.088646] (-) TimerEvent: {}
+[40.189108] (-) TimerEvent: {}
+[40.289850] (-) TimerEvent: {}
+[40.390460] (-) TimerEvent: {}
+[40.490899] (-) TimerEvent: {}
+[40.591442] (-) TimerEvent: {}
+[40.691793] (-) TimerEvent: {}
+[40.792142] (-) TimerEvent: {}
+[40.892558] (-) TimerEvent: {}
+[40.993123] (-) TimerEvent: {}
+[41.093562] (-) TimerEvent: {}
+[41.193987] (-) TimerEvent: {}
+[41.294351] (-) TimerEvent: {}
+[41.394880] (-) TimerEvent: {}
+[41.495488] (-) TimerEvent: {}
+[41.595887] (-) TimerEvent: {}
+[41.696483] (-) TimerEvent: {}
+[41.797341] (-) TimerEvent: {}
+[41.898593] (-) TimerEvent: {}
+[41.999131] (-) TimerEvent: {}
+[42.099616] (-) TimerEvent: {}
+[42.199958] (-) TimerEvent: {}
+[42.300321] (-) TimerEvent: {}
+[42.400779] (-) TimerEvent: {}
+[42.501214] (-) TimerEvent: {}
+[42.591946] (micro_ros_agent) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[42.593228] (micro_ros_agent) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[42.595728] (micro_ros_agent) StdoutLine: {'line': b'-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)\n'}
+[42.596317] (micro_ros_agent) StdoutLine: {'line': b'-- Found micro_ros_msgs: 3.0.1 (/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/share/micro_ros_msgs/cmake)\n'}
+[42.601345] (-) TimerEvent: {}
+[42.666332] (micro_ros_agent) StdoutLine: {'line': b'-- Configuring done\n'}
+[42.672614] (micro_ros_agent) StdoutLine: {'line': b'-- Generating done\n'}
+[42.673858] (micro_ros_agent) StdoutLine: {'line': b'-- Build files have been written to: /home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent\n'}
+[42.691147] (micro_ros_agent) StdoutLine: {'line': b"[ 87%] \x1b[34m\x1b[1mPerforming build step for 'micro_ros_agent'\x1b[0m\n"}
+[42.701607] (-) TimerEvent: {}
+[42.720485] (micro_ros_agent) StdoutLine: {'line': b'[ 16%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_agent.dir/src/main.cpp.o\x1b[0m\n'}
+[42.721288] (micro_ros_agent) StdoutLine: {'line': b'[ 33%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_agent.dir/src/agent/graph_manager/graph_manager.cpp.o\x1b[0m\n'}
+[42.721450] (micro_ros_agent) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_agent.dir/src/agent/graph_manager/graph_typesupport.cpp.o\x1b[0m\n'}
+[42.721598] (micro_ros_agent) StdoutLine: {'line': b'[ 66%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_agent.dir/src/agent/Agent.cpp.o\x1b[0m\n'}
+[42.721707] (micro_ros_agent) StdoutLine: {'line': b'[ 83%] \x1b[32mBuilding CXX object CMakeFiles/micro_ros_agent.dir/src/agent/utils/demangle.cpp.o\x1b[0m\n'}
+[42.801754] (-) TimerEvent: {}
+[42.902345] (-) TimerEvent: {}
+[43.003162] (-) TimerEvent: {}
+[43.103753] (-) TimerEvent: {}
+[43.204470] (-) TimerEvent: {}
+[43.305129] (-) TimerEvent: {}
+[43.405897] (-) TimerEvent: {}
+[43.506653] (-) TimerEvent: {}
+[43.607041] (-) TimerEvent: {}
+[43.707522] (-) TimerEvent: {}
+[43.808231] (-) TimerEvent: {}
+[43.909016] (-) TimerEvent: {}
+[44.009673] (-) TimerEvent: {}
+[44.110296] (-) TimerEvent: {}
+[44.210863] (-) TimerEvent: {}
+[44.311394] (-) TimerEvent: {}
+[44.411797] (-) TimerEvent: {}
+[44.512221] (-) TimerEvent: {}
+[44.612782] (-) TimerEvent: {}
+[44.713551] (-) TimerEvent: {}
+[44.814325] (-) TimerEvent: {}
+[44.914779] (-) TimerEvent: {}
+[45.015236] (-) TimerEvent: {}
+[45.115714] (-) TimerEvent: {}
+[45.216261] (-) TimerEvent: {}
+[45.316660] (-) TimerEvent: {}
+[45.417176] (-) TimerEvent: {}
+[45.517670] (-) TimerEvent: {}
+[45.618226] (-) TimerEvent: {}
+[45.718834] (-) TimerEvent: {}
+[45.819504] (-) TimerEvent: {}
+[45.920155] (-) TimerEvent: {}
+[46.020829] (-) TimerEvent: {}
+[46.121417] (-) TimerEvent: {}
+[46.222060] (-) TimerEvent: {}
+[46.322626] (-) TimerEvent: {}
+[46.423237] (-) TimerEvent: {}
+[46.471095] (micro_ros_agent) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking CXX executable micro_ros_agent\x1b[0m\n'}
+[46.523387] (-) TimerEvent: {}
+[46.623895] (-) TimerEvent: {}
+[46.724451] (-) TimerEvent: {}
+[46.825022] (-) TimerEvent: {}
+[46.921615] (micro_ros_agent) StdoutLine: {'line': b'[100%] Built target micro_ros_agent\n'}
+[46.925112] (-) TimerEvent: {}
+[46.940442] (micro_ros_agent) StdoutLine: {'line': b"\x1b[34m\x1b[1mNo install step for 'micro_ros_agent'\x1b[0m\n"}
+[46.956829] (micro_ros_agent) StdoutLine: {'line': b"\x1b[34m\x1b[1mCompleted 'micro_ros_agent'\x1b[0m\n"}
+[46.980709] (micro_ros_agent) StdoutLine: {'line': b'Built target micro_ros_agent\n'}
+[46.990707] (micro_ros_agent) CommandEnded: {'returncode': 0}
+[47.020353] (micro_ros_agent) JobProgress: {'identifier': 'micro_ros_agent', 'progress': 'install'}
+[47.021379] (micro_ros_agent) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent'], 'cwd': '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent', 'env': OrderedDict([('LESSOPEN', '| /usr/bin/lesspipe %s'), ('USER', 'jbrenden'), ('SHLVL', '5'), ('LD_LIBRARY_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/lib:/opt/ros/humble/opt/rviz_ogre_vendor/lib:/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('POWERLINE_COMMAND', 'oh-my-posh'), ('HOME', '/home/jbrenden'), ('CONDA_SHLVL', '0'), ('OLDPWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/src'), ('ROS_PYTHON_VERSION', '3'), ('DBUS_SESSION_BUS_ADDRESS', 'unix:path=/run/user/1000/bus'), ('_CE_M', ''), ('WSL_DISTRO_NAME', 'Ubuntu'), ('WAYLAND_DISPLAY', 'wayland-0'), ('COLCON_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install'), ('ROS_DISTRO', 'humble'), ('LOGNAME', 'jbrenden'), ('NAME', 'BrendensLaptop'), ('WSL_INTEROP', '/run/WSL/408_interop'), ('POSH_SESSION_ID', 'fc4d8307-d859-4843-a87e-95e39a897e7d'), ('PULSE_SERVER', 'unix:/mnt/wslg/PulseServer'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm-256color'), ('POSH_SHELL_VERSION', '3.7.1'), ('_CE_CONDA', ''), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/home/jbrenden/miniconda3/condabin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Program Files/Eclipse Adoptium/jdk-11.0.28.6-hotspot/bin:/mnt/c/Program Files/Common Files/Oracle/Java/javapath:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/MATLAB/R2023b/bin:/mnt/c/MinGW/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/Tools/Binn:/mnt/c/Program Files/Microsoft SQL Server/150/DTS/Binn:/mnt/c/Program Files (x86)/Windows Kits/8.1/Windows Performance Toolkit:/mnt/c/Program Files/WireGuard:/mnt/c/Program Files (x86)/ZeroTier/One:/mnt/c/Program Files/Git/cmd:/mnt/c/GreenQR:/mnt/c/Program Files/NodeJS:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Users/Cyber/.cargo/bin:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64_win/compiler:/mnt/c/Users/Cyber/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files/JetBrains/PyCharm Community Edition 2023.1.2/bin:/mnt/c/Users/Cyber/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Users/Cyber/AppData/Roaming/npm:/snap/bin'), ('XDG_RUNTIME_DIR', '/run/user/1000/'), ('DISPLAY', ':0'), ('LANG', 'en_US.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/opt/ros/humble:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup'), ('CONDA_PYTHON_EXE', '/home/jbrenden/miniconda3/bin/python'), ('SHELL', '/usr/bin/fish'), ('LESSCLOSE', '/usr/bin/lesspipe %s %s'), ('POSH_THEME', '/home/jbrenden/.poshthemes/montys.omp.json'), ('PWD', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/build/micro_ros_agent'), ('CONDA_EXE', '/home/jbrenden/miniconda3/bin/conda'), ('XDG_DATA_DIRS', '/usr/local/share:/usr/share:/var/lib/snapd/desktop'), ('PYTHONPATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('WSL2_GUI_APPS_ENABLED', '1'), ('POSH_SHELL', 'fish'), ('HOSTTYPE', 'x86_64'), ('CMAKE_PREFIX_PATH', '/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_msgs:/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_setup:/opt/ros/humble'), ('WSLENV', '')]), 'shell': False}
+[47.025224] (-) TimerEvent: {}
+[47.026603] (micro_ros_agent) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[47.026975] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/ament_index/resource_index/package_run_dependencies/micro_ros_agent\n'}
+[47.027352] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/ament_index/resource_index/parent_prefix_path/micro_ros_agent\n'}
+[47.027609] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/environment/ament_prefix_path.sh\n'}
+[47.027770] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/environment/ament_prefix_path.dsv\n'}
+[47.027879] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/environment/path.sh\n'}
+[47.028055] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/environment/path.dsv\n'}
+[47.028212] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/local_setup.bash\n'}
+[47.028365] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/local_setup.sh\n'}
+[47.028468] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/local_setup.zsh\n'}
+[47.028507] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/local_setup.dsv\n'}
+[47.028608] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/package.dsv\n'}
+[47.028815] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/ament_index/resource_index/packages/micro_ros_agent\n'}
+[47.028929] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[47.029221] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/cmake/micro_ros_agentConfig.cmake\n'}
+[47.029501] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/cmake/micro_ros_agentConfig-version.cmake\n'}
+[47.029551] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/package.xml\n'}
+[47.029590] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/micro_ros_agent/micro_ros_agent\n'}
+[47.030732] (micro_ros_agent) StdoutLine: {'line': b'-- Set runtime path of "/home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/lib/micro_ros_agent/micro_ros_agent" to ""\n'}
+[47.030937] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/launch\n'}
+[47.031250] (micro_ros_agent) StdoutLine: {'line': b'-- Installing: /home/jbrenden/machpilot/src/esp32/ws_test_microros/install/micro_ros_agent/share/micro_ros_agent/launch/micro_ros_agent_launch.py\n'}
+[47.033589] (micro_ros_agent) CommandEnded: {'returncode': 0}
+[47.071855] (micro_ros_agent) JobEnded: {'identifier': 'micro_ros_agent', 'rc': 0}
+[47.073381] (-) EventReactorShutdown: {}

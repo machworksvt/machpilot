@@ -1,0 +1,3 @@
+[0.000000] (-) TimerEvent: {}
+[0.001106] (-) JobUnselected: {'identifier': 'pwm'}
+[0.001788] (-) EventReactorShutdown: {}
