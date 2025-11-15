@@ -1,0 +1,237 @@
+-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+-- Found rclcpp: 16.0.15 (/opt/ros/humble/share/rclcpp/cmake)
+-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+-- Using RMW implementation 'rmw_fastrtps_cpp' as default
+-- Found rclcpp_lifecycle: 16.0.15 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)
+-- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+-- Found diagnostic_msgs: 4.9.0 (/opt/ros/humble/share/diagnostic_msgs/cmake)
+-- Found ament_cmake_gtest: 1.3.12 (/opt/ros/humble/share/ament_cmake_gtest/cmake)
+-- Found gtest sources under '/opt/ros/humble/src/gtest_vendor': C++ tests using 'Google Test' will be built
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspace/src/build/ublox_gps_driver
+[ 23%] [32mBuilding CXX object CMakeFiles/ublox_messages.dir/src/ublox_messages.cpp.o[0m
+[ 23%] [32mBuilding CXX object gtest/CMakeFiles/gtest_main.dir/src/gtest_main.cc.o[0m
+[ 23%] [32mBuilding C object CMakeFiles/uart_lib.dir/workspace/src/embedded_system/dependencies/src/uart.c.o[0m
+[ 23%] [32mBuilding CXX object gtest/CMakeFiles/gtest.dir/src/gtest-all.cc.o[0m
+[ 29%] [32m[1mLinking C static library libuart_lib.a[0m
+[ 29%] Built target uart_lib
+[ 41%] [32mBuilding CXX object CMakeFiles/uart_interface.dir/src/uart_interface.cpp.o[0m
+[ 41%] [32m[1mLinking CXX static library libublox_messages.a[0m
+[ 41%] Built target ublox_messages
+[ 47%] [32mBuilding CXX object CMakeFiles/ublox_parser.dir/src/ublox_parser.cpp.o[0m
+[ 52%] [32m[1mLinking CXX static library libuart_interface.a[0m
+[ 52%] Built target uart_interface
+[ 58%] [32m[1mLinking CXX static library libublox_parser.a[0m
+[ 58%] Built target ublox_parser
+[ 70%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/main.cpp.o[0m
+[ 70%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/gps_node.cpp.o[0m
+[ 76%] [32m[1mLinking CXX static library libgtest_main.a[0m
+[ 76%] Built target gtest_main
+[ 82%] [32m[1mLinking CXX static library libgtest.a[0m
+[ 82%] Built target gtest
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:2[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:28:[m[K [01;31m[Kerror: [m[K‘[01m[Krcpp_lifecycle[m[K’ has not been declared
+   20 |     class GpsNode : public [01;31m[Krcpp_lifecycle[m[K::LifecycleNode {
+      |                            [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:44:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[KLifecycleNode[m[K’
+   20 |     class GpsNode : public rcpp_lifecycle::[01;31m[KLifecycleNode[m[K {
+      |                                            [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:21:5:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kpublic[m[K’
+   21 |     [01;31m[Kpublic[m[K:
+      |     [01;31m[K^~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:21:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ before ‘[01m[Kpublic[m[K’
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:58:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+   20 |     class GpsNode : public rcpp_lifecycle::LifecycleNode [01;36m[K{[m[K
+      |                                                          [01;36m[K^[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:26:65:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_configure[m[K’ not allowed outside a class definition
+   26 |     on_configure(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                 [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:29:62:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_active[m[K’ not allowed outside a class definition
+   29 |     on_active(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                              [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:32:66:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_deactivate[m[K’ not allowed outside a class definition
+   32 |     on_deactivate(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                  [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:35:63:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_cleanup[m[K’ not allowed outside a class definition
+   35 |     on_cleanup(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                               [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:38:64:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_shutdown[m[K’ not allowed outside a class definition
+   38 |     on_shutdown(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:40:5:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[Kprivate[m[K’
+   40 |     [01;31m[Kprivate[m[K:
+      |     [01;31m[K^~~~~~~[m[K
+[ 88%] [32mBuilding CXX object CMakeFiles/test_checksum.dir/test/test_checksum.cpp.o[0m
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:75:1:[m[K [01;31m[Kerror: [m[Kexpected declaration before ‘[01m[K}[m[K’ token
+   75 | [01;31m[K}[m[K
+      | [01;31m[K^[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:10:27:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kusing element_type = class ublox::GpsNode[m[K’ {aka ‘[01m[Kclass ublox::GpsNode[m[K’}
+   10 |     executor.add_node(node[01;31m[K->[m[Kget_node_base_interface());
+      |                           [01;31m[K^~[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:2[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kusing element_type = class ublox::GpsNode[m[K’ {aka ‘[01m[Kclass ublox::GpsNode[m[K’}
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:28:[m[K [01;31m[Kerror: [m[K‘[01m[Krcpp_lifecycle[m[K’ has not been declared
+   20 |     class GpsNode : public [01;31m[Krcpp_lifecycle[m[K::LifecycleNode {
+      |                            [01;31m[K^~~~~~~~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:44:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[KLifecycleNode[m[K’
+   20 |     class GpsNode : public rcpp_lifecycle::[01;31m[KLifecycleNode[m[K {
+      |                                            [01;31m[K^~~~~~~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:21:5:[m[K [01;31m[Kerror: [m[Kexpected primary-expression before ‘[01m[Kpublic[m[K’
+   21 |     [01;31m[Kpublic[m[K:
+      |     [01;31m[K^~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:21:5:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K}[m[K’ before ‘[01m[Kpublic[m[K’
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:58:[m[K [01;36m[Knote: [m[Kto match this ‘[01m[K{[m[K’
+   20 |     class GpsNode : public rcpp_lifecycle::LifecycleNode [01;36m[K{[m[K
+      |                                                          [01;36m[K^[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:26:65:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_configure[m[K’ not allowed outside a class definition
+   26 |     on_configure(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                 [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:29:62:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_active[m[K’ not allowed outside a class definition
+   29 |     on_active(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                              [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:32:66:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_deactivate[m[K’ not allowed outside a class definition
+   32 |     on_deactivate(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                  [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:35:63:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_cleanup[m[K’ not allowed outside a class definition
+   35 |     on_cleanup(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                               [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:38:64:[m[K [01;31m[Kerror: [m[Kvirt-specifiers in ‘[01m[Kon_shutdown[m[K’ not allowed outside a class definition
+   38 |     on_shutdown(const rclcpp_lifecycle::State& previous_state) [01;31m[Koverride[m[K;
+      |                                                                [01;31m[K^~~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:40:5:[m[K [01;31m[Kerror: [m[Kexpected unqualified-id before ‘[01m[Kprivate[m[K’
+   40 |     [01;31m[Kprivate[m[K:
+      |     [01;31m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:75:1:[m[K [01;31m[Kerror: [m[Kexpected declaration before ‘[01m[K}[m[K’ token
+   75 | [01;31m[K}[m[K
+      | [01;31m[K^[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:8:5:[m[K [01;31m[Kerror: [m[KISO C++ forbids declaration of ‘[01m[KGPSNode[m[K’ with no type [[01;31m[K-fpermissive[m[K]
+    8 |     [01;31m[KGpsNode[m[K::GPSNode(const rclcpp::NodeOptions& options)
+      |     [01;31m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:8:56:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+    8 |     GpsNode::GPSNode(const rclcpp::NodeOptions& options[01;31m[K)[m[K
+      |                                                        [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:21:23:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+   21 |     GpsNode::~GpsNode([01;31m[K)[m[K {
+      |                       [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:30:54:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+   30 |     std::vector<uint8_t> GpsNode::buildConfigurePort([01;31m[K)[m[K {
+      |                                                      [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:78:53:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+   78 |     std::vector<uint8_t> GpsNode::buildEnableNavPVT([01;31m[K)[m[K {
+      |                                                     [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:99:68:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+   99 |     bool GpsNode::sendConfigMessage(const std::vector<uint8_t>& msg[01;31m[K)[m[K {
+      |                                                                    [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:125:32:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  125 |     bool GpsNode::configureGPS([01;31m[K)[m[K {
+      |                                [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:146:76:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  146 |     GpsNode::on_configure(const rclcpp_lifecycle::State& /*previous_state*/[01;31m[K)[m[K {
+      |                                                                            [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:199:75:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  199 |     GpsNode::on_activate(const rclcpp_lifecycle::State& /*previous_state*/[01;31m[K)[m[K {
+      |                                                                           [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:215:77:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  215 |     GpsNode::on_deactivate(const rclcpp_lifecycle::State& /*previous_state*/[01;31m[K)[m[K {
+      |                                                                             [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:233:74:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  233 |     GpsNode::on_cleanup(const rclcpp_lifecycle::State& /*previous_state*/[01;31m[K)[m[K {
+      |                                                                          [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:251:75:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  251 |     GpsNode::on_shutdown(const rclcpp_lifecycle::State& /*previous_state*/[01;31m[K)[m[K {
+      |                                                                           [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:266:30:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  266 |     void GpsNode::readThread([01;31m[K)[m[K {
+      |                              [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:294:53:[m[K [01;31m[Kerror: [m[Kinvalid use of incomplete type ‘[01m[Kclass ublox::GpsNode[m[K’
+  294 |     void GpsNode::publishNavSatFix(const NavPVT& pvt[01;31m[K)[m[K {
+      |                                                     [01;31m[K^[m[K
+In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[Kforward declaration of ‘[01m[Kclass ublox::GpsNode[m[K’
+   20 |     class [01;36m[KGpsNode[m[K : public rcpp_lifecycle::LifecycleNode {
+      |           [01;36m[K^~~~~~~[m[K
+In file included from [01m[K/usr/include/c++/11/bits/shared_ptr_base.h:60[m[K,
+                 from [01m[K/usr/include/c++/11/bits/shared_ptr.h:53[m[K,
+                 from [01m[K/usr/include/c++/11/memory:77[m[K,
+                 from [01m[K/opt/ros/humble/include/rclcpp/rclcpp/rclcpp.hpp:153[m[K,
+                 from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:1[m[K:
+/usr/include/c++/11/ext/aligned_buffer.h: In instantiation of ‘[01m[Kstruct __gnu_cxx::__aligned_buffer<ublox::GpsNode>[m[K’:
+[01m[K/usr/include/c++/11/bits/shared_ptr_base.h:506:35:[m[K   required from ‘[01m[Kclass std::_Sp_counted_ptr_inplace<ublox::GpsNode, std::allocator<ublox::GpsNode>, __gnu_cxx::_S_atomic>::_Impl[m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr_base.h:567:13:[m[K   required from ‘[01m[Kclass std::_Sp_counted_ptr_inplace<ublox::GpsNode, std::allocator<ublox::GpsNode>, __gnu_cxx::_S_atomic>[m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr_base.h:647:43:[m[K   required from ‘[01m[Kstd::__shared_count<_Lp>::__shared_count(_Tp*&, std::_Sp_alloc_shared_tag<_Alloc>, _Args&& ...) [with _Tp = ublox::GpsNode; _Alloc = std::allocator<ublox::GpsNode>; _Args = {}; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic][m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr_base.h:1342:14:[m[K   required from ‘[01m[Kstd::__shared_ptr<_Tp, _Lp>::__shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<ublox::GpsNode>; _Args = {}; _Tp = ublox::GpsNode; __gnu_cxx::_Lock_policy _Lp = __gnu_cxx::_S_atomic][m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:409:59:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp>::shared_ptr(std::_Sp_alloc_shared_tag<_Tp>, _Args&& ...) [with _Alloc = std::allocator<ublox::GpsNode>; _Args = {}; _Tp = ublox::GpsNode][m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:862:14:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp> std::allocate_shared(const _Alloc&, _Args&& ...) [with _Tp = ublox::GpsNode; _Alloc = std::allocator<ublox::GpsNode>; _Args = {}][m[K’
+[01m[K/usr/include/c++/11/bits/shared_ptr.h:878:39:[m[K   required from ‘[01m[Kstd::shared_ptr<_Tp> std::make_shared(_Args&& ...) [with _Tp = ublox::GpsNode; _Args = {}][m[K’
+[01m[K/workspace/src/embedded_system/ublox_gps_driver/src/main.cpp:7:49:[m[K   required from here
+[01m[K/usr/include/c++/11/ext/aligned_buffer.h:91:28:[m[K [01;31m[Kerror: [m[Kinvalid application of ‘[01m[Ksizeof[m[K’ to incomplete type ‘[01m[Kublox::GpsNode[m[K’
+   91 |     : std::aligned_storage<[01;31m[Ksizeof(_Tp)[m[K, __alignof__(_Tp)>
+      |                            [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/usr/include/c++/11/ext/aligned_buffer.h:91:28:[m[K [01;31m[Kerror: [m[Kinvalid application of ‘[01m[Ksizeof[m[K’ to incomplete type ‘[01m[Kublox::GpsNode[m[K’
+gmake[2]: *** [CMakeFiles/gps_node.dir/build.make:90: CMakeFiles/gps_node.dir/src/main.cpp.o] Error 1
+gmake[2]: *** Waiting for unfinished jobs....
+gmake[2]: *** [CMakeFiles/gps_node.dir/build.make:76: CMakeFiles/gps_node.dir/src/gps_node.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:272: CMakeFiles/gps_node.dir/all] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+[ 94%] [32m[1mLinking CXX executable test_checksum[0m
+[ 94%] Built target test_checksum
+gmake: *** [Makefile:146: all] Error 2

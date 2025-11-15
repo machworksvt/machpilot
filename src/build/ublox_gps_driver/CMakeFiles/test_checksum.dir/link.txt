@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_checksum.dir/test/test_checksum.cpp.o -o test_checksum  gtest/libgtest_main.a gtest/libgtest.a libublox_messages.a -pthread 

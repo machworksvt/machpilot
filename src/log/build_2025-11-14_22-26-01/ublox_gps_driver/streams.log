@@ -1,0 +1,80 @@
+[0.010s] Invoking command in '/workspace/src/build/ublox_gps_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/ublox_gps_driver -- -j8 -l8
+[0.055s] [ 35%] Built target uart_lib
+[0.056s] [ 35%] Built target ublox_messages
+[0.057s] [ 35%] Built target gtest_main
+[0.059s] [ 47%] Built target gtest
+[0.069s] [ 64%] Built target ublox_parser
+[0.070s] [ 70%] Built target uart_interface
+[0.074s] [ 82%] Built target test_checksum
+[0.080s] [35m[1mConsolidate compiler generated dependencies of target gps_node[0m
+[0.159s] [ 94%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/gps_node.cpp.o[0m
+[0.159s] [ 94%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/main.cpp.o[0m
+[1.438s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:8:5:[m[K [01;31m[Kerror: [m[KISO C++ forbids declaration of ‘[01m[KGPSNode[m[K’ with no type [[01;31m[K-fpermissive[m[K]
+[1.438s]     8 |     [01;31m[KGpsNode[m[K::GPSNode(const rclcpp::NodeOptions& options)
+[1.438s]       |     [01;31m[K^~~~~~~[m[K
+[1.439s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:8:5:[m[K [01;31m[Kerror: [m[Kno declaration matches ‘[01m[Kint ublox::GpsNode::GPSNode(const rclcpp::NodeOptions&)[m[K’
+[1.439s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:8:5:[m[K [01;36m[Knote: [m[Kno functions named ‘[01m[Kint ublox::GpsNode::GPSNode(const rclcpp::NodeOptions&)[m[K’
+[1.442s] In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[1.442s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:20:11:[m[K [01;36m[Knote: [m[K‘[01m[Kclass ublox::GpsNode[m[K’ defined here
+[1.442s]    20 |     class [01;36m[KGpsNode[m[K : public rclcpp_lifecycle::LifecycleNode {
+[1.442s]       |           [01;36m[K^~~~~~~[m[K
+[1.442s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:21:23:[m[K [01;31m[Kerror: [m[Kdefinition of implicitly-declared ‘[01m[Kvirtual ublox::GpsNode::~GpsNode()[m[K’
+[1.443s]    21 |     GpsNode::~GpsNode([01;31m[K)[m[K {
+[1.443s]       |                       [01;31m[K^[m[K
+[1.447s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:[m[K In member function ‘[01m[Kbool ublox::GpsNode::sendConfigMessage(const std::vector<unsigned char, std::allocator<unsigned char> >&)[m[K’:
+[1.447s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:118:25:[m[K [01;31m[Kerror: [m[K‘[01m[Kflush_buf[m[K’ was not declared in this scope; did you mean ‘[01m[Kflush_buffer[m[K’?
+[1.447s]   118 |             uart_->read([01;31m[Kflush_buf[m[K, sizeof(flush_buffer));
+[1.447s]       |                         [01;31m[K^~~~~~~~~[m[K
+[1.447s]       |                         [32m[Kflush_buffer[m[K
+[1.451s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:[m[K In member function ‘[01m[Kbool ublox::GpsNode::configureGPS()[m[K’:
+[1.451s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:137:14:[m[K [01;31m[Kerror: [m[K‘[01m[KsendConfiMessage[m[K’ was not declared in this scope; did you mean ‘[01m[KsendConfigMessage[m[K’?
+[1.451s]   137 |         if (![01;31m[KsendConfiMessage[m[K(cfg_msg)) {
+[1.451s]       |              [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[1.452s]       |              [32m[KsendConfigMessage[m[K
+[1.452s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:[m[K In member function ‘[01m[Kvirtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn ublox::GpsNode::on_configure(const rclcpp_lifecycle::State&)[m[K’:
+[1.452s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:158:60:[m[K [01;31m[Kerror: [m[K‘[01m[Kmsgs[m[K’ is not a member of ‘[01m[Ksensor_msgs[m[K’; did you mean ‘[01m[Kmsg[m[K’?
+[1.452s]   158 |         nav_sat_pub_ = this->create_publisher<sensor_msgs::[01;31m[Kmsgs[m[K::NavSatFix>(
+[1.452s]       |                                                            [01;31m[K^~~~[m[K
+[1.452s]       |                                                            [32m[Kmsg[m[K
+[1.452s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:158:30:[m[K [01;31m[Kerror: [m[Kparse error in template argument list
+[1.453s]   158 |         nav_sat_pub_ = this->[01;31m[Kcreate_publisher<sensor_msgs::msgs::NavSatFix>[m[K(
+[1.453s]       |                              [01;31m[K^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~[m[K
+[1.453s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:158:76:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kublox::GpsNode::create_publisher<<expression error> >(const char [4], int)[m[K’
+[1.453s]   158 |         nav_sat_pub_ = [01;31m[Kthis->create_publisher<sensor_msgs::msgs::NavSatFix>([m[K
+[1.453s]       |                        [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[1.454s]   159 | [01;31m[K            "fix", 10[m[K
+[1.454s]       |             [01;31m[K~~~~~~~~~[m[K                                                       
+[1.454s]   160 | [01;31m[K        )[m[K;
+[1.454s]       |         [01;31m[K~[m[K                                                                   
+[1.454s] In file included from [01m[K/workspace/src/embedded_system/ublox_gps_driver/include/ublox_gps_driver/gps_node.hpp:4[m[K,
+[1.454s]                  from [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:1[m[K:
+[1.454s] [01m[K/opt/ros/humble/include/rclcpp_lifecycle/rclcpp_lifecycle/lifecycle_node.hpp:210:3:[m[K [01;36m[Knote: [m[Kcandidate: ‘[01m[Ktemplate<class MessageT, class AllocatorT> std::shared_ptr<rclcpp_lifecycle::LifecyclePublisher<MessageT, Alloc> > rclcpp_lifecycle::LifecycleNode::create_publisher(const string&, const rclcpp::QoS&, const rclcpp::PublisherOptionsWithAllocator<AllocatorT>&)[m[K’
+[1.454s]   210 |   [01;36m[Kcreate_publisher[m[K(
+[1.454s]       |   [01;36m[K^~~~~~~~~~~~~~~~[m[K
+[1.455s] [01m[K/opt/ros/humble/include/rclcpp_lifecycle/rclcpp_lifecycle/lifecycle_node.hpp:210:3:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[1.455s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:158:76:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+[1.455s]   158 |         nav_sat_pub_ = [01;31m[Kthis->create_publisher<sensor_msgs::msgs::NavSatFix>([m[K
+[1.455s]       |                        [01;31m[K~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^[m[K
+[1.455s]   159 | [01;31m[K            "fix", 10[m[K
+[1.455s]       |             [01;31m[K~~~~~~~~~[m[K                                                       
+[1.455s]   160 | [01;31m[K        )[m[K;
+[1.455s]       |         [01;31m[K~[m[K                                                                   
+[1.455s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:171:79:[m[K [01;31m[Kerror: [m[K‘[01m[Krclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallBackReturn[m[K’ has not been declared
+[1.455s]   171 |             return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::[01;31m[KCallBackReturn[m[K::FAILURE;
+[1.456s]       |                                                                               [01;31m[K^~~~~~~~~~~~~~[m[K
+[1.456s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:[m[K In lambda function:
+[1.456s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:189:62:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K{[m[K’ before ‘[01m[K)[m[K’ token
+[1.456s]   189 |         parser_->setNavPVTCallback([this](const NavPVT& ppvt)[01;31m[K)[m[K {
+[1.456s]       |                                                              [01;31m[K^[m[K
+[1.456s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:189:57:[m[K [01;35m[Kwarning: [m[Kunused parameter ‘[01m[Kppvt[m[K’ [[01;35m[K-Wunused-parameter[m[K]
+[1.456s]   189 |         parser_->setNavPVTCallback([this]([01;35m[Kconst NavPVT& ppvt[m[K)) {
+[1.456s]       |                                           [01;35m[K~~~~~~~~~~~~~~^~~~[m[K
+[1.456s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:[m[K In member function ‘[01m[Kvirtual rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn ublox::GpsNode::on_configure(const rclcpp_lifecycle::State&)[m[K’:
+[1.457s] [01m[K/workspace/src/embedded_system/ublox_gps_driver/src/gps_node.cpp:189:63:[m[K [01;31m[Kerror: [m[Kexpected ‘[01m[K;[m[K’ before ‘[01m[K{[m[K’ token
+[1.457s]   189 |         parser_->setNavPVTCallback([this](const NavPVT& ppvt))[01;31m[K [m[K[32m[K{[m[K
+[1.457s]       |                                                               [01;31m[K^[m[K[32m[K~[m[K
+[1.457s]       |                                                               [32m[K;[m[K
+[1.842s] gmake[2]: *** [CMakeFiles/gps_node.dir/build.make:76: CMakeFiles/gps_node.dir/src/gps_node.cpp.o] Error 1
+[1.842s] gmake[1]: *** [CMakeFiles/Makefile2:272: CMakeFiles/gps_node.dir/all] Error 2
+[1.843s] gmake: *** [Makefile:146: all] Error 2
+[1.846s] Invoked command in '/workspace/src/build/ublox_gps_driver' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/ublox_gps_driver -- -j8 -l8

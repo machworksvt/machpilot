@@ -1,0 +1,2 @@
+Invoking command in '/workspace/src/build/ublox_gps_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /workspace/src/embedded_system/ublox_gps_driver -DCMAKE_INSTALL_PREFIX=/workspace/src/install/ublox_gps_driver
+Invoked command in '/workspace/src/build/ublox_gps_driver' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake /workspace/src/embedded_system/ublox_gps_driver -DCMAKE_INSTALL_PREFIX=/workspace/src/install/ublox_gps_driver

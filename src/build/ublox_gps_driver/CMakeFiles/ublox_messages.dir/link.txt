@@ -1,0 +1,2 @@
+/usr/bin/ar qc libublox_messages.a CMakeFiles/ublox_messages.dir/src/ublox_messages.cpp.o
+/usr/bin/ranlib libublox_messages.a

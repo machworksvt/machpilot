@@ -1,0 +1,17 @@
+[35m[1mConsolidate compiler generated dependencies of target ublox_messages[0m
+[35m[1mConsolidate compiler generated dependencies of target uart_lib[0m
+[35m[1mConsolidate compiler generated dependencies of target gtest[0m
+[35m[1mConsolidate compiler generated dependencies of target gtest_main[0m
+[ 11%] Built target ublox_messages
+[ 23%] Built target uart_lib
+[35m[1mConsolidate compiler generated dependencies of target ublox_parser[0m
+[35m[1mConsolidate compiler generated dependencies of target uart_interface[0m
+[ 47%] Built target uart_interface
+[ 52%] Built target gtest_main
+[ 58%] Built target ublox_parser
+[35m[1mConsolidate compiler generated dependencies of target gps_node[0m
+[ 70%] Built target gtest
+[35m[1mConsolidate compiler generated dependencies of target test_checksum[0m
+[ 82%] Built target test_checksum
+[ 94%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/main.cpp.o[0m
+[ 94%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/gps_node.cpp.o[0m
