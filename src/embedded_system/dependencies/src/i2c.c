@@ -1,28 +1,5 @@
 #include <i2c.h>
 
-int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t *regbuf, uint8_t size, uint8_t *data) {
-    if (read_or_write != I2C_M_RD && read_or_write != 0) {
-        perror("Invalid I2C transaction requested");
-        return -1;
-    }
-
-    // for the register selection transaction
-    msgs[0].addr = info->address;
-    msgs[0].flags = 0;
-    msgs[0].len = 1;
-    msgs[0].buf = regbuf;
-
-    // for the data exchange transaction
-    msgs[1].addr = info->address;
-    msgs[1].flags = read_or_write; // determines transaction type
-    msgs[1].len = size;
-    msgs[1].buf = data; // on read, data will be stored starting where data points
-
-    (*idata).msgs = msgs;
-    (*idata).nmsgs = 2;
-
-    return 0;
-}
 
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
@@ -39,57 +16,66 @@ int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
 }
 
+// #IMPORTANT: check if device has auto-increment functionality, if so, multi-byte reads and writes are ok
+// if not, then a loop using single-byte reads and writes is needed
+
 int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 
-    // prepare the data structures for the ioctl call
-    struct i2c_rdwr_ioctl_data idata;
-    struct i2c_msg msgs[2];
-    uint8_t regbuf[1] = {reg};
-    
-    // populate the data structures
-    if (i2c_populate_data(&idata, info, msgs, I2C_M_RD, regbuf, size, data)) {
+    if (size > I2C_MAX_SIZE) {
+        perror("I2C: too large to write");
         return -1;
     }
 
-    // verify that the second message is marked as a read transaction
-    if (idata.msgs[1].flags != I2C_M_RD) {
-        perror("I2C: not marked as read transaction");
-        return -2;
+    uint8_t outbuf[1] = {reg};
+    struct i2c_msg msgs[2];
+    struct i2c_rdwr_ioctl_data msgset[1];
+
+    msgs[0].addr = info->address;
+    msgs[0].flags = 0;
+    msgs[0].len = 1;
+    msgs[0].buf = outbuf;
+
+    msgs[1].addr = info->address;
+    msgs[1].flags = I2C_M_RD | I2C_M_NOSTART;
+    msgs[1].len = size;
+    msgs[1].buf = data;
+
+    msgset[0].msgs = msgs;
+    msgset[0].nmsgs = 2;
+
+    if (ioctl(info->fd, I2C_RDWR, &msgset) < 0) {
+        perror("ioctl(I2C_RDWR) in i2c_read");
+        return -1;
     }
 
-    // perform the I2C transaction
-    if (ioctl(info->fd, I2C_RDWR, &idata) != idata.nmsgs) {
-        perror("I2C: communication error");
-        return -3;
-    }
-
-    // data is written to where data points
     return 0;
 }
 
 int i2c_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 
-    // prepare the data structures for the ioctl call
-    struct i2c_rdwr_ioctl_data idata;
-    struct i2c_msg msgs[2];
-    uint8_t regbuf[1] = {reg};
-
-
-    // populate the data structures
-    if (i2c_populate_data(&idata, info, msgs, 0, regbuf, size, data)) {
+    if (size > I2C_MAX_SIZE) {
+        perror("I2C: too large to write");
         return -1;
     }
 
-    // verify that the second message is marked as a write transaction
-    if (idata.msgs[1].flags != 0) {
-        perror("I2C: not marked as write transaction");
-        return -2;
-    }
+    uint8_t outbuf[I2C_MAX_SIZE];
+    outbuf[0] = reg;
+    memcpy(outbuf + sizeof(uint8_t), data, size);
 
-    // perform the I2C transaction
-    if (ioctl(info->fd, I2C_RDWR, &idata) != idata.nmsgs) {
+    struct i2c_msg msgs[1];
+    struct i2c_rdwr_ioctl_data msgset[1];
+
+    msgs[0].addr = info->address;
+    msgs[0].flags = 0;
+    msgs[0].len = size + 1;
+    msgs[0].buf = outbuf;
+
+    msgset[0].msgs = msgs;
+    msgset[0].nmsgs = 1;
+
+    if (ioctl(info->fd, I2C_RDWR, &msgset) < 0) {
         perror("I2C: communication error");
-        return -3;
+        return -1;
     }
 
     return 0;
