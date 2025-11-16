@@ -1,9 +1,0 @@
-[ 35%] Built target ublox_messages
-[ 35%] Built target gtest
-[ 35%] Built target gtest_main
-[ 47%] Built target uart_lib
-[ 70%] Built target ublox_parser
-[ 70%] Built target test_checksum
-[ 82%] Built target uart_interface
-[35m[1mConsolidate compiler generated dependencies of target gps_node[0m
-[ 88%] [32mBuilding CXX object CMakeFiles/gps_node.dir/src/gps_node.cpp.o[0m

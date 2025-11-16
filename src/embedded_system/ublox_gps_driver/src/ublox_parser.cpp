@@ -22,16 +22,32 @@ namespace ublox {
     }
 
     void UbloxParser::processByte(uint8_t byte) {
+        #ifdef GPS_DEBUG_MODE
+            static int byte_count = 0;
+            byte_count++;
+            
+            if (byte_count % 1000 == 0) {
+                std::cout << "Processed " << byte_count << " bytes, state=" << (int)parser_state_ << std::endl;
+            }
+        #endif
+
+
         switch (parser_state_) {
             case ParserState::SYNC1:
                 if (byte == SYNC_CHAR_1) {
                     parser_state_ = ParserState::SYNC2;
+                    #ifdef GPS_DEBUG_MODE
+                        std::cout << "Found SYNC2 (0xB5)!" << std::endl;
+                    #endif 
                 }
                 break;
             
             case ParserState::SYNC2:
                 if (byte == SYNC_CHAR_2) {
                     parser_state_ = ParserState::CLASS;
+                    #ifdef GPS_DEBUG_MODE
+                        std::cout << "Found SYNC2 (0x62)!" << std::endl;
+                    #endif 
                 } 
                 else {
                     reset();

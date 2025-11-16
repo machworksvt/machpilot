@@ -17,6 +17,17 @@ endif()
 set(CMAKE_CXX_STANDARD 17) # cpp standard, 17 for our project
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Debug mode option
+option(GPS_DEBUG_MODE "Enable verbose GPS driver debugging" OFF)
+
+if (GPS_DEBUG_MODE)
+  message(STATUS "GPS Debug Mode: Enabled")
+  add_definitions(-DGPS_DEBUG_MODE)
+else ()
+  message(STATUS "GPS Debug Mode: DISABLED")
+endif()
+
+
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)

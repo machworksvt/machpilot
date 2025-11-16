@@ -1,5 +1,8 @@
 #include "ublox_gps_driver/uart_interface.hpp"
 #include <stdexcept>
+#include <ostream>
+#include <iostream>
+
 
 namespace ublox {
 
@@ -53,7 +56,7 @@ namespace ublox {
         if (!is_open_) {
             return -1;
         }
-        return uart_write(&uart_info_, buffer, size);
+        return uart_read(&uart_info_, buffer, size);
     }
 
 }

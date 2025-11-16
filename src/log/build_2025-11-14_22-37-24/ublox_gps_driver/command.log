@@ -1,4 +1,0 @@
-Invoking command in '/workspace/src/build/ublox_gps_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/ublox_gps_driver -- -j8 -l8
-Invoked command in '/workspace/src/build/ublox_gps_driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/ublox_gps_driver -- -j8 -l8
-Invoking command in '/workspace/src/build/ublox_gps_driver': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /workspace/src/build/ublox_gps_driver
-Invoked command in '/workspace/src/build/ublox_gps_driver' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /workspace/src/build/ublox_gps_driver

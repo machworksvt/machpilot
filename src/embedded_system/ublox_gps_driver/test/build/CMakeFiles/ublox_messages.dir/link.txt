@@ -1,0 +1,2 @@
+/usr/bin/ar qc libublox_messages.a CMakeFiles/ublox_messages.dir/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/src/ublox_messages.cpp.o
+/usr/bin/ranlib libublox_messages.a

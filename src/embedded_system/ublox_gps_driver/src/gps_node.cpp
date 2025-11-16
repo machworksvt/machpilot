@@ -11,7 +11,7 @@ namespace ublox {
             message_count_(0),
             error_count_(0) {
 
-        this->declare_parameter("device_path", "/dev/cu.usbserial-BG009G79");
+        this->declare_parameter("device_path", "/dev/ttyUSB0");
         this->declare_parameter("baud_rate", 38400);
         this->declare_parameter("frame_id", "gps");
 
@@ -99,25 +99,16 @@ namespace ublox {
 
     bool GpsNode::sendConfigMessage(const std::vector<uint8_t>& msg) {
         if (!uart_) {
-            RCLCPP_ERROR(this->get_logger(), "UART not initalized");
+            RCLCPP_ERROR(this->get_logger(), "UART not initialized");
             return false;
         }
-
+        
         ssize_t written = uart_->write(msg.data(), msg.size());
-        if (written !=static_cast<ssize_t>(msg.size())) {
+        RCLCPP_INFO(this->get_logger(), "Wrote %zd bytes", written);
+        
+        if (written != static_cast<ssize_t>(msg.size())) {
             RCLCPP_ERROR(this->get_logger(), "Failed to write config message");
-            return false; 
-        }
-
-        // wait for gps to process
-        std::this_thread::sleep_for(std::chrono::milliseconds(200));
-
-        // Flush any ACK responses (NOTE THIS MIGHT HAVE TO CHANGE!!!)
-        uint8_t flush_buffer[256];
-        // change 5 to a more descriptive value for ack
-        for (int i = 0; i < 5; i++) {
-            uart_->read(flush_buffer, sizeof(flush_buffer));
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            return false;
         }
 
         return true;
@@ -126,16 +117,19 @@ namespace ublox {
     bool GpsNode::configureGPS() {
         RCLCPP_INFO(this->get_logger(), "Configuring GPS to UBX protocol...");
 
-        // 1. Configure port to UBX protocol
-        auto cfg_prt = buildConfigurePort(); 
+        // Enable UBX 
+        auto cfg_prt = buildConfigurePort();
         if (!sendConfigMessage(cfg_prt)) {
+            RCLCPP_ERROR(this->get_logger(), "Failed to configure UBX protocol");
             return false;
         }
         RCLCPP_INFO(this->get_logger(), "Port configured for UBX");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
-        // 2. Enable NAV-PVT messages
+        //  Enable NAV-PVT messages
         auto cfg_msg = buildEnableNavPVT();
         if (!sendConfigMessage(cfg_msg)) {
+            RCLCPP_ERROR(this->get_logger(), "Failed to configure NAV-PVT protocol");
             return false;
         }
         RCLCPP_INFO(this->get_logger(), "NAV-PVT messages enabled");
@@ -173,14 +167,32 @@ namespace ublox {
         }
         
         if (!uart_->configure(baud_rate_)) {
-        RCLCPP_ERROR(this->get_logger(), "Failed to configure UART");
+            RCLCPP_ERROR(this->get_logger(), "Failed to configure UART");
             return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::FAILURE;
         }
-        
+
+        RCLCPP_INFO(this->get_logger(), "Flushing buffer...");
+        uint8_t flush_buf[256];
+        for (int i = 0; i < 10; i++) {
+            uart_->read(flush_buf, sizeof(flush_buf));
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+        }
+
         // Configure GPS for UBX protocol and NAV-PVT messages
         if (!configureGPS()) {
             RCLCPP_ERROR(this->get_logger(), "Failed to configure GPS");
             return rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn::FAILURE;
+        }
+
+        RCLCPP_INFO(this->get_logger(), "Waiting for ACK...");
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000)); 
+        uint8_t flush_buf_ack[256];
+        for (int i = 0; i < 20; i++) { 
+            ssize_t bytes = uart_->read(flush_buf_ack, sizeof(flush_buf_ack));
+            if (bytes > 0) {
+                RCLCPP_INFO(this->get_logger(), "Flushed %ld bytes (ACK data)", bytes);
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(50));
         }
 
         // create parser
@@ -268,15 +280,35 @@ namespace ublox {
         RCLCPP_INFO(this->get_logger(), "Read thread started");
         
         uint8_t buffer[256];
-        
+        #ifdef GPS_DEBUG_MODE
+            int read_count = 0;
+        #endif
         while (running_ && rclcpp::ok()) {
             if (!uart_) {
                 break;
             }
-            
             ssize_t bytes_read = uart_->read(buffer, sizeof(buffer));
-            
+            #ifdef GPS_DEBUG_MODE
+                read_count++;
+                if (bytes_read > 0) {
+                    RCLCPP_INFO(this->get_logger(), "Read #%d: %ld bytes", read_count, bytes_read);
+                    
+                    // Print first 16 bytes
+                    std::stringstream ss;
+                    ss << "  First bytes: ";
+                    for (ssize_t i = 0; i < std::min((ssize_t)16, bytes_read); i++) {
+                        ss << std::hex << std::setw(2) << std::setfill('0') << (int)buffer[i] << " ";
+                    }
+                    RCLCPP_INFO(this->get_logger(), "%s", ss.str().c_str());
+                } else if (bytes_read == 0) {
+                    if (read_count % 100 == 0) {
+                        RCLCPP_DEBUG(this->get_logger(), "Read #%d: 0 bytes (waiting for GPS)", read_count);
+                    }
+                }
+            #endif
+
             if (bytes_read > 0) {
+
                 for (ssize_t i = 0; i < bytes_read; i++) {
                     parser_->processByte(buffer[i]);
                 }
@@ -293,6 +325,11 @@ namespace ublox {
     }
 
     void GpsNode::publishNavSatFix(const NavPVT& pvt) {
+        #ifdef GPS_DEBUG_MODE
+            RCLCPP_INFO(this->get_logger(), "!!! CALLBACK FIRED !!!");
+            RCLCPP_INFO(this->get_logger(), "Lat: %d, Lon: %d, Fix: %d", 
+                        pvt.lat, pvt.lon, pvt.fixType);
+        #endif
         auto msg = std::make_unique<sensor_msgs::msg::NavSatFix>();
         
         msg->header.stamp = this->now();

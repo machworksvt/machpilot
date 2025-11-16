@@ -1,0 +1,2 @@
+/usr/bin/ar qc libublox_parser.a CMakeFiles/ublox_parser.dir/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/src/ublox_parser.cpp.o
+/usr/bin/ranlib libublox_parser.a

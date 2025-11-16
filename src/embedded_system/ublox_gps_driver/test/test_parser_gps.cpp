@@ -41,7 +41,7 @@ std::vector<uint8_t> buildEnableNavPVT() {
 }
 
 int main() {
-    const char* device = "/dev/cu.usbserial-BG009G79";
+    const char* device = "/dev/ttyUSB0";
     
     UARTInfo uart_info;
     uart_info.fd = -1;

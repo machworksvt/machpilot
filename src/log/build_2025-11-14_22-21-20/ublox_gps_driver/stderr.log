@@ -1,5 +1,0 @@
-[31mCMake Error at CMakeLists.txt:49 (target_link_libraries):
-  Cannot specify link libraries for target "uart_interface" which is not
-  built by this project.
-
-[0m
