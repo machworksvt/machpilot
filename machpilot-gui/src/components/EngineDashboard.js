@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 const EngineDashboard = () => {
   const engineData = useROSSubscription('/h20pro/engine_data', 'interfaces/msg/EngineData');
-  const pumpRpm = useROSSubscription('/h20pro/pump_rpm', 'interfaces/msg/engine_data2');
+  const pumpRpm = useROSSubscription('/h20pro/engine_data2', 'interfaces/msg/PumpRpm');
   const throttle = useROSSubscription('/h20pro/throttle_command', 'std_msgs/msg/Float32');
   const errors = useROSSubscription('/h20pro/errors', 'interfaces/msg/Errors');
   const fuelAmbient = useROSSubscription('/h20pro/fuel_ambient', 'interfaces/msg/FuelAmbient');
@@ -21,7 +21,7 @@ const EngineDashboard = () => {
   const ngReg = useROSSubscription('/h20pro/ng_reg', 'interfaces/msg/NgReg');
   const statistics = useROSSubscription('/h20pro/statistics', 'interfaces/msg/Statistics');
   const systemInfo = useROSSubscription('/h20pro/system_info', 'interfaces/msg/SystemInfo');
-  const systemInfo2 = useROSSubscription('/h20pro/system_info2', 'interfaces/msg/PumpRpm');
+  const systemInfo2 = useROSSubscription('/h20pro/system_info2', 'interfaces/msg/SystemInfo2');
   const voltageCurrent = useROSSubscription('/h20pro/voltage_current', 'interfaces/msg/VoltageCurrent');
 
   var throttlePublisher = new ROSLIB.Topic({
@@ -130,6 +130,14 @@ const EngineDashboard = () => {
       } else {
         return value.toFixed(1) + ' bar';
       }
+  };
+
+  const formatFuelFlow = (value) => {
+    return value.toFixed(0) + ' ml/min';
+  };
+
+  const formatCurrent = (value) => {
+    return value.toFixed(1) + ' A';
   };
 
   const [isRunningStartTest, setIsRunningStartTest] = useState(false);
@@ -360,22 +368,28 @@ const EngineDashboard = () => {
                       ],
                     },
                   }}
-                  value={rpm}
+                  value={Number(rpm) || 0}
+                  minValue={0}
                   maxValue={125000}
-                  pointer={{ type: "arrow", elastic: true }}
+                  pointer={{ 
+                    type: "arrow", 
+                    elastic: true,
+                    animationDelay: 0,
+                    animationDuration: 200
+                  }}
                 />
               </div>
               <div style={gaugeTitleStyle}>RPM</div>
             </div>
-            {/* Top Right: EGT Gauge */}
+            {/* Top Right: Battery Current Gauge */}
             <div style={gaugeContainerStyle}>
               <div style={centerGaugeStyle}>
                 <GaugeComponent
                   arc={{
                     subArcs: [
-                      { limit: 1000, color: '#5BE12C', showTick: true },
-                      { limit: 2000, color: '#F5CD19', showTick: true },
-                      { limit: 5000, color: '#EA4228', showTick: true },
+                      { limit: 15, color: '#5BE12C', showTick: true },
+                      { limit: 25, color: '#F5CD19', showTick: true },
+                      { limit: 40, color: '#EA4228', showTick: true },
                     ],
                     width: 0.3,
                     padding: 0.003,
@@ -383,35 +397,40 @@ const EngineDashboard = () => {
                   labels={{
                     valueLabel: {
                       style: valueLabelStyle,
-                      formatTextValue: formatPressure,
+                      formatTextValue: formatCurrent,
                     },
                     tickLabels: {
                       type: 'outer',
                       ticks: [
-                        { value: 3000 },
-                        { value: 4000 },
+                        { value: 5 },
+                        { value: 10 },
+                        { value: 15 },
+                        { value: 20 },
+                        { value: 25 },
+                        { value: 30 },
+                        { value: 35 },
                       ],
                       defaultTickValueConfig: {
                         style: tickLabelStyle,
-                        formatTextValue: formatPressure,
+                        formatTextValue: formatCurrent,
                       },
                     },
                   }}
-                  value={engineBoxPressure}
-                  maxValue={5000}
+                  value={batteryCurrent}
+                  maxValue={40}
                 />
               </div>
-              <div style={gaugeTitleStyle}>Combustor Pressure</div>
+              <div style={gaugeTitleStyle}>Battery Current</div>
             </div>
-            {/* Bottom Left: Engine Box Pressure Gauge */}
+            {/* Bottom Left: Fuel Flow Gauge */}
             <div style={gaugeContainerStyle}>
               <div style={centerGaugeStyle}>
                 <GaugeComponent
                   arc={{
                     subArcs: [
-                      { limit: 1000, color: '#5BE12C', showTick: true },
-                      { limit: 2000, color: '#F5CD19', showTick: true },
-                      { limit: 5000, color: '#EA4228', showTick: true },
+                      { limit: 300, color: '#5BE12C', showTick: true },
+                      { limit: 500, color: '#F5CD19', showTick: true },
+                      { limit: 700, color: '#EA4228', showTick: true },
                     ],
                     width: 0.3,
                     padding: 0.003,
@@ -419,25 +438,29 @@ const EngineDashboard = () => {
                   labels={{
                     valueLabel: {
                       style: valueLabelStyle,
-                      formatTextValue: formatPressure,
+                      formatTextValue: formatFuelFlow,
                     },
                     tickLabels: {
                       type: 'outer',
                       ticks: [
-                        { value: 3000 },
-                        { value: 4000 },
+                        { value: 100 },
+                        { value: 200 },
+                        { value: 300 },
+                        { value: 400 },
+                        { value: 500 },
+                        { value: 600 },
                       ],
                       defaultTickValueConfig: {
                         style: tickLabelStyle,
-                        formatTextValue: formatPressure,
+                        formatTextValue: formatFuelFlow,
                       },
                     },
                   }}
-                  value={engineBoxPressure}
-                  maxValue={5000}
+                  value={fuelFlow}
+                  maxValue={700}
                 />
               </div>
-              <div style={gaugeTitleStyle}>Combustor Pressure</div>
+              <div style={gaugeTitleStyle}>Fuel Flow</div>
             </div>
             {/* Bottom Right: Engine Box Temperature Gauge */}
             <div style={gaugeContainerStyle}>
@@ -474,7 +497,7 @@ const EngineDashboard = () => {
                       },
                     },
                   }}
-                  value={ambientTemperature}
+                  value={egt}
                   maxValue={1000}
                 />
               </div>

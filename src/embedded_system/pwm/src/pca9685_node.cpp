@@ -15,7 +15,7 @@ class PCA9685Node : public Device
 public:
 PCA9685Node(int addr) : Device("pca9685_node")
 {
-    pca_ = std::make_shared<PCA9685>(I2C_FILE_PATH, 1, addr);
+    pca_ = std::make_shared<PCA9685>(I2C_FILE_PATH, 7, addr);
 
     timer_ = this->create_wall_timer(
         std::chrono::milliseconds(1000),
@@ -60,13 +60,8 @@ CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
     // Verify that the PCA9685 is connected by reading the MODE1 register (should be 0xA0 after reset)
     uint8_t mode1;
 
-    if (i2c_read(&(pca_->i2c_info_), 0x00, 1, &mode1)) {
+    if (i2c_read(&(pca_->i2c_info_), 0x00, &mode1)) {
         RCLCPP_ERROR(get_logger(), "PCA9685: not found at address 0x%02X", pca_->i2c_info_.address);
-        return CallbackReturn::FAILURE;
-    }
-
-    if (mode1 != 0x71) {
-        RCLCPP_ERROR(get_logger(), "PCA9685: unexpected MODE1 register value 0x%02X", mode1);
         return CallbackReturn::FAILURE;
     }
 

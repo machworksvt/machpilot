@@ -1,0 +1,2 @@
+gpiod>=2.0
+RPi.GPIO; platform_machine=="armv7l"

@@ -881,7 +881,7 @@ private:
 
 
     uint32_t set_rpm = ((static_cast<uint16_t>(msg.data[0]) << 8) | msg.data[1]) * 10;
-    uint16_t real_rpm = ((static_cast<uint16_t>(msg.data[2]) << 8) | msg.data[3]) * 10;
+    uint32_t real_rpm = ((static_cast<uint16_t>(msg.data[2]) << 8) | msg.data[3]) * 10;
     float egt = ((static_cast<int16_t>(msg.data[4]) << 8) | msg.data[5]) * 0.1;
     uint8_t state = msg.data[6];
     std::string state_name = state_name_map_[state];
