@@ -62,7 +62,6 @@ int uart_configure(UARTInfo *info, int baud_rate, int parity, int stop_bits, int
         case 57600: speed = B57600; break;
         case 115200: speed = B115200; break;
         case 230400: speed = B230400; break;
-        case 460800: speed = B460800; break;
         default:
             fprintf(stderr, "UART: Unsupported baud rate %d\n", baud_rate);
             return -2;

@@ -1,0 +1,11 @@
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/uart.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/ublox_messages.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/ublox_parser.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/test_parser_gps.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/test_uart_interface.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/edit_cache.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/rebuild_cache.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/list_install_components.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/install.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/install/local.dir
+/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/test/build/CMakeFiles/install/strip.dir

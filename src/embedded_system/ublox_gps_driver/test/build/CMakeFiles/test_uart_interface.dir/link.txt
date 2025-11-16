@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/test_uart_interface.dir/test_uart_interface.cpp.o CMakeFiles/test_uart_interface.dir/home/aldomhm/machpilot/src/embedded_system/ublox_gps_driver/src/uart_interface.cpp.o -o test_uart_interface  libuart.a 
