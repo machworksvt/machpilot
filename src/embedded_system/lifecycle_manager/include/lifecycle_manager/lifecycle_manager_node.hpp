@@ -6,7 +6,7 @@
 #include <lifecycle_msgs/srv/change_state.hpp>
 #include <lifecycle_msgs/msg/transition_event.hpp>
 
-#define STATE_CHANGE_TIMEOUT_MS 1000
+#define SERVICE_TIMEOUT_MS 1000
 
 using namespace rclcpp_lifecycle::node_interfaces;
 
@@ -30,9 +30,12 @@ private:
     CallbackReturn on_error(const rclcpp_lifecycle::State &state) override;
 
     int client_response(rclcpp::FutureReturnCode res);
-    int loop_through_clients(uint8_t transition);
+    int loop_change_state_clients(uint8_t transition);
+    int loop_get_state_clients(uint8_t state);
     int scan_and_add_devices();
 
+    std::shared_ptr<rclcpp::Executor> cb_exec_;
+    std::thread cb_thread_;
     int device_count_;
     std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::GetState>> client_get_state_[16];
     std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::ChangeState>> client_change_state_[16];

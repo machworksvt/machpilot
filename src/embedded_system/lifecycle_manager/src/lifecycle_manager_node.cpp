@@ -8,9 +8,24 @@ using std::placeholders::_1;
 
 LifecycleManagerNode::LifecycleManagerNode() : Device("lifecycle_manager_node")
 {
+    cb_exec_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+    cb_exec_->add_node(this->get_node_base_interface());
+
+    cb_thread_ = std::thread([this]() {
+            cb_exec_->spin();
+        });
+
     if (this->scan_and_add_devices()) {
         RCLCPP_ERROR(this->get_logger(), "Error scanning and adding devices");
     }
+
+    int erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "All nodes not in correct state or not communicated with, proceding anyway");
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All nodes in the correct state, proceding ...");
 
     this->trigger_transition(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE);
 }
@@ -24,7 +39,37 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_configure(const 
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    int erc = loop_through_clients(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE);
+    int erc = loop_change_state_clients(lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions sent successfully");
+        return CallbackReturn::FAILURE;
+    }
+
+    if (erc == -2) {
+        RCLCPP_INFO(this->get_logger(), "Error in client loop");
+        return CallbackReturn::ERROR;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Successfully sent transitions");
+
+    erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All transitions successful");
+    
+    return CallbackReturn::SUCCESS;
+}
+
+LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const rclcpp_lifecycle::State &state)
+{
+    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
+
+    int erc = loop_change_state_clients(lifecycle_msgs::msg::Transition::TRANSITION_ACTIVATE);
 
     if (erc == -1) {
         RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
@@ -38,13 +83,14 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_configure(const 
 
     RCLCPP_INFO(this->get_logger(), "Successfully sent transitions");
     
-    return CallbackReturn::SUCCESS;
-}
+    erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE);
 
-LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const rclcpp_lifecycle::State &state)
-{
-    RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
-    // Implementation of activation logic goes here
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All transitions successful");
 
     return CallbackReturn::SUCCESS;
 }
@@ -52,24 +98,90 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const r
 LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_deactivate(const rclcpp_lifecycle::State &state)
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
-    // Implementation of deactivation logic goes here
 
+    int erc = loop_change_state_clients(lifecycle_msgs::msg::Transition::TRANSITION_DEACTIVATE);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    if (erc == -2) {
+        RCLCPP_INFO(this->get_logger(), "Error in client loop");
+        return CallbackReturn::ERROR;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Successfully sent transitions");
+
+    erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All transitions successful");
+    
     return CallbackReturn::SUCCESS;
 }
 
 LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_cleanup(const rclcpp_lifecycle::State &state)
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
-    // Implementation of cleanup logic goes here
 
+    int erc = loop_change_state_clients(lifecycle_msgs::msg::Transition::TRANSITION_CLEANUP);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    if (erc == -2) {
+        RCLCPP_INFO(this->get_logger(), "Error in client loop");
+        return CallbackReturn::ERROR;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Successfully sent transitions");
+
+    erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All transitions successful");
+    
     return CallbackReturn::SUCCESS;
 }
 
 LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_shutdown(const rclcpp_lifecycle::State &state)
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
-    // Implementation of shutdown logic goes here
 
+    int erc = loop_change_state_clients(lifecycle_msgs::msg::Transition::TRANSITION_ACTIVE_SHUTDOWN);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    if (erc == -2) {
+        RCLCPP_INFO(this->get_logger(), "Error in client loop");
+        return CallbackReturn::ERROR;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Successfully sent transitions");
+
+    erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_FINALIZED);
+
+    if (erc == -1) {
+        RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        return CallbackReturn::FAILURE;
+    }
+
+    RCLCPP_INFO(this->get_logger(), "All transitions successful");
+    
     return CallbackReturn::SUCCESS;
 }
 
@@ -122,7 +234,7 @@ int LifecycleManagerNode::scan_and_add_devices()
     return 0;
 }
 
-int LifecycleManagerNode::loop_through_clients(uint8_t transition)
+int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 {
     uint32_t success_flags = 0;
 
@@ -138,13 +250,50 @@ int LifecycleManagerNode::loop_through_clients(uint8_t transition)
 
         auto future = client_change_state_[i]->async_send_request(req);
 
-        rclcpp::FutureReturnCode res = spin_until_future_complete(
-            this->get_node_base_interface(), 
+        rclcpp::FutureReturnCode res = cb_exec_->spin_until_future_complete(
             future, 
-            std::chrono::milliseconds(STATE_CHANGE_TIMEOUT_MS));
+            std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
 
 
         success_flags |= (!client_response(res) << i);
+    }
+
+    // On full success, success_flags should look like 0b00...01111 or something,
+    // the number of 1s will be the same as device_count_,
+    // this will have the value 2^(device_count_) - 1, the same as (1 << device_count_) - 1,
+    // on failure it will necessarily be different
+
+    if ((((uint32_t)1 << device_count_) - 1) != success_flags) {
+        return -1;
+    }
+
+    return 0;
+}
+
+int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
+    uint32_t success_flags = 0;
+
+    for (int i = 0; i < device_count_; i++) {
+        auto client = client_get_state_[i];
+
+        RCLCPP_INFO(this->get_logger(), "Hello");
+
+        while (!client->wait_for_service(std::chrono::seconds(1))) {
+            RCLCPP_WARN(this->get_logger(), "Waiting for get_state service to appear...");
+        }
+
+        auto req = std::make_shared<lifecycle_msgs::srv::GetState::Request>();
+
+        auto future = client_get_state_[i]->async_send_request(req);
+
+        rclcpp::FutureReturnCode res = cb_exec_->spin_until_future_complete(
+            future, 
+            std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
+
+
+        if (!client_response(res)) {
+            success_flags |= (state == future.get()->current_state.id) << i;
+        }
     }
 
     // On full success, success_flags should look like 0b00...01111 or something,
@@ -163,15 +312,15 @@ int LifecycleManagerNode::client_response(rclcpp::FutureReturnCode res)
 {
 
     if (res == rclcpp::FutureReturnCode::SUCCESS) {
-        RCLCPP_INFO(this->get_logger(), "Successfully sent configure transition to device");
+        RCLCPP_INFO(this->get_logger(), "Successfully sent request to device");
         return 0;
     }
     else if (res == rclcpp::FutureReturnCode::TIMEOUT) {
-        RCLCPP_ERROR(this->get_logger(), "Timeout while calling configure transition on device");
+        RCLCPP_ERROR(this->get_logger(), "Timeout while requesting from device");
         return -2;
     }
     else {
-        RCLCPP_ERROR(this->get_logger(), "Failed to call configure transition on device");
+        RCLCPP_ERROR(this->get_logger(), "Failed to request from device");
         return -1;
     }
 
