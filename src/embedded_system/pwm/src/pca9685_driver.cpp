@@ -56,9 +56,11 @@ int PCA9685::reset() {
     struct timespec rqtp;
     struct timespec rmtp;
 
+
+
     // read MODE1 register to check if RESTART is set
     uint8_t mode1[1];
-    if(i2c_read(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+    if(i2c_read(&i2c_info_, PCA9685_MODE1, mode1)) {
         perror("PCA9685: reset read failed");
         return -1;
     }
@@ -70,7 +72,7 @@ int PCA9685::reset() {
         if (mode1[0] & SLEEP) {
             mode1[0] &= ~SLEEP; // clear SLEEP bit
             // write back to MODE1 register
-            if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+            if(i2c_write(&i2c_info_, PCA9685_MODE1, mode1)) {
                 perror("PCA9685: sleep write failed");
                 return -1;
             }
@@ -87,7 +89,7 @@ int PCA9685::reset() {
         // set RESTART bit to 1 to restart
         mode1[0] |= RESTART;
         // write back to MODE1 register
-        if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+        if(i2c_write(&i2c_info_, PCA9685_MODE1, mode1)) {
             perror("PCA9685: restart write failed");
             return -1;
         }
@@ -105,26 +107,26 @@ int PCA9685::set_frequency(uint16_t freq) {
     
     // Read current MODE1 register
     uint8_t mode1[1];
-    if(i2c_read(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+    if(i2c_read(&i2c_info_, PCA9685_MODE1, mode1)) {
         perror("PCA9685: frequency read MODE1 failed");
         return -1;
     }
     
     // Set SLEEP bit to enter sleep mode (required to change prescale)
     uint8_t sleep_mode = mode1[0] | SLEEP;
-    if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, &sleep_mode)) {
+    if(i2c_write(&i2c_info_, PCA9685_MODE1, &sleep_mode)) {
         perror("PCA9685: frequency sleep write failed");
         return -1;
     }
     
     // Write prescale value
-    if(i2c_write(&i2c_info_, PCA9685_PRESCALE, 1, &prescale)) {
+    if(i2c_write(&i2c_info_, PCA9685_PRESCALE, &prescale)) {
         perror("PCA9685: frequency prescale write failed");
         return -1;
     }
     
     // Restore MODE1 register (clear SLEEP bit)
-    if(i2c_write(&i2c_info_, PCA9685_MODE1, 1, mode1)) {
+    if(i2c_write(&i2c_info_, PCA9685_MODE1, mode1)) {
         perror("PCA9685: frequency restore MODE1 failed");
         return -1;
     }
@@ -152,23 +154,26 @@ int PCA9685::set_angle(double angle_deg, uint8_t ch) {
         return -1;
     }
 
-    // map angle to off time, no on delay
+    // map angle to off time, no ON delay
     uint16_t off_count = (int)MINDC + (int)((angle_deg / MOTORSPAN) * (MAXDC - MINDC));
     if (off_count > 4095) {
         perror("PCA9685: off_count out of range");
         off_count = 4095;
     }
 
+    // delays array, since duty cycle is the only concern, phase doesn't matter
     uint8_t data[4];
     data[0] = 0; // ON_L
     data[1] = 0; // ON_H
     data[2] = off_count & 0xFF; // OFF_L
     data[3] = (off_count >> 8) & 0x0F; // OFF_H
 
-    // write to LEDn registers
-    if(i2c_write(&i2c_info_, PCA9685_LED0_ON_L + 4 * ch, 4, data)) {
-        perror("PCA9685: set_angle write failed");
-        return -1;
+    for (int i = 0; i < 4; i++) {
+        // write to LEDn registers
+        if(i2c_write(&i2c_info_, PCA9685_LED0_ON_L + 4 * ch + i, &data[i])) {
+            perror("PCA9685: set_angle write failed");
+            return -1;
+        }
     }
 
     return 0;

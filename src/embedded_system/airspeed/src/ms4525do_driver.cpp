@@ -63,14 +63,14 @@ uint8_t MS4525DO::init(uint8_t bus_num, const char *bus_path) {
 
 uint8_t MS4525DO::readMR() {
 
-    if (i2c_read(&_i2c_info, 0, 0, NULL)) {
+    if (i2c_read(&_i2c_info, 0, NULL)) {
         std::cerr << "read error" << std::endl;
-        return 2;
+        return -1;
     }
 
     if (usleep(1000000 / MAX_POLLING)) {
         perror("MS4525DO: readMR delay interrupted");
-        return 1;
+        return -2;
     }
 
     return 0;
@@ -79,9 +79,9 @@ uint8_t MS4525DO::readMR() {
 uint8_t MS4525DO::readDF2() {
 
     uint8_t data[2];
-    if (i2c_read(&_i2c_info, 0, 2, data)) {
+    if (i2c_multi_read(&_i2c_info, 0, 2, data)) {
         std::cerr << "Pitot: 2-read error" << std::endl;
-        return 1;
+        return -1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
@@ -105,9 +105,9 @@ uint8_t MS4525DO::readDF2() {
 
 uint8_t MS4525DO::readDF3() {
     uint8_t data[3];
-    if (i2c_read(&_i2c_info, 0, 3, data)) {
+    if (i2c_multi_read(&_i2c_info, 0, 3, data)) {
         std::cerr << "Pitot: 3-read error" << std::endl;
-        return 1;
+        return -1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
@@ -134,9 +134,9 @@ uint8_t MS4525DO::readDF3() {
 
 uint8_t MS4525DO::readDF4() {
     uint8_t data[4];
-    if (i2c_read(&_i2c_info, 0, 4, data)) {
+    if (i2c_multi_read(&_i2c_info, 0, 4, data)) {
         std::cerr << "Pitot: 4-read error" << std::endl;
-        return 1;
+        return -1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
