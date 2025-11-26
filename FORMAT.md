@@ -7,24 +7,24 @@ Simple setup for these platforms: macOS and Ubuntu
 ## Install clang-format 
 
 ### macOS
-'''bash
+```bash
 brew install clang-format
-'''
+```
 
 ### Ubuntu 
-'''bash
+```bash
 sudo apt-get update
 sudo apt-get install clang-format
-'''
+```
 
 ### Verify Install
-'''bash
+```bash
 clang-format --version 
-'''
+```
 
 ## Test clang-format 
 
 ### Apply formatting 
-'''bash 
+```bash 
 clang-format -i file.cpp
-'''
+```
