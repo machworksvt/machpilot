@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     tree \
     clang-format \
+    wget \
     # Python tools
     python3-pip \
     python3-colcon-common-extensions \
@@ -48,6 +49,12 @@ RUN rosdep update
 # Set up colcon mixins
 RUN colcon mixin add default https://raw.githubusercontent.com/colcon/colcon-mixin-repository/master/index.yaml || true
 RUN colcon mixin update default || true
+
+# Set up MAVSDK
+RUN wget https://github.com/mavlink/MAVSDK/releases/download/v3.0.0/libmavsdk-dev_3.0.0_ubuntu22.04_amd64.deb
+RUN dpkg -i libmavsdk-dev_3.0.0_ubuntu22.04_amd64.deb || true \
+    && apt-get install -f -y 
+RUN rm libmavsdk-dev_3.0.0_ubuntu22.04_amd64.deb
 
 # Add convenient aliases
 RUN echo "alias ll='ls -alF'" >> ~/.bashrc && \
