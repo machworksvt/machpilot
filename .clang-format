@@ -24,4 +24,4 @@ PointerAlignment: Left
 SortIncludes: CaseSensitive 
 
 # Spacing 
-SpaceBeforeParens: ControlStatemenets
+SpaceBeforeParens: ControlStatements
