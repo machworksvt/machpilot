@@ -1,0 +1,32 @@
+---
+BasedOnStyle: Google
+Language: Cpp
+Standard: c++17
+
+# Indentation
+IndentWidth: 2
+TabWidth: 2
+UseTab: Never
+
+# Line Length
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Attach
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false 
+
+# Pointers and references 
+PointerAlignment: Left 
+
+# Includes - auto-sorted 
+SortIncludes: CaseSensitive 
+
+# Spacing 
+SpaceBeforeParens: ControlStatemenets
+
+
+
+
+
