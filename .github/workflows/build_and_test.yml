@@ -16,9 +16,6 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v4
 
-            - name: Build Docker image
-              run: docker compose build dev
-
             - name: Build and test ROS2 packages
               run: | 
                 docker compose run --rm dev bash -c ' 
