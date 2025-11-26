@@ -1,0 +1,31 @@
+name: Build and Test
+
+on: 
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+    push:
+        branches: [main, develop]
+    
+
+
+jobs: 
+    build-and-test:
+        runs-on: ubuntu-22.04
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Run CI checks with docker-compose
+              run: |
+                docker-compose run --rm dev bash -c '
+                # Source ROS2
+                source /opt/ros/humble/setup.bash
+
+                # Build all packages
+                echo "Building ROS2 packages"
+                colcon build --event-handlers console_direct+
+                '
+
+            
+    
