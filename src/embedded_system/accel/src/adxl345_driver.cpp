@@ -1,10 +1,11 @@
 #include "adxl345_driver.h"
 
 #include <cerrno>
-#include <stdexcept>
-#include <iostream>
 #include <chrono>
+#include <iostream>
+#include <stdexcept>
 #include <thread>
 
-
-
+int main() {
+  return 0;
+}
