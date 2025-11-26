@@ -18,7 +18,7 @@ jobs:
 
             - name: Run CI checks with docker-compose
               run: |
-                docker-compose run --rm dev bash -c '
+                docker compose run --rm dev bash -c '
                 # Source ROS2
                 source /opt/ros/humble/setup.bash
 
