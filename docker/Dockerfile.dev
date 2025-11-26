@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
     valgrind \
     curl \
     tree \
+    clang-format \
     # Python tools
     python3-pip \
     python3-colcon-common-extensions \
