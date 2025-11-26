@@ -1,10 +1,9 @@
-
 services:
   # Development enviroment
   dev:
     build:
       context: .
-      dockerfile: docker/Dockerfile.dev 
+      dockerfile: docker/Dockerfile.dev
     container_name: icarus_dev
     volumes:
       - ./src:/workspace/src:rw
@@ -18,5 +17,5 @@ services:
     stdin_open: true
     tty: true
     working_dir: /workspace
-
-    
+    entrypoint: [ "/ros_entrypoint.sh" ]
+    command: [ "/bin/bash", "-i" ]

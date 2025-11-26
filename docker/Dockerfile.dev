@@ -28,6 +28,8 @@ RUN apt-get update && apt-get install -y \
     ros-humble-ros2bag \
     ros-humble-lifecycle-msgs \
     ros-humble-rclcpp-lifecycle \
+    ros-humble-std-msgs \
+    ros-humble-sensor-msgs \
     # Testing and quantity tools
     ros-humble-ament-cmake-gtest \
     ros-humble-ament-cmake-pytest \
