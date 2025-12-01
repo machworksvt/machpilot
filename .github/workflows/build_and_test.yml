@@ -18,7 +18,7 @@ jobs:
 
             - name: Build and test ROS2 packages
               run: | 
-                docker compose run --rm dev bash -c -i' 
+                docker compose run --rm dev bash -i' 
 
                 echo "Git Submodules"
                 git submodule update --init --recursive 
