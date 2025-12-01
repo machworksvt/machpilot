@@ -40,15 +40,15 @@ class DataLinkNode : public rclcpp::Node {
  public:
   DataLinkNode() : Node("datalink") {
     // declare parameter for path to the serial device
-    this->declare_parameter(
-        "connection_path",
-        "serial:///dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A10O8MJG-if00-port0:57600");  // defaults
-                                                                                           // to
-                                                                                           // what
-                                                                                           // I'm
-                                                                                           // pretty
-                                                                                           // sure
-                                                                                           // it is
+    this->declare_parameter("connection_path",
+                            "serial:///dev/serial/by-id/"
+                            "usb-FTDI_FT232R_USB_UART_A10O8MJG-if00-port0:57600");  // defaults
+                                                                                    // to
+                                                                                    // what
+                                                                                    // I'm
+                                                                                    // pretty
+                                                                                    // sure
+                                                                                    // it is
     this->declare_parameter("auto_discover", true);  // defaults to true
     this->declare_parameter("topic_prefix", "/h20pro/");
 
@@ -133,8 +133,8 @@ class DataLinkNode : public rclcpp::Node {
   std::shared_ptr<mavsdk::ActionServer> action_server_;
   std::shared_ptr<mavsdk::ParamServer> param_server_;
 
-  rclcpp::Client<interfaces::action::RunStarterTest>::SharedPtr
-      engine_starter_test_client_;  // action client for running the engine starter test
+  // rclcpp::Client<interfaces::action::RunStarterTest>::SharedPtr
+  //     engine_starter_test_client_;  // action client for running the engine starter test
 
   rclcpp::Subscription<interfaces::msg::EngineData>::SharedPtr engine_data_sub_;
   rclcpp::Subscription<interfaces::msg::PumpRpm>::SharedPtr engine2_data_sub_;
