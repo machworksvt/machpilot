@@ -19,8 +19,6 @@ jobs:
             - name: Build and test ROS2 packages
               run: | 
                 docker compose run --rm dev bash -c ' 
-                source /opt/ros/humble/setup.bash
-
                 echo "Building ROS2 packages"
                 colcon build --event-handlers console_direct+
                 '
