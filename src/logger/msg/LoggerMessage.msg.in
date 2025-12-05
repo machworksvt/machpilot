@@ -1,4 +1,0 @@
-# This is a template.
-# @LOG_STRUCT_SIZE@ will be replaced by CMake @hello@
-# with the output from print_log_size.
-int8[@LOG_STRUCT_SIZE@] data

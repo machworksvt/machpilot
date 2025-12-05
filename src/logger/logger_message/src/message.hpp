@@ -8,9 +8,9 @@ class ExampleLog1{
 };
 
 class ExampleLog2{
-    
 };
 
+enum class Source{None};
 enum class Severity{Log, Warning, Error};
 
 class Log{

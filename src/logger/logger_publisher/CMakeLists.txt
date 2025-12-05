@@ -1,33 +1,17 @@
 cmake_minimum_required(VERSION 3.8)
-
-set(CMAKE_CXX_COMPILER "g++")
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
-
-
-project(logger)
+project(logger_publisher)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 # find dependencies
-find_package(rclcpp REQUIRED)
 find_package(ament_cmake REQUIRED)
-find_package(rosidl_default_generators REQUIRED)
-
-include_directories(
-  "src"
-)
-
-execute_process(
-  COMMAND cmake -S ${CMAKE_SOURCE_DIR}/message_preprossessor -B ${CMAKE_CURRENT_BINARY_DIR}/preprossessor_build
-)
-
-#rosidl_generate_interfaces(${PROJECT_NAME}
-#  "${CMAKE_CURRENT_BINARY_DIR}:LoggerMessage.msg"
-#)
+find_package(rclcpp REQUIRED)
+find_package(logger_message REQUIRED)  
+# uncomment the following section in order to fill in
+# further dependencies manually.
+# find_package(<dependency> REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -41,16 +25,15 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-
-add_executable(logger_node
-  src/main.cpp
+include_directories(
+  "src"
 )
 
-ament_target_dependencies(logger_node
-    rclcpp 
-)
+add_executable(logger_publisher_tester src/main.cpp)
+ament_target_dependencies(logger_publisher_tester rclcpp logger_message)
 
 install(TARGETS
-  logger_node
-  DESTINATION lib/${PROJECT_NAME}
-)
+  logger_publisher_tester
+  DESTINATION lib/${PROJECT_NAME})
+
+ament_package()
