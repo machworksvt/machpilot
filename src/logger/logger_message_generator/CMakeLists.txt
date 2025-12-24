@@ -3,13 +3,17 @@ project(logger_message_generator)
 
 
 find_package(ament_cmake REQUIRED)
-find_package(rclcpp REQUIRED)
+find_package(log_class REQUIRED)
 
 add_executable(message_preprocessor message_preprocessor.cpp)
 
+ament_target_dependencies(message_preprocessor 
+  log_class
+)
+
 # Output goes to the ROS package msg folder
-set(GENERATED_MSG "${CMAKE_CURRENT_LIST_DIR}/../logger_message/msg/LoggerMessage.msg")
-set(GENERATED_TEST "${CMAKE_CURRENT_LIST_DIR}/../logger_message/src/size_test.cpp")
+set(GENERATED_MSG "${CMAKE_CURRENT_LIST_DIR}/../logger_message_interface/msg/Log.msg")
+set(GENERATED_TEST "${CMAKE_CURRENT_LIST_DIR}/../logger_message_interface/src/size_test.cpp")
 
 add_custom_target(run_generator ALL
   DEPENDS message_preprocessor
