@@ -2,3 +2,4 @@
 /install
 /log
 /rosbag2_*
+/src/logger/log_tester/test_log
