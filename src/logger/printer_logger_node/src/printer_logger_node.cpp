@@ -13,7 +13,7 @@ class PrinterLoggerNode : public rclcpp::Node {
   PrinterLoggerNode() : Node("PrinterLoggerNode") {
     subscription_ =
         this->create_subscription<logger_message_interface::msg::Log>(
-            "log_topic", 10,
+            "log_topic", 64,
             std::bind(&PrinterLoggerNode::topic_callback, this, _1));
   }
 

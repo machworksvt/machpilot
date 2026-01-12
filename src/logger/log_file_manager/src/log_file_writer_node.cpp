@@ -22,7 +22,7 @@ class LogFileWriterNode : public rclcpp::Node {
  public:
   LogFileWriterNode() : Node("LogFileWriterNode") {
     subscription_ = create_subscription<logger_message_interface::msg::Log>(
-        "log_topic", 10,
+        "log_topic", 64,
         std::bind(&LogFileWriterNode::topic_callback, this, _1));
 
     declare_parameter<std::string>("log_file", "");
