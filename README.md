@@ -15,3 +15,14 @@ Almost every sensor, communicator, or driver electronic on the Icarus uses a dig
 - I²C
 - UART
 
+## Docker Environment 
+
+Command to build docker
+```sh 
+docker-compose build dev
+```
+
+Command to run docker
+```sh
+docker-compose run --rm dev bash
+```

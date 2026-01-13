@@ -11,18 +11,17 @@ on:
 jobs: 
     build-and-test:
         runs-on: ubuntu-22.04
-
+        permissions: 
+          contents: read
+          packages: read
+        container:
+          image: ghcr.io/machworksvt/machpilot-dev:latest
+          credentials: 
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN}}
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
 
             - name: Build and test ROS2 packages
-              run: | 
-                docker compose run --rm dev bash -c ' 
-
-                echo "Git Submodules"
-                git submodule update --init --recursive 
-
-                echo "Building ROS2 packages"
-                colcon build --event-handlers console_direct+
-                '
+              run: ls -la 
