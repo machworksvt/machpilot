@@ -24,4 +24,4 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Build and test ROS2 packages
-              run: ls -la 
+              run: colcon build
