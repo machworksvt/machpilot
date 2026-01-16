@@ -32,6 +32,7 @@ RUN apt-get update && apt-get install -y \
     ros-humble-sensor-msgs \
     # Testing and quantity tools
     ros-humble-ament-cmake-gtest \
+    ros-humble-ament-cmake \
     ros-humble-ament-cmake-pytest \
     ros-humble-ament-lint-auto \
     ros-humble-ament-lint-common \
@@ -70,9 +71,4 @@ RUN echo "alias ll='ls -alF'" >> ~/.bashrc && \
 RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
     echo "source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" >> ~/.bashrc 
 
-# Create entrypoint script
-COPY docker/ros_entrypoint.sh /ros_entrypoint.sh
-RUN chmod +x /ros_entrypoint.sh
-
-ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["bash"]
+# Create entrypoint script\
