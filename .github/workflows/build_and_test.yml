@@ -24,11 +24,6 @@ jobs:
               uses: actions/checkout@v4
 
             - name: Build and test ROS2 packages
-              run: | 
-                    source /opt/ros/humble/setup.bash 
-                    export CMAKE_PREFIX_PATH="/opt/ros/humble:$CMAKE_PREFIX_PATH"
-                    source /workspace/install/setup.bash
-                    source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
-
+              run: colcon build
 
 
