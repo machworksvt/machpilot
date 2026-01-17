@@ -19,11 +19,16 @@ jobs:
           credentials: 
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
+        defaults: 
+          run: 
+            shell: bash
         steps:
             - name: Checkout code
               uses: actions/checkout@v4
 
             - name: Build and test ROS2 packages
-              run: colcon build
+              run: |
+                source /opt/ros/humble/setup.bash
+                colcon build
 
 
