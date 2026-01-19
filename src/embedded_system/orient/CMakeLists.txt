@@ -23,6 +23,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # --- Library (optional) ---
 # add_library(${PROJECT_NAME}_lib
@@ -49,7 +50,8 @@ ament_target_dependencies(bno055_node
   rclcpp 
   rclcpp_lifecycle 
   rclcpp_action
-  rosidl_default_generators)
+  rosidl_default_generators
+  sensor_msgs)
 
 target_link_libraries(bno055_node pthread) # good to include for system calls
 

@@ -1,4 +1,4 @@
-#include <i2c.h>
+#include <i2c-local.h>
 
 
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {

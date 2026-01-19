@@ -2,7 +2,7 @@
 #define BNO055_DRIVER_H
 
 extern "C" {
-    #include <i2c.h>
+    #include <i2c-local.h>
 }
 
 
@@ -12,21 +12,21 @@ extern "C" {
 #define CONFIG_TO_OPRMODE_DELAY_MS 7
 #define OPRMODE_TO_CONFIG_DELAY_MS 19
 
-const struct accel_default_config_t {
+const struct accel_default_config {
     uint8_t pwr_mode = BNO055_PWR_MODE_NORMAL; // Normal power mode
     uint8_t range_g = 4; // ±4g
     float bandwidth_Hz = 62.5f; //  Hz
     uint8_t resolution_bits = 14; // bits
-} accel_default_config_t;
+};
 
-const struct gyro_default_config_t {
+const struct gyro_default_config {
     uint8_t pwr_mode = BNO055_PWR_MODE_NORMAL; // Normal power mode
     uint16_t range_dps = 2000; // ±2000 degrees per second
     float bandwidth_Hz = 32.0f; // Hz
     uint8_t resolution_bits = 16; // bits
-} gyro_default_config_t;
+};
 
-const struct mag_default_config_t {
+const struct mag_default_config {
     uint8_t pwr_mode = BNO055_PWR_MODE_NORMAL; // Normal power mode
     uint8_t output_data_rate_Hz = 20.0f; // 20 Hz
     uint8_t xy_repetition = 15; // 15 repetitions
@@ -34,7 +34,7 @@ const struct mag_default_config_t {
     uint8_t resolution_bits_x = 13; // bits
     uint8_t resolution_bits_y = 13; // bits
     uint8_t resolution_bits_z = 15; // bits
-} mag_default_config_t;
+};
 
 enum bno055_status_t {
     BNO055_OK = 0,
@@ -140,16 +140,16 @@ public:
     BNO055(const char *bus_path, uint8_t bus_num, uint8_t addr);
     ~BNO055();
 
-    int init();
+    int init(const char *bus_path, uint8_t bus_num);
     int set_operation_mode(int mode);
     int calibrate_accel();
     int calibrate_gyro();
     int calibrate_mag();
 
-    int read_accel(float accel[]);
-    int read_gyro(float gyro[]);
-    int read_euler(float euler[]);
-    int read_mag(float mag[]);
+    int read_accel(float accel[3]);
+    int read_gyro(float gyro[3]);
+    int read_euler(float euler[3]);
+    int read_mag(float mag[3]);
     int read_temp(float *temp);
 
 private:
