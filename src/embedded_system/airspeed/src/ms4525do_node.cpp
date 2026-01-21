@@ -23,7 +23,7 @@ public:
         float pressure_pa   = 0.0f;
         uint8_t status;
 
-        _ms4525do->readDF4();
+        _ms4525do->readPressureAndTempHD();
 
         temperature_c = _ms4525do->_data.temp;
         pressure_pa = _ms4525do->_data.pressure * PSI2PA; // Convert psi to pascal
