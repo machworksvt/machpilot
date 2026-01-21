@@ -31,8 +31,8 @@ MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
     _i2c_info.bus_num = bus_num;
     _i2c_info.address = addr;
 
-    if (MS4525DO::init(bus_num, bus_path) != 0) {
-        perror("MS4525DO: bus initialization failed");
+    if (init(bus_num, bus_path) != 0) {
+        perror("MS4525DO: initialization failed");
         exit(1);
     }
     
@@ -52,27 +52,27 @@ uint8_t MS4525DO::init(uint8_t bus_num, const char *bus_path) {
     return 0;
 }
 
-uint8_t MS4525DO::readMR() {
+uint8_t MS4525DO::readMeasureRequest() {
 
     if (i2c_read(&_i2c_info, 0, NULL)) {
         std::cerr << "read error" << std::endl;
-        return -1;
+        return 1;
     }
 
     if (usleep(1000000 / MAX_POLLING)) {
         perror("MS4525DO: readMR delay interrupted");
-        return -2;
+        return 1;
     }
 
     return 0;
 }
 
-uint8_t MS4525DO::readDF2() {
+uint8_t MS4525DO::readPressure() {
 
     uint8_t data[2];
     if (i2c_multi_read(&_i2c_info, 0, 2, data)) {
         std::cerr << "Pitot: 2-read error" << std::endl;
-        return -1;
+        return 1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
@@ -94,11 +94,11 @@ uint8_t MS4525DO::readDF2() {
     return 0;
 }
 
-uint8_t MS4525DO::readDF3() {
+uint8_t MS4525DO::readPressureAndTemp() {
     uint8_t data[3];
     if (i2c_multi_read(&_i2c_info, 0, 3, data)) {
         std::cerr << "Pitot: 3-read error" << std::endl;
-        return -1;
+        return 1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
@@ -123,11 +123,11 @@ uint8_t MS4525DO::readDF3() {
     return 0;
 }
 
-uint8_t MS4525DO::readDF4() {
+uint8_t MS4525DO::readPressureAndTempHD() {
     uint8_t data[4];
     if (i2c_multi_read(&_i2c_info, 0, 4, data)) {
         std::cerr << "Pitot: 4-read error" << std::endl;
-        return -1;
+        return 1;
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
@@ -157,14 +157,14 @@ uint8_t MS4525DO::readDF4() {
 bool MS4525DO::statusMessages(uint8_t status) {
 
     switch (status) {
-    case 0:
+    case STATUS_NORMAL:
         return true;
-    case 1:
+    case STATUS_RESERVED:
         return true;
-    case 2:
+    case STATUS_STALE:
         perror("stale data, read again");
         return false;
-    case 3:
+    case STATUS_ERROR:
         throw std::runtime_error("read status error, perform power-on reset");
         return false;
     }
