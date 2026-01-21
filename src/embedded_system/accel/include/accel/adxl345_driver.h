@@ -5,7 +5,7 @@
 #include <cstdint>
 
 extern "C" {
-    #include <i2c.h>
+    #include <i2c-local.h>
 }
 
 #define ADDR 0x1D

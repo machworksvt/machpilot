@@ -1,4 +1,4 @@
-#include <i2c.h>
+#include "i2c-local.h"
 
 
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
@@ -18,6 +18,10 @@ int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
 int i2c_read(I2CInfo *info, uint8_t reg, uint8_t *data) {
 
+    if (info == NULL || data == NULL) {
+        return -1;
+    }
+
     uint8_t outbuf[1] = {reg};
     struct i2c_msg msgs[2];
     struct i2c_rdwr_ioctl_data msgset[1];
@@ -36,7 +40,7 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint8_t *data) {
     msgset[0].nmsgs = 2;
 
     if (ioctl(info->fd, I2C_RDWR, &msgset) < 0) {
-        perror("ioctl(I2C_RDWR) in i2c_read");
+        perror("I2C: read error");
         return -1;
     }
 
@@ -44,6 +48,10 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint8_t *data) {
 }
 
 int i2c_write(I2CInfo *info, uint8_t reg, uint8_t *data) {
+
+    if (info == NULL || data == NULL) {
+        return -1;
+    }
 
     uint8_t outbuf[2];
     outbuf[0] = reg;
@@ -61,7 +69,7 @@ int i2c_write(I2CInfo *info, uint8_t reg, uint8_t *data) {
     msgset[0].nmsgs = 1;
 
     if (ioctl(info->fd, I2C_RDWR, &msgset) < 0) {
-        perror("I2C: communication error");
+        perror("I2C: write error");
         return -1;
     }
 
@@ -72,6 +80,10 @@ int i2c_write(I2CInfo *info, uint8_t reg, uint8_t *data) {
 // if not, then a loop using single-byte reads and writes is needed
 
 int i2c_multi_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
+
+    if (info == NULL || data == NULL) {
+        return -1;
+    }
 
     if (size > I2C_MAX_SIZE) {
         perror("I2C: too large to read");
@@ -104,6 +116,10 @@ int i2c_multi_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
 }
 
 int i2c_multi_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data) {
+
+    if (info == NULL || data == NULL) {
+        return -1;
+    }
 
     if (size > I2C_MAX_SIZE) {
         perror("I2C: too large to write");
