@@ -16,7 +16,7 @@ find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
 
 # --- Node Executable ---
-add_executable(health_monitor errorMonitor.cpp)
+add_executable(health_monitor ErrorMonitor.cpp)
 
 target_include_directories(health_monitor PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/health_monitor>

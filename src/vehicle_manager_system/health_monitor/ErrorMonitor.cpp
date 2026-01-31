@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include "ErrorMonitor.hpp"
 
 class ErrorMonitorNode : public rclcpp::Node
 {
