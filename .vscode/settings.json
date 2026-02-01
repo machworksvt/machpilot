@@ -102,5 +102,8 @@
         "scoped_allocator": "cpp",
         "valarray": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.clang_format_fallbackStyle": "none",
+    "editor.formatOnSave": true,
+    "C_Cpp.clang_format_style": "file"
 }
