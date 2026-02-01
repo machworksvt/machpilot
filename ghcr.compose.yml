@@ -1,0 +1,13 @@
+services:
+  # Development enviroment
+  dev:
+    image: ghcr.io/machworksvt/machpilot-dev:latest
+    container_name: icarus_dev
+    volumes:
+      - .:/workspace:rw
+    environment:
+      - ROS_DOMAIN_ID=0
+    network_mode: host
+    stdin_open: true
+    tty: true
+    working_dir: /workspace
