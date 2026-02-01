@@ -1,3 +1,0 @@
-/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles/FSMPilot.dir
-/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles/edit_cache.dir
-/home/noahk/programs/machpilot/src/FSMPilot/build/CMakeFiles/rebuild_cache.dir
