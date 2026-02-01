@@ -1,6 +1,6 @@
 services:
   # Development enviroment
-  dev:
+  remote-dev:
     image: ghcr.io/machworksvt/machpilot-dev:latest
     container_name: icarus_dev
     volumes:
