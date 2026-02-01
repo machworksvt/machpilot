@@ -1,22 +1,15 @@
-
 services:
   # Development enviroment
   dev:
     build:
       context: .
-      dockerfile: docker/Dockerfile.dev 
+      dockerfile: docker/Dockerfile.dev
     container_name: icarus_dev
     volumes:
-      - ./src:/workspace/src:rw
-      - ./build:/workspace/build:rw
-      - ./install:/workspace/install:rw
-      - ./log:/workspace/log:rw
-      - ./config:/workspace/config:ro
+      - .:/workspace:rw
     environment:
       - ROS_DOMAIN_ID=0
     network_mode: host
     stdin_open: true
     tty: true
     working_dir: /workspace
-
-    
