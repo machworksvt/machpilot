@@ -5,7 +5,7 @@
 #include <cstdint>
 
 extern "C" {
-    #include <i2c.h>
+    #include <i2c_local.h>
 }
 
 

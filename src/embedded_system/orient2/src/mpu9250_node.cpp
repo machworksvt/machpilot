@@ -1,12 +1,13 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/imu.hpp>
+#include "lifecycle_interface.hpp"
 
-extern "C" {
-    #include "driver_mpu9250_basic.h"
-}
+using std::placeholders::_1;
+using std::placeholders::_2;
 
-class MPU9250Node : public rclcpp::Node
+
+int main(int argc, char ** argv)
 {
 public:
   MPU9250Node() : Node("mpu9250_node") 
@@ -122,9 +123,14 @@ private:
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-  auto node = std::make_shared<MPU9250Node>();
-  rclcpp::spin(node);
+
+  rclcpp::executors::SingleThreadedExecutor exe;
+
+  // auto node = std::make_shared<MPU9250Node>(0x28);
+
+  // exe.add_node(node->get_node_base_interface());
+  exe.spin();
+
   rclcpp::shutdown();
   return 0;
 }
-
