@@ -1,4 +1,4 @@
-#include <i2c.h>
+#include "i2c_local.h"
 
 int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t reg, uint8_t size, uint8_t *data) {
     if (read_or_write != I2C_M_RD && read_or_write != 0) {

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(gnc)
+project(nonlinear)
 
 # 1) For IntelliSense:
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -14,7 +14,7 @@ find_package(rclcpp       REQUIRED)
 
 # 3) Vendor CasADi in-tree
 add_subdirectory(
-  ${CMAKE_CURRENT_SOURCE_DIR}/third_party/casadi
+  ${CMAKE_CURRENT_SOURCE_DIR}/casadi
   ${CMAKE_CURRENT_BINARY_DIR}/casadi_build
   EXCLUDE_FROM_ALL
 )
