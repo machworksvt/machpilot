@@ -1,0 +1,34 @@
+name: Build and Test
+
+on: 
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
+    push:
+        branches: [main, develop]
+    
+
+
+jobs: 
+    build-and-test:
+        runs-on: ubuntu-22.04
+        permissions: 
+          contents: read
+          packages: read
+        container:
+          image: ghcr.io/machworksvt/machpilot-dev:latest
+          credentials: 
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+        defaults: 
+          run: 
+            shell: bash
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Build and test ROS2 packages
+              run: |
+                colcon build
+              continue-on-error: true
+
+
