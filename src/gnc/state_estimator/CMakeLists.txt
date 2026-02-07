@@ -17,7 +17,7 @@ endif()
 set(CMAKE_CXX_STANDARD 17) # cpp standard, 17 for our project
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_LIBROBCONT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/librobotcontrol/library/src")
+set(CMAKE_LIBROBCONT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../embedded_system/dependencies/librobotcontrol/library/src")
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -55,8 +55,8 @@ add_executable(state_estimator_node src/state_estimator_node.cpp
 
 target_include_directories(state_estimator_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/state_estimator>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/librobotcontrol/library/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../embedded_system/dependencies/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../../embedded_system/dependencies/librobotcontrol/library/include>
   $<INSTALL_INTERFACE:include>)
 
 ament_target_dependencies(state_estimator_node 

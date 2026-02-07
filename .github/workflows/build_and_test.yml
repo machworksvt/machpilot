@@ -28,7 +28,7 @@ jobs:
 
             - name: Build and test ROS2 packages
               run: |
-                colcon build
+                source /opt/ros/humble/setup.bash; colcon build
               continue-on-error: true
 
 

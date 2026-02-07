@@ -38,7 +38,7 @@ find_package(rclcpp_lifecycle REQUIRED)
 # )
 
 # --- Node Executable ---
-add_executable(adxl345_node src/adxl345_node.cpp src/adxl345_driver.c)
+add_executable(adxl345_node src/adxl345_node.cpp src/adxl345_driver.cpp)
 
 target_include_directories(adxl345_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/accel>

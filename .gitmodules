@@ -1,12 +1,15 @@
+[submodule "src/gnc/nonlinear/casadi"]
+	path = src/gnc/nonlinear/casadi
+	url = https://github.com/casadi/casadi.git
 [submodule "src/embedded_system/orient2/src/mpu9250"]
 	path = src/embedded_system/orient2/src/mpu9250
 	url = https://github.com/libdriver/mpu9250
 [submodule "src/embedded_system/pressure/src/bmp390"]
 	path = src/embedded_system/pressure/src/bmp390
 	url = https://github.com/libdriver/bmp390
-[submodule "src/embedded_system/orient/src/BNO055-Linux-Library"]
-	path = src/embedded_system/orient/src/BNO055-Linux-Library
-	url = https://github.com/williamg42/BNO055-Linux-Library
 [submodule "src/embedded_system/dependencies/librobotcontrol"]
 	path = src/embedded_system/dependencies/librobotcontrol
 	url = https://github.com/beagleboard/librobotcontrol
+[submodule "src/embedded_system/orient/BNO055-Linux-Library"]
+	path = src/embedded_system/orient/BNO055-Linux-Library
+	url = https://github.com/williamg42/BNO055-Linux-Library
