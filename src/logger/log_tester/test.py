@@ -6,6 +6,7 @@ import os
 import datetime
 import log_parser
 import random
+import os
 
 # Helper to construct the full shell command
 def get_ros2_command(cmd_args):
@@ -26,9 +27,10 @@ def create_ros2_process(command):
     )
     return process
 
+log_directory =os.environ.get('RUNNER_TEMP',default="src/logger/log_tester/test_log")
 
 file_writer_process = create_ros2_process(
-    "ros2 run log_file_manager log_file_writer_node --ros-args -p log_file:=\"src/logger/log_tester/test_log\""
+    f"ros2 run log_file_manager log_file_writer_node --ros-args -p log_file:=\"{log_directory}\""
 )
 log_printer_process = create_ros2_process(
     "ros2 run printer_logger_node printer_logger_node"
