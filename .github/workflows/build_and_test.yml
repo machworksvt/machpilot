@@ -28,7 +28,10 @@ jobs:
 
             - name: Build and test ROS2 packages
               run: |
-                source /opt/ros/humble/setup.bash; colcon build
+                source /opt/ros/humble/setup.bash; colcon build --continue-on-error
               continue-on-error: true
+              
+            - name: test logger
+              run: python3 'src/logger/log_tester/test.py'
 
 

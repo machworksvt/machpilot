@@ -28,11 +28,17 @@
                 "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/interfaces/action/**",
                 "${workspaceFolder}/src/interfaces/action",
-                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**"
+                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**",
+                "${workspaceFolder}/src/logger/log_class/**",
+                "${workspaceFolder}/src/logger/logger_message_generator/**",
+                "${workspaceFolder}/src/logger/logger_message_interface/**",
+                "${workspaceFolder}/src/logger/logger_publisher/**",
+                "${workspaceFolder}/src/logger/printer_logger_node/**",
+                "${workspaceFolder}/install/logger_message_interface/include/logger_message_interface"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
-            "compilerPath": "/usr/bin/gcc",
+            "compilerPath": "/usr/bin/g++",
             "cStandard": "gnu11",
             "cppStandard": "c++17"
         }
