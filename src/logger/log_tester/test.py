@@ -85,6 +85,7 @@ stdout_data, stderr_data = log_printer_process.communicate()
 print("--- Printer Errors (if any) ---")
 print(stderr_data)
 
+print("results for direct printing")
 printer_passed=log_parser.verify_logs(
     stdout_data,
     [logger_start_up_time]+log_times,
@@ -95,6 +96,7 @@ printer_passed=log_parser.verify_logs(
 )
 
 if not printer_passed:
+    print("direct printing failed")
     exit(1)
 
 #====================================Check File====================================
@@ -115,16 +117,19 @@ log_pattern = re.compile(
 match = log_pattern.search(stdout_data)
 
 if not match:
-    print("coulnd not parse file_writer_process output")
+    print("could not parse file_writer_process output")
     exit(1)
 file=match.group("file")
 
 print(f"{file=}")
 
+
+
 file_logs=subprocess.run(get_ros2_command(f"install/log_file_manager/lib/log_file_manager/log_file_reader {file}"),stdout=subprocess.PIPE,text=True,shell=True)
 os.remove(file)
 stdout_data = file_logs.stdout
 
+print("results for file printing")
 file_passed=log_parser.verify_logs(
     stdout_data,
     [logger_start_up_time]+log_times,
@@ -135,6 +140,9 @@ file_passed=log_parser.verify_logs(
 )
 
 if not file_passed:
+    print("file printing failed")
     exit(1)
 
 
+
+print("test_passed")

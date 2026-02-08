@@ -2,4 +2,5 @@
 /install
 /log
 /rosbag2_*
-/src/logger/log_tester/test_log
+/src/logger/log_tester/test_log/*
+__pycache__/
