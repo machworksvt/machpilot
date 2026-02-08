@@ -30,5 +30,8 @@ jobs:
               run: |
                 source /opt/ros/humble/setup.bash; colcon build
               continue-on-error: true
+              
+            - name: test logger
+              run: python3 'src/logger/log_tester/test.py'
 
 
