@@ -1,9 +1,7 @@
 services:
   # Development enviroment
-  dev:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.dev
+  remote-dev:
+    image: ghcr.io/machworksvt/machpilot-dev:latest
     container_name: icarus_dev
     volumes:
       - .:/workspace:rw

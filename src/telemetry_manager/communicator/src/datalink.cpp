@@ -16,7 +16,6 @@
 #include <mavsdk/plugins/mission_raw_server/mission_raw_server.h>
 #include <mavsdk/plugins/mission/mission.h>
 #include <mavsdk/plugins/mavlink_passthrough/mavlink_passthrough.h>
-#include <interfaces/action/run_starter_test.hpp>
 #include <interfaces/msg/engine_data.hpp>
 #include <interfaces/msg/pump_rpm.hpp>
 #include <interfaces/msg/errors.hpp>
@@ -60,9 +59,9 @@ class DataLinkNode : public rclcpp::Node
 
       // create a timer to check for new systems every  2 second
       if (this->get_parameter("auto_discover").as_bool()) {
-       auto discovery_period = std::chrono::seconds(2000);  // 2 seconds
-       topic_discovery_timer_ = this->create_wall_timer(
-          discovery_period, std::bind(&DataLinkNode::discovery_callback, this));
+        auto discovery_period = std::chrono::seconds(2000);  // 2 seconds
+        //topic_discovery_timer_ = this->create_wall_timer(
+          //discovery_period, std::bind(&DataLinkNode::discovery_callback, this));
 
       }
     }
@@ -83,15 +82,15 @@ class DataLinkNode : public rclcpp::Node
         const auto& topic_name = topic.first;
         const auto& topic_types = topic.second;
         
-        if t(topic.name.find(prefix) != 0) continue; // skip topics that don't start with the prefix
+        //if (topic.name.find(prefix) != 0) continue; // skip topics that don't start with the prefix
 
-        if (subscribed_topics_.find(topic_name) != subscribed_topics_.end()) continue; // skip already subscribed topics
+        //if (subscribed_topics_.find(topic_name) != subscribed_topics_.end()) continue; // skip already subscribed topics
 
         // Try to subscribe to the topic based on it type
         for (const auto& type : topic_types)  {
           if (subscribe_to_topic(topic_name, topic_types)) {
-            subscribed_topics_.insert(topic_name);
-            RCLCPP_INFO(this->get_logger(), "Subscribed to topic: %s of type: %s", topic_name.c_str(), topic_types.c_str());
+            //subscribed_topics_.insert(topic_name);
+            RCLCPP_INFO(this->get_logger(), "Subscribed to topic: %s of type: %s", topic_name.c_str(), type.c_str());
             break;
           }
         }
@@ -105,9 +104,11 @@ class DataLinkNode : public rclcpp::Node
   private:
     void link_setup(const std::shared_ptr<System>& system) {
       RCLCPP_INFO(this->get_logger(), "Setting up link to ground station.");
-      telemetry_server_ = std::make_shared<TelemetryServer>(system);
-      action_server_ = std::make_shared<ActionServer>(system);
-      param_server_ = std::make_shared<ParamServer>(system);
+
+      // Oi, wth
+      // telemetry_server_ = std::make_shared<TelemetryServer>(system);
+      // action_server_ = std::make_shared<ActionServer>(system);
+      // param_server_ = std::make_shared<ParamServer>(system);
       RCLCPP_INFO(this->get_logger(), "Telemetry, parameter and action servers setup.");
       
       // ROS2 - subscribe to all relevant telemetry topics
@@ -118,7 +119,7 @@ class DataLinkNode : public rclcpp::Node
           
         });
 
-      engine_starter_test_client_ = create_client<interfaces::action::RunStarterTest>("/h20pro/run_starter_test");
+      // engine_starter_test_client_ = create_client<interfaces::action::RunStarterTest>("/h20pro/run_starter_test");
     }
     
     Mavsdk mavsdk_{mavsdk::Mavsdk::Configuration{mavsdk::ComponentType::Autopilot}};
@@ -127,7 +128,9 @@ class DataLinkNode : public rclcpp::Node
     std::shared_ptr<mavsdk::ActionServer> action_server_;
     std::shared_ptr<mavsdk::ParamServer> param_server_;
 
-    rclcpp::Client<interfaces::action::RunStarterTest>::SharedPtr engine_starter_test_client_; //action client for running the engine starter test
+    //WallTimer topic_discovery_timer_;
+
+    //rclcpp::Client<interfaces::action::RunStarterTest>::SharedPtr engine_starter_test_client_; //action client for running the engine starter test
 
     rclcpp::Subscription<interfaces::msg::EngineData>::SharedPtr engine_data_sub_;
     rclcpp::Subscription<interfaces::msg::PumpRpm>::SharedPtr engine2_data_sub_;
