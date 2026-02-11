@@ -18,6 +18,7 @@
                 "${workspaceFolder}/src/embedded_system/pressure/src/bmp390/example/**",
                 "${workspaceFolder}/src/embedded_system/pressure/src/bmp390/interface/**",
                 "${workspaceFolder}/src/embedded_system/pressure/src/bmp390/src/**",
+                "${workspaceFolder}/src/embedded_system/pressure/include",
                 "${workspaceFolder}/src/embedded_system/orient2/src/mpu9250/**",
                 "${workspaceFolder}/src/embedded_system/orient/src/**",
                 "${workspaceFolder}/src/embedded_system/pwm/include/**",
