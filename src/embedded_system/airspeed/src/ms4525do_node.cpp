@@ -10,7 +10,7 @@
 class MS4525DONode : public Device {
 public:
   MS4525DONode(int addr) : Device("ms4525do_node") {
-    ms4525do_ = std::make_unique<MS4525DO>(I2C_FILE_PATH, 0, addr);
+    ms4525do_ = std::make_unique<MS4525DO>(I2C_FILE_PATH, 7, addr);
 
     temperature_publisher_ = this->create_publisher<sensor_msgs::msg::Temperature>("pitot_temp", 10);
     pressure_publisher_ = this->create_publisher<sensor_msgs::msg::FluidPressure>("pitot_press", 10);
