@@ -49,6 +49,7 @@ CallbackReturn on_cleanup(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
+    
     pca_ = nullptr;
     
     return CallbackReturn::SUCCESS;
@@ -65,8 +66,8 @@ CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
         return CallbackReturn::FAILURE;
     }
 
-    if (mode1[0] != 0x71) {
-        RCLCPP_ERROR(get_logger(), "PCA9685: unexpected MODE1 register value 0x%02X", mode1);
+    if (mode1[0] != 0x11) {
+        RCLCPP_ERROR(get_logger(), "PCA9685: unexpected MODE1 register value 0x%02X", (uint)mode1[0]);
         return CallbackReturn::FAILURE;
     }
 
