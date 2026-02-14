@@ -42,15 +42,16 @@ private:
     uint8_t init(uint8_t bus_num, const char *bus_path);
     bool statusMessages(uint8_t status);
 public:
-    I2CInfo _i2c_info;
+    I2CInfo i2c_info_;
     struct {
         float pressure;
         float temp;
         uint8_t status;
-    } _data;
-    bool calibFlag = false;
-    float p_offset;
-    float t_offset;
+    } data_;
+    
+    bool calibFlag_{false};
+    float p_offset_;
+    float t_offset_;
     
     MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr);
     ~MS4525DO();

@@ -7,9 +7,6 @@
 #include <chrono>
 #include <thread>
 
-extern "C" {
-    #include <linux/kernel.h>
-}
 
 float offset = 0.0;
 bool calibFlag = false;
@@ -28,8 +25,8 @@ bool calibFlag = false;
 
 
 MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
-    _i2c_info.bus_num = bus_num;
-    _i2c_info.address = addr;
+    i2c_info_.bus_num = bus_num;
+    i2c_info_.address = addr;
 
     if (init(bus_num, bus_path) != 0) {
         perror("MS4525DO: initialization failed");
@@ -39,12 +36,12 @@ MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
 }
 
 MS4525DO::~MS4525DO() {
-    close(_i2c_info.fd);
+    close(i2c_info_.fd);
 }
 
 uint8_t MS4525DO::init(uint8_t bus_num, const char *bus_path) {
     
-    if (i2c_init(&_i2c_info, bus_path, bus_num) != 0) {
+    if (i2c_init(&i2c_info_, bus_path, bus_num) != 0) {
         perror("MS4525DO: bus initialization failed");
         exit(1);
     }
@@ -54,7 +51,7 @@ uint8_t MS4525DO::init(uint8_t bus_num, const char *bus_path) {
 
 uint8_t MS4525DO::readMeasureRequest() {
 
-    if (i2c_read(&_i2c_info, 0, NULL)) {
+    if (i2c_read_cmd(&i2c_info_, NULL, 0)) {
         std::cerr << "read error" << std::endl;
         return 1;
     }
@@ -70,7 +67,7 @@ uint8_t MS4525DO::readMeasureRequest() {
 uint8_t MS4525DO::readPressure() {
 
     uint8_t data[2];
-    if (i2c_multi_read(&_i2c_info, 0, 2, data)) {
+    if (i2c_read(&i2c_info_, 0, 2, data)) {
         std::cerr << "Pitot: 2-read error" << std::endl;
         return 1;
     }
@@ -79,15 +76,15 @@ uint8_t MS4525DO::readPressure() {
     pvalue = pvalue & 0x3fff;
     uint8_t status = pvalue >> 14;
 
-    _data.status = status;
+    data_.status = status;
 
     bool doWrite = statusMessages(status);
     
     if (doWrite) {
-        _data.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
 
         if (calibFlag) {
-            _data.pressure -= p_offset;
+            data_.pressure -= p_offset_;
         }
     }
     
@@ -96,7 +93,7 @@ uint8_t MS4525DO::readPressure() {
 
 uint8_t MS4525DO::readPressureAndTemp() {
     uint8_t data[3];
-    if (i2c_multi_read(&_i2c_info, 0, 3, data)) {
+    if (i2c_read(&i2c_info_, 0, 3, data)) {
         std::cerr << "Pitot: 3-read error" << std::endl;
         return 1;
     }
@@ -105,18 +102,18 @@ uint8_t MS4525DO::readPressureAndTemp() {
     pvalue = pvalue & 0x3fff;
     uint8_t status = pvalue >> 14;
 
-    _data.status = status;
+    data_.status = status;
 
     bool doWrite = statusMessages(status);
     
     if (doWrite) {
-        _data.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
 
-        _data.temp = ((float)data[2] * (MAXT - MINT) / 0xFF) + MINT;
+        data_.temp = ((float)data[2] * (MAXT - MINT) / 0xFF) + MINT;
 
         if (calibFlag) {
-            _data.pressure -= p_offset;
-            _data.temp -= t_offset;
+            data_.pressure -= p_offset_;
+            data_.temp -= t_offset_;
         }
     }
     
@@ -125,7 +122,7 @@ uint8_t MS4525DO::readPressureAndTemp() {
 
 uint8_t MS4525DO::readPressureAndTempHD() {
     uint8_t data[4];
-    if (i2c_multi_read(&_i2c_info, 0, 4, data)) {
+    if (i2c_read(&i2c_info_, 0, 4, data)) {
         std::cerr << "Pitot: 4-read error" << std::endl;
         return 1;
     }
@@ -136,18 +133,18 @@ uint8_t MS4525DO::readPressureAndTempHD() {
 
     uint16_t tvalue = (data[2] << 3) + (data[3] >> 5);
 
-    _data.status = status;
+    data_.status = status;
 
     bool doWrite = statusMessages(status);
     
     if (doWrite) {
-        _data.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
 
-        _data.temp = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
+        data_.temp = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
 
         if (calibFlag) {
-            _data.pressure -= p_offset;
-            _data.temp -= t_offset;
+            data_.pressure -= p_offset_;
+            data_.temp -= t_offset_;
         }
     }
     

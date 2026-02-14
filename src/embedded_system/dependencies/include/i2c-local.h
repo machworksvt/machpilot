@@ -29,11 +29,13 @@ typedef struct _I2CInfo {
 
 // i2c_init() must be called before i2c_read() or i2c_write(), to set up the bus and open the file descriptor
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num);
-// read a byte from 'reg' into the memory pointed to by 'data' from 'reg'
-int i2c_read(I2CInfo *info, uint8_t reg, uint8_t *data);
-// write a byte from the memory pointed to by 'data' into 'reg'
-int i2c_write(I2CInfo *info, uint8_t reg, uint8_t *data);
-// read 'size' bytes from 'reg' into the memory pointed to by 'data' starting from 'reg'
-int i2c_multi_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data);
-// write 'size' bytes from the memory pointed to by 'data' starting at 'reg'
-int i2c_multi_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data);
+// I2C generic read command, don't use for data transfer
+int i2c_read_cmd(I2CInfo *info, uint8_t *data, uint16_t size);
+// read 'size' bytes from 'reg' into the memory pointed to by 'data'
+int i2c_read(I2CInfo *info, uint8_t reg, uint16_t size, uint8_t *data);
+// I2C generic write command, don't use for data transfer
+int i2c_write_cmd(I2CInfo *info, uint8_t *data, uint16_t size);
+// write 'size' bytes from the memory pointed to by 'data' into 'reg'
+int i2c_write(I2CInfo *info, uint8_t reg, uint16_t size, uint8_t *data);
+// deinit i2c
+int i2c_deinit(I2CInfo *info);
