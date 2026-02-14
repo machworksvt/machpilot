@@ -43,7 +43,7 @@ find_package(diagnostic_msgs REQUIRED)
 # )
 
 # --- Node Executable ---
-add_executable(pca9685_node src/pca9685_node.cpp src/pca9685_driver.cpp ../dependencies/src/i2c.c)
+add_executable(pca9685_node src/pca9685_node.cpp src/pca9685_driver.cpp ../dependencies/src/i2c-local.c)
 
 target_link_libraries(pca9685_node pthread) # good to include for system calls
 

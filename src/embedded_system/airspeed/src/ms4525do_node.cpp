@@ -10,12 +10,12 @@
 class MS4525DONode : public Device {
 public:
   MS4525DONode(int addr) : Device("ms4525do_node") {
-    _ms4525do = std::make_shared<MS4525DO>(I2C_FILE_PATH, 0, addr);
+    ms4525do_ = std::make_unique<MS4525DO>(I2C_FILE_PATH, 0, addr);
 
-    _temperature_publisher = this->create_publisher<sensor_msgs::msg::Temperature>("pitot_temp", 10);
-    _pressure_publisher = this->create_publisher<sensor_msgs::msg::FluidPressure>("pitot_press", 10);
+    temperature_publisher_ = this->create_publisher<sensor_msgs::msg::Temperature>("pitot_temp", 10);
+    pressure_publisher_ = this->create_publisher<sensor_msgs::msg::FluidPressure>("pitot_press", 10);
   
-    _timer = this->create_wall_timer(
+    timer_ = this->create_wall_timer(
       std::chrono::seconds(1),
       [this]() -> void
       {
@@ -23,11 +23,11 @@ public:
         float pressure_pa   = 0.0f;
         uint8_t status;
 
-        _ms4525do->readPressureAndTempHD();
+        ms4525do_->readPressureAndTempHD();
 
-        temperature_c = _ms4525do->_data.temp;
-        pressure_pa = _ms4525do->_data.pressure * PSI2PA; // Convert psi to pascal
-        status = _ms4525do->_data.status;
+        temperature_c = ms4525do_->data_.temp;
+        pressure_pa = ms4525do_->data_.pressure * PSI2PA; // Convert psi to pascal
+        status = ms4525do_->data_.status;
 
         if (status != 0)
         {
@@ -46,7 +46,7 @@ public:
         temp_msg.header.frame_id = "1";
         temp_msg.temperature = temperature_c;
         temp_msg.variance = 0.0;  // Unknown variance; adjust if available
-        _temperature_publisher->publish(temp_msg);
+        temperature_publisher_->publish(temp_msg);
 
         // Publish Fluid Pressure message
         auto press_msg = sensor_msgs::msg::FluidPressure();
@@ -54,7 +54,7 @@ public:
         press_msg.header.frame_id = "ms4525do_frame";
         press_msg.fluid_pressure = pressure_pa;
         press_msg.variance = 0.0;  // Unknown variance; adjust if available
-        _pressure_publisher->publish(press_msg);
+        pressure_publisher_->publish(press_msg);
       }
     );
   }
@@ -96,10 +96,10 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
-  std::shared_ptr<MS4525DO> _ms4525do;
-  rclcpp::TimerBase::SharedPtr _timer;
-  rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr _temperature_publisher;
-  rclcpp::Publisher<sensor_msgs::msg::FluidPressure>::SharedPtr _pressure_publisher;
+  std::unique_ptr<MS4525DO> ms4525do_;
+  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::Publisher<sensor_msgs::msg::Temperature>::SharedPtr temperature_publisher_;
+  rclcpp::Publisher<sensor_msgs::msg::FluidPressure>::SharedPtr pressure_publisher_;
 };
 
 int main(int argc, char ** argv)
