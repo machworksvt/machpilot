@@ -32,6 +32,15 @@ CallbackReturn on_configure(const rclcpp_lifecycle::State &state) override
     bmp390_interface_t interface = BMP390_INTERFACE_IIC;
     uint8_t status = bmp390_basic_init(interface, addr_);
 
+    uint8_t odr_set[1] = {BMP390_ODR_200_HZ};
+    uint8_t res = bmp390_interface_iic_write(addr_, 0x1D, odr_set, 1);
+    if (res != 0)
+    {
+        RCLCPP_ERROR(this->get_logger(), "bmp390: set odr register failed.\n");
+       
+        return CallbackReturn::FAILURE;
+    }
+
     if (status != 0) {
         RCLCPP_ERROR(this->get_logger(), "Failed to initialize BMP390, error code: %d", status);
         return CallbackReturn::FAILURE;
@@ -70,12 +79,12 @@ CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
         return CallbackReturn::FAILURE;
     }
 
-    if (temperature_c < ACCEPTABLE_T_HIGH && temperature_c > ACCEPTABLE_T_LOW) {
+    if (temperature_c > ACCEPTABLE_T_HIGH || temperature_c < ACCEPTABLE_T_LOW) {
         RCLCPP_WARN(this->get_logger(), "BMP390 temperature data out of bounds, error code: 2");
         return CallbackReturn::FAILURE;
     }
 
-    if (pressure_pa < ACCEPTABLE_P_HIGH && pressure_pa > ACCEPTABLE_P_LOW) {
+    if (pressure_pa > ACCEPTABLE_P_HIGH || pressure_pa < ACCEPTABLE_P_LOW) {
         RCLCPP_WARN(this->get_logger(), "BMP390 pressure data out of bounds, error code: 3");
         return CallbackReturn::FAILURE;
     }
@@ -117,16 +126,12 @@ CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    if (temperature_publisher_ != nullptr) {
-        temperature_publisher_->~Publisher();
-    }
+    temperature_publisher_.reset();
 
-    if (pressure_publisher_ != nullptr) {
-        pressure_publisher_->~Publisher();
-    }
+    pressure_publisher_.reset();
 
     timer_->cancel();
-    timer_->~TimerBase();
+    timer_.reset();
 
     return CallbackReturn::SUCCESS;
 }
@@ -191,7 +196,7 @@ int main(int argc, char * argv[])
 
     rclcpp::executors::SingleThreadedExecutor exe;
 
-    auto node = std::make_shared<BMP390Node>(BMP390_ADDRESS_ADO_LOW);
+    auto node = std::make_shared<BMP390Node>(BMP390_ADDRESS_ADO_HIGH);
 
     exe.add_node(node->get_node_base_interface());
     exe.spin();

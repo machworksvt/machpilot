@@ -20,6 +20,8 @@ file(GLOB BMP390_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test/*.c"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/src/*.c"
+
 )
 
 # Make a library out of it
@@ -31,6 +33,8 @@ target_include_directories(bmp390 PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/inc>
+
 )
 
 add_executable(bmp390_node src/bmp390_node2.cpp)
@@ -41,6 +45,7 @@ target_include_directories(bmp390_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/inc>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(bmp390_node bmp390)
 target_compile_features(bmp390_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
