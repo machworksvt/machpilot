@@ -11,14 +11,24 @@ LifecycleManagerNode::LifecycleManagerNode()
 {
     cbg_ = create_callback_group(rclcpp::CallbackGroupType::Reentrant);
 
+    srvs_exec_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
+
+    // srvs_exec_thread_ = std::thread([this]() {
+    //     srvs_exec_->spin();
+    // });
+
+    srvs_exec_->add_callback_group(cbg_, this->get_node_base_interface());
+
     if (this->scan_and_add_devices()) {
         RCLCPP_ERROR(this->get_logger(), "Error scanning and adding devices");
+        exit(1);
     }
 
     int erc = loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED);
 
     if (erc == -1) {
-        RCLCPP_INFO(this->get_logger(), "All nodes not in correct state or not communicated with, proceding anyway");
+        RCLCPP_INFO(this->get_logger(), "All nodes not in correct state or not communicated with");
+        exit(1);
     }
 
     RCLCPP_INFO(this->get_logger(), "All nodes in the correct state, proceding ...");
@@ -26,7 +36,8 @@ LifecycleManagerNode::LifecycleManagerNode()
 
 LifecycleManagerNode::~LifecycleManagerNode()
 {
-
+    srvs_exec_->cancel();
+    if (srvs_exec_thread_.joinable()) srvs_exec_thread_.join();
 }
 
 LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_configure(const rclcpp_lifecycle::State &state)
@@ -190,7 +201,6 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_error(const rclc
 int LifecycleManagerNode::scan_and_add_devices()
 {
 
-    // Not sure this will work in realtime context, may need to pool allocate services
     auto services = get_service_names_and_types();
 
     for (const auto& [key, value] : services) {
@@ -257,8 +267,7 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 
         auto future = client->async_send_request(req);
 
-        rclcpp::FutureReturnCode res = rclcpp::spin_until_future_complete(
-            this->get_node_base_interface(),
+        rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
             future, 
             std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
 
@@ -282,17 +291,6 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
     uint64_t success_flags = 0;
 
-    using ServiceResponseFuture = 
-        rclcpp::Client<lifecycle_msgs::srv::GetState>::SharedFuture;
-
-    auto response_received_callback = [this](ServiceResponseFuture future) {
-        auto resp = future.get();
-        RCLCPP_INFO(get_logger(),
-            "Node state: %u (%s)",
-            resp->current_state.id,
-            resp->current_state.label.c_str());
-    };
-
     for (auto client : client_get_state_) {
 
         RCLCPP_INFO(this->get_logger(), "Hello");
@@ -304,15 +302,18 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
         auto req = std::make_shared<lifecycle_msgs::srv::GetState::Request>();
 
 
-        auto future_res = client->async_send_request(
-            req, 
-            response_received_callback
-        );
+        auto future = client->async_send_request(req);
+
+        rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
+            future, 
+            std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
 
         success_flags <<= 1;
 
+        if (client_response(res)) break;
+
         // compare between intended and actual state
-        success_flags |= future_res.get()->current_state.id == state;
+        success_flags |= future.get()->current_state.id == state;
     }
 
     // On full success, success_flags should look like 0b00...01111 or something,

@@ -36,6 +36,9 @@ private:
     int loop_get_state_clients(uint8_t state);
     int scan_and_add_devices();
 
+    std::shared_ptr<rclcpp::Executor> srvs_exec_;
+    std::thread srvs_exec_thread_;
+
     rclcpp::CallbackGroup::SharedPtr cbg_{nullptr};
     std::vector<std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::GetState>>> client_get_state_;
     std::vector<std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::ChangeState>>> client_change_state_;
