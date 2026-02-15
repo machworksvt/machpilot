@@ -1,78 +1,75 @@
-#include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
-#include <array>
+#include "ErrorMonitor.hpp"
+#include <ament_index_cpp/get_package_share_directory.hpp>
 #include <fstream>
 #include <sstream>
-#include <string>
-#include <vector>
-#include "ErrorMonitor.hpp"
 
-class ErrorMonitorNode : public rclcpp::Node
+ErrorMonitorNode::ErrorMonitorNode()
+: Node("error_monitor")
 {
-  public:
-    ErrorMonitorNode()
-    : Node("error_monitor")
-    {
-        publisher = this->create_publisher<std_msgs::msg::String>("temp", 10);
-        
-        subscription = this->create_subscription<std_msgs::msg::String>(
-            "errors", 10,
-            [this](const std_msgs::msg::String::SharedPtr msg) {
-                std::string sendError = read_csv(*msg);
-                std_msgs::msg::String out;
-                out.data = sendError;
-                publisher->publish(out);
-                RCLCPP_INFO(this->get_logger(), "Published: %s", out.data.c_str());
-            }
-        );
+    RCLCPP_INFO(this->get_logger(), "Node has started!");
+    publisher = this->create_publisher<std_msgs::msg::String>("temp", 10);
+    
+    subscription = this->create_subscription<std_msgs::msg::String>(
+        "errors", 10,
+        [this](const std_msgs::msg::String::SharedPtr msg) {
+            std::string sendError = read_csv(*msg);
+            std_msgs::msg::String out;
+            out.data = sendError;
+            publisher->publish(out);
+            RCLCPP_INFO(this->get_logger(), "Published: %s", out.data.c_str());
+        }
+    );
+}
+
+static const std::string sensors[6];    
+rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher;
+rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription;  
+
+
+std::string ErrorMonitorNode::read_csv(const std_msgs::msg::String & msg) {
+    std::string eMessage = "Error: ";
+    
+    std::string package_share_directory = ament_index_cpp::get_package_share_directory("health_monitor");
+    std::string csv_path = package_share_directory + "/error_codes.csv";
+
+    std::fstream fin(csv_path);
+    if(!(fin.is_open())){
+        return "Could not open csv file.";
     }
 
-    private:
-        static const std::string sensors[6];    
-        rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher;
-        rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription;  
+    int sensor = -1;
+    int instance = -1;
+    int errorNum = -1;
+    std::istringstream iss(msg.data);
+    if(!(iss >> sensor >> instance >> errorNum)){
+        return "Input not 3 integers.";
+    };
 
-    private:
-        std::string read_csv(const std_msgs::msg::String & msg) {
-            std::string eMessage = "Error: ";
-            
-            std::fstream fin("example_error_codes.csv");
-            if(!(fin.is_open())){
-                return "Could not open csv file.";
-            }
+    int sCheck, iCheck, eCheck;
+    std::vector<std::string> row;
+    std::string line, word, temp;
 
-            int sensor = -1;
-            int instance = -1;
-            int errorNum = -1;
-            std::istringstream iss(msg.data);
-            if(!(iss >> sensor >> instance >> errorNum)){
-                return "Input not 3 integers.";
-            };
+    std::getline(fin, line);
 
-            int sCheck, iCheck, eCheck;
-            std::vector<std::string> row;
-            std::string line, word, temp;
-
-            while(std::getline(fin, line)){
-                row.clear();
-                std::stringstream s(line);
-                while (std::getline(s, word, ','))
-                {
-                    row.push_back(word);
-                }
-                sCheck = std::stoi(row[0]);
-                iCheck = std::stoi(row[1]);
-                eCheck = std::stoi(row[2]);
-                if(sCheck==sensor && iCheck==instance && eCheck==errorNum){
-                    eMessage += sensors[sensor] + " #" + row[1] + ", Severity: " + row[3] + ", " + row[4];
-                    return eMessage;
-                }
-            }
-            eMessage += "Could not find the error code in the csv file.";
-            fin.close();
+    while(std::getline(fin, line)){
+        row.clear();
+        std::stringstream s(line);
+        while (std::getline(s, word, ','))
+        {
+            row.push_back(word);
+        }
+        sCheck = std::stoi(row[0]);
+        iCheck = std::stoi(row[1]);
+        eCheck = std::stoi(row[2]);
+        if(sCheck==sensor && iCheck==instance && eCheck==errorNum){
+            eMessage += sensors[sensor] + " #" + row[1] + ", Severity: " + row[3] + ", " + row[4];
             return eMessage;
         }
-};
+    }
+    eMessage += "Could not find the error code in the csv file.";
+    fin.close();
+    return eMessage;
+}
 
 const std::string ErrorMonitorNode::sensors[6] = {
     "Engine", "Radio", "GPS", "Servos", "IMU", "Pitot tubes"

@@ -11,9 +11,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(ament_index_cpp REQUIRED)
 
 # --- Node Executable ---
 add_executable(health_monitor ErrorMonitor.cpp)
@@ -28,7 +30,9 @@ ament_target_dependencies(health_monitor
   rclcpp_lifecycle 
   std_msgs
   rclcpp_action
-  rosidl_default_generators)
+  rosidl_default_generators
+  ament_index_cpp
+)
 
 # --- Installation ---
 install(TARGETS health_monitor #${health_monitor}_lib # libraries
@@ -40,6 +44,11 @@ install(TARGETS health_monitor #${health_monitor}_lib # libraries
 install(DIRECTORY
   #launch
   #config
+  DESTINATION share/${PROJECT_NAME}
+)
+
+install(FILES
+  error_codes.csv
   DESTINATION share/${PROJECT_NAME}
 )
 
