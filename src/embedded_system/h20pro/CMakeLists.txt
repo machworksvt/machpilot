@@ -15,6 +15,7 @@ find_package(interfaces REQUIRED)
 
 add_executable(h20pro_node src/h20pro_node.cpp)
 add_executable(can_bridge_node src/can_bridge_node.cpp)
+
 target_include_directories(h20pro_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)

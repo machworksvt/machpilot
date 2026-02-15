@@ -100,7 +100,15 @@
         "rope": "cpp",
         "slist": "cpp",
         "scoped_allocator": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "barrier": "cpp",
+        "latch": "cpp",
+        "ranges": "cpp",
+        "syncstream": "cpp"
     },
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.default.compilerPath": "/usr/bin/g++"
+    "C_Cpp.clang_format_fallbackStyle": "none",
+    "editor.formatOnSave": true,
+    "C_Cpp.clang_format_style": "file"
 }

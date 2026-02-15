@@ -5,7 +5,7 @@
 #include <cstdint>
 
 extern "C" {
-    #include <i2c.h>
+    #include <i2c_local.h>
 }
 
 #define TBUF 4700 // 4.7 us in ns, software reset delay
