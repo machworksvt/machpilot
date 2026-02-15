@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:src/embedded_system/dependencies/src/i2c_local.c
-#include "i2c_local.h"
-========
 #include "i2c-local.h"
->>>>>>>> 0f5ef1d9 (Fixed some items made code more readable and renamed some functions):src/embedded_system/dependencies/src/i2c-local.c
 
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
