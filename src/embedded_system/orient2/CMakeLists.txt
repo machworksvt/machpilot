@@ -23,6 +23,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # --- Library (optional) ---
 # add_library(${PROJECT_NAME}_lib
@@ -38,10 +39,16 @@ find_package(rclcpp_lifecycle REQUIRED)
 # )
 
 # --- Node Executable ---
-add_executable(mpu9250_node src/mpu9250_node.cpp)
+add_executable(mpu9250_node
+src/mpu9250_node.cpp
+src/mpu9250/example/driver_mpu9250_basic.c
+src/mpu9250/interface/driver_mpu9250_interface_template.c
+src/mpu9250/src/driver_mpu9250.c)
 
 target_include_directories(mpu9250_node PUBLIC 
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/orient2>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/example>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/interface>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
 
@@ -49,7 +56,8 @@ ament_target_dependencies(mpu9250_node
   rclcpp 
   rclcpp_lifecycle 
   rclcpp_action
-  rosidl_default_generators)
+  rosidl_default_generators
+  sensor_msgs)
 
 target_link_libraries(mpu9250_node pthread) # good to include for system calls
 

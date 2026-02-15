@@ -2,16 +2,14 @@
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/imu.hpp>
 #include "lifecycle_interface.hpp"
+#include "mpu9250/example/driver_mpu9250_basic.h"
 
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-
-int main(int argc, char ** argv)
-{
+class MPU9250Node : rclcpp::Node {
 public:
-  MPU9250Node() : Node("mpu9250_node") 
-  {
+  MPU9250Node() : Node("mpu9250_node") {
     // Create publishers for IMU and mag. data
     imu_publisher_ = this->create_publisher<sensor_msgs::msg::Imu>("mpu_imu", 10);
     mag_publisher_ = this->create_publisher<sensor_msgs::msg::MagneticField>("mpu_mag", 10);
@@ -26,18 +24,16 @@ public:
       RCLCPP_INFO(this->get_logger(), "MPU9250 located");
     }
   
-      // Create a timer to read and publish sensor data every second
+    // Create a timer to read and publish sensor data every second
     timer_ = this->create_wall_timer(
       std::chrono::seconds(1),
-      [this]() -> void
-      {
+      [this]() -> void {
         float accel[3];
         float gyro[3];
         float mag[3];
-
+  
         uint8_t status = mpu9250_basic_read(accel, gyro, mag);
-        if (status != 0)
-        {
+        if (status != 0) {
           RCLCPP_WARN(this->get_logger(), "Failed to read MPU9250 data, error code: %d", status);
           return;
         }
@@ -76,15 +72,13 @@ public:
         mag_publisher_->publish(mag_msg);
       }
     );
-  
+
     // Mark sensor as successfully initialized
     initialized_ = true;
   }
   
-  ~MPU9250Node()
-  {
-    if (initialized_)
-    {
+  ~MPU9250Node() {
+    if (initialized_) {
       // Deinitialize the sensor on shutdown
       mpu9250_basic_deinit();
       RCLCPP_INFO(this->get_logger(), "MPU9250 deinitialized.");
