@@ -18,7 +18,7 @@ class LifecycleManagerNode : public Device
 {
 public:
 
-LifecycleManagerNode(rclcpp::executors::SingleThreadedExecutor::SharedPtr exelcm);
+LifecycleManagerNode();
 ~LifecycleManagerNode();
 
 private:
@@ -36,7 +36,7 @@ private:
     int loop_get_state_clients(uint8_t state);
     int scan_and_add_devices();
 
-    rclcpp::executors::SingleThreadedExecutor::SharedPtr exelcm_;
+    rclcpp::CallbackGroup::SharedPtr cbg_{nullptr};
     std::vector<std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::GetState>>> client_get_state_;
     std::vector<std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::ChangeState>>> client_change_state_;
 };
