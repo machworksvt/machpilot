@@ -40,18 +40,10 @@ MS4525DO::~MS4525DO() {
 }
 
 uint8_t MS4525DO::readMeasureRequest() {
-
     if (i2c_read_cmd(&i2c_info_, NULL, 0)) {
         perror("MS4525DO: read error");
-        return 1;
+    close(i2c_info_.fd);
     }
-
-    if (usleep(1000000 / MAX_POLLING)) {
-        perror("MS4525DO: readMR delay interrupted");
-        return 1;
-    }
-
-    return 0;
 }
 
 uint8_t MS4525DO::readPressure() {
