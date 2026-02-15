@@ -15,11 +15,8 @@ class PCA9685Node : public Device
 public:
 PCA9685Node(int addr) : Device("pca9685_node")
 {
-    pca_ = std::make_shared<PCA9685>(I2C_FILE_PATH, 0, addr);
+    pca_ = std::make_unique<PCA9685>(I2C_FILE_PATH, 7, addr);
 
-    timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(1000),
-        std::bind(&PCA9685Node::timer_callback, this));
 }
 
 ~PCA9685Node()
@@ -49,7 +46,7 @@ CallbackReturn on_cleanup(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    pca_ = nullptr;
+    pca_.reset();
     
     return CallbackReturn::SUCCESS;
 }
@@ -58,17 +55,21 @@ CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
     // Verify that the PCA9685 is connected by reading the MODE1 register (should be 0xA0 after reset)
-    uint8_t mode1;
+    uint8_t mode1[1];
 
-    if (i2c_read(&pca_->i2c_info_, 0x00, 1, &mode1) != 0xA0) {
+    if (i2c_read(&(pca_->i2c_info_), 0x00, 1, mode1)) {
         RCLCPP_ERROR(get_logger(), "PCA9685: not found at address 0x%02X", pca_->i2c_info_.address);
         return CallbackReturn::FAILURE;
     }
 
-    if (mode1 != 0xA0) {
-        RCLCPP_ERROR(get_logger(), "PCA9685: unexpected MODE1 register value 0x%02X", mode1);
+    if (mode1[0] != 0x11) {
+        RCLCPP_ERROR(get_logger(), "PCA9685: unexpected MODE1 register value 0x%02X", (uint)mode1[0]);
         return CallbackReturn::FAILURE;
     }
+
+    timer_ = this->create_wall_timer(
+        std::chrono::milliseconds(1000),
+        std::bind(&PCA9685Node::timer_callback, this));
 
     sub_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
         "pwm_angles", 10, std::bind(&PCA9685Node::set_angles_callback, this, _1));
@@ -80,7 +81,10 @@ CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    sub_ = nullptr;
+    timer_->cancel();
+    timer_.reset();
+
+    sub_.reset();
 
     return CallbackReturn::SUCCESS;
 }
@@ -89,8 +93,7 @@ CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    timer_->cancel();
-    timer_ = nullptr;
+    pca_.reset();
 
     return CallbackReturn::SUCCESS;
 }
@@ -134,11 +137,11 @@ int set_angles_callback(const std_msgs::msg::Float32MultiArray::SharedPtr msg) {
 }
 
 private:
-std::shared_ptr<PCA9685> pca_;
+std::unique_ptr<PCA9685> pca_;
 rclcpp::TimerBase::SharedPtr timer_;
 rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr sub_;
 
-bool timeout_flag_ = true;
+bool timeout_flag_{true};
 
 };
 

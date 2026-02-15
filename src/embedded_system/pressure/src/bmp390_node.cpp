@@ -18,7 +18,7 @@ public:
 
     // Initialize the sensor
     bmp390_interface_t interface = BMP390_INTERFACE_IIC;
-    bmp390_address_t addr = BMP390_ADDRESS_ADO_LOW;
+    bmp390_address_t addr = BMP390_ADDRESS_ADO_HIGH;
     uint8_t status = bmp390_basic_init(interface, addr);
     if (status != 0) {
       RCLCPP_ERROR(this->get_logger(), "Failed to initialize BMP390, error code: %d", status);
