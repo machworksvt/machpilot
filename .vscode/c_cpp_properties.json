@@ -22,6 +22,7 @@
                 "${workspaceFolder}/src/embedded_system/orient/src/**",
                 "${workspaceFolder}/src/embedded_system/pwm/include/**",
                 "${workspaceFolder}/src/embedded_system/dependencies/include",
+                "${workspaceFolder}/src/embedded_system/lifecycle_manager/include/lifecycle_manager/**",
                 "${workspaceFolder}/src/embedded_system/dependencies/librobotcontrol/library/include/**",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
                 "${workspaceFolder}/src/FSMPilot/tinyfsm/include",
