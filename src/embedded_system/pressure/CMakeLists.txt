@@ -8,8 +8,11 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(rclcpp_lifecycle REQUIRED)
 
 # Glob together all .c files from the bmp390 repo ALL SUBFOLDERS WITH .C FILES
 file(GLOB BMP390_SOURCES
@@ -17,7 +20,9 @@ file(GLOB BMP390_SOURCES
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example/*.c"
     "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test/*.c"
-  )
+    "${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/src/*.c"
+
+)
 
 # Make a library out of it
 add_library(bmp390 STATIC ${BMP390_SOURCES})
@@ -28,21 +33,28 @@ target_include_directories(bmp390 PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/inc>
+
 )
 
-add_executable(bmp390_node src/bmp390_node.cpp)
+add_executable(bmp390_node src/bmp390_node2.cpp)
 target_include_directories(bmp390_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/interface>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/example>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/test>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/bmp390/project/raspberrypi4b/interface/inc>
   $<INSTALL_INTERFACE:include>)
 target_link_libraries(bmp390_node bmp390)
 target_compile_features(bmp390_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
   bmp390_node
   "rclcpp"
+  "rclcpp_action"
+  "rclcpp_lifecycle"
+  "std_srvs"
   "std_msgs"
   "sensor_msgs"
 )
