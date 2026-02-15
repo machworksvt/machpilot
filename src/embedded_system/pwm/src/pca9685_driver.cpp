@@ -49,14 +49,12 @@ PCA9685::PCA9685(const char *bus_path, uint8_t bus_num, uint16_t addr) {
 }
 
 PCA9685::~PCA9685() {
-    close(i2c_info_.fd);
+    i2c_deinit(&i2c_info_);
 }
 
 int PCA9685::reset() {
     struct timespec rqtp;
     struct timespec rmtp;
-
-
 
     // read MODE1 register to check if RESTART is set
     uint8_t mode1[1];

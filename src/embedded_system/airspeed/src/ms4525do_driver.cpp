@@ -28,31 +28,21 @@ MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
     i2c_info_.bus_num = bus_num;
     i2c_info_.address = addr;
 
-    if (init(bus_num, bus_path) != 0) {
-        perror("MS4525DO: initialization failed");
+    if (i2c_init(&i2c_info_, bus_path, bus_num) != 0) {
+        perror("MS4525DO: bus initialization failed");
         exit(1);
     }
     
 }
 
 MS4525DO::~MS4525DO() {
-    close(i2c_info_.fd);
-}
-
-uint8_t MS4525DO::init(uint8_t bus_num, const char *bus_path) {
-    
-    if (i2c_init(&i2c_info_, bus_path, bus_num) != 0) {
-        perror("MS4525DO: bus initialization failed");
-        exit(1);
-    }
-
-    return 0;
+    i2c_deinit(&i2c_info_);
 }
 
 uint8_t MS4525DO::readMeasureRequest() {
 
     if (i2c_read_cmd(&i2c_info_, NULL, 0)) {
-        std::cerr << "read error" << std::endl;
+        perror("MS4525DO: read error");
         return 1;
     }
 
@@ -73,8 +63,8 @@ uint8_t MS4525DO::readPressure() {
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
-    pvalue = pvalue & 0x3fff;
     uint8_t status = pvalue >> 14;
+    pvalue = pvalue & 0x3fff;
 
     data_.status = status;
 
@@ -99,8 +89,8 @@ uint8_t MS4525DO::readPressureAndTemp() {
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
-    pvalue = pvalue & 0x3fff;
     uint8_t status = pvalue >> 14;
+    pvalue = pvalue & 0x3fff;
 
     data_.status = status;
 
@@ -128,9 +118,9 @@ uint8_t MS4525DO::readPressureAndTempHD() {
     }
 
     uint16_t pvalue = (data[0] << 8) + data[1];
-    pvalue = pvalue & 0x3fff;
     uint8_t status = pvalue >> 14;
-
+    pvalue = pvalue & 0x3fff;
+    
     uint16_t tvalue = (data[2] << 3) + (data[3] >> 5);
 
     data_.status = status;

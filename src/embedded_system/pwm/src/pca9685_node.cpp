@@ -17,9 +17,6 @@ PCA9685Node(int addr) : Device("pca9685_node")
 {
     pca_ = std::make_unique<PCA9685>(I2C_FILE_PATH, 7, addr);
 
-    timer_ = this->create_wall_timer(
-        std::chrono::milliseconds(1000),
-        std::bind(&PCA9685Node::timer_callback, this));
 }
 
 ~PCA9685Node()
@@ -49,8 +46,7 @@ CallbackReturn on_cleanup(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    
-    pca_ = nullptr;
+    pca_.reset();
     
     return CallbackReturn::SUCCESS;
 }
@@ -71,6 +67,10 @@ CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
         return CallbackReturn::FAILURE;
     }
 
+    timer_ = this->create_wall_timer(
+        std::chrono::milliseconds(1000),
+        std::bind(&PCA9685Node::timer_callback, this));
+
     sub_ = this->create_subscription<std_msgs::msg::Float32MultiArray>(
         "pwm_angles", 10, std::bind(&PCA9685Node::set_angles_callback, this, _1));
 
@@ -81,7 +81,10 @@ CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    sub_ = nullptr;
+    timer_->cancel();
+    timer_.reset();
+
+    sub_.reset();
 
     return CallbackReturn::SUCCESS;
 }
@@ -90,8 +93,7 @@ CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    timer_->cancel();
-    timer_ = nullptr;
+    pca_.reset();
 
     return CallbackReturn::SUCCESS;
 }
@@ -139,7 +141,7 @@ std::unique_ptr<PCA9685> pca_;
 rclcpp::TimerBase::SharedPtr timer_;
 rclcpp::Subscription<std_msgs::msg::Float32MultiArray>::SharedPtr sub_;
 
-bool timeout_flag_ = true;
+bool timeout_flag_{true};
 
 };
 

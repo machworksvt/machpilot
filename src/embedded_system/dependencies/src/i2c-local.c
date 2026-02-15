@@ -4,7 +4,6 @@
 #include "i2c-local.h"
 >>>>>>>> 0f5ef1d9 (Fixed some items made code more readable and renamed some functions):src/embedded_system/dependencies/src/i2c-local.c
 
-
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
     sprintf((*info).bus, "%s%d", bus_path, bus_num);
@@ -18,6 +17,24 @@ int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
     return 0;
 
+}
+
+int i2c_deinit(I2CInfo *info) {
+
+    if (close((*info).fd) < 0) {
+        printf("I2C: failed to close bus: %s\n", info->bus);
+
+        if (errno == EINTR) {
+            printf("I2C: undetermined state while closing, freeing fd anyway: %s\n", info->bus);
+            (*info).fd = 0;
+        }
+
+        return -1;
+    }
+
+    (*info).fd = 0;
+    
+    return 0;
 }
 
 int i2c_read_cmd(I2CInfo *info, uint8_t *data, uint16_t size)
