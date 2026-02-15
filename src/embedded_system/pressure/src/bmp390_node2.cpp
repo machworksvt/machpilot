@@ -9,11 +9,11 @@ extern "C" {
   #include "driver_bmp390_basic.h"
 }
 
-#define ACCEPTABLE_T_LOW -10.0f
-#define ACCEPTABLE_T_HIGH 70.0f
+#define ACCEPTABLE_T_LOW -10.0f // degrees C
+#define ACCEPTABLE_T_HIGH 70.0f // degrees C
 
-#define ACCEPTABLE_P_LOW 90000.0f
-#define ACCEPTABLE_P_HIGH 110000.0f
+#define ACCEPTABLE_P_LOW 90000.0f // Pascals
+#define ACCEPTABLE_P_HIGH 110000.0f // Pascals
 
 class BMP390Node : public Device
 {
@@ -161,7 +161,6 @@ int timer_callback() {
     // Publish Temperature message
     auto temp_msg = sensor_msgs::msg::Temperature();
     temp_msg.header.stamp = this->now();
-    temp_msg.header.frame_id = "bmp390_frame";
     temp_msg.temperature = temperature_c;
     temp_msg.variance = 0.0;  // Unknown variance; adjust if available
     temperature_publisher_->publish(temp_msg);
@@ -169,7 +168,6 @@ int timer_callback() {
     // Publish Fluid Pressure message
     auto press_msg = sensor_msgs::msg::FluidPressure();
     press_msg.header.stamp = this->now();
-    press_msg.header.frame_id = "bmp390_frame";
     press_msg.fluid_pressure = pressure_pa;
     press_msg.variance = 0.0;  // Unknown variance; adjust if available
     pressure_publisher_->publish(press_msg);
