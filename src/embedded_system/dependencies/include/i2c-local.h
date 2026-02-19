@@ -14,6 +14,8 @@
 
 #define I2C_FILE_PATH "/dev/i2c-" // default I2C file path prefix
 
+#define I2C_MAX_SIZE 32
+
 // stores permanent items related to the device: bus number and address
 typedef struct _I2CInfo {
     uint8_t bus_num;
@@ -24,12 +26,16 @@ typedef struct _I2CInfo {
 } I2CInfo;
 
 // function prototypes
-// do not use i2c_populate_data() directly, it is called by i2c_read() and i2c_write()
-int i2c_populate_data(struct i2c_rdwr_ioctl_data *idata, I2CInfo *info, struct i2c_msg *msgs, uint8_t read_or_write, uint8_t reg, uint8_t size, uint8_t *data);
 
 // i2c_init() must be called before i2c_read() or i2c_write(), to set up the bus and open the file descriptor
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num);
+// I2C generic read command, don't use for data transfer
+int i2c_read_cmd(I2CInfo *info, uint8_t *data, uint16_t size);
 // read 'size' bytes from 'reg' into the memory pointed to by 'data'
-int i2c_read(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data);
+int i2c_read(I2CInfo *info, uint8_t reg, uint16_t size, uint8_t *data);
+// I2C generic write command, don't use for data transfer
+int i2c_write_cmd(I2CInfo *info, uint8_t *data, uint16_t size);
 // write 'size' bytes from the memory pointed to by 'data' into 'reg'
-int i2c_write(I2CInfo *info, uint8_t reg, uint8_t size, uint8_t *data);
+int i2c_write(I2CInfo *info, uint8_t reg, uint16_t size, uint8_t *data);
+// deinit i2c
+int i2c_deinit(I2CInfo *info);

@@ -5,14 +5,8 @@
 #include <cstdint>
 
 extern "C" {
-    #include <i2c_local.h>
+    #include <i2c-local.h>
 }
-
-
-#define STATUS_NORMAL 0
-#define STATUS_RESERVED 1
-#define STATUS_STALE 2
-#define STATUS_ERROR 3
 
 #define MAX_POLLING 1666 // maximum polling frequency in Hz
 
@@ -37,27 +31,33 @@ extern "C" {
 #define MINT -50.0
 #define MAXT 150.0
 
+enum data_status {
+    STATUS_NORMAL = 0,
+    STATUS_RESERVED = 1,
+    STATUS_STALE = 2,
+    STATUS_ERROR = 3
+};
 class MS4525DO {
 private:
-    uint8_t init(uint8_t bus_num, const char *bus_path);
     bool statusMessages(uint8_t status);
 public:
-    I2CInfo _i2c_info;
+    I2CInfo i2c_info_;
     struct {
-        float pressure;
-        float temp;
-        uint8_t status;
-    } _data;
-    bool calibFlag = false;
-    float p_offset;
-    float t_offset;
+        double pressure;
+        double temp;
+        uint8_t status{0};
+    } data_;
+    
+    bool calibFlag_{false};
+    double p_offset_;
+    double t_offset_;
     
     MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr);
     ~MS4525DO();
-    uint8_t readMR();
-    uint8_t readDF2();
-    uint8_t readDF3();
-    uint8_t readDF4();
+    uint8_t readMeasureRequest();
+    uint8_t readPressure();
+    uint8_t readPressureAndTemp();
+    uint8_t readPressureAndTempHD();
 };
 
 #endif
