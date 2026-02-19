@@ -43,7 +43,7 @@ find_package(std_msgs REQUIRED)
 add_executable(ms4525do_node 
   src/ms4525do_node.cpp 
   src/ms4525do_driver.cpp
-  ../dependencies/src/i2c.c)
+  ../dependencies/src/i2c_local.c)
 
 target_include_directories(ms4525do_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/airspeed>

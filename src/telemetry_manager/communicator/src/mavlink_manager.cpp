@@ -42,7 +42,7 @@ public:
 
     ~MavlinkNode() noexcept override = default;
 private:
-    Mavsdk mavsdk{Mavsdk::Configuration{Mavsdk::ComponentType::GroundStation}};
+    Mavsdk mavsdk{Mavsdk::Configuration{ComponentType::GroundStation}};
 };
 
 
