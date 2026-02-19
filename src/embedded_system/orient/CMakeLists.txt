@@ -23,6 +23,7 @@ find_package(rclcpp REQUIRED)
 find_package(rclcpp_action REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(rclcpp_lifecycle REQUIRED)
+find_package(sensor_msgs REQUIRED)
 
 # --- Library (optional) ---
 # add_library(${PROJECT_NAME}_lib
@@ -38,10 +39,12 @@ find_package(rclcpp_lifecycle REQUIRED)
 # )
 
 # --- Node Executable ---
-add_executable(bno055_node src/bno055_node.cpp)
+add_executable(bno055_node src/bno055_node.cpp BNO055-Linux-Library/src/BNO055.cpp BNO055-Linux-Library/I2C/src/I2C.cpp)
 
 target_include_directories(bno055_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/orient>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/BNO055-Linux-Library/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/BNO055-Linux-Library/I2C/src>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
 
@@ -49,6 +52,7 @@ ament_target_dependencies(bno055_node
   rclcpp 
   rclcpp_lifecycle 
   rclcpp_action
+  sensor_msgs
   rosidl_default_generators)
 
 target_link_libraries(bno055_node pthread) # good to include for system calls

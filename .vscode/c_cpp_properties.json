@@ -23,6 +23,7 @@
                 "${workspaceFolder}/src/embedded_system/pwm/include/**",
                 "${workspaceFolder}/src/embedded_system/dependencies/include",
                 "${workspaceFolder}/src/embedded_system/dependencies/librobotcontrol/library/include/**",
+                "${workspaceFolder}/src/embedded_system/orient/BNO055-Linux-Library/**",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
                 "${workspaceFolder}/src/FSMPilot/tinyfsm/include",
                 "${workspaceFolder}/src/FSMPilot/**",
