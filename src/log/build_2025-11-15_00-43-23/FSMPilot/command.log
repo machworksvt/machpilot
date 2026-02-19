@@ -1,4 +1,0 @@
-Invoking command in '/workspace/src/build/FSMPilot': /usr/bin/cmake /workspace/src/vehicle_manager_system/FSMPilot -DCMAKE_INSTALL_PREFIX=/workspace/src/install/FSMPilot
-Invoked command in '/workspace/src/build/FSMPilot' returned '0': /usr/bin/cmake /workspace/src/vehicle_manager_system/FSMPilot -DCMAKE_INSTALL_PREFIX=/workspace/src/install/FSMPilot
-Invoking command in '/workspace/src/build/FSMPilot': /usr/bin/cmake --build /workspace/src/build/FSMPilot -- -j4 -l4
-Invoked command in '/workspace/src/build/FSMPilot' returned '2': /usr/bin/cmake --build /workspace/src/build/FSMPilot -- -j4 -l4
