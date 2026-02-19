@@ -1,0 +1,16 @@
+[0.011s] Invoking command in '/workspace/src/build/health_monitor': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/health_monitor -- -j12 -l12
+[0.040s] [35m[1mConsolidate compiler generated dependencies of target health_monitor[0m
+[0.053s] [ 50%] [32mBuilding CXX object CMakeFiles/health_monitor.dir/ErrorMonitor.cpp.o[0m
+[1.939s] [01m[K/workspace/src/vehicle_manager_system/health_monitor/ErrorMonitor.cpp:[m[K In member function ‘[01m[Kstd::string ErrorMonitorNode::read_csv(const String&)[m[K’:
+[1.939s] [01m[K/workspace/src/vehicle_manager_system/health_monitor/ErrorMonitor.cpp:67:33:[m[K [01;31m[Kerror: [m[K‘[01m[Ksensors[m[K’ was not declared in this scope; did you mean ‘[01m[Ksensor[m[K’?
+[1.939s]    67 |                     eMessage += [01;31m[Ksensors[m[K[sensor] + " #" + row[1] + ", Severity: " + row[3] + ", " + row[4];
+[1.939s]       |                                 [01;31m[K^~~~~~~[m[K
+[1.939s]       |                                 [32m[Ksensor[m[K
+[1.939s] [01m[K/workspace/src/vehicle_manager_system/health_monitor/ErrorMonitor.cpp:[m[K At global scope:
+[1.939s] [01m[K/workspace/src/vehicle_manager_system/health_monitor/ErrorMonitor.cpp:77:19:[m[K [01;31m[Kerror: [m[K‘[01m[Kconst string ErrorMonitorNode::sensors [6][m[K’ is not a static data member of ‘[01m[Kclass ErrorMonitorNode[m[K’
+[1.939s]    77 | const std::string [01;31m[KErrorMonitorNode[m[K::sensors[6] = {
+[1.939s]       |                   [01;31m[K^~~~~~~~~~~~~~~~[m[K
+[3.679s] gmake[2]: *** [CMakeFiles/health_monitor.dir/build.make:76: CMakeFiles/health_monitor.dir/ErrorMonitor.cpp.o] Error 1
+[3.679s] gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/health_monitor.dir/all] Error 2
+[3.679s] gmake: *** [Makefile:146: all] Error 2
+[3.681s] Invoked command in '/workspace/src/build/health_monitor' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/health_monitor -- -j12 -l12

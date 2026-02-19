@@ -1,0 +1,1 @@
+Invoking command in '/workspace/src/build/interfaces': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /workspace/src/util/interfaces -DCMAKE_INSTALL_PREFIX=/workspace/src/install/interfaces

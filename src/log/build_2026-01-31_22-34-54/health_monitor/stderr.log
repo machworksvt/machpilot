@@ -1,0 +1,6 @@
+[01m[K/workspace/src/vehicle_manager_system/health_monitor/ErrorMonitor.cpp:31:27:[m[K [01;31m[Kerror: [m[Kextra qualification ‘[01m[KErrorMonitorNode::[m[K’ on member ‘[01m[Ksensors[m[K’ [[01;31m[K-fpermissive[m[K]
+   31 |         const std::string [01;31m[KErrorMonitorNode[m[K::sensors[6] = {
+      |                           [01;31m[K^~~~~~~~~~~~~~~~[m[K
+gmake[2]: *** [CMakeFiles/health_monitor.dir/build.make:76: CMakeFiles/health_monitor.dir/ErrorMonitor.cpp.o] Error 1
+gmake[1]: *** [CMakeFiles/Makefile2:137: CMakeFiles/health_monitor.dir/all] Error 2
+gmake: *** [Makefile:146: all] Error 2

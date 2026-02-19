@@ -1,0 +1,1 @@
+Invoking command in '/workspace/src/build/airspeed': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /workspace/src/embedded_system/airspeed -DCMAKE_INSTALL_PREFIX=/workspace/src/install/airspeed

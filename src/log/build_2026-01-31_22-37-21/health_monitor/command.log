@@ -1,0 +1,4 @@
+Invoking command in '/workspace/src/build/health_monitor': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/health_monitor -- -j12 -l12
+Invoked command in '/workspace/src/build/health_monitor' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /workspace/src/build/health_monitor -- -j12 -l12
+Invoking command in '/workspace/src/build/health_monitor': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /workspace/src/build/health_monitor
+Invoked command in '/workspace/src/build/health_monitor' returned '0': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --install /workspace/src/build/health_monitor

@@ -1,0 +1,2 @@
+Invoking command in '/workspace/src/build/accel': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /workspace/src/embedded_system/accel -DCMAKE_INSTALL_PREFIX=/workspace/src/install/accel
+Invoked command in '/workspace/src/build/accel' returned '1': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake /workspace/src/embedded_system/accel -DCMAKE_INSTALL_PREFIX=/workspace/src/install/accel

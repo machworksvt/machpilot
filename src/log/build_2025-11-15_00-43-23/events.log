@@ -1,0 +1,362 @@
+[0.000000] (-) TimerEvent: {}
+[0.002043] (FSMPilot) JobQueued: {'identifier': 'FSMPilot', 'dependencies': OrderedDict()}
+[0.002408] (accel) JobQueued: {'identifier': 'accel', 'dependencies': OrderedDict()}
+[0.002644] (airspeed) JobQueued: {'identifier': 'airspeed', 'dependencies': OrderedDict()}
+[0.002886] (communicator) JobQueued: {'identifier': 'communicator', 'dependencies': OrderedDict()}
+[0.003535] (display_sub) JobQueued: {'identifier': 'display_sub', 'dependencies': OrderedDict()}
+[0.003909] (gnc) JobQueued: {'identifier': 'gnc', 'dependencies': OrderedDict()}
+[0.004586] (gps) JobQueued: {'identifier': 'gps', 'dependencies': OrderedDict()}
+[0.005596] (health_monitor) JobQueued: {'identifier': 'health_monitor', 'dependencies': OrderedDict()}
+[0.006775] (interfaces) JobQueued: {'identifier': 'interfaces', 'dependencies': OrderedDict()}
+[0.007067] (monitor) JobQueued: {'identifier': 'monitor', 'dependencies': OrderedDict()}
+[0.007500] (orient) JobQueued: {'identifier': 'orient', 'dependencies': OrderedDict()}
+[0.007941] (orient2) JobQueued: {'identifier': 'orient2', 'dependencies': OrderedDict()}
+[0.008350] (pressure) JobQueued: {'identifier': 'pressure', 'dependencies': OrderedDict()}
+[0.008683] (pwm) JobQueued: {'identifier': 'pwm', 'dependencies': OrderedDict()}
+[0.010424] (h20pro) JobQueued: {'identifier': 'h20pro', 'dependencies': OrderedDict([('interfaces', '/workspace/src/install/interfaces')])}
+[0.013636] (testing) JobQueued: {'identifier': 'testing', 'dependencies': OrderedDict([('interfaces', '/workspace/src/install/interfaces')])}
+[0.015126] (interfaces) JobStarted: {'identifier': 'interfaces'}
+[0.060639] (FSMPilot) JobStarted: {'identifier': 'FSMPilot'}
+[0.080222] (accel) JobStarted: {'identifier': 'accel'}
+[0.099038] (-) TimerEvent: {}
+[0.108203] (airspeed) JobStarted: {'identifier': 'airspeed'}
+[0.153966] (interfaces) JobProgress: {'identifier': 'interfaces', 'progress': 'cmake'}
+[0.188062] (interfaces) Command: {'cmd': ['/usr/bin/cmake', '/workspace/src/util/interfaces', '-DCMAKE_INSTALL_PREFIX=/workspace/src/install/interfaces'], 'cwd': '/workspace/src/build/interfaces', 'env': OrderedDict([('HOSTNAME', 'docker-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/workspace'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/workspace/src/build/interfaces'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.217830] (-) TimerEvent: {}
+[0.218743] (FSMPilot) JobProgress: {'identifier': 'FSMPilot', 'progress': 'cmake'}
+[0.236977] (FSMPilot) Command: {'cmd': ['/usr/bin/cmake', '/workspace/src/vehicle_manager_system/FSMPilot', '-DCMAKE_INSTALL_PREFIX=/workspace/src/install/FSMPilot'], 'cwd': '/workspace/src/build/FSMPilot', 'env': OrderedDict([('HOSTNAME', 'docker-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/workspace'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/workspace/src/build/FSMPilot'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1')]), 'shell': False}
+[0.254406] (accel) JobProgress: {'identifier': 'accel', 'progress': 'cmake'}
+[0.267760] (accel) Command: {'cmd': ['/usr/bin/cmake', '/workspace/src/embedded_system/accel', '-DCMAKE_INSTALL_PREFIX=/workspace/src/install/accel'], 'cwd': '/workspace/src/build/accel', 'env': OrderedDict([('HOSTNAME', 'docker-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/workspace'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/workspace/src/build/accel'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.302851] (airspeed) JobProgress: {'identifier': 'airspeed', 'progress': 'cmake'}
+[0.318946] (-) TimerEvent: {}
+[0.321943] (airspeed) Command: {'cmd': ['/usr/bin/cmake', '/workspace/src/embedded_system/airspeed', '-DCMAKE_INSTALL_PREFIX=/workspace/src/install/airspeed'], 'cwd': '/workspace/src/build/airspeed', 'env': OrderedDict([('HOSTNAME', 'docker-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/workspace'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/workspace/src/build/airspeed'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/opt/ros/humble')]), 'shell': False}
+[0.419769] (-) TimerEvent: {}
+[0.521537] (-) TimerEvent: {}
+[0.622958] (-) TimerEvent: {}
+[0.725009] (-) TimerEvent: {}
+[0.826618] (-) TimerEvent: {}
+[0.873609] (airspeed) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.882262] (accel) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.890503] (interfaces) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.901059] (FSMPilot) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.927640] (-) TimerEvent: {}
+[1.029565] (-) TimerEvent: {}
+[1.142893] (-) TimerEvent: {}
+[1.245001] (-) TimerEvent: {}
+[1.289736] (FSMPilot) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.304481] (accel) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.310639] (interfaces) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.327842] (airspeed) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[1.345758] (-) TimerEvent: {}
+[1.364259] (FSMPilot) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.372941] (airspeed) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.375330] (accel) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.383980] (interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[1.447061] (-) TimerEvent: {}
+[1.549622] (-) TimerEvent: {}
+[1.652051] (-) TimerEvent: {}
+[1.785117] (-) TimerEvent: {}
+[1.900547] (-) TimerEvent: {}
+[2.001466] (-) TimerEvent: {}
+[2.052534] (airspeed) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.055188] (FSMPilot) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.064059] (accel) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.093719] (interfaces) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[2.100188] (FSMPilot) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/gcc - skipped\n'}
+[2.104149] (-) TimerEvent: {}
+[2.104731] (FSMPilot) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.108141] (FSMPilot) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.111543] (airspeed) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[2.120035] (airspeed) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.123137] (airspeed) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.126026] (accel) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[2.132865] (accel) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.139162] (accel) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.144589] (interfaces) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[2.148633] (interfaces) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[2.151073] (interfaces) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[2.153434] (FSMPilot) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.156000] (airspeed) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.158113] (accel) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.173140] (interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[2.204768] (-) TimerEvent: {}
+[2.307996] (-) TimerEvent: {}
+[2.412468] (-) TimerEvent: {}
+[2.514555] (-) TimerEvent: {}
+[2.618795] (-) TimerEvent: {}
+[2.723935] (-) TimerEvent: {}
+[2.831030] (FSMPilot) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.835153] (-) TimerEvent: {}
+[2.878754] (FSMPilot) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/g++ - skipped\n'}
+[2.882203] (FSMPilot) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.884908] (FSMPilot) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.887600] (interfaces) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.890837] (airspeed) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.905460] (FSMPilot) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.919069] (accel) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[2.934705] (interfaces) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.938495] (-) TimerEvent: {}
+[2.939971] (interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.953536] (interfaces) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.955929] (airspeed) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.962627] (airspeed) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.965861] (airspeed) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[2.977233] (accel) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[2.991852] (accel) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[2.998869] (accel) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[3.041612] (airspeed) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[3.051312] (-) TimerEvent: {}
+[3.053499] (interfaces) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[3.082033] (accel) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[3.149363] (FSMPilot) StdoutLine: {'line': b'-- Generating done\n'}
+[3.152808] (-) TimerEvent: {}
+[3.255574] (-) TimerEvent: {}
+[3.263252] (FSMPilot) StdoutLine: {'line': b'-- Build files have been written to: /workspace/src/build/FSMPilot\n'}
+[3.274464] (FSMPilot) CommandEnded: {'returncode': 0}
+[3.284254] (FSMPilot) JobProgress: {'identifier': 'FSMPilot', 'progress': 'build'}
+[3.321898] (FSMPilot) Command: {'cmd': ['/usr/bin/cmake', '--build', '/workspace/src/build/FSMPilot', '--', '-j4', '-l4'], 'cwd': '/workspace/src/build/FSMPilot', 'env': OrderedDict([('HOSTNAME', 'docker-desktop'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/opt/ros/humble/lib/x86_64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/workspace'), ('ROS_PYTHON_VERSION', '3'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('ROS_DOMAIN_ID', '0'), ('AMENT_PREFIX_PATH', '/opt/ros/humble'), ('DEBIAN_FRONTEND', 'noninteractive'), ('PWD', '/workspace/src/build/FSMPilot'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1')]), 'shell': False}
+[3.355830] (-) TimerEvent: {}
+[3.458592] (-) TimerEvent: {}
+[3.489565] (interfaces) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[3.545817] (airspeed) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[3.551250] (FSMPilot) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o\x1b[0m\n'}
+[3.556816] (FSMPilot) StdoutLine: {'line': b'[ 37%] \x1b[32mBuilding CXX object CMakeFiles/FSMPilot.dir/main.cpp.o\x1b[0m\n'}
+[3.563444] (-) TimerEvent: {}
+[3.570933] (FSMPilot) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/FSMPilot.dir/ScreenManager.cpp.o\x1b[0m\n'}
+[3.573879] (FSMPilot) StdoutLine: {'line': b'[ 50%] \x1b[32mBuilding CXX object CMakeFiles/FSMPilot.dir/motorManager.cpp.o\x1b[0m\n'}
+[3.633194] (FSMPilot) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.cpp:1\x1b[m\x1b[K:\n'}
+[3.636861] (FSMPilot) StderrLine: {'line': b'\x1b[01m\x1b[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.hpp:4:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[3.643536] (FSMPilot) StderrLine: {'line': b'    4 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[3.646749] (FSMPilot) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[3.653983] (FSMPilot) StderrLine: {'line': b'compilation terminated.\n'}
+[3.668252] (-) TimerEvent: {}
+[3.671773] (FSMPilot) StderrLine: {'line': b'In file included from \x1b[01m\x1b[K/workspace/src/vehicle_manager_system/FSMPilot/main.cpp:1\x1b[m\x1b[K:\n'}
+[3.673570] (FSMPilot) StderrLine: {'line': b'\x1b[01m\x1b[K/workspace/src/vehicle_manager_system/FSMPilot/FSMPilot.hpp:4:10:\x1b[m\x1b[K \x1b[01;31m\x1b[Kfatal error: \x1b[m\x1b[Ktinyfsm.hpp: No such file or directory\n'}
+[3.683045] (FSMPilot) StderrLine: {'line': b'    4 | #include \x1b[01;31m\x1b[K<tinyfsm.hpp>\x1b[m\x1b[K\n'}
+[3.688077] (FSMPilot) StderrLine: {'line': b'      |          \x1b[01;31m\x1b[K^~~~~~~~~~~~~\x1b[m\x1b[K\n'}
+[3.689751] (FSMPilot) StderrLine: {'line': b'compilation terminated.\n'}
+[3.691165] (FSMPilot) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/FSMPilot.dir/build.make:90: CMakeFiles/FSMPilot.dir/FSMPilot.cpp.o] Error 1\n'}
+[3.695147] (FSMPilot) StderrLine: {'line': b'gmake[2]: *** Waiting for unfinished jobs....\n'}
+[3.697600] (FSMPilot) StderrLine: {'line': b'gmake[2]: *** [CMakeFiles/FSMPilot.dir/build.make:76: CMakeFiles/FSMPilot.dir/main.cpp.o] Error 1\n'}
+[3.700859] (accel) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[3.768713] (-) TimerEvent: {}
+[3.966091] (-) TimerEvent: {}
+[4.181135] (-) TimerEvent: {}
+[4.302896] (-) TimerEvent: {}
+[4.416339] (-) TimerEvent: {}
+[4.523226] (interfaces) StdoutLine: {'line': b'-- Found std_msgs: 4.9.0 (/opt/ros/humble/share/std_msgs/cmake)\n'}
+[4.532367] (-) TimerEvent: {}
+[4.535163] (airspeed) StdoutLine: {'line': b'-- Found rclcpp: 16.0.15 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[4.574863] (accel) StdoutLine: {'line': b'-- Found rclcpp: 16.0.15 (/opt/ros/humble/share/rclcpp/cmake)\n'}
+[4.632534] (-) TimerEvent: {}
+[4.727187] (airspeed) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[4.742928] (-) TimerEvent: {}
+[4.751557] (interfaces) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[4.761859] (accel) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[4.787070] (airspeed) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.807932] (accel) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.838824] (interfaces) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[4.865466] (-) TimerEvent: {}
+[4.866881] (accel) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[4.873918] (airspeed) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[4.882985] (interfaces) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[4.893345] (interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.897476] (accel) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.907998] (airspeed) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[4.935029] (interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.965021] (accel) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[4.975514] (-) TimerEvent: {}
+[5.007709] (airspeed) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[5.078597] (-) TimerEvent: {}
+[5.104167] (interfaces) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[5.179976] (-) TimerEvent: {}
+[5.220716] (accel) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[5.232607] (accel) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[5.239615] (FSMPilot) StderrLine: {'line': b'gmake[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/FSMPilot.dir/all] Error 2\n'}
+[5.242662] (FSMPilot) StderrLine: {'line': b'gmake: *** [Makefile:91: all] Error 2\n'}
+[5.248022] (FSMPilot) CommandEnded: {'returncode': 2}
+[5.250504] (FSMPilot) JobEnded: {'identifier': 'FSMPilot', 'rc': 2}
+[5.263220] (airspeed) StdoutLine: {'line': b'-- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)\n'}
+[5.282797] (-) TimerEvent: {}
+[5.295261] (airspeed) StdoutLine: {'line': b'-- Found rmw_fastrtps_cpp: 6.2.9 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)\n'}
+[5.383702] (-) TimerEvent: {}
+[5.490063] (-) TimerEvent: {}
+[5.592636] (-) TimerEvent: {}
+[5.657006] (accel) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[5.677651] (airspeed) StdoutLine: {'line': b'-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  \n'}
+[5.693566] (-) TimerEvent: {}
+[5.713493] (accel) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[5.730894] (airspeed) StdoutLine: {'line': b'-- Found FastRTPS: /opt/ros/humble/include  \n'}
+[5.786113] (accel) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[5.794615] (-) TimerEvent: {}
+[5.798816] (airspeed) StdoutLine: {'line': b"-- Using RMW implementation 'rmw_fastrtps_cpp' as default\n"}
+[5.844702] (accel) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[5.853924] (airspeed) StdoutLine: {'line': b'-- Looking for pthread.h\n'}
+[5.895707] (-) TimerEvent: {}
+[5.997483] (-) TimerEvent: {}
+[6.100192] (-) TimerEvent: {}
+[6.202980] (-) TimerEvent: {}
+[6.304907] (-) TimerEvent: {}
+[6.406722] (-) TimerEvent: {}
+[6.455834] (accel) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[6.468084] (accel) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[6.472727] (airspeed) StdoutLine: {'line': b'-- Looking for pthread.h - found\n'}
+[6.486858] (airspeed) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD\n'}
+[6.511676] (-) TimerEvent: {}
+[6.620731] (-) TimerEvent: {}
+[6.729009] (-) TimerEvent: {}
+[6.831577] (-) TimerEvent: {}
+[7.005191] (-) TimerEvent: {}
+[7.111399] (-) TimerEvent: {}
+[7.215075] (-) TimerEvent: {}
+[7.218228] (accel) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[7.231765] (accel) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[7.247030] (airspeed) StdoutLine: {'line': b'-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success\n'}
+[7.258676] (airspeed) StdoutLine: {'line': b'-- Found Threads: TRUE  \n'}
+[7.316384] (-) TimerEvent: {}
+[7.421658] (-) TimerEvent: {}
+[7.459824] (airspeed) StdoutLine: {'line': b'-- Found rclcpp_action: 16.0.15 (/opt/ros/humble/share/rclcpp_action/cmake)\n'}
+[7.472712] (accel) StdoutLine: {'line': b'-- Found rclcpp_action: 16.0.15 (/opt/ros/humble/share/rclcpp_action/cmake)\n'}
+[7.522600] (-) TimerEvent: {}
+[7.593516] (airspeed) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[7.599268] (accel) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.0 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[7.621559] (airspeed) StdoutLine: {'line': b'-- Found rclcpp_lifecycle: 16.0.15 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)\n'}
+[7.624625] (-) TimerEvent: {}
+[7.626031] (accel) StdoutLine: {'line': b'-- Found rclcpp_lifecycle: 16.0.15 (/opt/ros/humble/share/rclcpp_lifecycle/cmake)\n'}
+[7.700065] (airspeed) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[7.704031] (accel) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[7.725639] (-) TimerEvent: {}
+[7.829093] (-) TimerEvent: {}
+[7.889438] (airspeed) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[7.929774] (-) TimerEvent: {}
+[8.031586] (-) TimerEvent: {}
+[8.134655] (-) TimerEvent: {}
+[8.184471] (interfaces) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[8.236079] (-) TimerEvent: {}
+[8.337826] (-) TimerEvent: {}
+[8.367855] (accel) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[8.372033] (accel) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/workspace/src/embedded_system/accel/include/accel>;$<BUILD_INTERFACE:/workspace/src/embedded_system/accel/../dependencies/include>\n'}
+[8.375572] (accel) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[8.429948] (airspeed) StdoutLine: {'line': b"-- Added test 'cppcheck' to perform static code analysis on C / C++ code\n"}
+[8.432125] (airspeed) StdoutLine: {'line': b'-- Configured cppcheck include dirs: $<BUILD_INTERFACE:/workspace/src/embedded_system/airspeed/include/airspeed>;$<BUILD_INTERFACE:/workspace/src/embedded_system/airspeed/../dependencies/include>\n'}
+[8.434502] (airspeed) StdoutLine: {'line': b'-- Configured cppcheck exclude dirs and/or files: \n'}
+[8.438622] (-) TimerEvent: {}
+[8.482511] (accel) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[8.484556] (accel) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[8.495051] (airspeed) StdoutLine: {'line': b"-- Added test 'cpplint' to check C / C++ code against the Google style\n"}
+[8.497313] (airspeed) StdoutLine: {'line': b'-- Configured cpplint exclude dirs and/or files: \n'}
+[8.519139] (airspeed) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[8.527674] (accel) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[8.540040] (-) TimerEvent: {}
+[8.593380] (airspeed) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[8.596367] (airspeed) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[8.604427] (airspeed) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[8.640528] (-) TimerEvent: {}
+[8.666219] (accel) StdoutLine: {'line': b"-- Added test 'uncrustify' to check C / C++ code style\n"}
+[8.672129] (accel) StdoutLine: {'line': b'-- Configured uncrustify additional arguments: \n'}
+[8.699152] (accel) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[8.705372] (airspeed) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.741510] (-) TimerEvent: {}
+[8.799119] (accel) StdoutLine: {'line': b'-- Configuring done\n'}
+[8.841893] (-) TimerEvent: {}
+[8.890205] (accel) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:41 (add_executable):\n'}
+[8.892914] (accel) StderrLine: {'line': b'  Cannot find source file:\n'}
+[8.895478] (accel) StderrLine: {'line': b'\n'}
+[8.897859] (accel) StderrLine: {'line': b'    src/adxl345_driver.c\n'}
+[8.900833] (accel) StderrLine: {'line': b'\n'}
+[8.903957] (accel) StderrLine: {'line': b'  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .mpp .m .M .mm .ixx .cppm .h\n'}
+[8.907311] (accel) StderrLine: {'line': b'  .hh .h++ .hm .hpp .hxx .in .txx .f .F .for .f77 .f90 .f95 .f03 .hip .ispc\n'}
+[8.911298] (accel) StderrLine: {'line': b'\n'}
+[8.914185] (accel) StderrLine: {'line': b'\x1b[0m\n'}
+[8.918342] (accel) StderrLine: {'line': b'\x1b[31mCMake Error at CMakeLists.txt:41 (add_executable):\n'}
+[8.920920] (accel) StderrLine: {'line': b'  No SOURCES given to target: adxl345_node\n'}
+[8.926726] (accel) StderrLine: {'line': b'\n'}
+[8.929902] (accel) StderrLine: {'line': b'\x1b[0m\n'}
+[8.932080] (accel) StderrLine: {'line': b'\x1b[0mCMake Generate step failed.  Build files cannot be regenerated correctly.\x1b[0m\n'}
+[8.934720] (accel) JobEnded: {'identifier': 'accel', 'rc': 'SIGINT'}
+[8.944012] (-) TimerEvent: {}
+[9.045632] (-) TimerEvent: {}
+[9.091477] (airspeed) StdoutLine: {'line': b'-- Generating done\n'}
+[9.146879] (-) TimerEvent: {}
+[9.249719] (-) TimerEvent: {}
+[9.286288] (airspeed) StdoutLine: {'line': b'-- Build files have been written to: /workspace/src/build/airspeed\n'}
+[9.326906] (airspeed) JobEnded: {'identifier': 'airspeed', 'rc': 'SIGINT'}
+[9.350938] (-) TimerEvent: {}
+[9.452761] (-) TimerEvent: {}
+[9.554439] (-) TimerEvent: {}
+[9.656629] (-) TimerEvent: {}
+[9.758602] (-) TimerEvent: {}
+[9.860472] (-) TimerEvent: {}
+[9.963827] (-) TimerEvent: {}
+[10.065503] (-) TimerEvent: {}
+[10.167563] (-) TimerEvent: {}
+[10.269673] (-) TimerEvent: {}
+[10.371863] (-) TimerEvent: {}
+[10.473762] (-) TimerEvent: {}
+[10.550625] (interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[10.575563] (-) TimerEvent: {}
+[10.677863] (-) TimerEvent: {}
+[10.779698] (-) TimerEvent: {}
+[10.881749] (-) TimerEvent: {}
+[10.983458] (-) TimerEvent: {}
+[11.084611] (-) TimerEvent: {}
+[11.186667] (-) TimerEvent: {}
+[11.254024] (interfaces) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[11.287720] (-) TimerEvent: {}
+[11.293597] (interfaces) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[11.296500] (interfaces) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[11.346010] (interfaces) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/x86_64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[11.347966] (interfaces) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[11.349903] (interfaces) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[11.351749] (interfaces) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/x86_64-linux-gnu/libpython3.10.so\n'}
+[11.380680] (interfaces) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[11.388473] (-) TimerEvent: {}
+[11.490072] (-) TimerEvent: {}
+[11.591466] (-) TimerEvent: {}
+[11.693561] (-) TimerEvent: {}
+[11.781003] (interfaces) StdoutLine: {'line': b'-- Found ament_lint_auto: 0.12.14 (/opt/ros/humble/share/ament_lint_auto/cmake)\n'}
+[11.794544] (-) TimerEvent: {}
+[11.895646] (-) TimerEvent: {}
+[11.997598] (-) TimerEvent: {}
+[12.100075] (-) TimerEvent: {}
+[12.150737] (interfaces) StdoutLine: {'line': b"-- Added test 'lint_cmake' to check CMake code style\n"}
+[12.197186] (interfaces) StdoutLine: {'line': b"-- Added test 'xmllint' to check XML markup files\n"}
+[12.200553] (-) TimerEvent: {}
+[12.302595] (-) TimerEvent: {}
+[12.340043] (interfaces) StdoutLine: {'line': b'-- Configuring done\n'}
+[12.403632] (-) TimerEvent: {}
+[12.505872] (-) TimerEvent: {}
+[12.607535] (-) TimerEvent: {}
+[12.709637] (-) TimerEvent: {}
+[12.811754] (-) TimerEvent: {}
+[12.913799] (-) TimerEvent: {}
+[13.020986] (-) TimerEvent: {}
+[13.123907] (-) TimerEvent: {}
+[13.226609] (-) TimerEvent: {}
+[13.328595] (-) TimerEvent: {}
+[13.430564] (-) TimerEvent: {}
+[13.533220] (-) TimerEvent: {}
+[13.634509] (-) TimerEvent: {}
+[13.735541] (-) TimerEvent: {}
+[13.810998] (interfaces) StdoutLine: {'line': b'-- Generating done\n'}
+[13.836532] (-) TimerEvent: {}
+[13.939179] (-) TimerEvent: {}
+[14.045800] (-) TimerEvent: {}
+[14.148628] (-) TimerEvent: {}
+[14.249641] (-) TimerEvent: {}
+[14.341478] (interfaces) StdoutLine: {'line': b'-- Build files have been written to: /workspace/src/build/interfaces\n'}
+[14.350600] (-) TimerEvent: {}
+[14.358692] (interfaces) JobEnded: {'identifier': 'interfaces', 'rc': 'SIGINT'}
+[14.377481] (communicator) JobSkipped: {'identifier': 'communicator'}
+[14.378187] (display_sub) JobSkipped: {'identifier': 'display_sub'}
+[14.378593] (gnc) JobSkipped: {'identifier': 'gnc'}
+[14.378902] (gps) JobSkipped: {'identifier': 'gps'}
+[14.379223] (health_monitor) JobSkipped: {'identifier': 'health_monitor'}
+[14.379645] (monitor) JobSkipped: {'identifier': 'monitor'}
+[14.379954] (orient) JobSkipped: {'identifier': 'orient'}
+[14.380247] (orient2) JobSkipped: {'identifier': 'orient2'}
+[14.380527] (pressure) JobSkipped: {'identifier': 'pressure'}
+[14.380828] (pwm) JobSkipped: {'identifier': 'pwm'}
+[14.381097] (h20pro) JobSkipped: {'identifier': 'h20pro'}
+[14.381365] (testing) JobSkipped: {'identifier': 'testing'}
+[14.381671] (-) EventReactorShutdown: {}
