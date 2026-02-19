@@ -1,0 +1,2 @@
+/usr/bin/ar qc libuart.a CMakeFiles/uart.dir/home/aldomhm/machpilot/src/embedded_system/dependencies/src/uart.c.o
+/usr/bin/ranlib libuart.a

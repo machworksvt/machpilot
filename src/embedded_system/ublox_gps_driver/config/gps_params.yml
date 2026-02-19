@@ -1,0 +1,6 @@
+# config/gps_params.yaml
+gps_node:
+  ros__parameters:
+    device_path: "/dev/ttyUSB0"
+    baud_rate: 38400
+    frame_id: "gps"
