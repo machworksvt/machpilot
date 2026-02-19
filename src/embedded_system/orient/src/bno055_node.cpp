@@ -48,7 +48,7 @@ CallbackReturn on_configure(const rclcpp_lifecycle::State &state) override
     while (system < 5 || self_test != 0x0F || system_error) {
         bno055_->getSystemStatus(&system, &self_test, &system_error);
         RCLCPP_WARN(get_logger(), "BNO055: system status not aligned");
-        usleep(100);
+        usleep(10000);
     }
 
     return CallbackReturn::SUCCESS;
@@ -93,10 +93,14 @@ CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
-    timer_->cancel();
-    timer_.reset();
+    if (timer_ != nullptr) {
+        timer_->cancel();
+        timer_.reset();
+    }
 
-    pub_.reset();
+    if (pub_ != nullptr) {
+        pub_.reset();
+    }
 
     return CallbackReturn::SUCCESS;
 }
