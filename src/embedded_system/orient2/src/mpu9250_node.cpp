@@ -1,13 +1,12 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/magnetic_field.hpp>
 #include <sensor_msgs/msg/imu.hpp>
-#include "lifecycle_interface.hpp"
 #include "mpu9250/example/driver_mpu9250_basic.h"
 
 using std::placeholders::_1;
 using std::placeholders::_2;
 
-class MPU9250Node : rclcpp::Node {
+class MPU9250Node : public rclcpp::Node {
 public:
   MPU9250Node() : Node("mpu9250_node") {
     // Create publishers for IMU and mag. data
@@ -15,7 +14,7 @@ public:
     mag_publisher_ = this->create_publisher<sensor_msgs::msg::MagneticField>("mpu_mag", 10);
   
     mpu9250_interface_t interface = MPU9250_INTERFACE_IIC;
-    mpu9250_address_t addr = MPU9250_ADDRESS_AD0_LOW;
+    mpu9250_address_t addr = MPU9250_ADDRESS_AD0_HIGH;
     uint8_t status = mpu9250_basic_init(interface, addr);
     if (status != 0) {
       RCLCPP_ERROR(this->get_logger(), "Failed to initialize MPU9250, error code: %d", status);
@@ -117,13 +116,7 @@ private:
 int main(int argc, char * argv[])
 {
   rclcpp::init(argc, argv);
-
-  rclcpp::executors::SingleThreadedExecutor exe;
-
-  // auto node = std::make_shared<MPU9250Node>(0x28);
-
-  // exe.add_node(node->get_node_base_interface());
-  exe.spin();
+  rclcpp::spin(std::make_shared<MPU9250Node>());
 
   rclcpp::shutdown();
   return 0;

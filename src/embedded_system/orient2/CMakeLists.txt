@@ -43,12 +43,14 @@ add_executable(mpu9250_node
 src/mpu9250_node.cpp
 src/mpu9250/example/driver_mpu9250_basic.c
 src/mpu9250/interface/driver_mpu9250_interface_template.c
+src/mpu9250/project/raspberrypi4b/interface/src/iic.c
 src/mpu9250/src/driver_mpu9250.c)
 
 target_include_directories(mpu9250_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/example>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/interface>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/src>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/mpu9250/project/raspberrypi4b/interface/inc>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
 

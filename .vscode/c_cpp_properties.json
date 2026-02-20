@@ -28,7 +28,8 @@
                 "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/interfaces/action/**",
                 "${workspaceFolder}/src/interfaces/action",
-                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**"
+                "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**",
+                "${workspaceFolder}/src/embedded_system/orient2/src/mpu9250/project/raspberrypi4b/interface/inc"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
