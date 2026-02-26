@@ -46,12 +46,13 @@ bool LifecycleManagerNode::__callback_routine(uint8_t result_state, uint8_t tran
 
     int erc = loop_change_state_clients(transition);
 
-    if (erc == -1 && is_fallback) {
+    // if is_fallback is true it should skip the change_state verification
+    if (erc == -1 && !is_fallback) {
         RCLCPP_INFO(this->get_logger(), "Not all transitions sent successfully");
         return 1;
     }
 
-    if (erc == -2 && is_fallback) {
+    if (erc == -2 && !is_fallback) {
         RCLCPP_INFO(this->get_logger(), "Error in client loop");
         return 1;
     }
@@ -62,7 +63,7 @@ bool LifecycleManagerNode::__callback_routine(uint8_t result_state, uint8_t tran
 
     if (erc == -1) {
         RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
-        return 1;
+        return 2;
     }
 
     RCLCPP_INFO(this->get_logger(), "All transitions successful");
@@ -74,6 +75,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_configure(const 
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
+    // trigger and check the transition
     if (__callback_routine(
         lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, 
         lifecycle_msgs::msg::Transition::TRANSITION_CONFIGURE,
@@ -97,6 +99,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const r
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
+    // trigger and check the transition
     if (__callback_routine(
         lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE, 
         lifecycle_msgs::msg::Transition::TRANSITION_ACTIVATE,
@@ -120,6 +123,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_deactivate(const
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
+    // trigger and check the transition
     if (__callback_routine(
         lifecycle_msgs::msg::State::PRIMARY_STATE_INACTIVE, 
         lifecycle_msgs::msg::Transition::TRANSITION_DEACTIVATE,
@@ -143,6 +147,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_cleanup(const rc
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
 
+    // trigger and check the transition
     if (__callback_routine(
         lifecycle_msgs::msg::State::PRIMARY_STATE_UNCONFIGURED, 
         lifecycle_msgs::msg::Transition::TRANSITION_CLEANUP,
@@ -272,10 +277,12 @@ int LifecycleManagerNode::scan_and_add_devices()
 
 /**
  * Triggers a transition in all hardware node state
- * @param[in] transition the state, the current lifecycle manager state
+ * @param[in] transition the current lifecycle manager state
  */
 int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 {
+    success_flags_.reset();
+
     for (auto client : client_change_state_) {
 
         while (!client->wait_for_service(std::chrono::seconds(5))) {
@@ -291,7 +298,6 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
             future, 
             std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
 
-
         success_flags_ = success_flags_ << 1;
         success_flags_ |= !client_response(res);
     }
@@ -302,6 +308,7 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
     // on failure it will necessarily be different
 
     if (client_change_state_.size() != success_flags_.count()) {
+        // #TODO: add logging to determine which node(s) failed the transitions
         return -1;
     }
 
@@ -324,7 +331,6 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
 
         auto req = std::make_shared<lifecycle_msgs::srv::GetState::Request>();
 
-
         auto future = client->async_send_request(req);
 
         rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
@@ -335,7 +341,7 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
         if (client_response(res)) continue;
 
         // compare between intended and actual state
-        if (future.get()->current_state.id == state) return -1;
+        if (future.get()->current_state.id != state) return -1;
     }
 
     return 0;

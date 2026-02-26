@@ -7,9 +7,9 @@
 #include <lifecycle_msgs/srv/change_state.hpp>
 #include <lifecycle_msgs/msg/transition_event.hpp>
 
-#define SERVICE_TIMEOUT_MS 10000
-#define MAX_NODES 64
-#define STATE_CHANGE_TIMEOUT_MS 10000
+constexpr uint SERVICE_TIMEOUT_MS = 10000;
+constexpr uint MAX_NODES = 64;
+constexpr uint STATE_CHANGE_TIMEOUT_MS = 10000;
 
 using namespace rclcpp_lifecycle::node_interfaces;
 

@@ -1,0 +1,71 @@
+launch:
+
+  - node: 
+    pkg: "airspeed"
+    exec: "ms4525do_node"
+    name: "airspeed1"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "airspeed"
+    exec: "ms4525do_node"
+    name: "airspeed2"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "ublox_gps_driver"
+    exec: "gps_node"
+    name: "gps"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/gps_params.yaml"
+
+  - node: 
+    pkg: "airspeed"
+    exec: "ms4525do_node"
+    name: "airspeed1"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "orient"
+    exec: "bno055_node"
+    name: "orient"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "orient2"
+    exec: "mpu9250_node"
+    name: "orient2"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "pressure"
+    exec: "bmp390_node"
+    name: "pressure1"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "pressure"
+    exec: "bmp390_node"
+    name: "pressure2"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node: 
+    pkg: "pwm"
+    exec: "pca9685_node"
+    name: "pwm"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+
+  - node:
+    pkg: "lifecycle_manager"
+    exec: "lifecycle_manager_node"
+    name: "lifecycle_manager"
+    param:
+    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
