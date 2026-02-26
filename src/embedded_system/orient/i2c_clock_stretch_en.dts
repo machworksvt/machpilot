@@ -1,0 +1,33 @@
+/dts-v1/;
+/plugin/;
+/ {
+    overlay-name = "clock_stretch_overlay";
+    compatible = "nvidia,tegra234";
+
+    fragment@0 {
+
+        target = <&i2c1>;
+
+        __overlay__ {
+            clock_speed = <100000>;
+
+            nvidia,disable-multi-pkt-mode;
+            nvidia,clk-stretch-timeout-us = <50000>;
+        };
+        
+    };
+
+    fragment@1 {
+
+        target = <&i2c7>;
+
+        __overlay__ {
+
+            clock_speed = <100000>;
+
+            nvidia,disable-multi-pkt-mode;
+            nvidia,clk-stretch-timeout-us = <50000>;
+        };
+        
+    };
+};

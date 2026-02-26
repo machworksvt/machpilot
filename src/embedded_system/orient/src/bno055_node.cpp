@@ -18,7 +18,7 @@ class BNO055Node : public Device
 public:
 BNO055Node(int addr) : Device("bno055_node")
 {
-    bno055_ = std::make_shared<BNO055>(BNO055_ID, addr, 7);
+    bno055_ = std::make_unique<BNO055>(BNO055_ID, addr, 7);
 }
 
 ~BNO055Node()
@@ -144,7 +144,7 @@ int timer_callback() {
 }
 
 private:
-std::shared_ptr<BNO055> bno055_;
+std::unique_ptr<BNO055> bno055_;
 rclcpp::TimerBase::SharedPtr timer_;
 rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr pub_;
 
