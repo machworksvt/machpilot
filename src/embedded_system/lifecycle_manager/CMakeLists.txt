@@ -65,8 +65,8 @@ install(TARGETS lifecycle_manager_node #${PROJECT_NAME}_lib # libraries
 
 # the commented lines will be used when launch files are implemented, just uncomment
 install(DIRECTORY
-  #launch
-  #config
+  launch
+  config
   DESTINATION share/${PROJECT_NAME}
 )
 
