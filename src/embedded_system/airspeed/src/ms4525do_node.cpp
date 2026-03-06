@@ -15,6 +15,8 @@ public:
   MS4525DONode(int addr) : Device("ms4525do_node") {
     ms4525do_ = std::make_unique<MS4525DO>(I2C_FILE_PATH, 7, addr);
 
+    RCLCPP_INFO(get_logger(), "Sensor object created successfully");
+
   }
 
 private:

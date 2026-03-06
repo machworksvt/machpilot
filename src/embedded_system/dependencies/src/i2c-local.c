@@ -2,11 +2,11 @@
 
 int i2c_init(I2CInfo *info, const char *bus_path, uint8_t bus_num) {
 
-    sprintf((*info).bus, "%s%d", bus_path, bus_num);
+    snprintf((*info).bus, sizeof(info->bus), "%s%d", bus_path, bus_num);
     // open the I2C bus
     (*info).fd = open((*info).bus, O_RDWR);
 
-    if (info->fd < 0) {
+    if (info->fd <= 0) {
         printf("I2C: failed to open bus: %s\n", info->bus);
         return -1;
     }
@@ -22,13 +22,13 @@ int i2c_deinit(I2CInfo *info) {
 
         if (errno == EINTR) {
             printf("I2C: undetermined state while closing, freeing fd anyway: %s\n", info->bus);
-            (*info).fd = 0;
+            (*info).fd = -1;
         }
 
         return -1;
     }
 
-    (*info).fd = 0;
+    (*info).fd = -1;
     
     return 0;
 }
@@ -54,6 +54,8 @@ int i2c_read_cmd(I2CInfo *info, uint8_t *data, uint16_t size)
     i2c_rdwr_data.msgs = msgs;
     i2c_rdwr_data.nmsgs = 1;
     
+    printf("%d\n", info->fd);
+
     /* transmit */
     if (ioctl(info->fd, I2C_RDWR, &i2c_rdwr_data) < 0)
     {
@@ -90,6 +92,8 @@ int i2c_read(I2CInfo *info, uint8_t reg, uint16_t size, uint8_t *data) {
 
     msgset.msgs = msgs;
     msgset.nmsgs = 2;
+
+    printf("%d\n", info->fd);
 
     if (ioctl(info->fd, I2C_RDWR, &msgset) < 0) {
         perror("I2C: read error\n");

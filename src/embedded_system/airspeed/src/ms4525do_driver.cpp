@@ -27,11 +27,14 @@ bool calibFlag = false;
 MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
     i2c_info_.bus_num = bus_num;
     i2c_info_.address = addr;
+    i2c_info_.fd = -1;
 
     if (i2c_init(&i2c_info_, bus_path, bus_num) != 0) {
         perror("MS4525DO: bus initialization failed");
         exit(1);
     }
+
+    printf("%d\n", i2c_info_.fd);
     
 }
 
@@ -40,10 +43,14 @@ MS4525DO::~MS4525DO() {
 }
 
 uint8_t MS4525DO::readMeasureRequest() {
-    if (i2c_read_cmd(&i2c_info_, NULL, 0)) {
+    uint8_t data[1];
+    if (i2c_read_cmd(&i2c_info_, data, 1)) {
         perror("MS4525DO: read error");
-    close(i2c_info_.fd);
+        close(i2c_info_.fd);
+        return 1;
     }
+
+    return 0;
 }
 
 uint8_t MS4525DO::readPressure() {

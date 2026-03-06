@@ -19,9 +19,9 @@
 // stores permanent items related to the device: bus number and address
 typedef struct _I2CInfo {
     uint8_t bus_num;
-    char bus[24];
     uint8_t address;
     int fd;
+    char bus[32];
 
 } I2CInfo;
 
