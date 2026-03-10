@@ -3,7 +3,7 @@
 
 #include <string_view>
 
-#include "subsystems.hpp"
+#include "sub_systems.hpp"
 
 struct Event {};
 
@@ -23,8 +23,8 @@ struct ShutdownEvent : Event {
   static constexpr std::string_view NAME = "ShutdownEvent";
 };
 struct InitializeSubsystem : Event {
-  SubSystems subsystem_id;
-  InitializeSubsystem(SubSystems id) : subsystem_id(id) {}
+  std::uint8_t subsystem_id;
+  InitializeSubsystem(std::uint8_t id) : subsystem_id(id) {}
 
   static constexpr std::string_view NAME = "InitializeSubsystem";
 };

@@ -13,7 +13,6 @@
                 "${workspaceFolder}/src/embedded_system/airspeed/include/**",
                 "${workspaceFolder}/src/embedded_system/accel/include/**",
                 "${workspaceFolder}/src/templates/**",
-                "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/gnc/state_estimator/include/**",
                 "${workspaceFolder}/src/embedded_system/pressure/src/bmp390/example/**",
                 "${workspaceFolder}/src/embedded_system/pressure/src/bmp390/interface/**",
@@ -24,8 +23,6 @@
                 "${workspaceFolder}/src/embedded_system/dependencies/include",
                 "${workspaceFolder}/src/embedded_system/dependencies/librobotcontrol/library/include/**",
                 "${workspaceFolder}/build/interfaces/rosidl_generator_cpp",
-                "${workspaceFolder}/src/FSMPilot/tinyfsm/include",
-                "${workspaceFolder}/src/FSMPilot/**",
                 "${workspaceFolder}/src/interfaces/action/**",
                 "${workspaceFolder}/src/interfaces/action",
                 "${workspaceFolder}/src/gnc/third_party/casadi/casadi/**",
@@ -34,7 +31,9 @@
                 "${workspaceFolder}/src/logger/logger_message_interface/**",
                 "${workspaceFolder}/src/logger/logger_publisher/**",
                 "${workspaceFolder}/src/logger/printer_logger_node/**",
-                "${workspaceFolder}/install/logger_message_interface/include/logger_message_interface"
+                "${workspaceFolder}/src/vehicle_manager_system/flight_state_machine_interface/include/flight_state_machine_interface",
+                "${workspaceFolder}/src/vehicle_manager_system/flight_state_machine/include/flight_state_machine",
+                "${workspaceFolder}/install/flight_state_machine_interface/include/flight_state_machine_interface"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
