@@ -8,13 +8,16 @@
 #include "log_types.hpp"
 #include "time_stamp.hpp"
 #include "trivially_copyable_variant.hpp"
+#include "source.hpp"
+#include "severity.hpp"
 
-enum class Severity { Log, Warning, Error };
 
 //defines what types we can log
 typedef TriviallyCopyableVariant<LoggerStartup, Heartbeat,
                                  InvaidDeserializationBadTag,
-                                 InvalidDeserializationBadVariantSize>
+                                 InvalidDeserializationBadVariantSize,
+                                 InvalidDeserializationBadSouce,
+                                 InvalidDeserializationBadSeverity>
     LogInner;
 
 class Log {
@@ -26,15 +29,19 @@ class Log {
 
   // how severe the log
   Severity severity;
+
+  // the source of the log
+  Source source;
+
   // a variant that holds the log
   LogInner sub_log;
 
-  Log(time_stamp t, Severity s, LogInner l)
-      : time(t), severity(s), sub_log(l) {}
+  Log(time_stamp t, Severity se, Source so, LogInner l)
+      : time(t), severity(se), source(so), sub_log(l) {}
 
-  Log(Severity s, LogInner l) : Log(time_stamp::now(), s, l) {}
+  Log(Severity se, Source so, LogInner l) : Log(time_stamp::now() ,se ,so, l) {}
 
-  Log() : Log(0, Severity::Log, Heartbeat{}) {}
+  Log() : Log(time_stamp{}, Severity::Log ,Source::Logger ,Heartbeat{}) {}
 };
 
 #endif  // MESSAGE_HPP

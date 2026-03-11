@@ -8,6 +8,9 @@ import log_parser
 import random
 import os
 
+from log_type import Log
+
+
 # Helper to construct the full shell command
 def get_ros2_command(cmd_args):
     setup_path = "install/setup.bash"
@@ -36,31 +39,42 @@ log_printer_process = create_ros2_process(
     "ros2 run printer_logger_node printer_logger_node"
 )
 log_creater_process = create_ros2_process(
-    "ros2 run example_logging_node2 ExampleLoggingNode2"
+    "ros2 run log_tester_node log_tester_node"
 )
 logger_start_up_time=datetime.datetime.now()
 
+start_up_log=Log(0,logger_start_up_time,"LOG","Logger","LoggerStartup")
+
 # Give ROS2 nodes a moment to discover each other
+print("letting nodes start up")
 time.sleep(4)
 
 
 #====================================Create Logs====================================
+print("Sending logs...")
 log_counts=random.randint(15,20)
 
-goal_times=[random.uniform(0,2) for _ in range(log_counts)]
-goal_times.sort()
-log_types= [random.choice(["LOG","WARN","ERROR"]) for _ in range(log_counts)]
-log_times=[]
+
+logs=[]
+
+for _ in range(log_counts):
+    goal_times=random.uniform(0,2)
+    severity=random.choice(["LOG","WARN","ERROR"])
+    source=random.choice(["LoggerTester0","LoggerTester1","LoggerTester2"])
+    data="Heartbeat"
+
+    logs.append(Log(goal_times,None,severity,source,data))
+
+logs.sort(key=lambda l:l.expected_sleep_time)
 
 
-print("Sending logs...")
 start_log_time=datetime.datetime.now()
-for offset, log_type in zip(goal_times, log_types):
+for log in logs:
 
     #wait until offset time since start_log_time
-    wait_time=(start_log_time+datetime.timedelta(seconds=offset))-datetime.datetime.now()
+    wait_time=(start_log_time+datetime.timedelta(seconds=log.expected_sleep_time))-datetime.datetime.now()
     time.sleep(wait_time.microseconds/1_000_000)
-    log_times.append(datetime.datetime.now())
+    log.time_sent=datetime.datetime.now()
     
     # Check if the process is already dead
     if log_creater_process.poll() is not None:
@@ -69,10 +83,12 @@ for offset, log_type in zip(goal_times, log_types):
         exit(1)
     else:
         #write command
-        log_creater_process.stdin.write(log_type + "\n")
+        log_creater_process.stdin.write(f"{log.severity} {log.source}\n")
         log_creater_process.stdin.flush()
+logs.insert(0,start_up_log)
+print("giving time for nodes to prossess logs before shutdown")
 # Allow some time for logs to process before shutting down
-time.sleep(1)
+time.sleep(0.1)
 
 # Terminate processes before reading to prevent hanging
 # We kill the printer process so its stdout pipe closes, allowing .read() to finish.
@@ -90,9 +106,7 @@ print(stderr_data)
 print("results for direct printing")
 printer_passed=log_parser.verify_logs(
     stdout_data,
-    [logger_start_up_time]+log_times,
-    ["LOG"]+log_types,
-    ["LoggerStartup"]+log_counts*["Heartbeat"],
+    logs,
     datetime.timedelta(seconds=1),
     datetime.timedelta(milliseconds=50),
 )
@@ -134,9 +148,7 @@ stdout_data = file_logs.stdout
 print("results for file printing")
 file_passed=log_parser.verify_logs(
     stdout_data,
-    [logger_start_up_time]+log_times,
-    ["LOG"]+log_types,
-    ["LoggerStartup"]+log_counts*["Heartbeat"],
+    logs,
     datetime.timedelta(seconds=1),
     datetime.timedelta(milliseconds=50),
 )

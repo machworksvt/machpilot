@@ -8,14 +8,20 @@
 
 #include "log_class/message.hpp"
 
-LoggerPublisher::LoggerPublisher(rclcpp::Node* node, int buffer_size) {
+LoggerPublisher::LoggerPublisher(){
+  
+}
+
+LoggerPublisher::LoggerPublisher(rclcpp::Node* node, int buffer_size, Source source) {
+
+  this->source=source;
   // Initialize publisher with topic "log_topic"
-  publisher = node->create_publisher<logger_message_interface::msg::Log>(
+  this->publisher = node->create_publisher<logger_message_interface::msg::Log>(
       "log_topic", buffer_size);
 }
 
 void LoggerPublisher::publish(const LogInner& inner, Severity severity) {
-  Log log_object(severity, inner);
+  Log log_object(severity, this->source, inner);
 
   logger_message_interface::msg::Log msg;
 

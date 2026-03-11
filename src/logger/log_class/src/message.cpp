@@ -5,19 +5,6 @@
 #include <iomanip>
 #include <iostream>
 
-std::string_view severityToString(Severity s) {
-  switch (s) {
-    case Severity::Log:
-      return "LOG";
-    case Severity::Warning:
-      return "WARN";
-    case Severity::Error:
-      return "ERROR";
-    default:
-      return "UNKNOWN";
-  }
-}
-
 void print_time_with_ms(std::ostream& os,
                         const std::chrono::system_clock::time_point& tp) {
   // Convert time_point to time_t for standard date/time components
@@ -41,8 +28,9 @@ std::ostream& operator<<(std::ostream& os, const Log& log) {
   os << "Log{";
   os << "time: ";
   print_time_with_ms(os, log.time.to_time_point());
-  os << " severity: " << severityToString(log.severity) << ", ";
-  os << "data: ";
+  os << ", source: " << source_to_string(log.source);
+  os << ", severity: " << severity_to_string(log.severity);
+  os << ", data: ";
   log.sub_log.visit([&os](const auto& inner_log) { os << inner_log; });
   os << "}";
   return os;

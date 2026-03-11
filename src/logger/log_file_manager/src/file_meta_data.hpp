@@ -4,16 +4,21 @@
 #include "log_class/time_stamp.hpp"
 #include "log_class/trivially_copyable_variant.hpp"
 
+const std::uint64_t VERSION=0;
+
 // the part of FileMetaDataInner that will always be the same size so this can
 // be stack allocated durring deserialization
 struct FileMetaDataPreamble {
+  std::uint64_t version;
   time_stamp time;
   TagType variant_count;
 
   FileMetaDataPreamble() : time(), variant_count() {}
 
   FileMetaDataPreamble(int64_t variant_count)
-      : time(std::chrono::system_clock::now()), variant_count(variant_count) {}
+      : time(std::chrono::system_clock::now()), variant_count(variant_count) {
+        this->version=VERSION;
+      }
 };
 
 template <typename>
@@ -29,6 +34,6 @@ struct FileMetaDataInner<TriviallyCopyableVariant<Ts...>> {
 };
 
 // in order to make FileMetaData that is tied to are log type we make
-// FileMetaDataInner witch can be tied to any type then we make FileMeta data a
-// version of that that is tied to our log type
+// FileMetaDataInner witch can be tied to any type then we make FileMetaData a
+// version of that is tied to our log type
 typedef FileMetaDataInner<LogInner> FileMetaData;

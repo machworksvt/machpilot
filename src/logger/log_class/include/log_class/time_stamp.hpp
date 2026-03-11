@@ -16,7 +16,7 @@ class time_stamp {
   }
 
   time_stamp() : ms_since_epoch(0) {}
-  time_stamp(std::uint64_t ms) : ms_since_epoch(ms) {}
+  explicit time_stamp(std::uint64_t ms) : ms_since_epoch(ms) {}
   time_stamp(time_point_t time)
       : ms_since_epoch(
             std::chrono::duration_cast<milliseconds_t>(time.time_since_epoch())

@@ -35,7 +35,17 @@ LOG_READ_RESULT read_single_log(
 
   // read all constant size stuff into buffer
   try_read(&buffer->time, sizeof(time_stamp));
-  try_read(&buffer->severity, sizeof(Severity));
+
+  // we can't read source or severity directly into buffer becuase they are a enum
+  // class and writting data that does not corsipond to a type into a enm class is
+  // undefined behavior so we read into a int check the int then write into buffer
+
+  std::underlying_type_t<Severity> severity_int;
+  try_read(&severity_int, sizeof(Severity));
+  std::underlying_type_t<Source> source_int;
+  try_read(&source_int, sizeof(Source));
+
+
   try_read(&buffer->sub_log.type_id, sizeof(TagType));
 
   TagType tag = buffer->sub_log.type_id;
@@ -50,23 +60,42 @@ LOG_READ_RESULT read_single_log(
 
   std::size_t size_from_meta_data = variant_sizes[tag];
 
-  // check if the tag is valid for our current Log type
+  // After this point all found errors will not be fatal that is becuase even though
+  // the log entry might be corrupted the size of the log was recoverable meaning we 
+  // we can just skip the bytes assosated with this log this prevents some bugs from
+  // invalidating a entire file
+
+  // check severity
+  if (severity_int<SEVERITY_SIZE){
+    buffer->severity=static_cast<Severity>(severity_int);
+  }else{
+    buffer->severity=Severity::Error;
+    buffer->source=Source::Logger;
+    file.seekg(size_from_meta_data, std::ios_base::cur);
+    buffer->sub_log = InvalidDeserializationBadSeverity(severity_int);
+    return LOG_READ_RESULT::OK;
+  }
+
+  // check source
+  if (source_int<SOURCE_SIZE){
+    buffer->source=static_cast<Source>(source_int);
+  }else{
+    buffer->source=Source::Logger;
+    file.seekg(size_from_meta_data, std::ios_base::cur);
+    buffer->sub_log = InvalidDeserializationBadSouce(source_int);
+    return LOG_READ_RESULT::OK;
+  }
+
+  // check tag
   if (tag >= LogInner::TypeCount) {
-    // this log entry is corrupted however since the size was stored in the file
-    // this is still recoverable. I am making this recover so changing the size
-    // of one of the variants sub types will not completely invalidate all
-    // previously made files.
     file.seekg(size_from_meta_data, std::ios_base::cur);
     buffer->sub_log = InvaidDeserializationBadTag(tag);
     return LOG_READ_RESULT::OK;
   }
-  std::size_t size_from_known_sizes = LogInner::Sizes[tag];
 
+  // check sizes match
+  std::size_t size_from_known_sizes = LogInner::Sizes[tag];
   if (size_from_meta_data != size_from_known_sizes) {
-    // this log entry is corrupted however since the size was stored in the file
-    // this is still recoverable. I am making this recover so changing the size
-    // of one of the variants sub types will not completely invalidate all
-    // previously made files.
     file.seekg(size_from_meta_data, std::ios_base::cur);
     buffer->sub_log = InvalidDeserializationBadVariantSize(
         tag, size_from_known_sizes, size_from_meta_data);
@@ -102,8 +131,13 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  if (meta_data.version != VERSION){
+    std::cerr << "Wrong Version: metadata indicates made with version " << meta_data.version << " this software parses version " << VERSION << std::endl;
+    return 1;
+  }
+
   if (meta_data.variant_count > 1024) {
-    std::cerr << "Corrupted metadata: unreasonable variant count." << std::endl;
+    std::cerr << "Corrupted metadata: unreasonable variant count. "<< meta_data.variant_count << std::endl;
     return 1;
   }
 
@@ -119,7 +153,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  std::cout << Log(meta_data.time, Severity::Log, LoggerStartup{}) << std::endl;
+  std::cout << Log(meta_data.time, Severity::Log, Source::Logger, LoggerStartup{}) << std::endl;
 
   // the buffer we will read into
   Log buffer;

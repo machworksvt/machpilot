@@ -17,6 +17,8 @@ include_directories(include/)
 add_library(${PROJECT_NAME} SHARED
     src/log_types.cpp
     src/message.cpp
+    src/source.cpp
+    src/severity.cpp
 )
 
 target_include_directories(${PROJECT_NAME}

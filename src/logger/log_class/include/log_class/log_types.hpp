@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "severity.hpp"
+#include "source.hpp"
 #include "trivially_copyable_variant.hpp"
 
 class Heartbeat {
@@ -30,4 +32,26 @@ class InvalidDeserializationBadVariantSize {
   TagType tag;
   std::uint64_t correct_size;
   std::uint64_t given_size;
+};
+
+class InvalidDeserializationBadSeverity{
+  friend std::ostream& operator<<(
+      std::ostream& os, const InvalidDeserializationBadSeverity& log);
+  
+  public:
+    InvalidDeserializationBadSeverity(std::underlying_type_t<Severity> given_id)
+      : given_id(given_id) {}
+
+  std::underlying_type_t<Severity> given_id;
+};
+
+class InvalidDeserializationBadSouce{
+  friend std::ostream& operator<<(
+      std::ostream& os, const InvalidDeserializationBadSouce& log);
+  
+  public:
+    InvalidDeserializationBadSouce(std::underlying_type_t<Source> given_id)
+      : given_id(given_id) {}
+      
+  std::underlying_type_t<Source> given_id;
 };

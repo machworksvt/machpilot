@@ -9,7 +9,9 @@
 class LoggerPublisher {
 private:
     rclcpp::Publisher<logger_message_interface::msg::Log>::SharedPtr publisher;
+    Source source;
 public:
-    LoggerPublisher(rclcpp::Node* node, int buffer_size);
+    LoggerPublisher();
+    LoggerPublisher(rclcpp::Node* node, int buffer_size, Source source);
     void publish(const LogInner& inner, Severity severity);
 };

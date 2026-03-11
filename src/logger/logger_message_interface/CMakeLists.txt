@@ -7,9 +7,13 @@ find_package(rclcpp REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 find_package(log_class REQUIRED)
 
-# Confirm the generator has already produced the file
+# Confirm the generator has already produced the files
 if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/msg/Log.msg")
-  message(FATAL_ERROR "Log.msg has not been generated. Build the generator project first.")
+  message(FATAL_ERROR "Log.msg has not been generated. Build the generator project first. This can be done by running \"colcon build --packages-up-to logger_message_generator\"")
+endif()
+
+if(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/src/size_test.cpp")
+  message(FATAL_ERROR "size_test.cpp has not been generated. Build the generator project first. This can be done by running \"colcon build --packages-up-to logger_message_generator\"")
 endif()
 
 # ROSIDL interface generation

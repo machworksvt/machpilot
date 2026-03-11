@@ -83,6 +83,7 @@ class LogFileWriterNode : public rclcpp::Node {
     // write all constant size stuff into buffer
     write_to_file(&log.time);
     write_to_file(&log.severity);
+    write_to_file(&log.source);
     write_to_file(&log.sub_log.type_id);
 
     // get the size of the non constant stuff

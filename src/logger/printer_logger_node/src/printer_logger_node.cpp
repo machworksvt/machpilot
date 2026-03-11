@@ -30,7 +30,7 @@ class PrinterLoggerNode : public rclcpp::Node {
 
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
-  std::cout << Log(Severity::Log, LoggerStartup()) << std::endl;
+  std::cout << Log(Severity::Log, Source::Logger, LoggerStartup()) << std::endl;
   rclcpp::spin(std::make_shared<PrinterLoggerNode>());
   rclcpp::shutdown();
   return 0;
