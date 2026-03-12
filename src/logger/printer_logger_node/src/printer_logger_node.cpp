@@ -8,6 +8,9 @@
 
 using std::placeholders::_1;
 
+/**
+ * @brief A node that will print all logs it recives to the console
+ */
 class PrinterLoggerNode : public rclcpp::Node {
  public:
   PrinterLoggerNode() : Node("PrinterLoggerNode") {

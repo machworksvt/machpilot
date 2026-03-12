@@ -12,10 +12,23 @@
 
 enum class LOG_READ_RESULT { OK, Done, FatalError };
 
-// read a single log from file returns LOG_READ_RESULT::OK if buffer is filled
-// LOG_READ_RESULT::Done if there is no more data in this case buffer will not
-// be filled LOG_READ_RESULT::FatalError if the file is corrupted in a way that
-// is not recoverable bytes
+/**
+ * @brief Reads a single log entry from the provided file stream.
+ * * This function attempts to deserialize one log entry into the @p buffer. 
+ * * @param[out] buffer        Pointer to the Log object where data will be stored.
+ * @param[in,out] file       The input file stream to read from.
+ * @param[in] variant_sizes  A vector containing the expected sizes for different 
+ * log types, used to validate the log's tag.
+ * * @return LOG_READ_RESULT Status of the read operation:
+ * - @c LOG_READ_RESULT::OK: Log successfully read (or a recoverable 
+ * deserialization error occurred, and the log was marked as invalid).
+ * - @c LOG_READ_RESULT::Done: End of file reached; no more logs to read.
+ * - @c LOG_READ_RESULT::FatalError: File is truncated or the log structure 
+ * is corrupted such that the next log position cannot be determined.
+ * * @note If a non-fatal error is encountered (e.g., invalid severity or tag), the 
+ * function skips the corrupted entry using @p variant_sizes and returns 
+ * @c OK with a "Bad Deserialization" type stored in the buffer.
+ */
 LOG_READ_RESULT read_single_log(
     Log* buffer, std::ifstream& file,
     const std::vector<std::uint64_t>& variant_sizes) {
@@ -37,7 +50,7 @@ LOG_READ_RESULT read_single_log(
   try_read(&buffer->time, sizeof(time_stamp));
 
   // we can't read source or severity directly into buffer becuase they are a enum
-  // class and writting data that does not corsipond to a type into a enm class is
+  // class and writting data that does not correspond to a type into a enum class is
   // undefined behavior so we read into a int check the int then write into buffer
 
   std::underlying_type_t<Severity> severity_int;

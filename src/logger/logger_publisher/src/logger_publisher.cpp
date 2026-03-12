@@ -8,9 +8,7 @@
 
 #include "log_class/message.hpp"
 
-LoggerPublisher::LoggerPublisher(){
-  
-}
+LoggerPublisher::LoggerPublisher(){}
 
 LoggerPublisher::LoggerPublisher(rclcpp::Node* node, int buffer_size, Source source) {
 

@@ -3,6 +3,9 @@
 
 #include <string_view>
 
+/**
+ * @brief Represents the source of a log
+ */
 enum class Source: uint16_t{
     Logger,
     ExampleNode,
@@ -11,6 +14,7 @@ enum class Source: uint16_t{
     LoggerTester2,
 };
 
+/// The number of eliments in Source
 const std::underlying_type_t<Source> SOURCE_SIZE=5;
 
 /**

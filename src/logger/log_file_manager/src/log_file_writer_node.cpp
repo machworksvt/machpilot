@@ -12,12 +12,18 @@
 namespace fs = std::filesystem;
 using std::placeholders::_1;
 
+/**
+ * @brief The result of trying to open a file in a directory
+ */
 enum class FileStatus {
   FILE_OPENED,
   COULD_NOT_OPEN_DIRECTORY,
-  NO_FILE_GIVEN,
+  NO_DIRECTORY_GIVEN,
 };
 
+/**
+ * @brief A node that will write all logs it receives into a file
+ */
 class LogFileWriterNode : public rclcpp::Node {
  public:
   LogFileWriterNode() : Node("LogFileWriterNode") {
@@ -29,21 +35,33 @@ class LogFileWriterNode : public rclcpp::Node {
     std::string log_file_name;
     if (has_parameter("log_file")) {
       get_parameter<std::string>("log_file", log_file_name);
-      open_file(log_file_name);
+      file_status = open_file(log_file_name);
     } else {
-      file_status = FileStatus::NO_FILE_GIVEN;
+      file_status = FileStatus::NO_DIRECTORY_GIVEN;
     }
   }
 
   FileStatus get_file_status() const { return file_status; }
 
+ /** 
+  *  @brief writes the raw bytes associated  with a type into a file
+  *  @tparam T the type that is being written into the file
+  *  @param data the data being written
+  */ 
   template <typename T>
   void write_to_file(const T* data) {
     log_file.write(reinterpret_cast<const char*>(data), sizeof(T));
   }
 
  private:
-  void open_file(const std::string& directory) {
+
+  /**
+   * @brief creates a new file within a directory
+   * @param directory the directory to search in
+   * @return FileStatus::COULD_NOT_OPEN_DIRECTORY if the directory can't be opened
+   *         FileStatus::FILE_OPENED if the operation was successful
+   */
+  FileStatus open_file(const std::string& directory) {
     fs::path dirPath(directory);
     int counter = 1;
 
@@ -51,7 +69,7 @@ class LogFileWriterNode : public rclcpp::Node {
       file_status = FileStatus::COULD_NOT_OPEN_DIRECTORY;
       std::cerr << "Error: Directory does not exist: " << directory
                 << std::endl;
-      return;
+      return FileStatus::COULD_NOT_OPEN_DIRECTORY;
     }
 
     while (true) {
@@ -64,11 +82,10 @@ class LogFileWriterNode : public rclcpp::Node {
         log_file = std::ofstream(filePath, std::ios::binary | std::ios::out);
 
         if (log_file.is_open()) {
-          file_status = FileStatus::FILE_OPENED;
+          return FileStatus::FILE_OPENED;
         } else {
-          file_status = FileStatus::COULD_NOT_OPEN_DIRECTORY;
+          return FileStatus::COULD_NOT_OPEN_DIRECTORY;
         }
-        return;
       }
       counter++;
     }
@@ -110,7 +127,7 @@ int main(int argc, char* argv[]) {
       break;
     case FileStatus::COULD_NOT_OPEN_DIRECTORY:
       return 1;
-    case FileStatus::NO_FILE_GIVEN:
+    case FileStatus::NO_DIRECTORY_GIVEN:
       std::cout << "no file was given" << std::endl;
       return 1;
   }
