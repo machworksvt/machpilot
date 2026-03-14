@@ -12,7 +12,7 @@ jobs:
     build-and-test:
         runs-on: ubuntu-22.04
         permissions: 
-          contents: write
+          contents: read
           packages: read
         container:
           image: ghcr.io/machworksvt/machpilot-dev:latest
@@ -32,6 +32,6 @@ jobs:
               continue-on-error: true
               
             - name: test logger
-              run: python3 'src/logger/log_tester/test.py'
+              run: python3 'src/logger/log_tester/log_test.py'
 
 
