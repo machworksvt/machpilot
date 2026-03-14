@@ -3,6 +3,4 @@
 /log
 /rosbag2_*
 /src/logger/log_tester/test_log/*
-/src/logger/logger_message_interface/msg/Log.msg
-/src/logger/logger_message_interface/src/size_test.cpp
 __pycache__/
