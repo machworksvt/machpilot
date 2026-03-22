@@ -32,6 +32,6 @@ jobs:
               continue-on-error: true
               
             - name: test logger
-              run: python3 'src/logger/log_tester/test.py'
+              run: python3 'src/logger/log_tester/log_test.py'
 
 

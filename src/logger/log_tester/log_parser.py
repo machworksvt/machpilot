@@ -3,17 +3,20 @@ from datetime import datetime, timedelta
 from dataclasses import dataclass
 from typing import List
 
+from log_type import Log
+
 @dataclass
 class ParsedLog:
     timestamp: datetime
     severity: str
+    source: str
     data: str
     raw_line: str
 
-def verify_logs(log_output: str, expected_times: List[datetime], expected_types: List[str], expected_data: List[str], header_tolerance: timedelta,tolerance: timedelta):
-    # Regex matches: Log{time: 2025-12-31 18:25:26.180 severity: LOG, data: ...}
+def verify_logs(log_output: str, expected_logs: List[Log], header_tolerance: timedelta,tolerance: timedelta):
+    
     log_pattern = re.compile(
-        r"Log\{time: (?P<time>[\d\- :.]+) severity: (?P<severity>\w+), data: (?P<data>.*)\}"
+        r"Log\{time: (?P<time>[\d\- :.]+), source: (?P<source>\w+), severity: (?P<severity>\w+), data: (?P<data>.*)\}"
     )
 
     parsed_logs = []
@@ -29,83 +32,55 @@ def verify_logs(log_output: str, expected_times: List[datetime], expected_types:
             parsed_logs.append(ParsedLog(
                 timestamp=dt,
                 severity=match.group("severity"), 
+                source=match.group("source"),
                 data=match.group("data"),
                 raw_line=line
             ))
-
-    print(f"--- Captured {len(parsed_logs)} logs vs {len(expected_types)} expected ---")
-
+        else:
+            print(f"failed to parse line \"{line}\"")
+            return False
+        
     all_passed = True
     
-    print(f"{'EXPECTED TYPE':<15} | {'ACTUAL TYPE':<15} | {'EXPECTED DATA':<15} | {'ACTUAL DATA':<15} | {'DELTA (ms)':<10} | {'RESULT'}")
-    print("-" * 91)
+    print(f"{'EXPECTED SEVERITY':<17} | {'ACTUAL SEVERITY':<17} | {'EXPECTED SOURCE':<15} | {'ACTUAL SOURCE':<15} | {'EXPECTED DATA':<15} | {'ACTUAL DATA':<15} | {'DELTA (ms)':<10} | {'RESULT'}")
+    print("-" * 131)
 
-    for i, (log, exp_time, exp_type,exp_data) in enumerate(zip(parsed_logs, expected_times, expected_types,expected_data)):
+    for i, (parsed_log,expected_log) in enumerate(zip(parsed_logs,expected_logs,strict=False)):
 
         # Check Severity
-        type_match = (log.severity == exp_type)
+        severity_match = (parsed_log.severity == expected_log.severity)
         
+        # Check Source
+        source_match = (parsed_log.source == expected_log.source)
+
+
         # Check Time if within tolerance
         current_tolerance=header_tolerance if i==0 else tolerance
-        diff = abs(log.timestamp - exp_time)
+        diff = abs(parsed_log.timestamp - expected_log.time_sent)
         time_match = diff <= current_tolerance
         
         # Convert diff to ms for display
         diff_ms = diff.total_seconds() * 1000
 
         #check data match
-        data_match= (exp_data == log.data)
+        data_match= (expected_log.data == parsed_log.data)
         
-        single_pass=type_match and time_match and data_match
+        single_pass=severity_match and time_match and data_match and source_match
         status_str = "PASS" if single_pass else "FAIL"
         if not single_pass:
             all_passed = False
         
-        print(f"{exp_type:<15} | {log.severity:<15} | {exp_data:<15} | {log.data:<15} | {diff_ms:<10.2f} | {status_str}")
+        print(f"{expected_log.severity:17} | {parsed_log.severity:<17} | {expected_log.source:<15} | {parsed_log.source:<15} | {expected_log.data:<15} | {parsed_log.data:<15} | {diff_ms:<10.2f} | {status_str}")
 
-        if not type_match:
-            print(f"\tMismatch Type: Expected '{exp_type}' != Got '{log.severity}'")
+        if not severity_match:
+            print(f"\tMismatch Type: Expected '{expected_log.severity}' != Got '{parsed_log.severity}'")
         if not time_match:
             print(f"\tMismatch Time: Diff {diff_ms:.2f}ms > {current_tolerance.total_seconds()*1000}ms")
         if not data_match:
-            print(f"\tMismatch Data: Expected '{exp_data}' != Got '{log.data}'")
+            print(f"\tMismatch Data: Expected '{expected_log.data}' != Got '{parsed_log.data}'")
 
-    if len(parsed_logs) != len(expected_types):
-        print(f"\tCount mismatch: Parsed {len(parsed_logs)} but expected {len(expected_types)}.")
+    if len(parsed_logs) != len(expected_logs):
+        print(f"\tCount mismatch: Parsed {len(parsed_logs)} but expected {len(expected_logs)}.")
         all_passed = False
 
     return all_passed
-
-
-if __name__=="__main__":
-    sample_output = """
-    Log{time: 2025-12-31 18:25:26.180 severity: LOG, data: LoggerStartup}
-    Log{time: 2025-12-31 18:25:28.103 severity: LOG, data: Heartbeat}
-    Log{time: 2025-12-31 18:25:28.204 severity: WARN, data: Heartbeat}
-    Log{time: 2025-12-31 18:25:28.405 severity: ERROR, data: Heartbeat}
-    Log{time: 2025-12-31 18:25:28.705 severity: LOG, data: Heartbeat}
-    Log{time: 2025-12-31 18:25:29.106 severity: WARN, data: Heartbeat}
-    """
-
-
-    expected_types_refactored = ["LOG", "LOG", "WARN", "ERROR", "LOG", "WARN"]
-
-    mock_times = [
-        datetime(2025, 12, 31, 18, 25, 26, 180000),# Startup
-        datetime(2025, 12, 31, 18, 25, 28, 103000),# Log 1
-        datetime(2025, 12, 31, 18, 25, 28, 204000),# Warn 1
-        datetime(2025, 12, 31, 18, 25, 28, 405000),# Error
-        datetime(2025, 12, 31, 18, 25, 28, 705000),# Log 2
-        datetime(2025, 12, 31, 18, 25, 29, 106000),# Warn 2
-    ]
-
-    expected_data=["LoggerStartup"]+5*["Heartbeat"]
-
-    verify_logs(
-        sample_output, 
-        mock_times, 
-        expected_types_refactored,
-        expected_data,
-        timedelta(milliseconds=500),
-        timedelta(milliseconds=50),
-    )

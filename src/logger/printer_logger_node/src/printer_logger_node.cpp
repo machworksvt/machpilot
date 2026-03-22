@@ -8,6 +8,9 @@
 
 using std::placeholders::_1;
 
+/**
+ * @brief A node that will print all logs it recives to the console
+ */
 class PrinterLoggerNode : public rclcpp::Node {
  public:
   PrinterLoggerNode() : Node("PrinterLoggerNode") {
@@ -30,7 +33,7 @@ class PrinterLoggerNode : public rclcpp::Node {
 
 int main(int argc, char* argv[]) {
   rclcpp::init(argc, argv);
-  std::cout << Log(Severity::Log, LoggerStartup()) << std::endl;
+  std::cout << Log(Severity::Log, Source::Logger, LoggerStartup()) << std::endl;
   rclcpp::spin(std::make_shared<PrinterLoggerNode>());
   rclcpp::shutdown();
   return 0;

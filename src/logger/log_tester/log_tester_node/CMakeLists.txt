@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(example_logging_node2)
+project(log_tester_node)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -11,19 +11,19 @@ find_package(rclcpp REQUIRED)
 find_package(logger_publisher REQUIRED)
 find_package(log_class REQUIRED)
 
-add_executable(ExampleLoggingNode2 src/ExampleLoggingNode2.cpp)
-target_include_directories(ExampleLoggingNode2 PUBLIC
+add_executable(log_tester_node src/log_tester_node.cpp)
+target_include_directories(log_tester_node PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
-target_compile_features(ExampleLoggingNode2 PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
+target_compile_features(log_tester_node PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
-  ExampleLoggingNode2
+  log_tester_node
   "rclcpp"
   "logger_publisher"
   "log_class"
 )
 
-install(TARGETS ExampleLoggingNode2
+install(TARGETS log_tester_node
   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)

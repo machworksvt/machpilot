@@ -19,3 +19,13 @@ std::ostream& operator<<(std::ostream& os,
             << ", correct_size: " << log.correct_size
             << ", given size: " << log.given_size << "}";
 }
+
+std::ostream& operator<<(std::ostream& os,
+                         const InvalidDeserializationBadSeverity& log) {
+  return os << "InvalidDeserializationBadSeverity{"<<static_cast<int>(log.given_id)<<"}";
+}
+
+std::ostream& operator<<(std::ostream& os,
+                         const InvalidDeserializationBadSouce& log) {
+  return os << "InvalidDeserializationBadSouce{"<<static_cast<int>(log.given_id)<<"}";
+}

@@ -10,7 +10,7 @@ class ExampleLoggingNode : public rclcpp::Node {
       : Node("example_loggging_node"),
         /*publisher contructor takes in a pointer to the node and the
 // size of its buffer*/
-        publisher_(this, 16) {
+        publisher_(this, 16, Source::ExampleNode) {
     // call timer_callback every half a second
     timer_ = this->create_wall_timer(
         500ms, std::bind(&ExampleLoggingNode::timer_callback, this));

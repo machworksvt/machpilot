@@ -25,6 +25,9 @@ A node that reads all logs and prints them to the console.
 ### log_file_manager
 Contains a node that writes logs to a file and an executable that reads those files.
 
+### log_tester
+A set of test for the logger.
+
 # Using the Logger
 
 Include the project's `log_class` and `logger_publisher` in your project. 
@@ -32,13 +35,24 @@ Include the project's `log_class` and `logger_publisher` in your project.
 In your node, create an instance of `LoggerPublisher` using the constructor below. It takes a pointer to the parent node and the buffer size (recommended size: 16).
 
 ```cpp
-LoggerPublisher::LoggerPublisher(rclcpp::Node *node, int buffer_size)
+/**
+ * @brief Creates a new LoggerPublisher.
+ * @param node The node that this will publish as.
+ * @param buffer_size The number of eliments to buffer locally in this node.
+ * @param source The place the logs will report comming from.
+ */
+LoggerPublisher::LoggerPublisher(rclcpp::Node* node, int buffer_size, Source source);
 ```
 
 Then, call this function to produce a log, where `inner` is the data you want logged and `severity` represents the type of log:
 
 ```cpp
-void LoggerPublisher::publish(const LogInner &inner, Severity severity)
+/**
+ * @brief Pubishes a log.
+ * @param inner The data that will be logged.
+ * @param severity How severe the log is.
+ */
+void LoggerPublisher::publish(const LogInner& inner, Severity severity);
 ```
 
 # Adding Your Own Logs
@@ -51,7 +65,9 @@ Next, write a print function for your new type. Put the implementation for print
 Finally, open `include/log_class/message.hpp` and find:
 
 ```cpp
-// Defines what types we can log
+/**
+ * @brief The variant type representing the payload of a log entry.
+ */
 typedef TriviallyCopyableVariant<...>
     LogInner;
 ```
