@@ -3,8 +3,13 @@ import os
 from launch import LaunchDescription
 from launch_ros.actions import Node
 from launch.actions import TimerAction, IncludeLaunchDescription, ExecuteProcess
-from launch.launch_description_sources import XMLLaunchDescriptionSource
+from launch_xml.launch_description_sources import XMLLaunchDescriptionSource
 from ament_index_python.packages import get_package_share_directory
+
+if not (os.system("sudo bash /home/dev/machpilot/init_can.sh") == 0):
+    print("Error bringing up CAN0")
+    exit(1)
+
 
 def generate_launch_description():
     # Define the can_bridge_node
@@ -16,7 +21,7 @@ def generate_launch_description():
 
     # Define the h20pro node
     h20pro_node = Node(
-        package='can_interfaces',           # Replace with your h20pro package name
+        package='can_bridge_node',           # Replace with your h20pro package name
         executable='h20pro_node',       # Replace with your h20pro executable name
         name='h20pro_node'
     )

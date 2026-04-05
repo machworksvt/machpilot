@@ -48,7 +48,7 @@ install(TARGETS can_bridge_node
 
 install(
   DIRECTORY launch
-  DESTINATION share/${PROJECT_NAME}
+  DESTINATION share/${PROJECT_NAME}/
 )
 
 if(BUILD_TESTING)

@@ -11,7 +11,7 @@ namespace ublox {
             message_count_(0),
             error_count_(0) {
 
-        this->declare_parameter("device_path", "/dev/ttyUSB0");
+        this->declare_parameter("device_path", "/dev/ttyAMA0");
         this->declare_parameter("baud_rate", 38400);
         this->declare_parameter("frame_id", "gps");
 
