@@ -11,7 +11,7 @@
  * #TODO include other /msgs formats
  */
 
-#define DT 0.005 // seconds, should be used for timers
+constexpr double DT =  0.005; // seconds, should be used for timers
 
 class Device : public rclcpp_lifecycle::LifecycleNode {
 public:

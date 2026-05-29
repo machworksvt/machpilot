@@ -12,9 +12,8 @@
 #include <errno.h>
 #include <string.h>
 
-#define I2C_FILE_PATH "/dev/i2c-" // default I2C file path prefix
-
-#define I2C_MAX_SIZE 32
+const char* I2C_FILE_PATH = "/dev/i2c-"; // default I2C file path prefix
+const int I2C_MAX_SIZE = 32; // max number of bytes sent with one i2c transaction
 
 // stores permanent items related to the device: bus number and address
 typedef struct _I2CInfo {

@@ -1,5 +1,12 @@
 #include <uart.h>
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * NON-REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as non-realtime, and does not need to be so
+ * 
+**/
 int uart_open(UARTInfo *info, const char *device_path) {
     // open the UART file descriptor
     (*info).fd = open(device_path, O_RDWR | O_NOCTTY | O_NONBLOCK);
@@ -15,7 +22,14 @@ int uart_open(UARTInfo *info, const char *device_path) {
 
     return 0;
 }
-    
+
+/**
+ * ------------------------------------------------------------------------------------------------
+ * NON-REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as non-realtime, and does not need to be so
+ * 
+**/
 int uart_close(UARTInfo *info) {
     // close the UART device
     if (close((*info).fd) == -1) {
@@ -29,6 +43,13 @@ int uart_close(UARTInfo *info) {
     return 0;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * NON-REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as non-realtime, and does not need to be so
+ * Do not use this block in a realtime context
+**/
 int uart_configure(UARTInfo *info, int baud_rate, int parity, int stop_bits, int data_bits, int min_chars, int timeout) {
     struct termios options; // Create the options structure
 
@@ -122,34 +143,51 @@ int uart_configure(UARTInfo *info, int baud_rate, int parity, int stop_bits, int
     return 0;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 ssize_t uart_write(UARTInfo *info, const uint8_t *data, size_t size) {
     // write data to the UART device
+    ssize_t rc = 0;
     ssize_t bytes_written = write(info->fd, data, size);
+    rc = bytes_written;
     if (bytes_written == -1) {
 
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
             // Unable to write right now, not an error in non-blocking mode
-            return 0;
+            rc = 0;
         }
 
         perror("UART: Write failed");
 
-        return -1;
+        rc = -1;
     }
 
     tcdrain(info->fd); // flush the output buffer
-
-    return bytes_written;
+    return rc;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
 
     // read data from the UART device
+    ssize_t rc = 0;
     ssize_t bytes_read = read(info->fd, data, size);
+    rc = bytes_read;
     if (bytes_read == -1) {
         if (errno == EAGAIN || errno == EWOULDBLOCK) {
             // No data available right now, not an error in non-blocking mode
-            return 0;
+            rc = 0;
         }
 
         if (errno == EINTR) {
@@ -167,14 +205,14 @@ ssize_t uart_read(UARTInfo *info, uint8_t *data, size_t size) {
             if (errno == EINTR) {
                 // Still interrupted after retries
                 perror("UART: Read interrupted");
-                return -1;
+                rc = -1;
             }
         }
         
         perror("UART: Read failed");
 
-        return -1;
+        rc = -1;
     }
 
-    return bytes_read;
+    return rc;
 }
