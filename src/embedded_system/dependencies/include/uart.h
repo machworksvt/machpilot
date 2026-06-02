@@ -8,8 +8,8 @@
 #include <unistd.h>
 #include <stdint.h>
 
-const char* UART_FILE_PATH = "/dev/ttyS";
-const int EINTR_RETRIES = 5;
+extern char* UART_FILE_PATH;
+extern int EINTR_RETRIES;
 
 typedef struct _UARTInfo {
     char device[24];

@@ -1,5 +1,8 @@
 #include <uart.h>
 
+char* UART_FILE_PATH = "/dev/ttyS";
+int EINTR_RETRIES = 5;
+
 /**
  * ------------------------------------------------------------------------------------------------
  * NON-REALTIME

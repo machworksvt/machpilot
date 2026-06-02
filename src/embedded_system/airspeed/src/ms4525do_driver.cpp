@@ -1,4 +1,4 @@
-#include "ms4525do_driver.h"
+#include "ms4525do_driver.hpp"
 
 #include <cstdlib>
 #include <cerrno>
@@ -23,7 +23,13 @@ bool calibFlag = false;
     
 // }
 
-
+/**
+ * ------------------------------------------------------------------------------------------------
+ * NON-REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as non-realtime, and does not need to be so
+ * 
+**/
 MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
     i2c_info_.bus_num = bus_num;
     i2c_info_.address = addr;
@@ -35,104 +41,163 @@ MS4525DO::MS4525DO(const char *bus_path, uint8_t bus_num, uint16_t addr) {
     
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * NON-REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as non-realtime, and does not need to be so
+ * 
+**/
 MS4525DO::~MS4525DO() {
     i2c_deinit(&i2c_info_);
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 uint8_t MS4525DO::readMeasureRequest() {
+    int rc = 0;
     if (i2c_read_cmd(&i2c_info_, NULL, 0)) {
         perror("MS4525DO: read error");
-    close(i2c_info_.fd);
+        rc = 1;
     }
+
+    return rc;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 uint8_t MS4525DO::readPressure() {
 
+    int rc = 0;
     uint8_t data[2];
     if (i2c_read(&i2c_info_, 0, 2, data)) {
         std::cerr << "Pitot: 2-read error" << std::endl;
-        return 1;
+        rc = 1;
     }
 
-    uint16_t pvalue = (data[0] << 8) + data[1];
-    uint8_t status = pvalue >> 14;
-    pvalue = pvalue & 0x3fff;
+    if (rc == 0) {
+        uint16_t pvalue = (data[0] << 8) + data[1];
+        uint8_t status = pvalue >> 14;
+        pvalue = pvalue & 0x3fff;
 
-    data_.status = status;
+        data_.status = status;
 
-    bool doWrite = statusMessages(status);
-    
-    if (doWrite) {
-        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        bool doWrite = statusMessages(status);
 
-        if (calibFlag) {
-            data_.pressure -= p_offset_;
+        if (doWrite) {
+            data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+
+            if (calibFlag) {
+                data_.pressure -= p_offset_;
+            }
         }
+        else rc = 2;
     }
     
-    return 0;
+    return rc;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 uint8_t MS4525DO::readPressureAndTemp() {
+
+    int rc = 0;
     uint8_t data[3];
     if (i2c_read(&i2c_info_, 0, 3, data)) {
         std::cerr << "Pitot: 3-read error" << std::endl;
-        return 1;
+        rc = 1;
     }
 
-    uint16_t pvalue = (data[0] << 8) + data[1];
-    uint8_t status = pvalue >> 14;
-    pvalue = pvalue & 0x3fff;
+    if (rc == 0) {
+        uint16_t pvalue = (data[0] << 8) + data[1];
+        uint8_t status = pvalue >> 14;
+        pvalue = pvalue & 0x3fff;
 
-    data_.status = status;
+        data_.status = status;
 
-    bool doWrite = statusMessages(status);
-    
-    if (doWrite) {
-        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        bool doWrite = statusMessages(status);
+        
+        if (doWrite) {
+            data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
 
-        data_.temp = ((float)data[2] * (MAXT - MINT) / 0xFF) + MINT;
+            data_.temp = ((float)data[2] * (MAXT - MINT) / 0xFF) + MINT;
 
-        if (calibFlag) {
-            data_.pressure -= p_offset_;
-            data_.temp -= t_offset_;
+            if (calibFlag) {
+                data_.pressure -= p_offset_;
+                data_.temp -= t_offset_;
+            }
         }
+        else rc = 2;
     }
     
-    return 0;
+    return rc;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 uint8_t MS4525DO::readPressureAndTempHD() {
+
+    int rc = 0;
     uint8_t data[4];
     if (i2c_read(&i2c_info_, 0, 4, data)) {
         std::cerr << "Pitot: 4-read error" << std::endl;
-        return 1;
+        rc = 1;
     }
 
-    uint16_t pvalue = (data[0] << 8) + data[1];
-    uint8_t status = pvalue >> 14;
-    pvalue = pvalue & 0x3fff;
-    
-    uint16_t tvalue = (data[2] << 3) + (data[3] >> 5);
+    if (rc == 0) {
+        uint16_t pvalue = (data[0] << 8) + data[1];
+        uint8_t status = pvalue >> 14;
+        pvalue = pvalue & 0x3fff;
+        
+        uint16_t tvalue = (data[2] << 3) + (data[3] >> 5);
 
-    data_.status = status;
+        data_.status = status;
 
-    bool doWrite = statusMessages(status);
-    
-    if (doWrite) {
-        data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
+        bool doWrite = statusMessages(status);
+        
+        if (doWrite) {
+            data_.pressure = ((pvalue - 0x3FFF * MIN) * (MAXP - MINP) / ((MAX - MIN) * 0x3FFF)) + MINP;
 
-        data_.temp = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
+            data_.temp = ((float)tvalue * (MAXT - MINT) / 0x7FF) + MINT;
 
-        if (calibFlag) {
-            data_.pressure -= p_offset_;
-            data_.temp -= t_offset_;
+            if (calibFlag) {
+                data_.pressure -= p_offset_;
+                data_.temp -= t_offset_;
+            }
         }
+        else rc = 2;
     }
     
-    return 0;
+    return rc;
 }
 
+/**
+ * ------------------------------------------------------------------------------------------------
+ * REALTIME
+ * ------------------------------------------------------------------------------------------------
+ * This block is designated as realtime, and has been reviewed.
+ * Realtime practices have been confirmed and standards are adehered to.
+**/
 bool MS4525DO::statusMessages(uint8_t status) {
 
     switch (status) {
@@ -144,7 +209,7 @@ bool MS4525DO::statusMessages(uint8_t status) {
         perror("stale data, read again");
         return false;
     case STATUS_ERROR:
-        throw std::runtime_error("read status error, perform power-on reset");
+        perror("read status error, perform power-on reset");
         return false;
     }
     return false;

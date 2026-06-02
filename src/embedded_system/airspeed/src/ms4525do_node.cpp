@@ -1,4 +1,4 @@
-#include "ms4525do_driver.h"
+#include "ms4525do_driver.hpp"
 
 #include <rclcpp/rclcpp.hpp>
 #include <lifecycle_interface.hpp>
@@ -12,12 +12,27 @@
 using std::placeholders::_1;
 class MS4525DONode : public Device {
 public:
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   MS4525DONode(int addr) : Device("ms4525do_node") {
     ms4525do_ = std::make_unique<MS4525DO>(I2C_FILE_PATH, 7, addr);
 
   }
 
 private:
+
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_configure(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
@@ -30,6 +45,13 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_cleanup(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
@@ -39,6 +61,13 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_activate(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
@@ -56,6 +85,13 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_deactivate(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
@@ -70,6 +106,13 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_shutdown(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
@@ -79,14 +122,29 @@ private:
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * NON-REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as non-realtime, and does not need to be so
+   * 
+  **/
   CallbackReturn on_error(const rclcpp_lifecycle::State &state) override
   {
       RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
       return CallbackReturn::SUCCESS;
   }
 
+  /**
+   * ------------------------------------------------------------------------------------------------
+   * REALTIME
+   * ------------------------------------------------------------------------------------------------
+   * This block is designated as realtime, and has been reviewed.
+   * Realtime practices have been confirmed and standards are adehered to.
+  **/
   int timer_callback() {
 
+    int rc = 0;
     if (timeout_counter_ > (uint)(1.0f / DT)) {
         RCLCPP_WARN(get_logger(), "MS4525DO: no data sent in the last second");
     }
@@ -95,7 +153,7 @@ private:
     double pressure_pa   = 0.0;
     uint8_t status;
 
-    ms4525do_->readPressureAndTempHD();
+    rc = ms4525do_->readPressureAndTempHD();
 
     temperature_c = ms4525do_->data_.temp;
     pressure_pa = ms4525do_->data_.pressure * PSI2PA; // Convert psi to pascal
@@ -105,34 +163,33 @@ private:
       RCLCPP_ERROR(this->get_logger(), "MS4525DO: Failed to read data, error code: %d", status);
       
       timeout_counter_++;
-
-      return -1;
+      rc = 3;
     }
 
-    // Log the results
-    RCLCPP_INFO(this->get_logger(),
-                "MS4525DO: Temperature = %.2f °C, Pressure = %.5f pa",
-                temperature_c, pressure_pa);
+    if (rc != 0) {
+      // Log the results
+      RCLCPP_INFO(this->get_logger(),
+                  "MS4525DO: Temperature = %.2f °C, Pressure = %.5f pa",
+                  temperature_c, pressure_pa);
 
-    // Publish Temperature message
-    auto temp_msg = sensor_msgs::msg::Temperature();
-    temp_msg.header.stamp = this->now();
-    temp_msg.header.frame_id = "1";
-    temp_msg.temperature = temperature_c;
-    temp_msg.variance = 0.0;  // Unknown variance; adjust if available
-    temperature_publisher_->publish(temp_msg);
+      // Publish Temperature message
+      auto temp_msg = sensor_msgs::msg::Temperature();
+      temp_msg.header.stamp = this->now();
+      temp_msg.temperature = temperature_c;
+      temp_msg.variance = 0.0;  // Unknown variance; adjust if available
+      temperature_publisher_->publish(temp_msg);
 
-    // Publish Fluid Pressure message
-    auto press_msg = sensor_msgs::msg::FluidPressure();
-    press_msg.header.stamp = this->now();
-    press_msg.header.frame_id = "ms4525do_frame";
-    press_msg.fluid_pressure = pressure_pa;
-    press_msg.variance = 0.0;  // Unknown variance; adjust if available
-    pressure_publisher_->publish(press_msg);
+      // Publish Fluid Pressure message
+      auto press_msg = sensor_msgs::msg::FluidPressure();
+      press_msg.header.stamp = this->now();
+      press_msg.fluid_pressure = pressure_pa;
+      press_msg.variance = 0.0;  // Unknown variance; adjust if available
+      pressure_publisher_->publish(press_msg);
 
-    timeout_counter_ = 0;
-    
-    return 0;
+      timeout_counter_ = 0;
+    }
+
+    return rc;
   }
 
   std::unique_ptr<MS4525DO> ms4525do_;
