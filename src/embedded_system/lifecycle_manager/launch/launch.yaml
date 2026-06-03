@@ -5,21 +5,21 @@ launch:
     exec: "ms4525do_node"
     name: "airspeed1"
     param:
-    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+    - file: "$(find-pkg-share airspeed)/config/params.yaml"
 
   - node: 
     pkg: "airspeed"
     exec: "ms4525do_node"
     name: "airspeed2"
     param:
-    - file: "$(find-pkg-share your_package_name)/config/params.yaml"
+    - file: "$(find-pkg-share airspeed)/config/params.yaml"
 
   - node: 
     pkg: "ublox_gps_driver"
     exec: "gps_node"
     name: "gps"
     param:
-    - file: "$(find-pkg-share your_package_name)/config/gps_params.yaml"
+    - file: "$(find-pkg-share ublox_gps_driver)/config/gps_params.yaml"
 
   - node: 
     pkg: "airspeed"

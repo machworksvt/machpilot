@@ -63,7 +63,7 @@ bool LifecycleManagerNode::__callback_routine(uint8_t result_state, uint8_t tran
 
     if (erc == -1) {
         RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
-        current_err_type_ = state_check_comp();
+        state_check_comp();
         return 2;
     }
 
@@ -117,8 +117,22 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const r
         return CallbackReturn::FAILURE;
     }
 
-    // #TODO add periodic state checking via a timer (can a service be called from inside a timer callback?)
-    
+    // #TODO add publishers of changes to hardware nodes, maybe via the health monitor?
+
+    timer_ = this->create_wall_timer(
+        std::chrono::seconds(2),
+        [this]() -> void {
+            if (loop_get_state_clients(lifecycle_msgs::msg::State::PRIMARY_STATE_ACTIVE)) {
+                RCLCPP_ERROR(this->get_logger(), "Some client(s) not communicated with");
+                trigger_transition(lifecycle_msgs::msg::Transition::TRANSITION_ON_ACTIVATE_ERROR);
+            }
+
+            if (state_check_comp()) {
+                RCLCPP_ERROR(this->get_logger(), "Some client state(s) inaccessible or different from expected");
+                trigger_transition(lifecycle_msgs::msg::Transition::TRANSITION_ON_ACTIVATE_ERROR);
+            }
+        }
+    );
     return CallbackReturn::SUCCESS;
 }
 
@@ -234,7 +248,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_error(const rclc
             }
 
             loop_get_state_clients(state.id()); // updates client_states_
-            current_err_type_ = state_check_comp(); // updates current_err_type_
+            state_check_comp(); // updates current_err_type_
             if (current_err_type_ == STATE_GET_UNRESPONSIVE) {
                 RCLCPP_ERROR(get_logger(), "Somehow another node stopped communicating in the meantime");
                 goto unresponsive_handling; 
@@ -258,7 +272,7 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_error(const rclc
         }
 
         loop_get_state_clients(state.id()); // updates client_states_
-        current_err_type_ = state_check_comp(); // updates current_err_type_
+        state_check_comp(); // updates current_err_type_
         if (current_err_type_ == STATE_GET_UNRESPONSIVE) { // the only reason to use goto
             RCLCPP_ERROR(get_logger(), "Somehow another node stopped communicating in the meantime");
             goto unresponsive_handling; 
@@ -347,7 +361,7 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 
     for (auto client : client_change_state_) {
 
-        while (!client->wait_for_service(std::chrono::seconds(5))) {
+        while (!client->wait_for_service(std::chrono::milliseconds(SERVICE_TIMEOUT_MS))) {
             RCLCPP_WARN(this->get_logger(), "Waiting for get_state service to appear...");
         }
 
@@ -358,7 +372,7 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
 
         rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
             future, 
-            std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
+            std::chrono::milliseconds(STATE_SERVICE_TIMEOUT_MS));
 
         success_flags_ = success_flags_ << 1;
         success_flags_ |= !client_response(res);
@@ -389,7 +403,7 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
 
         RCLCPP_INFO(this->get_logger(), "Hello");
 
-        while (!client->wait_for_service(std::chrono::seconds(5))) {
+        while (!client->wait_for_service(std::chrono::milliseconds(SERVICE_TIMEOUT_MS))) {
             RCLCPP_WARN(this->get_logger(), "Waiting for get_state service to appear...");
         }
 
@@ -398,7 +412,7 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
 
         rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
             future, 
-            std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
+            std::chrono::milliseconds(STATE_SERVICE_TIMEOUT_MS));
 
         if (client_response(res)) {
             rc = -1;
@@ -443,7 +457,7 @@ int LifecycleManagerNode::client_response(rclcpp::FutureReturnCode res)
  */
 uint LifecycleManagerNode::state_check_comp()
 {
-    uint overall_severity = 0; //takes the value of the most severe state comp failure
+    uint current_err_type_ = 0; //takes the value of the most severe state comp failure
 
     uint8_t m_state = this->get_current_state().id();
     for (uint i = 0; i < client_states_.size(); i++) {
@@ -451,18 +465,18 @@ uint LifecycleManagerNode::state_check_comp()
         if (c_state != m_state) {
             if (c_state == STATE_UNKNOWN) {
                 RCLCPP_ERROR(this->get_logger(), "State from node %d unknown, error in communication with get_state service", i);
-                overall_severity = 2;
+                current_err_type_ = 2;
                 continue;
             }
 
             RCLCPP_ERROR(this->get_logger(), "State from node %d: code %d different from expected: code %d", i, c_state, m_state);
-            if (overall_severity < 2) overall_severity = 1;
+            if (current_err_type_ < 2) current_err_type_ = 1;
         }
     }
 
-    if (overall_severity == 0) RCLCPP_INFO(this->get_logger(), "No problems found");
+    if (current_err_type_ == 0) RCLCPP_INFO(this->get_logger(), "No problems found");
 
-    return overall_severity;
+    return current_err_type_; // return it for convenience
 }
 
 /**
