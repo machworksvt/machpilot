@@ -63,6 +63,7 @@ bool LifecycleManagerNode::__callback_routine(uint8_t result_state, uint8_t tran
 
     if (erc == -1) {
         RCLCPP_INFO(this->get_logger(), "Not all transitions successful");
+        current_err_type_ = state_check_comp();
         return 2;
     }
 
@@ -115,6 +116,8 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_activate(const r
 
         return CallbackReturn::FAILURE;
     }
+
+    // #TODO add periodic state checking via a timer (can a service be called from inside a timer callback?)
     
     return CallbackReturn::SUCCESS;
 }
@@ -202,12 +205,70 @@ LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_shutdown(const r
     return CallbackReturn::SUCCESS;
 }
 
+/**
+ * Handles the two main cases that can arise during the operation of this node. Sub-nodes are supposed to handle
+ * their own errors, and them transitioning to Error does not cause this node to do the same. 
+ * Removes the erring node from the service and state vectors upon failure to handle these errors.
+ * @param state a reference to the current (origin) state for this transition
+ */
 LifecycleNodeInterface::CallbackReturn LifecycleManagerNode::on_error(const rclcpp_lifecycle::State &state)
 {
     RCLCPP_INFO(get_logger(), "%s is in state: %s", this->get_name(), state.label().c_str());
-    /**
-     * This will be very sub-node dependent and involved, reserved for future
-     */
+
+    uint8_t index;
+
+    if (current_err_type_ == STATE_GET_UNRESPONSIVE) {
+        goto unresponsive_handling; // wierd ahh goto
+        unresponsive_handling:
+            while (index = handle_no_comms() + 1) {
+                index--; //remove the +1 effect
+                client_states_.erase(client_states_.begin() + index);
+                client_get_state_.erase(client_get_state_.begin() + index);
+                client_change_state_.erase(client_change_state_.begin() + index);
+            }
+
+            if (client_states_.empty()) {
+                RCLCPP_FATAL(get_logger(), "All nodes not communicating or erroniously removed from manager");
+
+                return CallbackReturn::FAILURE;
+            }
+
+            loop_get_state_clients(state.id()); // updates client_states_
+            current_err_type_ = state_check_comp(); // updates current_err_type_
+            if (current_err_type_ == STATE_GET_UNRESPONSIVE) {
+                RCLCPP_ERROR(get_logger(), "Somehow another node stopped communicating in the meantime");
+                goto unresponsive_handling; 
+            }
+    }
+
+    if (current_err_type_ == STATE_MISMATCH) {
+        goto mismatch_handling; // wierd ahh goto
+        mismatch_handling:
+        while (index = handle_errant_states() + 1) {
+            index--; //remove the +1 effect
+            client_states_.erase(client_states_.begin() + index);
+            client_get_state_.erase(client_get_state_.begin() + index);
+            client_change_state_.erase(client_change_state_.begin() + index);
+        }
+
+        if (client_states_.empty()) {
+            RCLCPP_FATAL(get_logger(), "All nodes in unrecoverable state or erroniously removed from manager");
+
+            return CallbackReturn::FAILURE;
+        }
+
+        loop_get_state_clients(state.id()); // updates client_states_
+        current_err_type_ = state_check_comp(); // updates current_err_type_
+        if (current_err_type_ == STATE_GET_UNRESPONSIVE) { // the only reason to use goto
+            RCLCPP_ERROR(get_logger(), "Somehow another node stopped communicating in the meantime");
+            goto unresponsive_handling; 
+        }
+
+        if (current_err_type_ == STATE_MISMATCH) {
+            RCLCPP_ERROR(get_logger(), "Somehow another node entered a mismatched state in the meantime");
+            goto mismatch_handling; 
+        }
+    }
 
     return CallbackReturn::SUCCESS;
 }
@@ -257,6 +318,7 @@ int LifecycleManagerNode::scan_and_add_devices()
                     cbg_
                 )
             );
+            client_states_.push_back(0); // initialize states vector
             RCLCPP_INFO(get_logger(), "Added GetState client for service: %s", key.c_str());
         }
 
@@ -321,6 +383,8 @@ int LifecycleManagerNode::loop_change_state_clients(uint8_t transition)
  */
 int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
 
+    int rc = 0, i = 0;
+
     for (auto client : client_get_state_) {
 
         RCLCPP_INFO(this->get_logger(), "Hello");
@@ -330,23 +394,32 @@ int LifecycleManagerNode::loop_get_state_clients(uint8_t state) {
         }
 
         auto req = std::make_shared<lifecycle_msgs::srv::GetState::Request>();
-
         auto future = client->async_send_request(req);
 
         rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
             future, 
             std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
 
-
-        if (client_response(res)) continue;
+        if (client_response(res)) {
+            rc = -1;
+            client_states_[i] = STATE_UNKNOWN; // set the state to a value not associated with a state to denote error
+            i++;
+            // skip next step if errant response, but keep reading states of other clients
+            continue;
+        }
 
         // compare between intended and actual state
-        if (future.get()->current_state.id != state) return -1;
+        if (future.get()->current_state.id != state) rc = -1; // sets rc to -1 on first occurrence of bad state
+        client_states_[i] = future.get()->current_state.id;
+        i++;
     }
 
-    return 0;
+    return rc;
 }
 
+/**
+ * Switch returns based on the result of the future
+ */
 int LifecycleManagerNode::client_response(rclcpp::FutureReturnCode res)
 {
 
@@ -362,6 +435,101 @@ int LifecycleManagerNode::client_response(rclcpp::FutureReturnCode res)
         return 1;
     }
 
+}
+
+/**
+ * Prints based on what's in the client_states_ vector, and 
+ * returns different values to guide this node's error procedures
+ */
+uint LifecycleManagerNode::state_check_comp()
+{
+    uint overall_severity = 0; //takes the value of the most severe state comp failure
+
+    uint8_t m_state = this->get_current_state().id();
+    for (uint i = 0; i < client_states_.size(); i++) {
+        uint8_t c_state = client_states_[i];
+        if (c_state != m_state) {
+            if (c_state == STATE_UNKNOWN) {
+                RCLCPP_ERROR(this->get_logger(), "State from node %d unknown, error in communication with get_state service", i);
+                overall_severity = 2;
+                continue;
+            }
+
+            RCLCPP_ERROR(this->get_logger(), "State from node %d: code %d different from expected: code %d", i, c_state, m_state);
+            if (overall_severity < 2) overall_severity = 1;
+        }
+    }
+
+    if (overall_severity == 0) RCLCPP_INFO(this->get_logger(), "No problems found");
+
+    return overall_severity;
+}
+
+/**
+ * Tries to get a bad node back into the desired state,
+ * this function needs to be ran multiple times in succession to clear all errors,
+ * but there shouldn't be many when this runs
+ * @return the index of the bad node on failure, -1 on success
+ */
+int LifecycleManagerNode::handle_errant_states()
+{
+    int i = 0, rc;
+    uint8_t bad_state;
+    for (;i < client_states_.size(); i++) {
+        bad_state = client_states_[i];
+        if (bad_state != this->get_current_state().id()) break;
+    }
+
+    // this part sucked bad, and only works if there is 1 state difference
+    auto nearby_states = this->get_available_states();
+    for (rclcpp_lifecycle::State state : nearby_states) {
+        if (state.id() == bad_state) {
+            int key = 2 * state.id() - this->get_current_state().id();
+            int transition = t_map.find(key)->second;
+
+            rc = __callback_routine(this->get_current_state().id(),
+                                    transition,
+                                    false);
+            if (rc != 0) return i;
+        }
+    }
+
+    return -1;
+}
+
+/**
+ * Tries to get a bad node to communicate again,
+ * this function needs to be ran multiple times in succession to clear all errors,
+ * but there shouldn't be many when this runs
+ * @return the index of the bad node on failure, -1 on success
+ */
+int LifecycleManagerNode::handle_no_comms()
+{
+    int i = 0;
+    uint8_t bad_state;
+    for (;i < client_get_state_.size(); i++) {
+        if (client_states_[i] == STATE_UNKNOWN) {
+            
+            while (!client_get_state_[i]->wait_for_service(std::chrono::seconds(5))) {
+            RCLCPP_WARN(this->get_logger(), "Waiting for get_state service to appear...");
+            }
+
+            auto req = std::make_shared<lifecycle_msgs::srv::GetState::Request>();
+            auto future = client_get_state_[i]->async_send_request(req);
+
+            rclcpp::FutureReturnCode res = srvs_exec_->spin_until_future_complete(
+                future, 
+                std::chrono::milliseconds(SERVICE_TIMEOUT_MS));
+
+            if (client_response(res)) return i;
+
+            // compare between intended and actual state
+            if (future.get()->current_state.id != this->get_current_state().id()) 
+                RCLCPP_WARN(this->get_logger(), "State is wrong, but comms re-established");
+            client_states_[i] = future.get()->current_state.id;
+        }
+    }
+    return -1;
 }
 
 int main(int argc, char * argv[])
