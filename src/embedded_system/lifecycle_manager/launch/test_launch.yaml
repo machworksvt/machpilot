@@ -1,0 +1,13 @@
+launch:
+  - node: 
+      pkg: "lifecycle_manager"
+      exec: "test_node"
+      name: "test_node1"
+  - node: 
+      pkg: "lifecycle_manager"
+      exec: "test_node"
+      name: "test_node2"
+  - node:
+      pkg: "lifecycle_manager"
+      exec: "lifecycle_manager_node"
+      name: "lifecycle_manager"

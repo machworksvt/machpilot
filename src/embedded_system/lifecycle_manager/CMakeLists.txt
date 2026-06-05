@@ -41,8 +41,14 @@ find_package(lifecycle_msgs REQUIRED)
 
 # --- Node Executable ---
 add_executable(lifecycle_manager_node src/lifecycle_manager_node.cpp)
+add_executable(test_node src/test_node.cpp)
 
 target_include_directories(lifecycle_manager_node PUBLIC 
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/lifecycle_manager>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
+  $<INSTALL_INTERFACE:include>)
+
+target_include_directories(test_node PUBLIC 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/lifecycle_manager>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../dependencies/include>
   $<INSTALL_INTERFACE:include>)
@@ -55,10 +61,23 @@ ament_target_dependencies(lifecycle_manager_node
   std_srvs
   lifecycle_msgs)
 
+ament_target_dependencies(test_node 
+  rclcpp 
+  rclcpp_lifecycle 
+  rclcpp_action
+  rosidl_default_generators
+  std_srvs
+  lifecycle_msgs)
+
 target_link_libraries(lifecycle_manager_node pthread) # good to include for system calls
 
 # --- Installation ---
 install(TARGETS lifecycle_manager_node #${PROJECT_NAME}_lib # libraries
+#  EXPORT export_${PROJECT_NAME} # for child dependencies
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(TARGETS test_node #${PROJECT_NAME}_lib # libraries
 #  EXPORT export_${PROJECT_NAME} # for child dependencies
   DESTINATION lib/${PROJECT_NAME}
 )

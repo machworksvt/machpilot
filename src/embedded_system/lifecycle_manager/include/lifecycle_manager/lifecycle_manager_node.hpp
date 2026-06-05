@@ -69,7 +69,7 @@ private:
 
     // a vector of state ids, current to the last call of loop_get_state_clients
     std::vector<uint8_t> client_states_;
-    uint current_err_type_;
+    uint current_err_type_{0};
 
     // get and set state services, stored in a vector
     std::vector<std::shared_ptr<rclcpp::Client<lifecycle_msgs::srv::GetState>>> client_get_state_;
