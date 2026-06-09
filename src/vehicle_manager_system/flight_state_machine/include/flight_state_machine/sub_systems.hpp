@@ -4,11 +4,17 @@
 #include <string_view>
 #include <type_traits>
 
+/**
+ * A list of subsystems that need to start up durring initialization
+ */
 enum class SubSystems : std::uint8_t {
   SUBSYSTEM_0,
   SUBSYSTEM_1,
 };
 
+/**
+ * how many SubStytems there are
+ */
 static const std::underlying_type_t<SubSystems> SUBSYSTEM_COUNT = 2;
 
 /**

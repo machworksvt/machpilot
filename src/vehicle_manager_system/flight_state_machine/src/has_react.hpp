@@ -16,6 +16,6 @@ struct has_react<
     ))>>
     : std::true_type {};
 
-// Helper constant to lookup if StateT::react(FlightStateMachine*, EventT) is a valid expression.
+/// Helper constant to lookup if StateT::react(FlightStateMachine*, EventT) exists.
 template <typename StateT, typename EventT>
 inline constexpr bool has_react_v = has_react<StateT, EventT>::value;

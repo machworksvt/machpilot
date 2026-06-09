@@ -33,7 +33,8 @@
                 "${workspaceFolder}/src/logger/printer_logger_node/**",
                 "${workspaceFolder}/src/vehicle_manager_system/flight_state_machine_interface/include/flight_state_machine_interface",
                 "${workspaceFolder}/src/vehicle_manager_system/flight_state_machine/include/flight_state_machine",
-                "${workspaceFolder}/install/flight_state_machine_interface/include/flight_state_machine_interface"
+                "${workspaceFolder}/install/flight_state_machine_interface/include/flight_state_machine_interface",
+                "${workspaceFolder}/build/logger_message_interface/rosidl_generator_cpp"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

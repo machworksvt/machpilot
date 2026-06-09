@@ -5,6 +5,9 @@
 #include <string_view>
 
 
+/**
+ * A list of states the state machine can be in. Used to represent the current state to the logger.
+ */
 enum class StateEnum: std::uint8_t{
     Uninitialized,
     Initialized,

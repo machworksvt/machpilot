@@ -15,8 +15,28 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/u_int8.hpp"
 
+/**
+ * Base class representing a state that the craft can be in
+ *
+ * All Subclasses will have the variables
+ * static constexpr std::string_view NAME holding the name of the class
+ * static constexpr StateEnum AS_ENUM holding a StateEnum that holds the classes type
+ *
+ * All Subclasses will have the Methods
+ * void enter([[maybe_unused]] FlightStateMachine& machine); That will be run whenever the state machine enters the state
+ * void exit ([[maybe_unused]] FlightStateMachine& machine); That will be run whenever the state machine exits the state
+ *
+ * Any Methods of the form
+ * void react([[maybe_unused]] FlightStateMachine& machine, [[maybe_unused]] SomeEventType event);
+ * will be called when in the current state the state machine receives an event of the type SomeEventType
+ * Within these methods calls to FlightStateMachine::transition will bring the statemachine into a differents state
+ * These should be the last code run within react (excluding destructors)
+ */
+
 class State {};
 
+
+//List of states the machine can be in
 class FlightStateMachine;
 class Uninitialized;
 class Initialized;
@@ -24,12 +44,23 @@ class Armed;
 class ManualFlight;
 class Shutdown;
 
+
+/**
+ * Type holding the current state of the aircraft
+ */
 using substates =
     std::variant<Uninitialized, Initialized, Armed, ManualFlight, Shutdown>;
 
 class Uninitialized : State {
  private:
+  
+  /**
+    subsystems_ready[i] represents if the ith subsystem is read
+  */
   std::array<bool, SUBSYSTEM_COUNT> subsystems_ready;
+  /**
+   * how many subsystems are ready
+   */
   size_t init_count;
 
  public:
@@ -88,12 +119,25 @@ class Shutdown : State {
 
 class FlightStateMachine {
  private:
+  /// The current state the machine is
   substates current_state;
+
+  /// A compoent that allows other nodes to block transitions
   TransitionVerifier transition_verifier;
+
+  /// A publisher to publish when the state changes
   rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr state_publisher;
 
  public:
   FlightStateMachine(TransitionVerifier transition_verifier, rclcpp::Publisher<std_msgs::msg::UInt8>::SharedPtr state_publisher);
+
+
+  /**
+   * @brief Sends an event to the state machine.
+   *
+   * @tparam T Type of the event. Must derive from Event.
+   * @param event The event to process.
+   */
   template <typename T>
   void react(T event) {
     static_assert(std::is_base_of<Event, T>::value,
@@ -147,6 +191,13 @@ class FlightStateMachine {
   }
 
  private:
+
+  /**
+   * Reacts to a Event
+   * 
+   * @param state the current state the state machine is in
+   * @param event the event that is being reacted to
+   */
   template <typename StateT, typename EventT>
   void react_inner(StateT& state, EventT& event) {
     if constexpr (has_react_v<StateT, EventT>) {
